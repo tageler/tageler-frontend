@@ -3,7 +3,7 @@ import { Tageler } from './tageler';
 import {Http, Headers, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
-import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
+// import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
 
 @Injectable()
 export class TagelerService {
@@ -15,7 +15,13 @@ export class TagelerService {
   getTagelers(): Promise<Tageler[]> {
     return this.http.get(this.tagelersUrlGet)
       .toPromise()
-      .then(response => response.json() as Tageler[])
+      .then(response => response.json().tagelers as Tageler[]
+      // {
+      //   console.log(response.json());
+      //   response.json() as Tageler[];
+      //   console.log(response.json() as Tageler[]);
+      // }
+      )
       .catch(this.handleError);
   }
 

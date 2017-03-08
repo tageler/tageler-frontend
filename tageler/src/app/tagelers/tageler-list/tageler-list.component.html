@@ -6,17 +6,17 @@
           *ngFor="let tageler of tagelers"
           (click)="selectTageler(tageler)"
           [class.active]="tageler === selectedTageler">
-        {{tageler.titel}}
+        {{tageler.title}}
       </li>
     </ul>
     <button class="btn btn-warning" (click)="createNewTageler()">New</button>
   </div>
-  <!--<div class="col-md-5 col-md-offset-2">-->
-    <!--<tageler-details-->
-      <!--[tageler]="selectedTageler"-->
-      <!--[createHandler]="addTageler"-->
-      <!--[updateHandler]="updateTageler"-->
-      <!--[deleteHandler]="deleteTageler">-->
-    <!--</tageler-details>-->
-  <!--</div>-->
+  <div class="col-md-5 col-md-offset-2">
+    <tageler-details
+      [tageler]="selectedTageler"
+      [createHandler]="addTageler"
+      [updateHandler]="updateTageler"
+      [deleteHandler]="deleteTageler">
+    </tageler-details>
+  </div>
 </div>
