@@ -1,9 +1,4 @@
-<div *ngIf="tageler" class="row">
-  <div class="col-md-12">
-    <h2 *ngIf="tageler._id">Tageler Details</h2>
-    <h2 *ngIf="!tageler._id">New Tageler</h2>
-  </div>
-</div>
+<!--
 <div *ngIf="tageler" class="row">
   <form class="col-md-12">
     <div class="form-group">
@@ -12,7 +7,27 @@
     </div>
     <div class="form-group">
       <label for="tageler-einheit">Einheit</label>
-      <input class="form-control" name="tageler-einheit" [(ngModel)]="tageler.unit" placeholder="Kolibri"/>
+      <div class="tageler-einheit">
+        <ng2-dropdown>
+          <ng2-dropdown-button>
+            Einheit
+          </ng2-dropdown-button>
+          <ng2-dropdown-menu offset="50">
+            <ng2-menu-item>
+              <li>Trupp A</li>
+            </ng2-menu-item>
+            <ng2-menu-item >
+              <li>Trupp B</li>
+            </ng2-menu-item>
+            <ng2-menu-item >
+              <li>Trupp C</li>
+            </ng2-menu-item>
+            <ng2-menu-item >
+              <li>Trupp D</li>
+            </ng2-menu-item>
+          </ng2-dropdown-menu>
+        </ng2-dropdown>
+      </div>
     </div>
     <div class="form-group">
       <label for="tageler-tenue">Tenue</label>
@@ -23,3 +38,5 @@
     <button class="btn btn-danger" *ngIf="tageler._id" (click)="deleteTageler(tageler._id)">Delete</button>
   </form>
 </div>
+-->
+

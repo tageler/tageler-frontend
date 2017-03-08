@@ -1,0 +1,61 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-5">
+    <h2>Tageler</h2>
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let tageler of tagelers"
+          (click)="selectTageler(tageler)"
+          [class.active]="tageler === selectedTageler">
+        {{tageler.title}}
+      </li>
+    </ul>
+    <button class="btn btn-warning" (click)="createNewTageler()">New</button>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <div *ngIf="tageler" class="row">
+      <div class="col-md-12">
+        <h2 *ngIf="selectedTageler._id">Tageler Details</h2>
+        <h2 *ngIf="!selectedTageler._id">New Tageler</h2>
+      </div>
+    </div>
+    <div *ngIf="selectedTageler" class="row">
+      <form class="col-md-12">
+        <div class="form-group">
+          <label for="tageler-titel">Titel</label>
+          <input class="form-control" name="tageler-titel" [(ngModel)]="selectedTageler.title" placeholder="Titel"/>
+        </div>
+        <div class="form-group">
+          <label for="tageler-einheit">Einheit</label>
+          <ng2-dropdown>
+            <ng2-dropdown-button>
+              Einheit
+            </ng2-dropdown-button>
+            <ng2-dropdown-menu offset="50">
+              <ng2-menu-item>
+                <li>Trupp A</li>
+              </ng2-menu-item>
+              <ng2-menu-item >
+                <li>Trupp B</li>
+              </ng2-menu-item>
+              <ng2-menu-item >
+                <li>Trupp C</li>
+              </ng2-menu-item>
+              <ng2-menu-item >
+                <li>Trupp D</li>
+              </ng2-menu-item>
+            </ng2-dropdown-menu>
+          </ng2-dropdown>
+        </div>
+        <div class="form-group">
+          <label for="tageler-tenue">Tenue</label>
+          <input class="form-control" name="tageler-tenue" [(ngModel)]="selectedTageler.uniform" placeholder="bruni hosä"/>
+        </div>
+        <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
+        <button class="btn btn-info" *ngIf="selectedTageler._id" (click)="updateTageler(selectedTageler)">Update</button>
+        <button class="btn btn-danger" *ngIf="selectedTageler._id" (click)="deleteTageler(selectedTageler._id)">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
 
-
 @Component({
   selector: 'tageler-details',
   templateUrl: './tageler-details.component.html',
@@ -13,6 +12,7 @@ export class TagelerDetailsComponent {
   @Input()
   tageler: Tageler;
 
+  /*
   @Input()
   createHandler: Function;
   @Input()
@@ -39,4 +39,5 @@ export class TagelerDetailsComponent {
       this.deleteHandler(deletedTagelerId);
     });
   }
+  */
 }
