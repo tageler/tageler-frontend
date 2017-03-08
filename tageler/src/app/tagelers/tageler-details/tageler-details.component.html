@@ -1,0 +1,25 @@
+<div *ngIf="tageler" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="tageler._id">Tageler Details</h2>
+    <h2 *ngIf="!tageler._id">New Tageler</h2>
+  </div>
+</div>
+<div *ngIf="tageler" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="tageler-titel">Titel</label>
+      <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.titel" placeholder="Titel"/>
+    </div>
+    <div class="form-group">
+      <label for="tageler-einheit">Einheit</label>
+      <input class="form-control" name="tageler-einheit" [(ngModel)]="tageler.einheit" placeholder="Kolibri"/>
+    </div>
+    <div class="form-group">
+      <label for="tageler-tenue">Tenue</label>
+      <input class="form-control" name="tageler-tenue" [(ngModel)]="tageler.tenue" placeholder="bruni hosä"/>
+    </div>
+    <button class="btn btn-primary" *ngIf="!tageler._id" (click)="createTageler(tageler)">Create</button>
+    <button class="btn btn-info" *ngIf="tageler._id" (click)="updateTageler(tageler)">Update</button>
+    <button class="btn btn-danger" *ngIf="tageler._id" (click)="deleteTageler(tageler._id)">Delete</button>
+  </form>
+</div>
