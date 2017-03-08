@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
+import { UnitsComponent } from './units/units.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TagelerListComponent,
-    TagelerDetailsComponent
+    TagelerDetailsComponent,
+    UnitsComponent
   ],
   imports: [
     BrowserModule,
