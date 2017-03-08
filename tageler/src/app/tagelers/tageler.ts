@@ -1,10 +1,11 @@
 export class Tageler {
   _id?: string;
-  titel: string;
-  einheit: string;
+  title: string;
+  unit: string;
   start: string;
-  ende: string;
-  mitnehmen: string;
-  tenue: string;
-  abmeldefrist: string;
+  end: string;
+  bring_along: string;
+  uniform: string;
+  picture: string;
+  checkout_deadline: string;
 }

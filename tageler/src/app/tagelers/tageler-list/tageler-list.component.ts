@@ -25,8 +25,8 @@ export class TagelerListComponent implements OnInit {
         //This is not working, but why!?
         // ref: https://devcenter.heroku.com/articles/mean-apps-restful-api
         this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
-            if (!tageler.titel){
-              tageler.titel = 'default';
+            if (!tageler.title){
+              tageler.title = 'default';
             }
             return tageler;
           }
@@ -46,13 +46,14 @@ export class TagelerListComponent implements OnInit {
 
   createNewTageler() {
     var tageler: Tageler = {
-      titel: '',
-      einheit: '',
+      title: '',
+      unit: '',
       start: '',
-      ende: '',
-      mitnehmen: '',
-      tenue: '',
-      abmeldefrist: ''
+      end: '',
+      bring_along: '',
+      uniform: '',
+      picture: '',
+      checkout_deadline: ''
     };
 
 // By default, a newly-created tageler will have the selected state.
