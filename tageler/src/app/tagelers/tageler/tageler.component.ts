@@ -1,29 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
 import { TagelerDetailsComponent } from '../tageler-details/tageler-details.component';
 // import 'rxjs/Rx'; //this sadlydoes not help...
 //https://devcenter.heroku.com/articles/mean-apps-restful-api
 @Component({
-  selector: 'tageler-list',
-  templateUrl: './tageler-list.component.html',
-  styleUrls: ['./tageler-list.component.css'],
+  selector: 'tageler-component',
+  templateUrl: './tageler.component.html',
+  styleUrls: ['./tageler.component.css'],
   providers: [TagelerService]
 })
 
-export class TagelerListComponent implements OnInit {
-  constructor(private tagelerService: TagelerService) {
-  }
-
-  ngOnInit() {
-
-  }
-/*
+export class TagelerComponent {
   tagelers: Tageler[];
   selectedTageler: Tageler;
 
-  constructor(private tagelerService: TagelerService) {
-  }
+  @Input()
+  tageler: Tageler;
+
+  @Input()
+  createHandler: Function;
+  @Input()
+  updateHandler: Function;
+  @Input()
+  deleteHandler: Function;
+
+  constructor(private tagelerService: TagelerService) { }
 
   ngOnInit() {
     console.log("Init");
@@ -31,8 +34,8 @@ export class TagelerListComponent implements OnInit {
       .getTagelers()
       .then((tagelers: Tageler[]) => {
         // this.tagelers = tagelers;
-        this.tagelers = this.tagelers = tagelers.map((tageler) => {
-          if (!tageler.title) {
+        this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
+          if (!tageler.title){
             tageler.title = 'default';
           }
           return tageler;
@@ -47,7 +50,7 @@ export class TagelerListComponent implements OnInit {
   }
 
   selectTageler(tageler: Tageler) {
-    this.selectedTageler = tageler
+    this.selectedTageler = tageler;
   }
 
   createNewTageler() {
@@ -65,7 +68,7 @@ export class TagelerListComponent implements OnInit {
 // By default, a newly-created tageler will have the selected state.
     this.selectTageler(tageler);
   }
-
+/*
   deleteTageler = (tagelerId: String) => {
     var idx = this.getIndexOfTageler(tagelerId);
     if (idx !== -1) {
@@ -89,5 +92,24 @@ export class TagelerListComponent implements OnInit {
     }
     return this.tagelers;
   }
-  */
+*/
+
+  createTageler(tageler: Tageler) {
+    this.tagelerService.createTageler(tageler).then((newTageler: Tageler) => {
+      this.createHandler(newTageler);
+    });
+  }
+
+  updateTageler(tageler: Tageler): void {
+    this.tagelerService.updateTageler(tageler).then((updatedTageler: Tageler) => {
+      this.updateHandler(updatedTageler);
+    });
+  }
+
+  deleteTageler(tagelerId: String): void {
+    this.tagelerService.deleteTageler(tagelerId).then((deletedTagelerId: String) => {
+      this.deleteHandler(deletedTagelerId);
+    });
+  }
+
 }

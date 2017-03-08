@@ -1,22 +1,27 @@
-<div class="row">
-  <div class="col-md-5">
-    <h2>Tageler</h2>
-    <ul class="list-group">
-      <li class="list-group-item"
-          *ngFor="let tageler of tagelers"
-          (click)="selectTageler(tageler)"
-          [class.active]="tageler === selectedTageler">
-        {{tageler.title}}
-      </li>
-    </ul>
-    <button class="btn btn-warning" (click)="createNewTageler()">New</button>
-  </div>
-  <div class="col-md-5 col-md-offset-2">
-    <tageler-details
-      [tageler]="selectedTageler"
-      [createHandler]="addTageler"
-      [updateHandler]="updateTageler"
-      [deleteHandler]="deleteTageler">
-    </tageler-details>
-  </div>
+<div class="container">
+  This page will contain a list of all Tagelers.
 </div>
+
+<!--
+<div class="col-md-5">
+  <h2>Tageler</h2>
+  <ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let tageler of tagelers"
+        (click)="selectTageler(tageler)"
+        [class.active]="tageler === selectedTageler">
+      {{tageler.title}}
+    </li>
+  </ul>
+  <button class="btn btn-warning" (click)="createNewTageler()">New</button>
+</div>
+<div class="col-md-5 col-md-offset-2">
+  <tageler-details
+    [tageler]="selectedTageler"
+    [createHandler]="addTageler"
+    [updateHandler]="updateTageler"
+    [deleteHandler]="deleteTageler">
+  </tageler-details>
+</div>
+-->
+
