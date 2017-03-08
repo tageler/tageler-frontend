@@ -8,15 +8,15 @@
   <form class="col-md-12">
     <div class="form-group">
       <label for="tageler-titel">Titel</label>
-      <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.titel" placeholder="Titel"/>
+      <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.title" placeholder="Titel"/>
     </div>
     <div class="form-group">
       <label for="tageler-einheit">Einheit</label>
-      <input class="form-control" name="tageler-einheit" [(ngModel)]="tageler.einheit" placeholder="Kolibri"/>
+      <input class="form-control" name="tageler-einheit" [(ngModel)]="tageler.unit" placeholder="Kolibri"/>
     </div>
     <div class="form-group">
       <label for="tageler-tenue">Tenue</label>
-      <input class="form-control" name="tageler-tenue" [(ngModel)]="tageler.tenue" placeholder="bruni hosä"/>
+      <input class="form-control" name="tageler-tenue" [(ngModel)]="tageler.uniform" placeholder="bruni hosä"/>
     </div>
     <button class="btn btn-primary" *ngIf="!tageler._id" (click)="createTageler(tageler)">Create</button>
     <button class="btn btn-info" *ngIf="tageler._id" (click)="updateTageler(tageler)">Update</button>
