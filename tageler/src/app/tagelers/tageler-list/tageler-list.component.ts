@@ -22,15 +22,13 @@ export class TagelerListComponent implements OnInit {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
-        //This is not working, but why!?
-        // ref: https://devcenter.heroku.com/articles/mean-apps-restful-api
+        // this.tagelers = tagelers;
         this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
             if (!tageler.title){
               tageler.title = 'default';
             }
             return tageler;
-          }
-        );
+          });
       });
   }
 
