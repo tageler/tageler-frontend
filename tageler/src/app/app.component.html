@@ -1,8 +1,13 @@
-<ul class="nav nav-tabs">
-  <li role="presentation"><a href="#">Home</a></li>
-  <li role="presentation"><a href="/tageler">Tageler</a></li>
-  <li role="presentation"><a href="/unit">Unit</a></li>
-</ul>
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+<div class="container">
+  <a class="navbar-brand" href="/">Tageler</a>
+    <ul class="nav navbar-nav" routerLinkActive="active">
+      <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/tageler">Übersicht Tageler</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/unit">Units</a></li>
+    </ul>
+  </div>
+</nav>
 <!--
 <div class="container">
     <tageler-component
