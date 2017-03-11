@@ -13,6 +13,7 @@ import { TagelerDetailsComponent } from '../tageler-details/tageler-details.comp
 })
 
 export class TagelerComponent {
+  success: boolean;
   tagelers: Tageler[];
   selectedTageler: Tageler;
 
@@ -98,6 +99,7 @@ export class TagelerComponent {
     this.tagelerService.createTageler(tageler).then((newTageler: Tageler) => {
       this.createHandler(newTageler);
     });
+    this.success = true;
   }
 
   updateTageler(tageler: Tageler): void {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { TagelerDetailsComponent } from '../tageler-details/tageler-details.component';
 // import 'rxjs/Rx'; //this sadlydoes not help...
 //https://devcenter.heroku.com/articles/mean-apps-restful-api
@@ -12,12 +14,45 @@ import { TagelerDetailsComponent } from '../tageler-details/tageler-details.comp
 })
 
 export class TagelerListComponent implements OnInit {
-  constructor(private tagelerService: TagelerService) {
-  }
+
+  tagelers: Tageler[];
+  tageler: Tageler;
+  selectedTageler: Tageler;
+
+  constructor(
+    private tagelerService: TagelerService,
+    private route: ActivatedRoute
+) {}
 
   ngOnInit() {
+    console.log("Init");
+    this.tagelerService
+      .getTagelers()
+      .then((tagelers: Tageler[]) => {
+        // this.tagelers = tagelers;
+        this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
+          if (!tageler.title){
+            tageler.title = 'default';
+          }
+          return tageler;
+        });
+      });
+  }
+
+  gotoDetail(tageler: Tageler): Tageler {
+    this.route.params
+      .switchMap((params: Params) => this.tagelerService.getTagelerById(this.tageler))
+      .subscribe(tageler => this.tageler = tageler);
+    return tageler;
 
   }
+
+  selectTageler(tageler: Tageler) {
+    this.selectedTageler = tageler;
+  }
+
+
+
 /*
   tagelers: Tageler[];
   selectedTageler: Tageler;
