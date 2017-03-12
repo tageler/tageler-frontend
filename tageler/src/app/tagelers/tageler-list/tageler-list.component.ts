@@ -39,6 +39,7 @@ export class TagelerListComponent implements OnInit {
       });
   }
 
+  /*
   gotoDetail(tageler: Tageler): Tageler {
     this.route.params
       .switchMap((params: Params) => this.tagelerService.getTagelerById(this.tageler))

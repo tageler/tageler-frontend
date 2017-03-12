@@ -22,14 +22,10 @@ export class TagelerDetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log("Init");
-
-    /*
     console.log("Init Details");
     this.route.params
-      .switchMap((params: Params) => this.tagelerService.getTagelerById(this.tageler))
+      .switchMap((params: Params) => this.tagelerService.getTagelerById(params['id']))
       .subscribe(tageler => this.tageler = tageler);
-      */
   };
 
   /*

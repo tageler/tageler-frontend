@@ -27,8 +27,8 @@ export class TagelerService {
   }
 
   // get a Tageler by id
-    getTagelerById(tageler: Tageler): Promise<Tageler> {
-      return this.http.get(this.tagelerIdUrlGet + '/?_id=' + tageler._id)
+    getTagelerById(id: String): Promise<Tageler> {
+      return this.http.get(this.tagelerIdUrlGet + '/?_id=' + id)
         .toPromise()
         .then(response => response.json().tageler as Tageler)
         .catch(this.handleError);
