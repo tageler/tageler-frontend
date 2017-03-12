@@ -22,10 +22,27 @@ export class TagelerDetailsComponent {
   ) {}
 
   ngOnInit(): void {
+    /* Ramona
     console.log("Init Details");
     this.route.params
       .switchMap((params: Params) => this.tagelerService.getTagelerById(params['id']))
       .subscribe(tageler => this.tageler = tageler);
+*/
+    let id = this.route.snapshot.params['id'];
+    console.log("Initss" + id);
+
+    this.tagelerService.getTagelerById(id).then((tageler:Tageler) => {
+      this.tageler = tageler;
+    });
+      // .subscribe(tageler => function(tageler){
+      //   console.log('new tageler');
+      //     this.tageler = tageler;
+      // });
+
+    /*this.route.params
+      .switchMap((params: Params) => this.tagelerService.getTagelerById(id))
+      .subscribe(tageler => this.tageler = tageler);
+*/
   };
 
   /*

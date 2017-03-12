@@ -30,7 +30,7 @@ export class TagelerListComponent implements OnInit {
       .getTagelers()
       .then((tagelers: Tageler[]) => {
         // this.tagelers = tagelers;
-        this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
+        this.tagelers =  tagelers.map((tageler) => {
           if (!tageler.title){
             tageler.title = 'default';
           }
@@ -41,11 +41,10 @@ export class TagelerListComponent implements OnInit {
 
   /*
   gotoDetail(tageler: Tageler): Tageler {
-    this.route.params
-      .switchMap((params: Params) => this.tagelerService.getTagelerById(this.tageler))
-      .subscribe(tageler => this.tageler = tageler);
-    return tageler;
-
+    this.tagelerService.getTagelerById(this.tageler._id).then((tageler:Tageler) => {
+      this.tageler = tageler;
+    });
+    return this.tageler;
   }
 
   selectTageler(tageler: Tageler) {

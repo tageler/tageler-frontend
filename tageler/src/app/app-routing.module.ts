@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: TagelerComponent},
   { path: 'tageler', component: TagelerListComponent },
   { path: 'tageler-details/:id', component: TagelerDetailsComponent },
-  { path: 'unit', component: UnitListComponent },
+  { path: 'unit', component: UnitListComponent }
 
 ];
 
