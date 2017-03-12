@@ -1,3 +1,11 @@
-<div class="container">
-  <p>This site will display all units.</p>
+<div class="col-md-5">
+  <h2>Units</h2>
+  <ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let unit of units"
+        (click)="selectTageler(tageler)"
+        [class.active]="tageler === selectedTageler">
+      {{unit.name}}
+    </li>
+  </ul>
 </div>

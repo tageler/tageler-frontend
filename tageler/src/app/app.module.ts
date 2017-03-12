@@ -12,6 +12,8 @@ import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-deta
 import { UnitDetailsComponent } from './units/unit-details/unit-details.component';
 import { UnitListComponent } from './units/unit-list/unit-list.component';
 
+import { UnitService } from './units/unit.service';
+
 import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
 
@@ -32,7 +34,8 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
     AppRoutingModule
   ],
   providers: [
-    TagelerService
+    TagelerService,
+    UnitService
   ],
   bootstrap: [AppComponent]
 })

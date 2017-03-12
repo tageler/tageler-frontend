@@ -27,11 +27,11 @@ export class TagelerService {
   }
 
   // get a Tageler by id
-    getTagelerById(tageler: Tageler): Promise<Tageler> {
-      return this.http.get(this.tagelerIdUrlGet + '/?_id=' + tageler._id)
-        .toPromise()
-        .then(response => response.json().tageler as Tageler)
-        .catch(this.handleError);
+  getTagelerById(tagelerId: String): Promise<Tageler> {
+    return this.http.get(this.tagelerIdUrlGet + '/?_id=' + tagelerId)
+      .toPromise()
+      .then(response => response.json().tageler as Tageler)
+      .catch(this.handleError);
   }
 
   // post("/api/Tagelers")

@@ -12,16 +12,10 @@ export class UnitService {
 
   constructor(private http: Http) { }
 // get("/api/units")
-  getUnit(): Promise<Unit[]> {
+  getUnits(): Promise<Unit[]> {
     return this.http.get(this.unitsUrlGet)
       .toPromise()
-      .then(response => response.json().unit as Unit[]
-        // {
-        //   console.log(response.json());
-        //   response.json() as Tageler[];
-        //   console.log(response.json() as Tageler[]);
-        // }
-      )
+      .then(response => response.json().unit as Unit[])
       .catch(this.handleError);
   }
 
@@ -38,20 +32,11 @@ export class UnitService {
   // delete("/api/Unit/:id")
   deleteUnit(delUnitId: String): Promise<String> {
     return null;
-    // return this.http.delete(this.unitsUrl + '/' + delContactId)
-    //   .toPromise()
-    //   .then(response => response.json() as String)
-    //   .catch(this.handleError);
   }
 
   // put("/api/contacts/:id")
   updateUnit(putUnit: Unit): Promise<Unit> {
     return null;
-    // var putUrl = this.unitsUrl + '/' + putContact._id;
-    // return this.http.put(putUrl, putContact)
-    //   .toPromise()
-    //   .then(response => response.json() as Contact)
-    //   .catch(this.handleError);
   }
 
   private handleError (error: any) {

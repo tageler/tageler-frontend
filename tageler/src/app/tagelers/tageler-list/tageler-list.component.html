@@ -2,7 +2,7 @@
   <div class="row">
     <div *ngFor="let tageler of tagelers">
       <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="../../../assets/images/testimage1.jpg" width="318" height="180"> <!--width="242" height="200" -->
+        <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
         <div class="card-block">
           <h4 class="card-title">{{tageler.title}}</h4>
           <!--<a href="/tageler-details/{{tageler._id}}" class="btn btn-secondary">Details</a>-->

@@ -1,6 +1,15 @@
 <div class="container">
+  <h3>Details</h3>
   <div *ngIf="tageler">
-    <h2>{{tageler.title}} details!</h2>
+    <h2>{{tageler.title}}</h2>
+    <li>Start: {{tageler.start}}</li>
+    <li>End: {{tageler.end}}</li>
+    <li>Bring Along: {{tageler.bring_along}}</li>
+    <li>Unit: {{tageler.unit}}</li>
+    <li>Uniform: {{tageler.uniform}}</li>
+    <li>Picture: {{tageler.picture}}</li>
+    <li>Checkout Deadline: {{tageler.checkout_deadline}}</li>
+    <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
   </div>
 </div>
 <!--
