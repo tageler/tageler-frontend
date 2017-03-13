@@ -40,17 +40,6 @@ export class TagelerDetailsComponent {
     });
 
     */
-    
-
-      // .subscribe(tageler => function(tageler){
-      //   console.log('new tageler');
-      //     this.tageler = tageler;
-      // });
-
-    /*this.route.params
-      .switchMap((params: Params) => this.tagelerService.getTagelerById(id))
-      .subscribe(tageler => this.tageler = tageler);
-*/
   };
 
   /*

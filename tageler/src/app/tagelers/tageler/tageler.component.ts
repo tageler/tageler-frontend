@@ -1,20 +1,28 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
-import { TagelerDetailsComponent } from '../tageler-details/tageler-details.component';
-// import 'rxjs/Rx'; //this sadlydoes not help...
+
+import { Unit } from '../../units/unit';
+import { UnitService } from '../../units/unit.service';
+
+
 //https://devcenter.heroku.com/articles/mean-apps-restful-api
 @Component({
   selector: 'tageler-component',
   templateUrl: './tageler.component.html',
   styleUrls: ['./tageler.component.css'],
-  providers: [TagelerService]
+  providers: [
+    TagelerService,
+    UnitService
+  ]
 })
 
-export class TagelerComponent {
+export class TagelerComponent implements OnInit {
   success: boolean;
   tagelers: Tageler[];
+  units: Unit[];
   selectedTageler: Tageler;
 
   @Input()
@@ -27,7 +35,30 @@ export class TagelerComponent {
   @Input()
   deleteHandler: Function;
 
-  constructor(private tagelerService: TagelerService) { }
+  /*
+  * Test new form
+   */
+  tagelerForm: FormGroup;
+
+  constructor(
+    private tagelerService: TagelerService,
+    private unitService: UnitService,
+    private fb: FormBuilder) {
+      this.createForm();
+  }
+
+  createForm() {
+    this.tagelerForm = this.fb.group({
+      title: ['', Validators.required ],
+      unit: '',
+      start: '',
+      end: '',
+      bring_along: '',
+      uniform: '',
+      picture: '',
+      checkout_deadline: ''
+    });
+  }
 
   ngOnInit() {
     console.log("Init");
@@ -35,13 +66,25 @@ export class TagelerComponent {
       .getTagelers()
       .then((tagelers: Tageler[]) => {
         // this.tagelers = tagelers;
-        this.tagelers =  this.tagelers =  tagelers.map((tageler) => {
-          if (!tageler.title){
+        this.tagelers = this.tagelers = tagelers.map((tageler) => {
+          if (!tageler.title) {
             tageler.title = 'default';
           }
           return tageler;
         });
       });
+
+    this.unitService
+      .getUnits()
+      .then((units: Unit[]) => {
+      this.units = this.units = units.map((unit) => {
+        if(!unit.name) {
+          unit.name = 'default';
+        }
+        return unit;
+      });
+    });
+
   }
 
   private getIndexOfTageler = (tagelerId: String) => {

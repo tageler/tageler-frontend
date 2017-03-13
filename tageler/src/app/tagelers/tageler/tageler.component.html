@@ -12,6 +12,47 @@
       </div>
     </div>
     <div *ngIf="selectedTageler" class="row">
+      <!-- try new form-->
+      <form [formGroup]="tagelerForm" novalidate>
+        <div class="form-group">
+          <label class="center-block">Name:
+            <input class="form-control" formControlName="title">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Einheit:
+            <select class="form-control" formControlName="unit">
+              <option *ngFor="let unit of units" [value]="unit">{{unit.name}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Start:
+            <input class="form-control" formControlName="start" type="time">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">End:
+            <input class="form-control" formControlName="end" type="time">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Bring along:
+            <input class="form-control" formControlName="bring_along">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Uniform:
+            <input class="form-control" formControlName="uniform">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Checkout deadline:
+            <input class="form-control" formControlName="checkout_deadline" type="date" useValueAsDate>
+          </label>
+        </div>
+
+      <!--
       <form class="col-md-12">
         <div class="form-group">
           <label for="tageler-titel">Titel</label>
@@ -19,6 +60,8 @@
         </div>
         <div class="form-group">
           <label for="tageler-einheit">Einheit</label>
+          <ss-multiselect-dropdown [options]="myOptions" formControlName="optionsModel"></ss-multiselect-dropdown>
+
           <ng2-dropdown>
             <ng2-dropdown-button>
               Einheit
@@ -35,12 +78,15 @@
               </ng2-menu-item>
             </ng2-dropdown-menu>
           </ng2-dropdown>
+
         </div>
         <div class="form-group">
           <label for="tageler-tenue">Tenue</label>
           <input class="form-control" name="tageler-tenue" [(ngModel)]="selectedTageler.uniform" placeholder="bruni hosä"/>
         </div>
-        <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
+            -->
+
+         <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
         <button class="btn btn-info" *ngIf="selectedTageler._id" (click)="updateTageler(selectedTageler)">Update</button>
         <button class="btn btn-danger" *ngIf="selectedTageler._id" (click)="deleteTageler(selectedTageler._id)">Delete</button>
       </form>
