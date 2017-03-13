@@ -6,7 +6,7 @@ import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-deta
 import { UnitListComponent } from './units/unit-list/unit-list.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: TagelerComponent},
+  { path: '', pathMatch: 'full', component: TagelerComponent },
   { path: 'tageler', component: TagelerListComponent },
   { path: 'tageler-details/:id', component: TagelerDetailsComponent },
   { path: 'unit', component: UnitListComponent }

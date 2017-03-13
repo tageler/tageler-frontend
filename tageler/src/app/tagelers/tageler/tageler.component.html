@@ -13,10 +13,16 @@
     </div>
     <div *ngIf="selectedTageler" class="row">
       <!-- try new form-->
-      <form [formGroup]="tagelerForm" novalidate>
+
+      <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group">
           <label class="center-block">Name:
             <input class="form-control" formControlName="title">
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="center-block">Datum:
+            <input class="form-control" formControlName="date" type="date" useValueAsDate>
           </label>
         </div>
         <div class="form-group">
@@ -28,30 +34,31 @@
         </div>
         <div class="form-group">
           <label class="center-block">Start:
-            <input class="form-control" formControlName="start" type="time">
+            <input class="form-control" formControlName="start">
           </label>
         </div>
         <div class="form-group">
-          <label class="center-block">End:
-            <input class="form-control" formControlName="end" type="time">
+          <label class="center-block">Ende:
+            <input class="form-control" formControlName="end">
           </label>
         </div>
         <div class="form-group">
-          <label class="center-block">Bring along:
+          <label class="center-block">Mitbringen:
             <input class="form-control" formControlName="bring_along">
           </label>
         </div>
         <div class="form-group">
-          <label class="center-block">Uniform:
+          <label class="center-block">Kleidung:
             <input class="form-control" formControlName="uniform">
           </label>
         </div>
         <div class="form-group">
-          <label class="center-block">Checkout deadline:
+          <label class="center-block">Absagen bis:
             <input class="form-control" formControlName="checkout_deadline" type="date" useValueAsDate>
           </label>
         </div>
-
+        <button type="submit" class="btn btn-secondary">Create</button>
+      </form>
       <!--
       <form class="col-md-12">
         <div class="form-group">
@@ -59,37 +66,36 @@
           <input class="form-control" name="tageler-titel" [(ngModel)]="selectedTageler.title" placeholder="Titel"/>
         </div>
         <div class="form-group">
-          <label for="tageler-einheit">Einheit</label>
-          <ss-multiselect-dropdown [options]="myOptions" formControlName="optionsModel"></ss-multiselect-dropdown>
-
-          <ng2-dropdown>
-            <ng2-dropdown-button>
-              Einheit
-            </ng2-dropdown-button>
-            <ng2-dropdown-menu offset="50">
-              <ng2-menu-item>
-                <li>Meute</li>
-              </ng2-menu-item>
-              <ng2-menu-item>
-                <li>Trupp</li>
-              </ng2-menu-item>
-              <ng2-menu-item >
-                <li>Equipe</li>
-              </ng2-menu-item>
-            </ng2-dropdown-menu>
-          </ng2-dropdown>
-
+          <label for="tageler-einheit">Einheit:</label>
+            <select class="form-control" name="tageler-unit" [(ngModel)]="selectedTageler.unit">
+              <option *ngFor="let unit of units" [value]="unit">{{unit.name}}</option>
+            </select>
         </div>
         <div class="form-group">
-          <label for="tageler-tenue">Tenue</label>
-          <input class="form-control" name="tageler-tenue" [(ngModel)]="selectedTageler.uniform" placeholder="bruni hosä"/>
+          <label for="tageler-start">Start</label>
+          <input class="form-control" name="tageler-start" [(ngModel)]="selectedTageler.start" placeholder="14:00"/>
         </div>
-            -->
-
-         <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
+        <div class="form-group">
+          <label for="tageler-end">Ende</label>
+          <input class="form-control" name="tageler-end" [(ngModel)]="selectedTageler.end" placeholder="17:00"/>
+        </div>
+        <div class="form-group">
+          <label for="tageler-bring_along">Mitbringen</label>
+          <input class="form-control" name="tageler-titel" [(ngModel)]="selectedTageler.bring_along" placeholder="BST"/>
+        </div>
+        <div class="form-group">
+          <label for="tageler-uniform">Kleidung</label>
+          <input class="form-control" name="tageler-uniform" [(ngModel)]="selectedTageler.uniform" placeholder="Jacke"/>
+        </div>
+        <div class="form-group">
+          <label for="tageler-checkout_deadline">Absagen bis</label>
+          <input class="form-control" name="tageler-checkout_deadline" [(ngModel)]="selectedTageler.checkout_deadline" />
+        </div>
+        <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
         <button class="btn btn-info" *ngIf="selectedTageler._id" (click)="updateTageler(selectedTageler)">Update</button>
         <button class="btn btn-danger" *ngIf="selectedTageler._id" (click)="deleteTageler(selectedTageler._id)">Delete</button>
       </form>
+      -->
     </div>
   </div>
 </div>

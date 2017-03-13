@@ -9,14 +9,11 @@ import { UnitService } from '../../units/unit.service';
 
 
 //https://devcenter.heroku.com/articles/mean-apps-restful-api
+
 @Component({
   selector: 'tageler-component',
   templateUrl: './tageler.component.html',
   styleUrls: ['./tageler.component.css'],
-  providers: [
-    TagelerService,
-    UnitService
-  ]
 })
 
 export class TagelerComponent implements OnInit {
@@ -28,13 +25,13 @@ export class TagelerComponent implements OnInit {
   @Input()
   tageler: Tageler;
 
+
   @Input()
   createHandler: Function;
   @Input()
   updateHandler: Function;
   @Input()
   deleteHandler: Function;
-
   /*
   * Test new form
    */
@@ -49,7 +46,8 @@ export class TagelerComponent implements OnInit {
 
   createForm() {
     this.tagelerForm = this.fb.group({
-      title: ['', Validators.required ],
+      title: '',
+      date: '',
       unit: '',
       start: '',
       end: '',
@@ -84,7 +82,6 @@ export class TagelerComponent implements OnInit {
         return unit;
       });
     });
-
   }
 
   private getIndexOfTageler = (tagelerId: String) => {
@@ -100,6 +97,7 @@ export class TagelerComponent implements OnInit {
   createNewTageler() {
     var tageler: Tageler = {
       title: '',
+      date: '',
       unit: '',
       start: '',
       end: '',
@@ -122,11 +120,7 @@ export class TagelerComponent implements OnInit {
     return this.tagelers;
   }
 
-  addTageler = (tageler: Tageler) => {
-    this.tagelers.push(tageler);
-    this.selectTageler(tageler);
-    return this.tagelers;
-  }
+
 
   updateTageler = (tageler: Tageler) => {
     var idx = this.getIndexOfTageler(tageler._id);
@@ -138,11 +132,11 @@ export class TagelerComponent implements OnInit {
   }
 */
 
+/*
   createTageler(tageler: Tageler) {
     this.tagelerService.createTageler(tageler).then((newTageler: Tageler) => {
-      this.createHandler(newTageler);
+      this.addTageler(newTageler);
     });
-    this.success = true;
   }
 
   updateTageler(tageler: Tageler): void {
@@ -155,6 +149,33 @@ export class TagelerComponent implements OnInit {
     this.tagelerService.deleteTageler(tagelerId).then((deletedTagelerId: String) => {
       this.deleteHandler(deletedTagelerId);
     });
+  }
+
+  addTageler = (tageler: Tageler) => {
+    this.tagelers.push(tageler);
+    this.selectTageler(tageler);
+    return this.tagelers;
+  }
+  */
+
+  onSubmit() {
+    this.tageler = this.prepareSaveTageler();
+    this.tagelerService.createTageler(this.tageler);
+  }
+
+  prepareSaveTageler(): Tageler {
+    const saveTageler: Tageler= {
+      title: this.tagelerForm.value.title as string,
+      date: this.tagelerForm.value.date,
+      unit: this.tagelerForm.value.unit,
+      start: this.tagelerForm.value.start as string,
+      end: this.tagelerForm.value.end as string,
+      bring_along: this.tagelerForm.value.bring_along as string,
+      uniform: this.tagelerForm.value.uniform as string,
+      checkout_deadline: this.tagelerForm.value.checkout_deadline,
+      picture: "test"
+    }
+    return saveTageler;
   }
 
 }

@@ -40,6 +40,7 @@ export class TagelerService {
       .toPromise()
       .then(response => response.json() as Tageler)
       .catch(this.handleError);
+
   }
 
   // get("/api/Tageler/:id") endpoint not used by Angular app
