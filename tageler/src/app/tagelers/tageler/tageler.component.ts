@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FileUploader } from 'ng2-file-upload';
 
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
@@ -7,6 +8,8 @@ import { TagelerService } from '../tageler.service';
 import { Unit } from '../../units/unit';
 import { UnitService } from '../../units/unit.service';
 
+// const URL = '/api/';
+const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 //https://devcenter.heroku.com/articles/mean-apps-restful-api
 
@@ -22,6 +25,7 @@ export class TagelerComponent implements OnInit {
   units: Unit[];
   selectedTageler: Tageler;
   selectedUnit: Unit;
+  public uploader:FileUploader = new FileUploader({url: URL});
 
   @Input()
   tageler: Tageler;
@@ -175,7 +179,7 @@ export class TagelerComponent implements OnInit {
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
       checkout_deadline: this.tagelerForm.value.checkout_deadline,
-      picture: "..//..//..//assets//images//testimage1.jpg"
+      picture: this.tagelerForm.value.picture as string,
     }
     return saveTageler;
   }

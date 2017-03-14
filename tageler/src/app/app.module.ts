@@ -7,7 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
-import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+//import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+// import { ImageUploadModule } from 'angular2-image-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -38,7 +40,9 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
     AppRoutingModule,
     ReactiveFormsModule,
     DateValueAccessorModule,
-    Ng2DatetimePickerModule,
+    //Ng2DatetimePickerModule,
+    //ImageUploadModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     TagelerService,
