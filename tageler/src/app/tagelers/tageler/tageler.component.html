@@ -28,7 +28,7 @@
         <div class="form-group">
           <label class="center-block">Einheit:
             <select class="form-control" formControlName="unit">
-              <option *ngFor="let unit of units" [value]="unit">{{unit.name}}</option>
+              <option *ngFor="let unit of units" value={{unit.name}}>{{unit.name}}</option>
             </select>
           </label>
         </div>

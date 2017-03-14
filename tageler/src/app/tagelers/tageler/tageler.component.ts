@@ -21,6 +21,7 @@ export class TagelerComponent implements OnInit {
   tagelers: Tageler[];
   units: Unit[];
   selectedTageler: Tageler;
+  selectedUnit: Unit;
 
   @Input()
   tageler: Tageler;
@@ -92,6 +93,7 @@ export class TagelerComponent implements OnInit {
 
   selectTageler(tageler: Tageler) {
     this.selectedTageler = tageler;
+    this.selectedUnit = this.units.find(x => x._id === tageler._id);
   }
 
   createNewTageler() {
@@ -167,13 +169,13 @@ export class TagelerComponent implements OnInit {
     const saveTageler: Tageler= {
       title: this.tagelerForm.value.title as string,
       date: this.tagelerForm.value.date,
-      unit: this.tagelerForm.value.unit,
+      unit: this.tagelerForm.value.unit as string,
       start: this.tagelerForm.value.start as string,
       end: this.tagelerForm.value.end as string,
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
       checkout_deadline: this.tagelerForm.value.checkout_deadline,
-      picture: "test"
+      picture: "..//..//..//assets//images//testimage1.jpg"
     }
     return saveTageler;
   }
