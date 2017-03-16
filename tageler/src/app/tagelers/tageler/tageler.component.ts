@@ -52,6 +52,7 @@ export class TagelerComponent implements OnInit {
   createForm() {
     this.tagelerForm = this.fb.group({
       title: '',
+      text: '',
       date: '',
       unit: '',
       start: '',
@@ -103,6 +104,7 @@ export class TagelerComponent implements OnInit {
   createNewTageler() {
     var tageler: Tageler = {
       title: '',
+      text: '',
       date: '',
       unit: '',
       start: '',

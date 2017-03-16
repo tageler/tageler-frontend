@@ -2,10 +2,8 @@
   <h2>Units</h2>
   <ul class="list-group">
     <li class="list-group-item"
-        *ngFor="let unit of units"
-        (click)="selectTageler(tageler)"
-        [class.active]="tageler === selectedTageler">
-      {{unit.name}}
+      *ngFor="let unit of units">
+        {{unit.name}}
     </li>
   </ul>
 </div>

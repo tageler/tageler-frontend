@@ -15,7 +15,7 @@ export class UnitService {
   getUnits(): Promise<Unit[]> {
     return this.http.get(this.unitsUrlGet)
       .toPromise()
-      .then(response => response.json().unit as Unit[])
+      .then(response => response.json().units as Unit[])
       .catch(this.handleError);
   }
 

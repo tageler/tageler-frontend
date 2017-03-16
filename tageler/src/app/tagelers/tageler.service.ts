@@ -9,7 +9,6 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 export class TagelerService {
   private tagelersUrlPost = 'http://127.0.0.1:8080/createTageler';
   private tagelersUrlGet = 'http://127.0.0.1:8080/getTageler';
-  private tagelerIdUrlGet = 'http://127.0.0.1:8080/getTagelerById';
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
@@ -27,8 +26,8 @@ export class TagelerService {
   }
 
   // get a Tageler by id
-    getTagelerById(id: String): Promise<Tageler> {
-      return this.http.get(this.tagelerIdUrlGet + '/?_id=' + id)
+    getTageler(id: String): Promise<Tageler> {
+      return this.http.get(this.tagelersUrlGet + '/?_id=' + id)
         .toPromise()
         .then(response => response.json().tageler as Tageler)
         .catch(this.handleError);

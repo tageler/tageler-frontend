@@ -10,7 +10,7 @@ import { UnitService } from '../unit.service';
 })
 export class UnitListComponent implements OnInit {
   units: Unit[];
-  unit: Unit;
+  // unit: Unit;
 
   constructor(
     private unitService: UnitService,
