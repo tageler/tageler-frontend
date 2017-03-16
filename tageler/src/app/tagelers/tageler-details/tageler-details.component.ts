@@ -26,20 +26,8 @@ export class TagelerDetailsComponent {
 
     console.log("Init Details");
     this.route.params
-      .switchMap((params: Params) => this.tagelerService.getTagelerById(params['id']))
+      .switchMap((params: Params) => this.tagelerService.getTageler(params['id']))
       .subscribe(tageler => this.tageler = tageler);
-
-    /* Balz*/
-    /*
-    let id = this.route.snapshot.params['id'];
-    console.log("Initss" + id);
-
-    this.tagelerService.getTagelerById(id).then((tageler:Tageler) => {
-      this.tageler = tageler;
-
-    });
-
-    */
   };
 
   /*
