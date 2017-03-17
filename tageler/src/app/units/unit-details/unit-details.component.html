@@ -1,3 +1,16 @@
-<p>
-  Unit-detail works!
-</p>
+<div class="container" *ngIf="unit">
+  <h3>Tagelers of {{unit.name}}</h3>
+  <div class="row">
+    <div *ngFor="let tageler of tagelers">
+      <div class="card" style="width: 20rem;">
+        <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
+        <div class="card-block">
+          <h4 class="card-title">{{tageler.title}}</h4>
+          <button class="btn btn-secondary" routerLink="/tageler-details/{{tageler._id}}">View Details</button>
+          <button class="btn btn-danger" (click)="deleteTageler(tageler)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

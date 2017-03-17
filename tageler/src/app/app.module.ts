@@ -42,11 +42,11 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
     DateValueAccessorModule,
     //Ng2DatetimePickerModule,
     //ImageUploadModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
   ],
   providers: [
     TagelerService,
-    UnitService
+    UnitService,
   ],
   bootstrap: [AppComponent]
 })

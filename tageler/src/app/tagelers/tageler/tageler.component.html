@@ -4,6 +4,14 @@
     <h2>Tageler</h2>
     <button class="btn btn-warning" (click)="createNewTageler()">New</button>
   </div>
+  <div class="col-md-5">
+    <h3>View Tagelers of:</h3>
+    <select  [(ngModel)]="selectedUnitForTagelerView">
+      <option default>Select unit</option>
+      <option *ngFor="let unit of units" [value]="unit._id">{{unit.name}}</option>
+    </select>
+    <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
+  </div>
   <div class="col-md-5 col-md-offset-2">
     <div *ngIf="tageler" class="row">
       <div class="col-md-12">

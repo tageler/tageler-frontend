@@ -19,6 +19,14 @@ export class UnitService {
       .catch(this.handleError);
   }
 
+  // get a Unit by id
+  getUnit(id: String): Promise<Unit> {
+    return this.http.get(this.unitsUrlGet + '/?_id=' + id)
+      .toPromise()
+      .then(response => response.json().unit as Unit)
+      .catch(this.handleError);
+  }
+
   // post("/api/Unit")
   createUnit(newUnit: Unit): Promise<Unit> {
     return this.http.post(this.unitsUrlPost, newUnit)

@@ -25,6 +25,7 @@ export class TagelerComponent implements OnInit {
   units: Unit[];
   selectedTageler: Tageler;
   selectedUnit: Unit;
+  selectedUnitForTagelerView: null;
   public uploader:FileUploader = new FileUploader({url: URL});
 
   @Input()
@@ -139,5 +140,4 @@ export class TagelerComponent implements OnInit {
     }
     return saveTageler;
   }
-
 }
