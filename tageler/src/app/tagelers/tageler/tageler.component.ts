@@ -118,54 +118,7 @@ export class TagelerComponent implements OnInit {
 // By default, a newly-created tageler will have the selected state.
     this.selectTageler(tageler);
   }
-/*
-  deleteTageler = (tagelerId: String) => {
-    var idx = this.getIndexOfTageler(tagelerId);
-    if (idx !== -1) {
-      this.tagelers.splice(idx, 1);
-      this.selectTageler(null);
-    }
-    return this.tagelers;
-  }
-
-
-
-  updateTageler = (tageler: Tageler) => {
-    var idx = this.getIndexOfTageler(tageler._id);
-    if (idx !== -1) {
-      this.tagelers[idx] = tageler;
-      this.selectTageler(tageler);
-    }
-    return this.tagelers;
-  }
-*/
-
-/*
-  createTageler(tageler: Tageler) {
-    this.tagelerService.createTageler(tageler).then((newTageler: Tageler) => {
-      this.addTageler(newTageler);
-    });
-  }
-
-  updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler).then((updatedTageler: Tageler) => {
-      this.updateHandler(updatedTageler);
-    });
-  }
-
-  deleteTageler(tagelerId: String): void {
-    this.tagelerService.deleteTageler(tagelerId).then((deletedTagelerId: String) => {
-      this.deleteHandler(deletedTagelerId);
-    });
-  }
-
-  addTageler = (tageler: Tageler) => {
-    this.tagelers.push(tageler);
-    this.selectTageler(tageler);
-    return this.tagelers;
-  }
-  */
-
+  
   onSubmit() {
     this.tageler = this.prepareSaveTageler();
     this.tagelerService.createTageler(this.tageler);

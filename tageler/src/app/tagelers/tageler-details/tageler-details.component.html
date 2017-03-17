@@ -1,16 +1,68 @@
 <div class="container">
-  <h3>Details</h3>
-  <div *ngIf="tageler">
-    <h2>{{tageler.title}}</h2>
-    <li>Text: {{tageler.text}}</li>
-    <li>Datum: {{tageler.date}}</li>
-    <li>Start: {{tageler.start}}</li>
-    <li>End: {{tageler.end}}</li>
-    <li>Bring Along: {{tageler.bring_along}}</li>
-    <li>Unit: {{tageler.unit}}</li>
-    <li>Uniform: {{tageler.uniform}}</li>
-    <li>Picture: {{tageler.picture}}</li>
-    <li>Checkout Deadline: {{tageler.checkout_deadline}}</li>
-    <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
+  <div class="row">
+    <div class="col">
+      <h3>Details</h3>
+      <div *ngIf="tageler">
+        <button class="btn btn-info" (click)="updateThisTageler()">Update</button>
+        <h2>{{tageler.title}}</h2>
+        <li>Text: {{tageler.text}}</li>
+        <li>Datum: {{tageler.date}}</li>
+        <li>Start: {{tageler.start}}</li>
+        <li>End: {{tageler.end}}</li>
+        <li>Bring Along: {{tageler.bring_along}}</li>
+        <li>Unit: {{tageler.unit}}</li>
+        <li>Uniform: {{tageler.uniform}}</li>
+        <li>Picture: {{tageler.picture}}</li>
+        <li>Checkout Deadline: {{tageler.checkout_deadline}}</li>
+        <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
+      </div>
+    </div>
+    <div class="col">
+      <div *ngIf="update">
+      <form class="col-md-12">
+      <div class="form-group">
+        <label for="tageler-titel">Titel</label>
+        <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-text">Text</label>
+        <input class="form-control" name="tageler-text" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-datum">Datum</label>
+        <input class="form-control" name="tageler-datum" [(ngModel)]="tageler.date" type="date" placeholder="{{tageler.date}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-einheit">Einheit</label>
+        <select class="form-control" name="tageler-unit" [(ngModel)]="tageler.unit">
+          <option default>{{tageler.unit}}</option>
+          <option *ngFor="let unit of units" [value]="unit.name">{{unit.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tageler-start">Start</label>
+        <input class="form-control" name="tageler-start" [(ngModel)]="tageler.start" placeholder="{{tageler.start}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-end">Ende</label>
+        <input class="form-control" name="tageler-end" [(ngModel)]="tageler.end" placeholder="{{tageler.end}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-bring_along">Mitbringen</label>
+        <input class="form-control" name="tageler-bring_along" [(ngModel)]="tageler.bring_along" placeholder="{{tageler.bring_along}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-uniform">Kleidung</label>
+        <input class="form-control" name="tageler-uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}"/>
+      </div>
+      <div class="form-group">
+        <label for="tageler-checkout_deadline">Absagen bis</label>
+        <input class="form-control" name="tageler-checkout_deadline" [(ngModel)]="tageler.checkout_deadline"  type="date"/>
+      </div>
+      <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>
+      </form>
+      </div>
+    </div>
   </div>
+
 </div>

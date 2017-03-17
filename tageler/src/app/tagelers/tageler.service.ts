@@ -10,6 +10,7 @@ export class TagelerService {
   private tagelersUrlPost = 'http://127.0.0.1:8080/createTageler';
   private tagelersUrlGet = 'http://127.0.0.1:8080/getTageler';
   private tagelerUrlDelete = 'http://127.0.0.1:8080/deleteTageler';
+  private tagelerUrlUpdate = 'http://127.0.0.1:8080/updateTageler'
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
@@ -55,12 +56,11 @@ export class TagelerService {
 
   // put("/api/contacts/:id")
   updateTageler(putTageler: Tageler): Promise<Tageler> {
-    return null;
-    // var putUrl = this.tagelersUrl + '/' + putTageler._id;
-    // return this.http.put(putUrl, putTageler)
-    //   .toPromise()
-    //   .then(response => response.json() as Contact)
-    //   .catch(this.handleError);
+     var putUrl = this.tagelerUrlUpdate + '/?_id=' + putTageler._id;
+     return this.http.put(putUrl, putTageler)
+       .toPromise()
+       .then(response => response.json() as Tageler)
+       .catch(this.handleError);
   }
 
   private handleError (error: any) {

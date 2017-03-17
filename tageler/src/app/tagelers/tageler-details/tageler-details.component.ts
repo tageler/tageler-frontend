@@ -1,8 +1,10 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
 import {Params, ActivatedRoute } from '@angular/router';
+import {UnitService} from "../../units/unit.service";
+import { Unit } from '../../units/unit';
 
 @Component({
   selector: 'tageler-details',
@@ -11,13 +13,16 @@ import {Params, ActivatedRoute } from '@angular/router';
   providers: [TagelerService]
 })
 
-export class TagelerDetailsComponent {
+export class TagelerDetailsComponent implements OnInit {
   @Input()
   tageler: Tageler;
   tagelers: Tageler[];
+  units: Unit[];
+  update = false;
 
   constructor(
     private tagelerService: TagelerService,
+    private unitService: UnitService,
     private route: ActivatedRoute
   ) {}
 
@@ -28,34 +33,25 @@ export class TagelerDetailsComponent {
     this.route.params
       .switchMap((params: Params) => this.tagelerService.getTageler(params['id']))
       .subscribe(tageler => this.tageler = tageler);
+
+    this.unitService
+      .getUnits()
+      .then((units: Unit[]) => {
+        this.units = this.units = units.map((unit) => {
+          if(!unit.name) {
+            unit.name = 'default';
+          }
+          return unit;
+        });
+      });
   };
 
-  /*
-  @Input()
-  createHandler: Function;
-  @Input()
-  updateHandler: Function;
-  @Input()
-  deleteHandler: Function;
-
-  constructor (private tagelerService: TagelerService) {}
-
-  createTageler(tageler: Tageler) {
-    this.tagelerService.createTageler(tageler).then((newTageler: Tageler) => {
-      this.createHandler(newTageler);
-    });
+  updateThisTageler() {
+    this.update= true;
   }
 
   updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler).then((updatedTageler: Tageler) => {
-      this.updateHandler(updatedTageler);
-    });
+    this.tagelerService.updateTageler(tageler);
+    window.location.reload()
   }
-
-  deleteTageler(tagelerId: String): void {
-    this.tagelerService.deleteTageler(tagelerId).then((deletedTagelerId: String) => {
-      this.deleteHandler(deletedTagelerId);
-    });
-  }
-  */
 }
