@@ -118,7 +118,7 @@ export class TagelerComponent implements OnInit {
 // By default, a newly-created tageler will have the selected state.
     this.selectTageler(tageler);
   }
-  
+
   onSubmit() {
     this.tageler = this.prepareSaveTageler();
     this.tagelerService.createTageler(this.tageler);
@@ -127,6 +127,7 @@ export class TagelerComponent implements OnInit {
   prepareSaveTageler(): Tageler {
     const saveTageler: Tageler= {
       title: this.tagelerForm.value.title as string,
+      text: this.tagelerForm.value.text as string,
       date: this.tagelerForm.value.date,
       unit: this.tagelerForm.value.unit as string,
       start: this.tagelerForm.value.start as string,

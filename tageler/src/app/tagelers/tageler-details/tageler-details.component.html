@@ -6,14 +6,13 @@
         <button class="btn btn-info" (click)="updateThisTageler()">Update</button>
         <h2>{{tageler.title}}</h2>
         <li>Text: {{tageler.text}}</li>
-        <li>Datum: {{tageler.date}}</li>
+        <li>Datum: {{tageler.date | date:'fullDate'}}</li>
         <li>Start: {{tageler.start}}</li>
         <li>End: {{tageler.end}}</li>
         <li>Bring Along: {{tageler.bring_along}}</li>
         <li>Unit: {{tageler.unit}}</li>
         <li>Uniform: {{tageler.uniform}}</li>
-        <li>Picture: {{tageler.picture}}</li>
-        <li>Checkout Deadline: {{tageler.checkout_deadline}}</li>
+        <li>Checkout Deadline: {{tageler.checkout_deadline | date:'fullDate'}}</li>
         <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
       </div>
     </div>
@@ -26,7 +25,7 @@
       </div>
       <div class="form-group">
         <label for="tageler-text">Text</label>
-        <input class="form-control" name="tageler-text" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"/>
+        <textarea class="form-control" name="tageler-text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
       </div>
       <div class="form-group">
         <label for="tageler-datum">Datum</label>
