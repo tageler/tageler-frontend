@@ -7,6 +7,7 @@
           <h4 class="card-title">{{tageler.title}}</h4>
           <!--<a href="/tageler-details/{{tageler._id}}" class="btn btn-secondary">Details</a>-->
           <button class="btn btn-secondary" routerLink="/tageler-details/{{tageler._id}}">View Details</button>
+          <button class="btn btn-danger" (click)="deleteTageler(tageler)">Delete</button>
           <!--<button class="btn btn-secondary" routerLink="/tageler-details/{{this.tageler._id}}">View Details</button>-->
         </div>
       </div>

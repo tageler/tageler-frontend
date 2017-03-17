@@ -9,6 +9,7 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 export class TagelerService {
   private tagelersUrlPost = 'http://127.0.0.1:8080/createTageler';
   private tagelersUrlGet = 'http://127.0.0.1:8080/getTageler';
+  private tagelerUrlDelete = 'http://127.0.0.1:8080/deleteTageler';
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
@@ -46,11 +47,10 @@ export class TagelerService {
 
   // delete("/api/Tagelers/:id")
   deleteTageler(delTagelerId: String): Promise<String> {
-    return null;
-    // return this.http.delete(this.tagelersUrl + '/' + delTagelerId)
-    //   .toPromise()
-    //   .then(response => response.json() as String)
-    //   .catch(this.handleError);
+     return this.http.delete(this.tagelerUrlDelete + '/?_id=' + delTagelerId)
+       .toPromise()
+       .then(response => response.json() as String)
+       .catch(this.handleError);
   }
 
   // put("/api/contacts/:id")
