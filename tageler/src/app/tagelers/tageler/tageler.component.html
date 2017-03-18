@@ -6,11 +6,12 @@
   </div>
   <div class="col-md-5">
     <h3>View Tagelers of:</h3>
+    <div class="form-group row">
     <select  [(ngModel)]="selectedUnitForTagelerView">
-      <option default>Select unit</option>
       <option *ngFor="let unit of units" [value]="unit._id">{{unit.name}}</option>
     </select>
     <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
+    </div>
   </div>
   <div class="col-md-5 col-md-offset-2">
     <div *ngIf="tageler" class="row">
@@ -23,57 +24,67 @@
       <!-- try new form-->
 
       <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
-        <div class="form-group">
-          <label class="center-block">Name:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Name:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="title">
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Text:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Text:</label>
+          <div class="col-9">
             <textarea class="form-control" formControlName="text" rows="3"></textarea>
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Datum:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Datum:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="date" type="date" useValueAsDate>
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Einheit:
-            <select class="form-control" formControlName="unit">
-              <option *ngFor="let unit of units" value={{unit.name}}>{{unit.name}}</option>
-            </select>
-          </label>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Einheit:</label>
+          <div class="col-9">
+          <select class="form-control" formControlName="unit">
+            <option *ngFor="let unit of units" value={{unit.name}}>{{unit.name}}</option>
+          </select>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Start:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Start:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="start">
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Ende:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Ende:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="end">
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Mitbringen:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Mitbringen:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="bring_along">
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Kleidung:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Kleidung:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="uniform">
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Absagen bis:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Absagen bis:</label>
+          <div class="col-9">
             <input class="form-control" formControlName="checkout_deadline" type="date" useValueAsDate>
-          </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="center-block">Image upload:
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Image upload:</label>
+          <div class="col-9">
             <input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>
-          </label>
+          </div>
         </div>
         <button type="submit" class="btn btn-secondary">Create</button>
       </form>
