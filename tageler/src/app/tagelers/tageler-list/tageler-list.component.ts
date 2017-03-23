@@ -34,9 +34,4 @@ export class TagelerListComponent implements OnInit {
         });
       });
   }
-
-  deleteTageler(tageler: Tageler): void {
-    this.tagelerService.deleteTageler(tageler._id);
-    window.location.reload()
-  }
 }

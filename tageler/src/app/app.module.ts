@@ -21,6 +21,7 @@ import { UnitService } from './units/unit.service';
 
 import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
     UnitDetailsComponent,
     UnitListComponent,
     TagelerComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

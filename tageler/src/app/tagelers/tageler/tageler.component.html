@@ -1,18 +1,28 @@
 <div class="container">
-<div class="row">
-  <div class="col-md-5">
-    <h2>Tageler</h2>
-    <button class="btn btn-warning" (click)="createNewTageler()">New</button>
-  </div>
-  <div class="col-md-5">
-    <h3>View Tagelers of:</h3>
-    <div class="form-group row">
+
+  <div class="form-group">
+    <label><h4>View Tagelers of:</h4></label>
     <select  [(ngModel)]="selectedUnitForTagelerView">
+      <option value="" disabled>Choose unit</option>
       <option *ngFor="let unit of units" [value]="unit._id">{{unit.name}}</option>
     </select>
     <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
-    </div>
   </div>
+
+  <h4>Nächste Tageler:</h4>
+  <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
+  <div *ngFor="let tageler of tagelers">
+    <div class="card" style="width: 20rem;">
+      <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
+      <div class="card-block">
+        <h4 class="card-title">{{tageler.title}}</h4>
+          </div>
+       </div>
+      </div>
+    </div>
+</div>
+
+  <!--
   <div class="col-md-5 col-md-offset-2">
     <div *ngIf="tageler" class="row">
       <div class="col-md-12">
@@ -21,7 +31,6 @@
       </div>
     </div>
     <div *ngIf="selectedTageler" class="row">
-      <!-- try new form-->
 
       <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group row">
@@ -88,7 +97,9 @@
         </div>
         <button type="submit" class="btn btn-secondary">Create</button>
       </form>
-      <!--
+
+
+      // old form
       <form class="col-md-12">
         <div class="form-group">
           <label for="tageler-titel">Titel</label>
@@ -124,8 +135,6 @@
         <button class="btn btn-info" *ngIf="selectedTageler._id" (click)="updateTageler(selectedTageler)">Update</button>
         <button class="btn btn-danger" *ngIf="selectedTageler._id" (click)="deleteTageler(selectedTageler._id)">Delete</button>
       </form>
-      -->
     </div>
   </div>
-</div>
-</div>
+  -->
