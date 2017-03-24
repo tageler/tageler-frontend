@@ -1,17 +1,26 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-md-6">
       <div *ngIf="tageler">
         <h2>{{tageler.title}}</h2>
-        <li>Text: {{tageler.text}}</li>
+        <p>{{tageler.text}}</p>
         <li>Datum: {{tageler.date | date:'fullDate'}}</li>
         <li>Start: {{tageler.start}}</li>
-        <li>End: {{tageler.end}}</li>
-        <li>Bring Along: {{tageler.bring_along}}</li>
-        <li>Unit: {{tageler.unit}}</li>
-        <li>Uniform: {{tageler.uniform}}</li>
-        <li>Checkout Deadline: {{tageler.checkout_deadline | date:'fullDate'}}</li>
+        <li>Ende: {{tageler.end}}</li>
+        <li>Mitbringen: {{tageler.bring_along}}</li>
+        <li>Gruppe: {{tageler.unit}}</li>
+        <li>Anziehen: {{tageler.uniform}}</li>
         <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="tageler">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading">Wichtig</h4>
+          <p>Abmelden bis: {{tageler.checkout_deadline | date:'fullDate'}} </p>
+          <p class="mb-0">Abmelden bei: tageler.person </p>
+          <p class="mb-0">Mail / Telefon: tageler.mail / tageler.tel</p>
+        </div>
       </div>
     </div>
   </div>
