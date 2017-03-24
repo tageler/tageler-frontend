@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3>Details</h3>
       <div *ngIf="tageler">
-        <button class="btn btn-info" (click)="updateThisTageler()">Update</button>
         <h2>{{tageler.title}}</h2>
         <li>Text: {{tageler.text}}</li>
         <li>Datum: {{tageler.date | date:'fullDate'}}</li>
@@ -16,70 +14,5 @@
         <img src={{tageler.picture}} alt="Mountain View" style="width:400px;">
       </div>
     </div>
-    <div class="col">
-      <div *ngIf="update">
-      <form class="col-md-12">
-      <div class="form-group row">
-        <label for="tageler-titel" class="col-3 col-form-label">Titel</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-text" class="col-3 col-form-label">Text</label>
-        <div class="col-9">
-         <textarea class="form-control" name="tageler-text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-datum" class="col-3 col-form-label">Datum</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-datum" [(ngModel)]="tageler.date" type="date" placeholder="{{tageler.date}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-einheit" class="col-3 col-form-label">Einheit</label>
-        <div class="col-9">
-        <select class="form-control" name="tageler-unit" [(ngModel)]="tageler.unit">
-          <option default>{{tageler.unit}}</option>
-          <option *ngFor="let unit of units" [value]="unit.name">{{unit.name}}</option>
-        </select>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-start" class="col-3 col-form-label">Start</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-start" [(ngModel)]="tageler.start" placeholder="{{tageler.start}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-end" class="col-3 col-form-label">Ende</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-end" [(ngModel)]="tageler.end" placeholder="{{tageler.end}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-bring_along" class="col-3 col-form-label">Mitbringen</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-bring_along" [(ngModel)]="tageler.bring_along" placeholder="{{tageler.bring_along}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-uniform" class="col-3 col-form-label">Kleidung</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}"/>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="tageler-checkout_deadline" class="col-3 col-form-label">Absagen bis</label>
-        <div class="col-9">
-          <input class="form-control" name="tageler-checkout_deadline" [(ngModel)]="tageler.checkout_deadline"  type="date"/>
-        </div>
-      </div>
-      <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>
-      </form>
-      </div>
-    </div>
   </div>
-
 </div>
