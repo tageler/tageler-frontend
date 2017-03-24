@@ -1,19 +1,43 @@
 <div class="container">
 
-  <div class="form-group">
-    <label><h4>View Tagelers of:</h4></label>
-    <select  [(ngModel)]="selectedUnitForTagelerView">
-      <option value="" disabled>Choose unit</option>
+  <div class="form-inline">
+    <label class="mr-sm-2" for="inlineFormCustomSelect"><h4>View Tagelers of:</h4></label>
+    <select name="selectedUnitForTagelerView-unit" [(ngModel)]="selectedUnitForTagelerView" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
       <option *ngFor="let unit of units" [value]="unit._id">{{unit.name}}</option>
     </select>
     <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
   </div>
 
-  <h4>Nächste Tageler:</h4>
+  <h4>Nächster Tageler:</h4>
+  <div *ngIf="tagelers">
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col md-6">
+            <h4 class="card-title">{{tagelers[0].title}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{tagelers[0].date | date:'fullDate'}}</h6>
+            <p class="card-text">{{tagelers[0].text}}</p>
+            <p class="card-text">{{tagelers[0].unit}}</p>
+            <p class="card-text">{{tagelers[0].bring_along}}</p>
+            <p class="card-text">{{tagelers[0].uniform}}</p>
+          </div>
+          <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+              <p>Bis: {{tagelers[0].checkout_deadline | date:'fullDate'}} </p>
+              <p>Bei: tageler.leader </p>
+               <p>Über: tageler.checkout_medium </p>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <h4>Zukünftige Events</h4>
   <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
     <div *ngFor="let tageler of tagelers">
       <a href="../tageler-details/{{tageler._id}}">
-        <div class="card" style="width: 20rem;">
+        <div class="card " style="width: 20rem;">
           <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
           <div class="card-block">
             <h4 class="card-title">{{tageler.title}}</h4>

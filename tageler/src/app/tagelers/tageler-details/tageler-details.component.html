@@ -16,10 +16,10 @@
     <div class="col-md-6">
       <div *ngIf="tageler">
         <div class="alert alert-warning" role="alert">
-          <h4 class="alert-heading">Wichtig</h4>
-          <p>Abmelden bis: {{tageler.checkout_deadline | date:'fullDate'}} </p>
-          <p class="mb-0">Abmelden bei: tageler.person </p>
-          <p class="mb-0">Mail / Telefon: tageler.mail / tageler.tel</p>
+          <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+          <p>Bis: {{tageler.checkout_deadline | date:'fullDate'}} </p>
+          <p>Bei: tageler.leader </p>
+          <p>Über: tageler.checkout_medium </p>
         </div>
       </div>
     </div>

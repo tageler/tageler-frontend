@@ -6,6 +6,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { UnitService} from "../unit.service";
 import { Unit } from '../unit';
 
+
 @Component({
   selector: 'app-unit-details',
   templateUrl: 'unit-details.component.html',
@@ -14,15 +15,15 @@ import { Unit } from '../unit';
 
 export class UnitDetailsComponent implements OnInit {
   @Input()
-  unit: Unit;
   tageler: Tageler;
   tagelers: Tageler[];
+  unit: Unit;
 
   constructor(
-    private unitService: UnitService,
-    private tagelerService: TagelerService,
     private route: ActivatedRoute,
-  ) { }
+    private unitService: UnitService,
+    private tagelerService: TagelerService) {
+  }
 
   ngOnInit() {
     console.log("Init Details");
@@ -33,6 +34,8 @@ export class UnitDetailsComponent implements OnInit {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
+        this.tagelers = tagelers;
+        this.tagelers.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         this.tagelers = tagelers.map((tageler) => {
           if (!tageler.title) {
             tageler.title = 'default';

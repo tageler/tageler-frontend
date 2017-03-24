@@ -23,6 +23,9 @@ import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
 import { AdminComponent } from './admin/admin.component';
 
+import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +35,7 @@ import { AdminComponent } from './admin/admin.component';
     UnitListComponent,
     TagelerComponent,
     AdminComponent,
+    FilterTagelerByUnitPipe
   ],
   imports: [
     BrowserModule,
