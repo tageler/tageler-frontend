@@ -22,8 +22,7 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 export class TagelerComponent implements OnInit {
   tagelers: Tageler[];
   units: Unit[];
-  selectedTageler: Tageler;
-  selectedUnit: Unit;
+
 
 
   @Input()
@@ -39,7 +38,7 @@ export class TagelerComponent implements OnInit {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
-        this.tagelers = tagelers;
+        this.tagelers = tagelers
         this.tagelers.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         tagelers.map((tageler) => {
           if (!tageler.title) {
@@ -59,10 +58,5 @@ export class TagelerComponent implements OnInit {
           return unit;
         });
       });
-  }
-
-  selectTageler(tageler: Tageler) {
-    this.selectedTageler = tageler;
-    this.selectedUnit = this.units.find(x => x._id === tageler._id);
   }
 }

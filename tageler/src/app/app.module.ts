@@ -24,6 +24,8 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
+import { SameDateTagelerPipe } from './pipes/sameDateTageler.pipe';
+import { CurrentTagelerPipe } from './pipes/currentTageler.pipe'
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
     UnitListComponent,
     TagelerComponent,
     AdminComponent,
-    FilterTagelerByUnitPipe
+    FilterTagelerByUnitPipe,
+    SameDateTagelerPipe,
+    CurrentTagelerPipe
   ],
   imports: [
     BrowserModule,

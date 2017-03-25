@@ -8,27 +8,54 @@
     <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
   </div>
 
-  <h4>Nächster Tageler:</h4>
-  <div *ngIf="tagelers">
+  <h4>Laufend:</h4>
+  <div *ngFor="let tageler of tagelers | currentTagelerFilter">
     <div class="card">
       <div class="card-block">
         <div class="row">
           <div class="col md-6">
-            <h4 class="card-title">{{tagelers[0].title}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{tagelers[0].date | date:'fullDate'}}</h6>
-            <p class="card-text">{{tagelers[0].text}}</p>
-            <p class="card-text">{{tagelers[0].unit}}</p>
-            <p class="card-text">{{tagelers[0].bring_along}}</p>
-            <p class="card-text">{{tagelers[0].uniform}}</p>
+            <h4 class="card-title">{{tageler.title}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{tageler.date | date:'fullDate'}}</h6>
+            <p class="card-text">{{tageler.text}}</p>
+            <p class="card-text">{{tageler.unit}}</p>
+            <p class="card-text">{{tageler.bring_along}}</p>
+            <p class="card-text">{{tageler.uniform}}</p>
           </div>
           <div class="col-md-6">
             <div class="alert alert-warning" role="alert">
               <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p>Bis: {{tagelers[0].checkout_deadline | date:'fullDate'}} </p>
+              <p>Bis: {{tageler.checkout_deadline | date:'fullDate'}}</p>
               <p>Bei: tageler.leader </p>
-               <p>Über: tageler.checkout_medium </p>
+              <p>Über: tageler.checkout_medium </p>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4>Nächster Tageler:</h4>
+  <div *ngFor="let tageler of tagelers | tagelerDateFilter">
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col md-6">
+            <h4 class="card-title">{{tageler.title}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{tageler.date | date:'fullDate'}}</h6>
+            <p class="card-text">{{tageler.text}}</p>
+            <p class="card-text">{{tageler.unit}}</p>
+            <p class="card-text">{{tageler.bring_along}}</p>
+            <p class="card-text">{{tageler.uniform}}</p>
           </div>
+          <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+              <p>Bis: {{tageler.checkout_deadline | date:'fullDate'}}</p>
+              <p>Bei: tageler.leader </p>
+              <p>Über: tageler.checkout_medium </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
