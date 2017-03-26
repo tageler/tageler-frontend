@@ -25,7 +25,8 @@ import { AdminComponent } from './admin/admin.component';
 
 import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
 import { SameDateTagelerPipe } from './pipes/sameDateTageler.pipe';
-import { CurrentTagelerPipe } from './pipes/currentTageler.pipe'
+import { CurrentTagelerPipe } from './pipes/currentTageler.pipe';
+import { NextTagelerPipe } from './pipes/nextTageler.pipe';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CurrentTagelerPipe } from './pipes/currentTageler.pipe'
     AdminComponent,
     FilterTagelerByUnitPipe,
     SameDateTagelerPipe,
-    CurrentTagelerPipe
+    CurrentTagelerPipe,
+    NextTagelerPipe
   ],
   imports: [
     BrowserModule,

@@ -62,7 +62,7 @@
 
   <h4>Zukünftige Events</h4>
   <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
-    <div *ngFor="let tageler of tagelers">
+    <div *ngFor="let tageler of tagelers | nextTagelerFilter">
       <a href="../tageler-details/{{tageler._id}}">
         <div class="card " style="width: 20rem;">
           <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->

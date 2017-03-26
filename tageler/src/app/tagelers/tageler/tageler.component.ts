@@ -44,6 +44,7 @@ export class TagelerComponent implements OnInit {
           if (!tageler.title) {
             tageler.title = 'default';
           }
+
           return tageler;
         });
       });
