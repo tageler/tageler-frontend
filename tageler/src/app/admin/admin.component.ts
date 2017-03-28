@@ -8,6 +8,9 @@ import { TagelerService } from '../tagelers/tageler.service';
 import { Unit } from '../units/unit';
 import { UnitService } from '../units/unit.service';
 
+import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
+import {Positioning} from 'angular2-bootstrap-confirm/position';
+
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -17,6 +20,10 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
   selector: 'admin-component',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
+  providers: [
+    ConfirmOptions,
+    {provide: Position, useClass: Positioning}
+  ]
 })
 
 export class AdminComponent implements OnInit {
@@ -29,6 +36,13 @@ export class AdminComponent implements OnInit {
   createSuccess: boolean;
   deleteSuccess: boolean;
   update: boolean;
+
+
+  public title: string = 'Warning';
+  public message: string = 'Do you want to delete this tageler?';
+  public confirmClicked: boolean = false;
+  public cancelClicked: boolean = false;
+  public isOpen: boolean = false;
 
   public uploader:FileUploader = new FileUploader({url: URL});
 
@@ -150,5 +164,10 @@ export class AdminComponent implements OnInit {
   updateTageler(tageler: Tageler): void {
     this.tagelerService.updateTageler(tageler);
     window.location.reload()
+  }
+
+  cancel() {
+    this.update= false;
+
   }
 }

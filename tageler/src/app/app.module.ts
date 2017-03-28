@@ -10,6 +10,7 @@ import { DateValueAccessorModule } from 'angular-date-value-accessor';
 //import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 // import { ImageUploadModule } from 'angular2-image-upload';
 import { FileUploadModule } from 'ng2-file-upload';
+import {ConfirmModule} from 'angular2-bootstrap-confirm';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -27,6 +28,8 @@ import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
 import { SameDateTagelerPipe } from './pipes/sameDateTageler.pipe';
 import { CurrentTagelerPipe } from './pipes/currentTageler.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
+
+import { LOCALE_ID } from '@angular/core';
 
 
 @NgModule({
@@ -55,10 +58,12 @@ import { NextTagelerPipe } from './pipes/nextTageler.pipe';
     //Ng2DatetimePickerModule,
     //ImageUploadModule.forRoot(),
     FileUploadModule,
+    ConfirmModule,
   ],
   providers: [
     TagelerService,
     UnitService,
+    { provide: LOCALE_ID, useValue: "de" },
   ],
   bootstrap: [AppComponent]
 })

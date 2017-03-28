@@ -1,11 +1,11 @@
 <div class="container">
 
   <div class="form-inline">
-    <label class="mr-sm-2" for="inlineFormCustomSelect"><h4>View Tagelers of:</h4></label>
+    <label class="mr-sm-2" for="inlineFormCustomSelect"><h4>Tageler von:</h4></label>
     <select name="selectedUnitForTagelerView-unit" [(ngModel)]="selectedUnitForTagelerView" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
       <option *ngFor="let unit of units" [value]="unit._id">{{unit.name}}</option>
     </select>
-    <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Go</button>
+    <button class="btn btn-secondary" routerLink="/unit/{{selectedUnitForTagelerView}}">Los</button>
   </div>
 
   <h4>Laufend:</h4>
@@ -14,8 +14,8 @@
       <div class="card-block">
         <div class="row">
           <div class="col md-6">
-            <h4 class="card-title">{{tageler.title}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{tageler.date | date:'fullDate'}}</h6>
+            <h4 class="card-title">{{tageler.title}}, {{tageler.start}} bis {{tageler.end}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{tageler.date | date: 'dd/MM/yyyy'}}</h6>
             <p class="card-text">{{tageler.text}}</p>
             <p class="card-text">{{tageler.unit}}</p>
             <p class="card-text">{{tageler.bring_along}}</p>
@@ -40,7 +40,7 @@
       <div class="card-block">
         <div class="row">
           <div class="col md-6">
-            <h4 class="card-title">{{tageler.title}}</h4>
+            <h4 class="card-title">{{tageler.title}}, {{tageler.start}} bis {{tageler.end}}</h4>
             <h6 class="card-subtitle mb-2 text-muted">{{tageler.date | date:'fullDate'}}</h6>
             <p class="card-text">{{tageler.text}}</p>
             <p class="card-text">{{tageler.unit}}</p>
@@ -64,7 +64,7 @@
   <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
     <div *ngFor="let tageler of tagelers | nextTagelerFilter">
       <a href="../tageler-details/{{tageler._id}}">
-        <div class="card " style="width: 20rem;">
+        <div class="card " style="width: 20em; margin-right: 20px; margin-bottom: 20px;">
           <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
           <div class="card-block">
             <h4 class="card-title">{{tageler.title}}</h4>

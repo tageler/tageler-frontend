@@ -107,7 +107,14 @@
             <div class="card-block">
               <h4 class="card-title">{{tageler.title}}</h4>
               <p class="card-text">{{tageler.text}}</p>
-              <button class="btn btn-danger" (click)="deleteTageler(tageler)">Delete Tageler</button>
+              <button class="btn btn-danger"
+                      mwlConfirm
+                      [title]="title"
+                      [message]="message"
+                      placement="left"
+                      (cancel)="cancelClicked = true"
+                      placement="top"
+                      (confirm)="deleteTageler(tageler)">Delete Tageler</button>
               <button class="btn btn-info" (click)="updateThisTageler(tageler)">Update</button>
             </div>
           </div>
@@ -176,6 +183,7 @@
           </div>
         </div>
         <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>
+        <button class="btn btn-info" (click)="cancel()">Cancel</button>
       </form>
     </div>
   </div>
