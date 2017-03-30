@@ -47,7 +47,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Datum:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="date" type="date" useValueAsDate>
+            <input class="form-control" formControlName="date" type="date">
           </div>
         </div>
         <div class="form-group row">
@@ -85,7 +85,21 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Absagen bis:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="checkout_deadline" type="date" useValueAsDate>
+            <input class="form-control" formControlName="checkout_deadline" type="date">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Absagen bei:</label>
+          <div class="col-9">
+            <input class="form-control" formControlName="checkout_contact">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Kanal:</label>
+          <div class="col-9">
+            <input class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
+            <input class="form-control" formControlName="email" type="email" placeholder="Email">
+            <input class="form-control" formControlName="other" placeholder="Text">
           </div>
         </div>
         <div class="form-group row">
@@ -180,6 +194,20 @@
           <label for="tageler-checkout_deadline" class="col-3 col-form-label">Absagen bis</label>
           <div class="col-9">
             <input class="form-control" name="tageler-checkout_deadline" [(ngModel)]="tageler.checkout_deadline"  type="date"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Absagen bei:</label>
+          <div class="col-9">
+            <input class="form-control" name="checkout_contact" [(ngModel)]="tageler.checkout_contact" placeholder="{{tageler.checkout_contact}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Kanal:</label>
+          <div class="col-9">
+            <input class="form-control" name="phone" type="tel" [(ngModel)]="tageler.phone" placeholder="{{tageler.phone}}">
+            <input class="form-control" name="email" type="email" [(ngModel)]="tageler.email" placeholder="{{tageler.email}}">
+            <input class="form-control" name="other" [(ngModel)]="tageler.other" placeholder="{{tageler.other}}">
           </div>
         </div>
         <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>

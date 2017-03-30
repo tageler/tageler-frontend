@@ -7,10 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
-//import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 // import { ImageUploadModule } from 'angular2-image-upload';
 import { FileUploadModule } from 'ng2-file-upload';
-import {ConfirmModule} from 'angular2-bootstrap-confirm';
+import { ConfirmModule} from 'angular2-bootstrap-confirm';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -44,7 +44,7 @@ import { LOCALE_ID } from '@angular/core';
     FilterTagelerByUnitPipe,
     SameDateTagelerPipe,
     CurrentTagelerPipe,
-    NextTagelerPipe
+    NextTagelerPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,7 @@ import { LOCALE_ID } from '@angular/core';
     AppRoutingModule,
     ReactiveFormsModule,
     DateValueAccessorModule,
-    //Ng2DatetimePickerModule,
+    Ng2DatetimePickerModule,
     //ImageUploadModule.forRoot(),
     FileUploadModule,
     ConfirmModule,
