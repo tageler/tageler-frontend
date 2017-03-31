@@ -12,10 +12,10 @@ export class SameDateTagelerPipe implements PipeTransform {
       return null;
     }
 
-    tagelers = tagelers.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).filter(tageler =>
-    new Date(tageler.date).toLocaleDateString() != new Date().toLocaleDateString());
-    nextTagelerDate = new Date(tagelers[0].date);
+    tagelers = tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()).filter(tageler =>
+    new Date(tageler.start).toLocaleDateString() != new Date().toLocaleDateString());
+    nextTagelerDate = new Date(tagelers[0].start);
 
-    return tagelers.filter(tageler => new Date(tageler.date).toLocaleDateString() == nextTagelerDate.toLocaleDateString());
+    return tagelers.filter(tageler => new Date(tageler.start).toLocaleDateString() == nextTagelerDate.toLocaleDateString());
   }
 }
