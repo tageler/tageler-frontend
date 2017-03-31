@@ -14,8 +14,8 @@ import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
-import { UnitDetailsComponent } from './groups/group-details/group-details.component';
-import { UnitListComponent } from './groups/group-list/group-list.component';
+import { GroupDetailsComponent } from './groups/group-details/group-details.component';
+import { GroupListComponent } from './groups/group-list/group-list.component';
 
 import { GroupService } from './groups/group.service';
 
@@ -36,8 +36,8 @@ import { LOCALE_ID } from '@angular/core';
     AppComponent,
     TagelerListComponent,
     TagelerDetailsComponent,
-    UnitDetailsComponent,
-    UnitListComponent,
+    GroupDetailsComponent,
+    GroupListComponent,
     TagelerComponent,
     AdminComponent,
     FilterTagelerByUnitPipe,
