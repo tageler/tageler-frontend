@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnitDetailsComponent } from './unit-details.component';
+import { UnitDetailsComponent } from './group-details.component';
 
 
 import { FilterTagelerByUnitPipe } from '../../pipes/filterTagelerByUnit.pipe';
@@ -10,7 +10,7 @@ import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { UnitService } from '../unit.service';
+import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 
 describe('UnitDetailsComponent', () => {
@@ -25,7 +25,7 @@ describe('UnitDetailsComponent', () => {
         CurrentTagelerPipe,
         NextTagelerPipe, ],
       imports: [ RouterTestingModule ],
-      providers: [{provide: UnitService}, {provide: TagelerService}],
+      providers: [{provide: GroupService}, {provide: TagelerService}],
     })
     .compileComponents();
   }));

@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnitListComponent } from './unit-list.component';
+import { UnitListComponent } from './group-list.component';
 
-import { UnitService } from '../unit.service';
+import { GroupService } from '../group.service';
 
 
 describe('UnitListComponent', () => {
@@ -12,7 +12,7 @@ describe('UnitListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ UnitListComponent ],
-      providers: [{provide: UnitService}],
+      providers: [{provide: GroupService}],
     })
     .compileComponents();
   }));

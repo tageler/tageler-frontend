@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagelerDetailsComponent } from './tageler-details.component';
 
-import { UnitService} from '../../units/unit.service';
+import { GroupService} from '../../groups/group.service';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -23,7 +23,7 @@ describe('TagelerDetailsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TagelerDetailsComponent ],
       imports: [ FormsModule, ReactiveFormsModule, HttpModule, RouterTestingModule],
-      providers: [{provide: UnitService}],
+      providers: [{provide: GroupService}],
     })
     .compileComponents();
   }));

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Unit } from './units/unit';
-import { TagelerComponent } from './tagelers/tageler/tageler.component';
+
 
 @Component({
   selector: 'app-root',

@@ -5,8 +5,8 @@ import { FileUploader } from 'ng2-file-upload';
 import { Tageler } from '../tagelers/tageler';
 import { TagelerService } from '../tagelers/tageler.service';
 
-import { Unit } from '../units/unit';
-import { UnitService } from '../units/unit.service';
+import { Group } from '../groups/group';
+import { GroupService } from '../groups/group.service';
 
 import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
 import { Positioning } from 'angular2-bootstrap-confirm/position';
@@ -28,10 +28,10 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 export class AdminComponent implements OnInit {
   tagelers: Tageler[];
-  units: Unit[];
+  groups: Group[];
   selectedTageler: Tageler;
   selectedTagelerUpdate: Tageler;
-  selectedUnit: Unit;
+  selectedGroup: Group;
   showTageler = true;
   createSuccess: boolean;
   deleteSuccess: boolean;
@@ -52,7 +52,7 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private tagelerService: TagelerService,
-    private unitService: UnitService,
+    private groupService: GroupService,
     private fb: FormBuilder) {
     this.createForm();
   }
@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
     this.tagelerForm = this.fb.group({
       title: '',
       text: '',
-      unit: '',
+      group: [''],
       date_start: Date,
       date_end: Date,
       time_start: '',
@@ -69,11 +69,15 @@ export class AdminComponent implements OnInit {
       bring_along: '',
       uniform: '',
       picture: '',
-      deadline: Date,
-      checkout_contact: '',
-      phone: '',
-      email: '',
-      other: '',
+      checkout: this.fb.group({
+        deadline: Date,
+        contact: this.fb.group({
+          name: '',
+          phone: '',
+          mail: '',
+          other: '',
+        })
+      })
     });
   }
 
@@ -86,44 +90,46 @@ export class AdminComponent implements OnInit {
           if (!tageler.title) {
             tageler.title = 'default';
           }
-          console.log(tageler.start);
-          console.log(tageler.end);
           return tageler;
         });
       });
 
-    this.unitService
-      .getUnits()
-      .then((units: Unit[]) => {
-        this.units = this.units = units.map((unit) => {
-          if(!unit.name) {
-            unit.name = 'default';
+    this.groupService
+      .getGroups()
+      .then((groups: Group[]) => {
+        this.groups = this.groups = groups.map((group) => {
+          if(!group.name) {
+            group.name = 'default';
           }
-          return unit;
+          return group;
         });
       });
   }
 
   selectTageler(tageler: Tageler) {
     this.selectedTageler = tageler;
-    this.selectedUnit = this.units.find(x => x._id === tageler._id);
+    this.selectedGroup = this.groups.find(x => x._id === tageler._id);
   }
 
   createNewTageler() {
     var tageler: Tageler = {
       title: '',
       text: '',
-      unit: '',
+      group: [''],
       start: new Date,
       end: new Date,
       bring_along: '',
       uniform: '',
       picture: '',
-      deadline: new Date,
-      checkout_contact: '',
-      phone: '',
-      email: '',
-      other: '',
+      checkout: {
+        deadline: new Date,
+        contact: [{
+          name: '',
+          phone: '',
+          mail: '',
+          other: '',
+        }]
+      }
     };
 
 // By default, a newly-created tageler will have the selected state.
@@ -147,17 +153,21 @@ export class AdminComponent implements OnInit {
     const saveTageler: Tageler= {
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
-      unit: this.tagelerForm.value.unit as string,
+      group: [this.tagelerForm.value.group as string],
       start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start),
       end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
-      deadline: this.tagelerForm.value.deadline as Date,
-      checkout_contact: this.tagelerForm.value.checkout_contact as string,
-      phone: this.tagelerForm.value.phone as string,
-      email: this.tagelerForm.value.email as string,
-      other: this.tagelerForm.value.other as string,
       picture: this.tagelerForm.value.picture as string,
+      checkout : {
+        deadline: this.tagelerForm.value.checkout.deadline as Date,
+        contact: [{
+          name: this.tagelerForm.value.checkout.contact.name as string,
+          phone: this.tagelerForm.value.checkout.contact.phone as string,
+          mail: this.tagelerForm.value.checkout.contact.mail as string,
+          other: this.tagelerForm.value.checkout.contact.other as string,
+        }]
+      }
     }
     this.createSuccess = true;
     this.selectedTageler = null;

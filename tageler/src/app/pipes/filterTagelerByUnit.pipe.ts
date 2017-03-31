@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Tageler} from "../tagelers/tageler";
+import { Tageler } from "../tagelers/tageler";
 
 @Pipe({
   name: 'tagelerFilter',
@@ -10,6 +10,6 @@ export class FilterTagelerByUnitPipe implements PipeTransform {
     if (tagelers==null) {
       return null;
     }
-    return tagelers.filter(tageler => tageler.unit == args.name);
+    return tagelers.filter(tageler => tageler.group == args.name);
   }
 }

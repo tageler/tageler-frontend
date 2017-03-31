@@ -8,17 +8,16 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
-// import { ImageUploadModule } from 'angular2-image-upload';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
-import { UnitDetailsComponent } from './units/unit-details/unit-details.component';
-import { UnitListComponent } from './units/unit-list/unit-list.component';
+import { UnitDetailsComponent } from './groups/group-details/group-details.component';
+import { UnitListComponent } from './groups/group-list/group-list.component';
 
-import { UnitService } from './units/unit.service';
+import { GroupService } from './groups/group.service';
 
 import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
@@ -56,13 +55,12 @@ import { LOCALE_ID } from '@angular/core';
     ReactiveFormsModule,
     DateValueAccessorModule,
     Ng2DatetimePickerModule,
-    //ImageUploadModule.forRoot(),
     FileUploadModule,
     ConfirmModule,
   ],
   providers: [
     TagelerService,
-    UnitService,
+    GroupService,
     { provide: LOCALE_ID, useValue: "de" },
   ],
   bootstrap: [AppComponent]

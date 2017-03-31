@@ -20,7 +20,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { NgModule } from '@angular/core';
 import { TagelerService } from '../tagelers/tageler.service';
-import { UnitService } from '../units/unit.service';
+import { GroupService } from '../groups/group.service';
 import { HttpModule } from '@angular/http';
 
 
@@ -33,7 +33,7 @@ describe('Component: AdminComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent ],
       imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule],
-      providers: [TagelerService, UnitService, {provide: Http}]
+      providers: [TagelerService, GroupService, {provide: Http}]
     })
     .compileComponents();
   }));

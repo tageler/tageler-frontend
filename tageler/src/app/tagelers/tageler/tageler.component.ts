@@ -5,8 +5,8 @@ import { FileUploader } from 'ng2-file-upload';
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
 
-import { Unit } from '../../units/unit';
-import { UnitService } from '../../units/unit.service';
+import { Group } from '../../groups/group';
+import { GroupService } from '../../groups/group.service';
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -21,8 +21,7 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 export class TagelerComponent implements OnInit {
   tagelers: Tageler[];
-  units: Unit[];
-
+  groups: Group[];
 
 
   @Input()
@@ -30,7 +29,7 @@ export class TagelerComponent implements OnInit {
 
   constructor(
     private tagelerService: TagelerService,
-    private unitService: UnitService,
+    private groupService: GroupService,
   ) {}
 
   ngOnInit() {
@@ -39,7 +38,7 @@ export class TagelerComponent implements OnInit {
       .getTagelers()
       .then((tagelers: Tageler[]) => {
         this.tagelers = tagelers
-        this.tagelers.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        this.tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
         tagelers.map((tageler) => {
           if (!tageler.title) {
             tageler.title = 'default';
@@ -49,14 +48,14 @@ export class TagelerComponent implements OnInit {
         });
       });
 
-    this.unitService
-      .getUnits()
-      .then((units: Unit[]) => {
-        this.units = this.units = units.map((unit) => {
-          if (!unit.name) {
-            unit.name = 'default';
+    this.groupService
+      .getGroups()
+      .then((groups: Group[]) => {
+        this.groups = this.groups = groups.map((group) => {
+          if (!group.name) {
+            group.name = 'default';
           }
-          return unit;
+          return group;
         });
       });
   }

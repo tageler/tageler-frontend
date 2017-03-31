@@ -19,7 +19,7 @@ import { CurrentTagelerPipe } from '../../pipes/currentTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
 
 import { TagelerService } from '../tageler.service';
-import { UnitService} from '../../units/unit.service';
+import { GroupService} from '../../groups/group.service';
 
 describe('TagelerComponent', () => {
   let component: TagelerComponent;
@@ -33,7 +33,7 @@ describe('TagelerComponent', () => {
         CurrentTagelerPipe,
         NextTagelerPipe, ],
       imports: [ FormsModule, ReactiveFormsModule, HttpModule, RouterTestingModule ],
-      providers: [{provide: TagelerService}, {provide: UnitService}],
+      providers: [{provide: TagelerService}, {provide: GroupService}],
     })
     .compileComponents();
   }));
