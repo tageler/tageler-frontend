@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 
@@ -8,8 +8,8 @@ import { TagelerService } from '../tagelers/tageler.service';
 import { Unit } from '../units/unit';
 import { UnitService } from '../units/unit.service';
 
-import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
-import {Positioning} from 'angular2-bootstrap-confirm/position';
+import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
+import { Positioning } from 'angular2-bootstrap-confirm/position';
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -61,14 +61,18 @@ export class AdminComponent implements OnInit {
     this.tagelerForm = this.fb.group({
       title: '',
       text: '',
-      date: '',
+      date: Date,
       unit: '',
-      start: '',
-      end: '',
+      start: Date,
+      end: Date,
       bring_along: '',
       uniform: '',
       picture: '',
-      checkout_deadline: ''
+      checkout_deadline: Date,
+      checkout_contact: '',
+      phone: '',
+      email: '',
+      other: '',
     });
   }
 
@@ -81,6 +85,8 @@ export class AdminComponent implements OnInit {
           if (!tageler.title) {
             tageler.title = 'default';
           }
+          console.log(tageler.start);
+          console.log(tageler.end);
           return tageler;
         });
       });
@@ -106,14 +112,18 @@ export class AdminComponent implements OnInit {
     var tageler: Tageler = {
       title: '',
       text: '',
-      date: '',
+      date: new Date,
       unit: '',
-      start: '',
-      end: '',
+      start: new Date,
+      end: new Date,
       bring_along: '',
       uniform: '',
       picture: '',
-      checkout_deadline: ''
+      checkout_deadline: new Date,
+      checkout_contact: '',
+      phone: '',
+      email: '',
+      other: '',
     };
 
 // By default, a newly-created tageler will have the selected state.
@@ -137,13 +147,17 @@ export class AdminComponent implements OnInit {
     const saveTageler: Tageler= {
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
-      date: this.tagelerForm.value.date,
+      date: this.tagelerForm.value.date as Date,
       unit: this.tagelerForm.value.unit as string,
-      start: this.tagelerForm.value.start as string,
-      end: this.tagelerForm.value.end as string,
+      start: this.tagelerForm.value.start as Date,
+      end: this.tagelerForm.value.end as Date,
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
-      checkout_deadline: this.tagelerForm.value.checkout_deadline,
+      checkout_deadline: this.tagelerForm.value.checkout_deadline as Date,
+      checkout_contact: this.tagelerForm.value.checkout_contact as string,
+      phone: this.tagelerForm.value.phone as string,
+      email: this.tagelerForm.value.email as string,
+      other: this.tagelerForm.value.other as string,
       picture: this.tagelerForm.value.picture as string,
     }
     this.createSuccess = true;

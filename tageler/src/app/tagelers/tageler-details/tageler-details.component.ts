@@ -18,7 +18,6 @@ export class TagelerDetailsComponent implements OnInit {
   tageler: Tageler;
   tagelers: Tageler[];
   units: Unit[];
-  update = false;
 
   constructor(
     private tagelerService: TagelerService,
@@ -45,13 +44,4 @@ export class TagelerDetailsComponent implements OnInit {
         });
       });
   };
-
-  updateThisTageler() {
-    this.update= true;
-  }
-
-  updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler);
-    window.location.reload()
-  }
 }

@@ -8,5 +8,5 @@ import { TagelerComponent } from './tagelers/tageler/tageler.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  title;
 }

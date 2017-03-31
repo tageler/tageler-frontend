@@ -13,7 +13,7 @@ export class CurrentTagelerPipe implements PipeTransform {
     tagelers.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return tagelers.filter(tageler =>
       new Date(tageler.date).toLocaleDateString() == new Date().toLocaleDateString() &&
-      (tageler.start.slice(0,2) + tageler.start.slice(3,5)) < (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)) &&
-      (tageler.end.slice(0,2) + tageler.end.slice(3,5)) >= (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)));
+      (new Date(tageler.start).toLocaleTimeString().slice(0,2) + new Date(tageler.start).toLocaleTimeString().slice(3,5)) < (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)) &&
+      (new Date(tageler.end).toLocaleTimeString().slice(0,2) + new Date(tageler.end).toLocaleTimeString().slice(3,5)) >= (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)));
   }
 }
