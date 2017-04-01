@@ -43,7 +43,7 @@ export class TagelerComponent implements OnInit {
           if (!tageler.title) {
             tageler.title = 'default';
           }
-
+          console.log(tageler.start);
           return tageler;
         });
       });

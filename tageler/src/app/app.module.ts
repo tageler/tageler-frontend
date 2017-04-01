@@ -23,7 +23,7 @@ import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
 import { AdminComponent } from './admin/admin.component';
 
-import { FilterTagelerByUnitPipe } from './pipes/filterTagelerByUnit.pipe';
+import { FilterTagelerByGroupPipe } from './pipes/filterTagelerByGroup.pipe';
 import { SameDateTagelerPipe } from './pipes/sameDateTageler.pipe';
 import { CurrentTagelerPipe } from './pipes/currentTageler.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
@@ -40,7 +40,7 @@ import { LOCALE_ID } from '@angular/core';
     GroupListComponent,
     TagelerComponent,
     AdminComponent,
-    FilterTagelerByUnitPipe,
+    FilterTagelerByGroupPipe,
     SameDateTagelerPipe,
     CurrentTagelerPipe,
     NextTagelerPipe,

@@ -5,7 +5,7 @@ import { Tageler } from "../tagelers/tageler";
   name: 'tagelerFilter',
 })
 
-export class FilterTagelerByUnitPipe implements PipeTransform {
+export class FilterTagelerByGroupPipe implements PipeTransform {
   transform(tagelers: Tageler[], args: any): any {
     if (tagelers==null) {
       return null;

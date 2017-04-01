@@ -49,7 +49,7 @@ export class TagelerService {
 
   // delete("/api/Tagelers/:id")
   deleteTageler(delTageler: String): Promise<String> {
-     return this.http.delete(this.tagelerUrlDelete + '/' + delTageler)
+     return this.http.delete(this.tagelerUrlDelete + '/?_id=' + delTageler)
        .toPromise()
        .then(response => response.json() as String)
        .catch(this.handleError);
@@ -57,7 +57,7 @@ export class TagelerService {
 
   // put("/api/contacts/:id")
   updateTageler(putTageler: Tageler): Promise<Tageler> {
-     var putUrl = this.tagelerUrlUpdate + '/' + putTageler._id;
+     var putUrl = this.tagelerUrlUpdate + '/?_id=' + putTageler._id;
      return this.http.put(putUrl, putTageler)
        .toPromise()
        .then(response => response.json() as Tageler)

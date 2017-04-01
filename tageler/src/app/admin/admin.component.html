@@ -46,7 +46,7 @@
         </div>
         <div class="form-group row">
           <label class="col-3 col-form-label">Einheit:</label>
-          <div class="col-9">
+          <div class="col-3">
             <select class="form-control" formControlName="group">
               <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
             </select>
@@ -85,8 +85,11 @@
         <div formGroupName="checkout">
           <div class="form-group row">
             <label class="col-3 col-form-label">Absagen bis:</label>
-            <div class="col-9">
-              <input class="form-control" formControlName="deadline" type="date">
+            <div class="col-5">
+              <input class="form-control" formControlName="deadline_date" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="deadline_time" type="time">
             </div>
           </div>
           <div formGroupName="contact">
@@ -140,6 +143,100 @@
     </div>
 
     <div class="col-md-5">
+      <div *ngIf="update">
+        <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmitUpdate()" novalidate>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Titel:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="title" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Text:</label>
+            <div class="col-9">
+              <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Einheit:</label>
+            <div class="col-9">
+              <select class="form-control" formControlName="group" [(ngModel)]="tageler.group">
+                <option default>{{tageler.group}}</option>
+                <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Start:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_start" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="time_start" type="time">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Ende:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_end" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="time_end" type="time">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Mitbringen:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="bring_along" [(ngModel)]="tageler.bring_along" placeholder="{{tageler.bring_along}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Kleidung:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}">
+            </div>
+          </div>
+          <div formGroupName="checkout">
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Absagen bis:</label>
+              <div class="col-5">
+                <input class="form-control" formControlName="deadline_date" type="date">
+              </div>
+              <div class="col-4">
+                <input class="form-control" formControlName="deadline_time" type="time">
+              </div>
+            </div>
+            <div formGroupName="contact">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Absagen bei:</label>
+                <div class="col-9">
+                  <input class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" placeholder="{{tageler.checkout.contact[0].name}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Kanal:</label>
+                <div class="col-9">
+                  <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" placeholder="{{tageler.checkout.contact[0].phone}}">
+                  <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail" placeholder="{{tageler.checkout.contact[0].mail}}">
+                  <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other" placeholder="{{tageler.checkout.contact[0].other}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Image upload:</label>
+            <div class="col-9">
+              <input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>
+            </div>
+          </div>
+          <button class="btn btn-info" type="submit">Submit</button>
+          <button class="btn btn-info" (click)="cancel()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <!--
+    <div class="col-md-5">
     <div *ngIf="update">
       <form class="col-md-12">
         <div class="form-group row">
@@ -155,12 +252,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="tageler-datum" class="col-3 col-form-label">Datum</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-datum" [(ngModel)]="tageler.date" type="date" placeholder="{{tageler.date}}"/>
-          </div>
-        </div>
-        <div class="form-group row">
           <label for="tageler-einheit" class="col-3 col-form-label">Einheit</label>
           <div class="col-9">
             <select class="form-control" name="tageler-group" [(ngModel)]="tageler.group">
@@ -171,14 +262,20 @@
         </div>
         <div class="form-group row">
           <label for="tageler-start" class="col-3 col-form-label">Start</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-start" type="time" [(ngModel)]="tageler.start" placeholder="{{tageler.start}}"/>
+          <div class="col-5">
+            <input class="form-control" name="tageler-date_start" type="date"/>
+          </div>
+          <div class="col-4">
+            <input class="form-control" name="tageler-time_start" type="time"/>
           </div>
         </div>
         <div class="form-group row">
           <label for="tageler-end" class="col-3 col-form-label">Ende</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-end" type="time" [(ngModel)]="tageler.end" placeholder="{{tageler.end}}"/>
+          <div class="col-5">
+            <input class="form-control" name="tageler-date_end" type="date"/>
+          </div>
+          <div class="col-4">
+            <input class="form-control" name="tageler-time_end" type="time"/>
           </div>
         </div>
         <div class="form-group row">
@@ -195,29 +292,31 @@
         </div>
           <div class="form-group row">
             <label for="tageler-checkout_deadline" class="col-3 col-form-label">Absagen bis</label>
-            <div class="col-9">
-              <input class="form-control" name="tageler-deadline" [(ngModel)]="tageler.checkout.deadline"  type="date" placeholder="{{tageler.checkout.deadline}}"/>
+            <div class="col-5">
+              <input class="form-control" name="tageler-deadline_date" type="date"/>
+            </div>
+            <div class="col-4">
+              <input class="form-control" name="tageler-deadline_time" type="time"/>
             </div>
           </div>
             <div class="form-group row">
               <label for="tageler-checkout_contact" class="col-3 col-form-label">Absagen bei:</label>
               <div class="col-9">
-                <input class="form-control" name="contact" [(ngModel)]="tageler.checkout.contact" placeholder="{{tageler.checkout.contact}}">
+                <input class="form-control" name="name" [(ngModel)]="tageler.checkout.contact.name" placeholder="{{tageler.checkout.contact[0].name}}">
               </div>
             </div>
             <div class="form-group row">
               <label for="tageler-checkout_contact_detail" class="col-3 col-form-label">Kanal:</label>
               <div class="col-9">
-                <input class="form-control" name="phone" type="tel" [(ngModel)]="tageler.checkout.contact.phone" placeholder="{{tageler.checkout.contact}}">
-                <input class="form-control" name="mail" type="email" [(ngModel)]="tageler.checkout.contact.mail" placeholder="{{tageler.checkout.contact}}">
-                <input class="form-control" name="other" [(ngModel)]="tageler.checkout.contact.other" placeholder="{{tageler.checkout.contact}}">
+                <input class="form-control" name="phone" type="tel" [(ngModel)]="tageler.checkout.contact.phone" placeholder="{{tageler.checkout.contact[0].phone}}">
+                <input class="form-control" name="mail" type="email" [(ngModel)]="tageler.checkout.contact.mail" placeholder="{{tageler.checkout.contact[0].mail}}">
+                <input class="form-control" name="other" [(ngModel)]="tageler.checkout.contact.other" placeholder="{{tageler.checkout.contact[0].other}}">
               </div>
         </div>
         <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>
         <button class="btn btn-info" (click)="cancel()">Cancel</button>
       </form>
-    </div>
-  </div>
+      -->
   </div>
 </div>
-a
+

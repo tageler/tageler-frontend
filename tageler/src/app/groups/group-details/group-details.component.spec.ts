@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UnitDetailsComponent } from './group-details.component';
 
 
-import { FilterTagelerByUnitPipe } from '../../pipes/filterTagelerByUnit.pipe';
+import { FilterTagelerByUnitPipe } from '../../pipes/filterTagelerByGroup.pipe';
 import { SameDateTagelerPipe } from '../../pipes/sameDateTageler.pipe';
 import { CurrentTagelerPipe } from '../../pipes/currentTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';

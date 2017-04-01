@@ -10,10 +10,16 @@ export class CurrentTagelerPipe implements PipeTransform {
     if (tagelers==null) {
       return null;
     }
-    tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
+    if ( (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null ) {
+      tagelers = tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+    } else {
+      tagelers = tagelers;
+    }
+
     return tagelers.filter(tageler =>
-      new Date(tageler.start).toLocaleDateString() == new Date().toLocaleDateString() &&
-      (new Date(tageler.start).toLocaleTimeString().slice(0,2) + new Date(tageler.start).toLocaleTimeString().slice(3,5)) < (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)) &&
-      (new Date(tageler.end).toLocaleTimeString().slice(0,2) + new Date(tageler.end).toLocaleTimeString().slice(3,5)) >= (new Date().toLocaleTimeString().slice(0,2) + new Date().toLocaleTimeString().slice(3,5)));
+    (new Date(tageler.start).toLocaleDateString() >= new Date().toLocaleDateString() &&
+    new Date(tageler.end).toLocaleDateString() <= new Date().toLocaleDateString()) &&
+    new Date(tageler.start).toLocaleTimeString() <= new Date().toLocaleTimeString() &&
+    new Date(tageler.end).toLocaleTimeString() >= new Date().toLocaleTimeString())
   }
 }

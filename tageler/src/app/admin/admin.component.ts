@@ -30,7 +30,6 @@ export class AdminComponent implements OnInit {
   tagelers: Tageler[];
   groups: Group[];
   selectedTageler: Tageler;
-  selectedTagelerUpdate: Tageler;
   selectedGroup: Group;
   showTageler = true;
   createSuccess: boolean;
@@ -40,9 +39,6 @@ export class AdminComponent implements OnInit {
 
   public title: string = 'Warning';
   public message: string = 'Do you want to delete this tageler?';
-  public confirmClicked: boolean = false;
-  public cancelClicked: boolean = false;
-  public isOpen: boolean = false;
 
   public uploader:FileUploader = new FileUploader({url: URL});
 
@@ -70,7 +66,8 @@ export class AdminComponent implements OnInit {
       uniform: '',
       picture: '',
       checkout: this.fb.group({
-        deadline: Date,
+        deadline_date: Date,
+        deadline_time: '',
         contact: this.fb.group({
           name: '',
           phone: '',
@@ -149,6 +146,12 @@ export class AdminComponent implements OnInit {
     this.tagelerService.createTageler(this.tageler);
   }
 
+  onSubmitUpdate() {
+    this.tageler = this.prepareUpdateTageler();
+    this.tagelerService.updateTageler(this.tageler);
+    window.location.reload()
+  }
+
   prepareSaveTageler(): Tageler {
     const saveTageler: Tageler= {
       title: this.tagelerForm.value.title as string,
@@ -160,7 +163,7 @@ export class AdminComponent implements OnInit {
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.tagelerForm.value.picture as string,
       checkout : {
-        deadline: this.tagelerForm.value.checkout.deadline as Date,
+        deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time),
         contact: [{
           name: this.tagelerForm.value.checkout.contact.name as string,
           phone: this.tagelerForm.value.checkout.contact.phone as string,
@@ -174,6 +177,29 @@ export class AdminComponent implements OnInit {
     return saveTageler;
   }
 
+  prepareUpdateTageler(): Tageler {
+    const updateTageler: Tageler= {
+      title: this.tagelerForm.value.title as string,
+      text: this.tagelerForm.value.text as string,
+      group: [this.tagelerForm.value.group as string],
+      start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start),
+      end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
+      bring_along: this.tagelerForm.value.bring_along as string,
+      uniform: this.tagelerForm.value.uniform as string,
+      picture: this.tagelerForm.value.picture as string,
+      checkout : {
+        deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time),
+        contact: [{
+          name: this.tagelerForm.value.checkout.contact.name as string,
+          phone: this.tagelerForm.value.checkout.contact.phone as string,
+          mail: this.tagelerForm.value.checkout.contact.mail as string,
+          other: this.tagelerForm.value.checkout.contact.other as string,
+        }]
+      }
+    }
+    return updateTageler;
+  }
+
   deleteTageler(tageler: Tageler): void {
     this.tagelerService.deleteTageler(tageler._id);
     window.location.reload()
@@ -182,11 +208,6 @@ export class AdminComponent implements OnInit {
   updateThisTageler(tageler: Tageler) {
     this.tageler = tageler;
     this.update= true;
-  }
-
-  updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler);
-    window.location.reload()
   }
 
   cancel() {
