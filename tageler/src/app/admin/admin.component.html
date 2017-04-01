@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div *ngIf="selectedTageler" class="row">
       <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group row">
@@ -121,7 +121,8 @@
   </div>
 
   <div class="row">
-    <div class="col-md-5">
+  <div class="col-md-6">
+    <div class="row">
       <div *ngIf="showTageler">
         <div *ngFor="let tageler of tagelers">
           <div class="card w-100">
@@ -135,15 +136,110 @@
                       (cancel)="cancelClicked = true"
                       placement="top"
                       (confirm)="deleteTageler(tageler)">Delete Tageler</button>
+              <button class="btn btn-info" (click)="viewThisDetails(tageler)">View Details</button>
               <button class="btn btn-info" (click)="updateThisTageler(tageler)">Update</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-5">
-      <div *ngIf="update">
+    <div *ngIf="view">
+      <div class="col-md-12">
+        <form [formGroup]="tagelerForm">
+          <fieldset disabled>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Titel:</label>
+              <div class="col-9">
+                <input class="form-control" placeholder="{{tageler.title}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Text:</label>
+              <div class="col-9">
+                <textarea class="form-control" rows="3" placeholder="{{tageler.text}}"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Einheit:</label>
+              <div class="col-9">
+                <select class="form-control">
+                  <option default>{{tageler.group}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Start:</label>
+              <div class="col-5">
+                <input class="form-control" type="date" placeholder="{{tageler.start}}">
+              </div>
+              <div class="col-4">
+                <input class="form-control" type="time" placeholder="{{tageler.start}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Ende:</label>
+              <div class="col-5">
+                <input class="form-control" type="date" placeholder="{{tageler.start}}">
+              </div>
+              <div class="col-4">
+                <input class="form-control" type="time" placeholder="{{tageler.start}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Mitbringen:</label>
+              <div class="col-9">
+                <input class="form-control" placeholder="{{tageler.bring_along}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Kleidung:</label>
+              <div class="col-9">
+                <input class="form-control" placeholder="{{tageler.uniform}}">
+              </div>
+            </div>
+            <div formGroupName="checkout">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Absagen bis:</label>
+                <div class="col-5">
+                  <input class="form-control" type="date">
+                </div>
+                <div class="col-4">
+                  <input class="form-control"type="time">
+                </div>
+              </div>
+              <div formGroupName="contact">
+                <div class="form-group row">
+                  <label class="col-3 col-form-label">Absagen bei:</label>
+                  <div class="col-9">
+                    <input class="form-control" placeholder="{{tageler.checkout.contact[0].name}}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-3 col-form-label">Kanal:</label>
+                  <div class="col-9">
+                    <input class="form-control" type="tel" placeholder="{{tageler.checkout.contact[0].phone}}">
+                    <input class="form-control" type="email" placeholder="{{tageler.checkout.contact[0].mail}}">
+                    <input class="form-control" placeholder="{{tageler.checkout.contact[0].other}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Image upload:</label>
+              <div class="col-9">
+                <input type="file" ng2FileSelect [uploader]="uploader" />
+              </div>
+            </div>
+          </fieldset>
+          <button class="btn btn-info" (click)="cancel()">Close</button>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="update">
+      <div class="col-md-12">
         <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmitUpdate()" novalidate>
           <div class="form-group row">
             <label class="col-3 col-form-label">Titel:</label>
@@ -229,94 +325,10 @@
               <input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>
             </div>
           </div>
-          <button class="btn btn-info" type="submit">Submit</button>
+          <button class="btn btn-info" type="submit">Save</button>
           <button class="btn btn-info" (click)="cancel()">Cancel</button>
         </form>
       </div>
     </div>
-
-    <!--
-    <div class="col-md-5">
-    <div *ngIf="update">
-      <form class="col-md-12">
-        <div class="form-group row">
-          <label for="tageler-titel" class="col-3 col-form-label">Titel</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-titel" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-text" class="col-3 col-form-label">Text</label>
-          <div class="col-9">
-            <textarea class="form-control" name="tageler-text" rows="5" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-einheit" class="col-3 col-form-label">Einheit</label>
-          <div class="col-9">
-            <select class="form-control" name="tageler-group" [(ngModel)]="tageler.group">
-              <option default>{{tageler.group}}</option>
-              <option *ngFor="let group of groups" [value]="group.name">{{group.name}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-start" class="col-3 col-form-label">Start</label>
-          <div class="col-5">
-            <input class="form-control" name="tageler-date_start" type="date"/>
-          </div>
-          <div class="col-4">
-            <input class="form-control" name="tageler-time_start" type="time"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-end" class="col-3 col-form-label">Ende</label>
-          <div class="col-5">
-            <input class="form-control" name="tageler-date_end" type="date"/>
-          </div>
-          <div class="col-4">
-            <input class="form-control" name="tageler-time_end" type="time"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-bring_along" class="col-3 col-form-label">Mitbringen</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-bring_along" [(ngModel)]="tageler.bring_along" placeholder="{{tageler.bring_along}}"/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="tageler-uniform" class="col-3 col-form-label">Kleidung</label>
-          <div class="col-9">
-            <input class="form-control" name="tageler-uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}"/>
-          </div>
-        </div>
-          <div class="form-group row">
-            <label for="tageler-checkout_deadline" class="col-3 col-form-label">Absagen bis</label>
-            <div class="col-5">
-              <input class="form-control" name="tageler-deadline_date" type="date"/>
-            </div>
-            <div class="col-4">
-              <input class="form-control" name="tageler-deadline_time" type="time"/>
-            </div>
-          </div>
-            <div class="form-group row">
-              <label for="tageler-checkout_contact" class="col-3 col-form-label">Absagen bei:</label>
-              <div class="col-9">
-                <input class="form-control" name="name" [(ngModel)]="tageler.checkout.contact.name" placeholder="{{tageler.checkout.contact[0].name}}">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="tageler-checkout_contact_detail" class="col-3 col-form-label">Kanal:</label>
-              <div class="col-9">
-                <input class="form-control" name="phone" type="tel" [(ngModel)]="tageler.checkout.contact.phone" placeholder="{{tageler.checkout.contact[0].phone}}">
-                <input class="form-control" name="mail" type="email" [(ngModel)]="tageler.checkout.contact.mail" placeholder="{{tageler.checkout.contact[0].mail}}">
-                <input class="form-control" name="other" [(ngModel)]="tageler.checkout.contact.other" placeholder="{{tageler.checkout.contact[0].other}}">
-              </div>
-        </div>
-        <button class="btn btn-info" (click)="updateTageler(tageler)">Submit</button>
-        <button class="btn btn-info" (click)="cancel()">Cancel</button>
-      </form>
-      -->
   </div>
 </div>
-

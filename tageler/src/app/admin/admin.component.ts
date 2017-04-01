@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
   createSuccess: boolean;
   deleteSuccess: boolean;
   update: boolean;
+  view: boolean;
 
 
   public title: string = 'Warning';
@@ -133,11 +134,13 @@ export class AdminComponent implements OnInit {
     this.selectTageler(tageler);
     this.showTageler = false;
     this.update = false;
+    this.view = false;
   }
 
   showAllTageler() {
     this.showTageler = true;
     this.update = false;
+    this.view = false;
     this.selectedTageler = null;
   }
 
@@ -149,7 +152,8 @@ export class AdminComponent implements OnInit {
   onSubmitUpdate() {
     this.tageler = this.prepareUpdateTageler();
     this.tagelerService.updateTageler(this.tageler);
-    window.location.reload()
+    this.update = false;
+    this.view = true;
   }
 
   prepareSaveTageler(): Tageler {
@@ -207,11 +211,19 @@ export class AdminComponent implements OnInit {
 
   updateThisTageler(tageler: Tageler) {
     this.tageler = tageler;
+    this.view = false;
     this.update= true;
+  }
+
+  viewThisDetails(tageler: Tageler) {
+    this.tageler = tageler;
+    this.view = true;
+    this.update = false;
   }
 
   cancel() {
     this.update= false;
+    this.view = false;
 
   }
 }
