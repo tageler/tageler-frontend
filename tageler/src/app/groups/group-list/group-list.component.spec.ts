@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnitListComponent } from './group-list.component';
+import { GroupListComponent } from './group-list.component';
 
 import { GroupService } from '../group.service';
 
 
 describe('UnitListComponent', () => {
-  let component: UnitListComponent;
-  let fixture: ComponentFixture<UnitListComponent>;
+  let component: GroupListComponent;
+  let fixture: ComponentFixture<GroupListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnitListComponent ],
+      declarations: [ GroupListComponent ],
       providers: [{provide: GroupService}],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UnitListComponent);
+    fixture = TestBed.createComponent(GroupListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

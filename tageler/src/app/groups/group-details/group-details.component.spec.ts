@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UnitDetailsComponent } from './group-details.component';
+import { GroupDetailsComponent } from './group-details.component';
 
 
 import { FilterTagelerByUnitPipe } from '../../pipes/filterTagelerByGroup.pipe';
@@ -14,12 +14,12 @@ import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 
 describe('UnitDetailsComponent', () => {
-  let component: UnitDetailsComponent;
-  let fixture: ComponentFixture<UnitDetailsComponent>;
+  let component: GroupDetailsComponent;
+  let fixture: ComponentFixture<GroupDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UnitDetailsComponent,
+      declarations: [ GroupDetailsComponent,
         FilterTagelerByUnitPipe,
         SameDateTagelerPipe,
         CurrentTagelerPipe,
@@ -31,7 +31,7 @@ describe('UnitDetailsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UnitDetailsComponent);
+    fixture = TestBed.createComponent(GroupDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
