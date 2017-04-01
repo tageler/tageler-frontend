@@ -7,11 +7,16 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 
 @Injectable()
 export class TagelerService {
-  private tagelersUrlPost = 'http://127.0.0.1:3000/v1/tageler/admin/create';
-  private tagelersUrlGet = 'http://127.0.0.1:3000/v1/tageler/getTagelers';
-  private tagelersUrlGetById = 'http://127.0.0.1:3000/v1/tageler/getById';
-  private tagelerUrlDelete = 'http://127.0.0.1:3000/v1/tageler/admin/delete';
-  private tagelerUrlUpdate = 'http://127.0.0.1:3000/v1/tageler/admin/update';
+  // private tagelersUrlPost = 'http://127.0.0.1:3000/v1/tageler/admin/create';
+  // private tagelersUrlGet = 'http://127.0.0.1:3000/v1/tageler/getTagelers';
+  // private tagelersUrlGetById = 'http://127.0.0.1:3000/v1/tageler/getById';
+  // private tagelerUrlDelete = 'http://127.0.0.1:3000/v1/tageler/admin/delete';
+  // private tagelerUrlUpdate = 'http://127.0.0.1:3000/v1/tageler/admin/update';
+  private tagelersUrlPost = '/api/v1/tageler/admin/create';
+  private tagelersUrlGet = '/api/v1/tageler/getTagelers';
+  private tagelersUrlGetById = '/api/v1/tageler/getById';
+  private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
+  private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
