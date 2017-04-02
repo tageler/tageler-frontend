@@ -168,7 +168,7 @@ export class AdminComponent implements OnInit {
 
   onSubmitUpdate() {
     this.tageler = this.prepareUpdateTageler();
-    this.tagelerService.updateTageler(this.tageler);
+    this.tagelerService.updateTageler(this.tageler, this.picFile);
     this.update = false;
     this.view = true;
   }
@@ -233,16 +233,14 @@ export class AdminComponent implements OnInit {
     this.update= true;
   }
 
-<<<<<<< HEAD
   viewThisDetails(tageler: Tageler) {
     this.tageler = tageler;
     this.view = true;
     this.update = false;
-=======
+  }
   updateTageler(tageler: Tageler): void {
     this.tagelerService.updateTageler(tageler, this.picFile);
     window.location.reload()
->>>>>>> fileUpload
   }
 
   cancel() {
