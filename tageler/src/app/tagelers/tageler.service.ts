@@ -14,8 +14,8 @@ export class TagelerService {
   private tagelersUrlPost = '/api/v1/tageler/admin/create';
   private tagelersUrlGet = '/api/v1/tageler/getTagelers';
   private tagelersUrlGetById = '/api/v1/tageler/getById';
-  private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
-  private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
+  private tagelerUrlDelete = '/api/v1/tageler/admin/delete/';
+  private tagelerUrlUpdate = '/api/v1/tageler/admin/update/';
   private createdTageler:Tageler;
 
   constructor(private http: Http) { }
@@ -45,6 +45,7 @@ export class TagelerService {
     let formData:FormData = new FormData();
         console.log("add that picture! id: " + id);
         formData.append('picture', file, file.name);
+        formData.append('_id', id);
         let headers = new Headers();
         headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
@@ -84,7 +85,16 @@ export class TagelerService {
 
   // delete("/api/Tagelers/:id")
   deleteTageler(delTageler: String): Promise<String> {
-     return this.http.delete(this.tagelerUrlDelete + '/?_id=' + delTageler)
+    var fd:FormData = new FormData();
+    fd.append('_id', delTageler);
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+
+    console.log("delete tageler with ID: "+delTageler);
+     return this.http.delete(this.tagelerUrlDelete+'?_id='+delTageler,options)
        .toPromise()
        .then(response => response.json() as String)
        .catch(this.handleError);
@@ -92,7 +102,8 @@ export class TagelerService {
 
   // put("/api/contacts/:id")
   updateTageler(putTageler: Tageler, file: File): Promise<Tageler> {
-     var putUrl = this.tagelerUrlUpdate + '/?_id=' + putTageler._id;
+    console.log("Update ID: " + putTageler._id);
+     var putUrl = this.tagelerUrlUpdate;// + '?_id=' + putTageler._id;
      return this.http.put(putUrl, putTageler)
        .toPromise()
        .then(res => {

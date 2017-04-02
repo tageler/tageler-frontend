@@ -123,7 +123,7 @@ export class AdminComponent implements OnInit {
     var tageler: Tageler = {
       title: '',
       text: '',
-      group: ['ss'],
+      group: [''],
       start: new Date,
       end: new Date,
       bring_along: '',
@@ -156,14 +156,7 @@ export class AdminComponent implements OnInit {
 
   onSubmit() {
     this.tageler = this.prepareSaveTageler();
-    this.tagelerService.createTageler(this.tageler,this.picFile)
-    .then(
-      res =>{
-        this.tageler = res;
-        while (res._id)
-        console.log("id: " + this.tageler._id); 
-      }
-    )
+    this.tagelerService.createTageler(this.tageler,this.picFile);
   }
 
   onSubmitUpdate() {
@@ -201,6 +194,7 @@ export class AdminComponent implements OnInit {
 
   prepareUpdateTageler(): Tageler {
     const updateTageler: Tageler= {
+      _id: this.tageler._id,
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
       group: [this.tagelerForm.value.group as string],

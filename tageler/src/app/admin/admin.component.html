@@ -231,7 +231,8 @@
             <div class="form-group row">
               <label class="col-3 col-form-label">Image upload:</label>
               <div class="col-9">
-                <input type="file" ng2FileSelect [uploader]="uploader" />
+                <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+                <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
               </div>
             </div>
           </fieldset>
@@ -324,7 +325,9 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Image upload:</label>
             <div class="col-9">
-              <input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
+              <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+              <input class="form-control" formControlName="picture" [(ngModel)]="tageler.picture" placeholder="{{tageler.picture}}">
             </div>
           </div>
           <button class="btn btn-info" type="submit">Save</button>
