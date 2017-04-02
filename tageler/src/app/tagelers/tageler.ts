@@ -8,6 +8,7 @@ export class Tageler {
   bring_along: string;
   uniform: string;
   picture?: string;
+  picture_file?: File;
   checkout? :{
     deadline?: Date;
     contact? :[{

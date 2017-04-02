@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Tageler } from './tageler';
-import {Http, HttpModule, Headers, Response} from '@angular/http';
+import {Http, HttpModule, Headers, Response, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+// import {Observable} from "RxJS/Rx";
 import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
-// import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
+import 'rxjs/add/operator/map';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
+
+
 
 @Injectable()
 export class TagelerService {
-  // private tagelersUrlPost = 'http://127.0.0.1:3000/v1/tageler/admin/create';
-  // private tagelersUrlGet = 'http://127.0.0.1:3000/v1/tageler/getTagelers';
-  // private tagelersUrlGetById = 'http://127.0.0.1:3000/v1/tageler/getById';
-  // private tagelerUrlDelete = 'http://127.0.0.1:3000/v1/tageler/admin/delete';
-  // private tagelerUrlUpdate = 'http://127.0.0.1:3000/v1/tageler/admin/update';
   private tagelersUrlPost = '/api/v1/tageler/admin/create';
   private tagelersUrlGet = '/api/v1/tageler/getTagelers';
   private tagelersUrlGetById = '/api/v1/tageler/getById';
   private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
   private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
+  private createdTageler:Tageler;
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
@@ -41,11 +41,41 @@ export class TagelerService {
         .catch(this.handleError);
   }
 
+  uploadPicture(id: String, file: File): Promise<Tageler>{
+    let formData:FormData = new FormData();
+        console.log("add that picture! id: " + id);
+        formData.append('picture', file, file.name);
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put('/api/v1/tageler/admin/update/?_id='+id,formData)
+          .toPromise()
+          .then(res => res.json() as Tageler)
+          .catch(this.handleError);
+
+  }
+
   // post("/api/Tagelers")
-  createTageler(newTageler: Tageler): Promise<Tageler> {
-    return this.http.post(this.tagelersUrlPost, newTageler)
+  createTageler(newTageler: Tageler, file: File): Promise<Tageler> {
+    console.log(JSON.stringify(newTageler));
+    // let formData:FormData = new FormData();
+    // formData.append('picture', file, file.name);
+    // formData.append('_id', "123456789");
+    // formData.append('tageler', JSON.stringify(newTageler));
+
+    return this.http.post(this.tagelersUrlPost,newTageler)
       .toPromise()
-      .then(response => response.json() as Tageler)
+      .then(res => {
+        if (typeof file !== "undefined"){
+          let id:string = JSON.parse(res.text()).result._id.toString();
+          // console.log("ID: "+id);
+          return this.uploadPicture(id,file);
+        }else{
+          return res.json() as Tageler;
+        }
+      })
       .catch(this.handleError);
 
   }
@@ -61,12 +91,20 @@ export class TagelerService {
   }
 
   // put("/api/contacts/:id")
-  updateTageler(putTageler: Tageler): Promise<Tageler> {
+  updateTageler(putTageler: Tageler, file: File): Promise<Tageler> {
      var putUrl = this.tagelerUrlUpdate + '/?_id=' + putTageler._id;
      return this.http.put(putUrl, putTageler)
        .toPromise()
-       .then(response => response.json() as Tageler)
-       .catch(this.handleError);
+       .then(res => {
+        if (typeof file !== "undefined"){
+          let id:string = JSON.parse(res.text()).result._id.toString();
+          // console.log("ID: "+id);
+          return this.uploadPicture(id,file);
+        }else{
+          return res.json() as Tageler;
+        }
+      })
+      .catch(this.handleError);
   }
 
   private handleError (error: any) {

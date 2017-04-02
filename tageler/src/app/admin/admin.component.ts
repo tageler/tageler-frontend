@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
   deleteSuccess: boolean;
   update: boolean;
   view: boolean;
+  picFile: File;
 
 
   public title: string = 'Warning';
@@ -54,6 +55,14 @@ export class AdminComponent implements OnInit {
     this.createForm();
   }
 
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    console.log("New File!");
+    console.log("it is: " + fileList[0].name);
+    
+    this.picFile = fileList[0];
+  }
+
   createForm() {
     this.tagelerForm = this.fb.group({
       title: '',
@@ -66,6 +75,7 @@ export class AdminComponent implements OnInit {
       bring_along: '',
       uniform: '',
       picture: '',
+      picture_file: '',
       checkout: this.fb.group({
         deadline_date: Date,
         deadline_time: '',
@@ -113,7 +123,7 @@ export class AdminComponent implements OnInit {
     var tageler: Tageler = {
       title: '',
       text: '',
-      group: [''],
+      group: ['ss'],
       start: new Date,
       end: new Date,
       bring_along: '',
@@ -146,7 +156,14 @@ export class AdminComponent implements OnInit {
 
   onSubmit() {
     this.tageler = this.prepareSaveTageler();
-    this.tagelerService.createTageler(this.tageler);
+    this.tagelerService.createTageler(this.tageler,this.picFile)
+    .then(
+      res =>{
+        this.tageler = res;
+        while (res._id)
+        console.log("id: " + this.tageler._id); 
+      }
+    )
   }
 
   onSubmitUpdate() {
@@ -166,6 +183,7 @@ export class AdminComponent implements OnInit {
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.tagelerForm.value.picture as string,
+      picture_file: this.picFile,
       checkout : {
         deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time),
         contact: [{
@@ -215,10 +233,16 @@ export class AdminComponent implements OnInit {
     this.update= true;
   }
 
+<<<<<<< HEAD
   viewThisDetails(tageler: Tageler) {
     this.tageler = tageler;
     this.view = true;
     this.update = false;
+=======
+  updateTageler(tageler: Tageler): void {
+    this.tagelerService.updateTageler(tageler, this.picFile);
+    window.location.reload()
+>>>>>>> fileUpload
   }
 
   cancel() {

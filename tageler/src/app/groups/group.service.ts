@@ -7,9 +7,6 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 
 @Injectable()
 export class GroupService {
-  // private groupsUrlPost = 'http://127.0.0.1:3000/v1/group/admin/create';
-  // private groupsUrlGet = 'http://127.0.0.1:3000/v1/group/getGroups';
-  // private groupsUrlGetById = 'http://127.0.0.1:3000/v1/group/getById';
   private groupsUrlPost = '/api/v1/group/admin/create';
   private groupsUrlGet = '/api/v1/group/getGroups';
   private groupsUrlGetById = '/api/v1/group/getById';
