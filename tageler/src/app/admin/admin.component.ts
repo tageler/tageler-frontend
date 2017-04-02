@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
   createSuccess: boolean;
   deleteSuccess: boolean;
   update: boolean;
+  picFile: File;
 
 
   public title: string = 'Warning';
@@ -57,6 +58,14 @@ export class AdminComponent implements OnInit {
     this.createForm();
   }
 
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    console.log("New File!");
+    console.log("it is: " + fileList[0].name);
+    
+    this.picFile = fileList[0];
+  }
+
   createForm() {
     this.tagelerForm = this.fb.group({
       title: '',
@@ -69,6 +78,7 @@ export class AdminComponent implements OnInit {
       bring_along: '',
       uniform: '',
       picture: '',
+      picture_file: '',
       checkout: this.fb.group({
         deadline: Date,
         contact: this.fb.group({
@@ -115,7 +125,7 @@ export class AdminComponent implements OnInit {
     var tageler: Tageler = {
       title: '',
       text: '',
-      group: [''],
+      group: ['ss'],
       start: new Date,
       end: new Date,
       bring_along: '',
@@ -146,7 +156,14 @@ export class AdminComponent implements OnInit {
 
   onSubmit() {
     this.tageler = this.prepareSaveTageler();
-    this.tagelerService.createTageler(this.tageler);
+    this.tagelerService.createTageler(this.tageler,this.picFile)
+    .then(
+      res =>{
+        this.tageler = res;
+        while (res._id)
+        console.log("id: " + this.tageler._id); 
+      }
+    )
   }
 
   prepareSaveTageler(): Tageler {
@@ -159,6 +176,7 @@ export class AdminComponent implements OnInit {
       bring_along: this.tagelerForm.value.bring_along as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.tagelerForm.value.picture as string,
+      picture_file: this.picFile,
       checkout : {
         deadline: this.tagelerForm.value.checkout.deadline as Date,
         contact: [{
@@ -185,7 +203,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler);
+    this.tagelerService.updateTageler(tageler, this.picFile);
     window.location.reload()
   }
 
