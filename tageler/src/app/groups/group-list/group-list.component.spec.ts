@@ -5,7 +5,7 @@ import { GroupListComponent } from './group-list.component';
 import { GroupService } from '../group.service';
 
 
-describe('UnitListComponent', () => {
+describe('GroupListComponent', () => {
   let component: GroupListComponent;
   let fixture: ComponentFixture<GroupListComponent>;
 

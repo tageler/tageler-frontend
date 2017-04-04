@@ -13,13 +13,15 @@ import {
   HttpModule,
 } from '@angular/http'
 
-import { FilterTagelerByUnitPipe } from '../../pipes/filterTagelerByGroup.pipe';
+import { FilterTagelerByGroupPipe } from '../../pipes/filterTagelerByGroup.pipe';
 import { SameDateTagelerPipe } from '../../pipes/sameDateTageler.pipe';
 import { CurrentTagelerPipe } from '../../pipes/currentTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
 
 import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
+import { Tageler } from '../tageler';
+
 
 describe('TagelerComponent', () => {
   let component: TagelerComponent;
@@ -28,12 +30,13 @@ describe('TagelerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TagelerComponent,
-        FilterTagelerByUnitPipe,
+        FilterTagelerByGroupPipe,
         SameDateTagelerPipe,
         CurrentTagelerPipe,
-        NextTagelerPipe, ],
+        NextTagelerPipe,
+        ],
       imports: [ FormsModule, ReactiveFormsModule, HttpModule, RouterTestingModule ],
-      providers: [{provide: TagelerService}, {provide: GroupService}],
+      providers: [{provide: TagelerService}, {provide: GroupService}, {provide: Tageler}],
     })
     .compileComponents();
   }));
