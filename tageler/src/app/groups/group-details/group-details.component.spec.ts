@@ -14,10 +14,11 @@ import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 
 describe('GroupDetailsComponent', () => {
+
   let component: GroupDetailsComponent;
   let fixture: ComponentFixture<GroupDetailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ GroupDetailsComponent,
         FilterTagelerByGroupPipe,
@@ -27,16 +28,30 @@ describe('GroupDetailsComponent', () => {
       imports: [ RouterTestingModule ],
       providers: [{provide: GroupService}, {provide: TagelerService}],
     })
-    .compileComponents();
-  }));
+      .overrideComponent(GroupDetailsComponent, {
+        set: {
+          providers: [
+            {provide: GroupService, useClass: MockGroupService}
+          ]
+        }
+      });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(GroupDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  class MockGroupService {
+    getGroups(): Array<Group> {
+      let toReturn: Array<Group> = [];
+        toReturn.push(new Group('Trupp', 'Gruppe 1'));
+      return toReturn;
+    };
+  }
+
+
+  it('should create component', () => {
+    expect(component).toBeDefined();
   });
 });

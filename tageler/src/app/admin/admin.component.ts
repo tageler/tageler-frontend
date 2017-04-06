@@ -59,7 +59,7 @@ export class AdminComponent implements OnInit {
     let fileList: FileList = event.target.files;
     console.log("New File!");
     console.log("it is: " + fileList[0].name);
-    
+
     this.picFile = fileList[0];
   }
 
@@ -120,25 +120,25 @@ export class AdminComponent implements OnInit {
   }
 
   createNewTageler() {
-    var tageler: Tageler = {
-      title: '',
-      text: '',
-      group: [''],
-      start: new Date,
-      end: new Date,
-      bring_along: '',
-      uniform: '',
-      picture: '',
-      checkout: {
-        deadline: new Date,
-        contact: [{
-          name: '',
-          phone: '',
-          mail: '',
-          other: '',
-        }]
-      }
-    };
+      var tageler: Tageler = {
+        title: '',
+        text: '',
+        group: [''],
+        start: new Date,
+        end: new Date,
+        bring_along: '',
+        uniform: '',
+        picture: '',
+        checkout: {
+          deadline: new Date,
+          contact: [{
+            name: '',
+            phone: '',
+            mail: '',
+            other: '',
+          }]
+        }
+      };
 
 // By default, a newly-created tageler will have the selected state.
     this.selectTageler(tageler);
