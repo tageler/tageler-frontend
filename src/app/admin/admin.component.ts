@@ -102,14 +102,6 @@ export class AdminComponent implements OnInit {
   /***************************
    Manage buttons and forms
    **************************/
-  showListOfTagelers() {
-    this.showTageler = true;
-    this.showGroups = false;
-    this.update = false;
-    this.view = false;
-    this.selectedGroup = null;
-  }
-
   showListOfGroups() {
     this.showGroups = true;
   }
@@ -159,6 +151,12 @@ export class AdminComponent implements OnInit {
     this.createTageler = true;
     this.update = false;
     this.view = false;
+  }
+
+  cancelCreateTageler() {
+    this.createTageler = false;
+    this.showTageler = true;
+    this.selectedTageler = null;
   }
 
   showUpdateForm(tageler: Tageler) {

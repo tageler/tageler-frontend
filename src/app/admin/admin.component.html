@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2" *ngIf="!createTageler">
-      <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
-    </div>
     <div>
-      <div class="col-md-2" *ngIf="!showGroups">
-        <button class="btn btn-primary" (click)="showListOfTagelers()">Alle Tageler anzeigen</button>
+      <div class="col-md-2" *ngIf="!createTageler">
+        <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
+      </div>
+      <div class="col-md-2" *ngIf="createTageler">
+        <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
       </div>
     </div>
     <div>
