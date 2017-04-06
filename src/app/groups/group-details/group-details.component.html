@@ -1,16 +1,46 @@
 <div class="container" *ngIf="group">
   <h3>Tagelers of {{group.name}}</h3>
   <div class="row">
-    <div *ngFor="let tageler of tagelers | tagelerFilter: group">
-      <a href="../tageler-details/{{tageler._id}}">
-        <div class="card" style="width: 20rem;">
-          <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
-          <div class="card-block">
-            <h4 class="card-title">{{tageler.title}}</h4>
+    <div *ngFor="let tageler of tagelers | nextTagelerFilter: group ">
+      <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col md-6">
+              <h3 class="card-title">{{tageler.title}}</h3>
+              <h5> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br>
+                  {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</h5>
+              <p class="card-text">{{tageler.text}}</p>
+              <p class="card-text">{{tageler.group}}</p>
+              <p class="card-text">{{tageler.bring_along}}</p>
+              <p class="card-text">{{tageler.uniform}}</p>
+            </div>
+            <div class="col-md-6">
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+                <p>Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
+                <p>Bei: {{tageler.checkout.contact[0].name}} </p>
+                <ul>
+                  <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
+                  <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-      </a>
+      </div>
+    </div>
+    <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
+      <div *ngFor="let tageler of tagelers | otherTagelerFilter: group">
+        <a href="../tageler-details/{{tageler._id}}">
+          <div class="card">
+            <img class="card-img-top" src={{tageler.picture}} width="318" height="180">
+            <div class="card-block">
+              <h4 class="card-title">{{tageler.title}}</h4>
+              <h4 class="card-title">{{ tageler.start | date: 'fullDate'}}</h4>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </div>
-

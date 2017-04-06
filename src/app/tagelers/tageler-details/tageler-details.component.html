@@ -19,8 +19,8 @@
           <p *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
           <p>Bei: {{tageler.checkout.contact[0].name}} </p>
           <ul>
-            <li>Tel: {{tageler.checkout.contact[0].mail}}</li>
-            <li>Mail: {{tageler.checkout.contact[0].phone}}</li>
+            <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
+            <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
           </ul>
         </div>
       </div>

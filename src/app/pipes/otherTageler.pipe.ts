@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Tageler } from "../tagelers/tageler";
 
 @Pipe({
-  name: 'nextTagelerFilter',
+  name: 'otherTagelerFilter',
 })
 
-export class NextTagelerPipe implements PipeTransform {
+export class OtherTagelerPipe implements PipeTransform {
   transform(tagelers: Tageler[], args: any): any {
     var nextTageler: Tageler;
     if (tagelers==null) {
@@ -18,6 +18,7 @@ export class NextTagelerPipe implements PipeTransform {
       tagelers = tagelers.filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
     }
     nextTageler = tagelers[0];
-    return tagelers.filter(tageler => tageler == nextTageler);
+
+    return tagelers.filter(tageler => new Date(tageler.start) > new Date(nextTageler.start));
   }
 }

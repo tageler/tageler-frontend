@@ -1,200 +1,35 @@
 <div class="container">
-
-  <div class="form-inline">
-    <label class="mr-sm-2" for="inlineFormCustomSelect"><h4>Tageler von:</h4></label>
-    <select name="selectedGroupForTagelerView-group" [(ngModel)]="selectedGroupForTagelerView" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
-      <option *ngFor="let group of groups" [value]="group._id">{{group.name}}</option>
-    </select>
-    <button class="btn btn-secondary" routerLink="/group/{{selectedGroupForTagelerView}}">Los</button>
-  </div>
-
-  <h4>Laufend:</h4>
-  <div *ngFor="let tageler of tagelers | currentTagelerFilter">
-    <div class="card">
-      <div class="card-block">
-        <div class="row">
-          <div class="col md-6">
-            <h3 class="card-title">{{tageler.title}}</h3>
-            <h5> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br>
-              {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</h5>
-            <p class="card-text">{{tageler.text}}</p>
-            <p class="card-text">{{tageler.group}}</p>
-            <p class="card-text">{{tageler.bring_along}}</p>
-            <p class="card-text">{{tageler.uniform}}</p>
-          </div>
-          <div class="col-md-6">
-            <div class="alert alert-warning" role="alert">
-              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p>Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
-              <p>Bei: {{tageler.checkout.contact[0].name}} </p>
-              <ul>
-                <li>{{tageler.checkout.contact[0].phone}}</li>
-                <li>{{tageler.checkout.contact[0].mail}}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+  <h2>Gruppen</h2>
+  <div class="row">
+    <div class="col md-4">
+      <h4>Trupp</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
+        <a href="../group/{{group._id}}">
+          <li class="list-group-item">
+            {{group.name}}
+          </li>
+        </a>
       </div>
     </div>
-  </div>
-
-  <h4>Nächster Tageler:</h4>
-  <div *ngFor="let tageler of tagelers | tagelerDateFilter">
-    <div class="card">
-      <div class="card-block">
-        <div class="row">
-          <div class="col md-6">
-            <h3 class="card-title">{{tageler.title}}</h3>
-            <h5> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br> {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</h5>
-            <p class="card-text">{{tageler.text}}</p>
-            <p class="card-text">{{tageler.group}}</p>
-            <p class="card-text">{{tageler.bring_along}}</p>
-            <p class="card-text">{{tageler.uniform}}</p>
-          </div>
-          <div class="col-md-6">
-            <div class="alert alert-warning" role="alert">
-              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p>Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
-              <p>Bei: {{tageler.checkout.contact[0].name}} </p>
-              <ul>
-                <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
-                <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+    <div class="col md-4">
+      <h4>Meute</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
+        <a href="../group/{{group._id}}">
+          <li class="list-group-item">
+            {{group.name}}
+          </li>
+        </a>
       </div>
     </div>
-  </div>
-
-  <h4>Zukünftige Events</h4>
-  <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
-    <div *ngFor="let tageler of tagelers | nextTagelerFilter">
-      <a href="../tageler-details/{{tageler._id}}">
-        <div class="card-tageler" style="width: 20em; margin-right: 20px; margin-bottom: 20px;">
-          <img class="card-img-top" src={{tageler.picture}} width="318" height="180"> <!--width="242" height="200" -->
-          <div class="card-block">
-            <h4 class="card-title">{{tageler.title}}</h4>
-          </div>
-        </div>
-      </a>
+    <div class="col md-4">
+      <h4>Equipe</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
+        <a href="../group/{{group._id}}">
+          <li class="list-group-item">
+            {{group.name}}
+          </li>
+        </a>
+      </div>
     </div>
   </div>
 </div>
-
-  <!--
-  <div class="col-md-5 col-md-offset-2">
-    <div *ngIf="tageler" class="row">
-      <div class="col-md-12">
-        <h2 *ngIf="selectedTageler._id">Tageler Details</h2>
-        <h2 *ngIf="!selectedTageler._id">New Tageler</h2>
-      </div>
-    </div>
-    <div *ngIf="selectedTageler" class="row">
-
-      <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Name:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="title">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Text:</label>
-          <div class="col-9">
-            <textarea class="form-control" formControlName="text" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Datum:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="date" type="date" useValueAsDate>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Einheit:</label>
-          <div class="col-9">
-          <select class="form-control" formControlName="unit">
-            <option *ngFor="let unit of groups" value={{unit.name}}>{{unit.name}}</option>
-          </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Start:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="start">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Ende:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="end">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Mitbringen:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="bring_along">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Kleidung:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="uniform">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Absagen bis:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="checkout_deadline" type="date" useValueAsDate>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Image upload:</label>
-          <div class="col-9">
-            <input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-secondary">Create</button>
-      </form>
-
-
-      // old form
-      <form class="col-md-12">
-        <div class="form-group">
-          <label for="tageler-titel">Titel</label>
-          <input class="form-control" name="tageler-titel" [(ngModel)]="selectedTageler.title" placeholder="Titel"/>
-        </div>
-        <div class="form-group">
-          <label for="tageler-einheit">Einheit:</label>
-            <select class="form-control" name="tageler-unit" [(ngModel)]="selectedTageler.unit">
-              <option *ngFor="let unit of groups" [value]="unit">{{unit.name}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-          <label for="tageler-start">Start</label>
-          <input class="form-control" name="tageler-start" [(ngModel)]="selectedTageler.start" placeholder="14:00"/>
-        </div>
-        <div class="form-group">
-          <label for="tageler-end">Ende</label>
-          <input class="form-control" name="tageler-end" [(ngModel)]="selectedTageler.end" placeholder="17:00"/>
-        </div>
-        <div class="form-group">
-          <label for="tageler-bring_along">Mitbringen</label>
-          <input class="form-control" name="tageler-titel" [(ngModel)]="selectedTageler.bring_along" placeholder="BST"/>
-        </div>
-        <div class="form-group">
-          <label for="tageler-uniform">Kleidung</label>
-          <input class="form-control" name="tageler-uniform" [(ngModel)]="selectedTageler.uniform" placeholder="Jacke"/>
-        </div>
-        <div class="form-group">
-          <label for="tageler-checkout_deadline">Absagen bis</label>
-          <input class="form-control" name="tageler-checkout_deadline" [(ngModel)]="selectedTageler.checkout_deadline" />
-        </div>
-        <button class="btn btn-primary" *ngIf="!selectedTageler._id" (click)="createTageler(selectedTageler)">Create</button>
-        <button class="btn btn-info" *ngIf="selectedTageler._id" (click)="updateTageler(selectedTageler)">Update</button>
-        <button class="btn btn-danger" *ngIf="selectedTageler._id" (click)="deleteTageler(selectedTageler._id)">Delete</button>
-      </form>
-    </div>
-  </div>
-  -->

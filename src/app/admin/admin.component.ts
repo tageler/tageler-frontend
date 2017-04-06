@@ -32,6 +32,8 @@ export class AdminComponent implements OnInit {
   selectedTageler: Tageler;
   selectedGroup: Group;
   showTageler = true;
+  createTageler = false;
+  showGroups = false;
   createSuccess: boolean;
   deleteSuccess: boolean;
   update: boolean;
@@ -39,8 +41,8 @@ export class AdminComponent implements OnInit {
   picFile: File;
 
 
-  public title: string = 'Warning';
-  public message: string = 'Do you want to delete this tageler?';
+  public title: string = 'Achtung';
+  public message: string = 'Soll dieser Tageler wirklich gelöscht werden?';
 
   public uploader:FileUploader = new FileUploader({url: URL});
 
@@ -61,32 +63,6 @@ export class AdminComponent implements OnInit {
     console.log("it is: " + fileList[0].name);
 
     this.picFile = fileList[0];
-  }
-
-  createForm() {
-    this.tagelerForm = this.fb.group({
-      title: '',
-      text: '',
-      group: [''],
-      date_start: Date,
-      date_end: Date,
-      time_start: '',
-      time_end: '',
-      bring_along: '',
-      uniform: '',
-      picture: '',
-      picture_file: '',
-      checkout: this.fb.group({
-        deadline_date: Date,
-        deadline_time: '',
-        contact: this.fb.group({
-          name: '',
-          phone: '',
-          mail: '',
-          other: '',
-        })
-      })
-    });
   }
 
   ngOnInit() {
@@ -119,52 +95,114 @@ export class AdminComponent implements OnInit {
     this.selectedGroup = this.groups.find(x => x._id === tageler._id);
   }
 
-  createNewTageler() {
-      var tageler: Tageler = {
-        title: '',
-        text: '',
-        group: [''],
-        start: new Date,
-        end: new Date,
-        bring_along: '',
-        uniform: '',
-        picture: '',
-        checkout: {
-          deadline: new Date,
-          contact: [{
-            name: '',
-            phone: '',
-            mail: '',
-            other: '',
-          }]
-        }
-      };
-
-// By default, a newly-created tageler will have the selected state.
-    this.selectTageler(tageler);
-    this.showTageler = false;
-    this.update = false;
-    this.view = false;
+  selectGroup(group: Group) {
+    this.selectedGroup = group;
   }
 
-  showAllTageler() {
+  /***************************
+   Manage buttons and forms
+   **************************/
+  showListOfTagelers() {
     this.showTageler = true;
+    this.showGroups = false;
     this.update = false;
     this.view = false;
-    this.selectedTageler = null;
+    this.selectedGroup = null;
   }
 
-  onSubmit() {
-    this.tageler = this.prepareSaveTageler();
-    this.tagelerService.createTageler(this.tageler,this.picFile);
+  showListOfGroups() {
+    this.showGroups = true;
   }
 
-  onSubmitUpdate() {
-    this.tageler = this.prepareUpdateTageler();
-    this.tagelerService.updateTageler(this.tageler, this.picFile);
+  hideListOfGroups() {
+    this.showGroups = false;
+  }
+
+  closeDetailsOfTageler() {
+    this.view = false;
+  }
+
+  unselectSelectedGroups() {
+    this.selectedGroup = null;
+    this.showGroups = true;
+    this.showTageler = true;
+  }
+
+  showCreateTagelerForm() {
+    var tageler: Tageler = {
+      title: '',
+      text: '',
+      group: [''],
+      start: new Date,
+      end: new Date,
+      bring_along: '',
+      uniform: '',
+      picture: '',
+      checkout: {
+        deadline: new Date,
+        contact: [{
+          name: '',
+          phone: '',
+          mail: '',
+          other: '',
+        }]
+      }
+    };
+
+    // By default, a newly-created tageler will have the selected state.
+    this.selectTageler(tageler);
+
+    // Hide other buttons and forms
+    this.selectedGroup = null;
+    this.showGroups = false;
+    this.showTageler = false;
+    this.createTageler = true;
     this.update = false;
-    this.view = true;
+    this.view = false;
   }
+
+  showUpdateForm(tageler: Tageler) {
+    this.tageler = tageler;
+    this.view = false;
+    this.update= true;
+  }
+
+  showDetailForm(tageler: Tageler) {
+    this.tageler = tageler;
+    this.view = true;
+    this.update = false;
+  }
+
+  /***************************
+  Create & save new Tageler
+   **************************/
+
+  createForm() {
+    this.tagelerForm = this.fb.group({
+      title: '',
+      text: '',
+      group: [''],
+      date_start: Date,
+      date_end: Date,
+      time_start: '',
+      time_end: '',
+      bring_along: '',
+      uniform: '',
+      picture: '',
+      picture_file: '',
+      checkout: this.fb.group({
+        deadline_date: Date,
+        deadline_time: '',
+        contact: this.fb.group({
+          name: '',
+          phone: '',
+          mail: '',
+          other: '',
+        })
+      })
+    });
+  }
+
 
   prepareSaveTageler(): Tageler {
     const saveTageler: Tageler= {
@@ -192,6 +230,26 @@ export class AdminComponent implements OnInit {
     return saveTageler;
   }
 
+
+  saveNewTageler() {
+    this.tageler = this.prepareSaveTageler();
+    this.createTageler = false;
+    this.showTageler = true;
+    this.tagelerService.createTageler(this.tageler,this.picFile);
+  }
+
+
+  /***************************
+   Update Tageler
+   **************************/
+
+  updateTageler() {
+    this.tageler = this.prepareUpdateTageler();
+    this.tagelerService.updateTageler(this.tageler, this.picFile);
+    this.update = false;
+    this.view = true;
+  }
+
   prepareUpdateTageler(): Tageler {
     const updateTageler: Tageler= {
       _id: this.tageler._id,
@@ -216,30 +274,16 @@ export class AdminComponent implements OnInit {
     return updateTageler;
   }
 
-  deleteTageler(tageler: Tageler): void {
+  cancelUpdate() {
+    this.update= false;
+  }
+
+  /***************************
+   Delete Tageler
+   **************************/
+  deleteSelectedTageler(tageler: Tageler): void {
     this.tagelerService.deleteTageler(tageler._id);
     window.location.reload()
   }
 
-  updateThisTageler(tageler: Tageler) {
-    this.tageler = tageler;
-    this.view = false;
-    this.update= true;
-  }
-
-  viewThisDetails(tageler: Tageler) {
-    this.tageler = tageler;
-    this.view = true;
-    this.update = false;
-  }
-  updateTageler(tageler: Tageler): void {
-    this.tagelerService.updateTageler(tageler, this.picFile);
-    window.location.reload()
-  }
-
-  cancel() {
-    this.update= false;
-    this.view = false;
-
-  }
 }

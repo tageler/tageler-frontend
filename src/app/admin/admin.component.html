@@ -1,11 +1,50 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <button class="btn btn-primary" (click)="createNewTageler()">New Tageler</button>
+    <div class="col-md-2" *ngIf="!createTageler">
+      <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
     </div>
-    <div *ngIf="!showTageler">
-      <div class="col-md-2">
-        <button class="btn btn-primary" (click)="showAllTageler()">Show Tageler</button>
+    <div>
+      <div class="col-md-2" *ngIf="!showGroups">
+        <button class="btn btn-primary" (click)="showListOfTagelers()">Alle Tageler anzeigen</button>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-2" *ngIf="!showGroups && !createTageler">
+        <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
+      </div>
+      <div class="col-md-2" *ngIf="showGroups && !createTageler">
+        <button class="btn btn-primary" (click)="hideListOfGroups()">Ansicht schliessen</button>
+      </div>
+    </div>
+    <div class="col-md-2" *ngIf="showGroups && !createTageler">
+      <button class="btn btn-primary" (click)="unselectSelectedGroups()">Auswahl aufheben</button>
+    </div>
+  </div>
+
+  <div *ngIf="showGroups">
+  <div class="row">
+    <div class="col md-4">
+      <h4>Trupp</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
+        <button class="btn btn-secondary" (click)="selectGroup(group)">
+            {{group.name}}
+        </button>
+      </div>
+    </div>
+    <div class="col md-4">
+      <h4>Meute</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
+        <button class="btn btn-secondary" (click)="selectGroup(group)">
+          {{group.name}}
+        </button>
+      </div>
+    </div>
+    <div class="col md-4">
+      <h4>Equipe</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
+        <button class="btn btn-secondary" (click)="selectGroup(group)">
+          {{group.name}}
+        </button>
       </div>
     </div>
   </div>
@@ -17,7 +56,7 @@
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <p>Tageler successfully created.</p>
+      <p>Tageler erfolgreich erstellt!</p>
     </div>
   </div>
   <div *ngIf="deleteSuccess">
@@ -25,13 +64,16 @@
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <p>Tageler successfully deleted.</p>
+      <p>Tageler erfolgreich gelöscht!</p>
     </div>
   </div>
+  </div>
 
-  <div class="col-md-4">
+
+  <!-- Create tageler form -->
+  <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
-      <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()" novalidate>
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
@@ -110,43 +152,45 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-3 col-form-label">Image upload:</label>
+          <label class="col-3 col-form-label">Bild hochladen:</label>
           <div class="col-9">
             <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
             <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
             <input class="form-control" formControlName="picture" placeholder="url">
           </div>
         </div>
-        <button type="submit" class="btn btn-secondary">Create</button>
+        <button type="submit" class="btn btn-secondary">Speichern</button>
       </form>
     </div>
   </div>
 
+  <!-- Tageler Cards -->
   <div class="row">
-  <div class="col-md-6">
-    <div class="row">
-      <div *ngIf="showTageler">
-        <div *ngFor="let tageler of tagelers">
-          <div class="card w-100">
-            <div class="card-block">
-              <h4 class="card-title">{{tageler.title}}</h4>
-              <p class="card-text">{{tageler.text}}</p>
-              <button class="btn btn-danger"
+    <div class="col-md-6">
+      <div class="row">
+        <div *ngIf="showTageler">
+          <div *ngFor="let tageler of tagelers | tagelerByGroup: selectedGroup">
+            <div class="card w-100">
+              <div class="card-block">
+                <h4 class="card-title">{{tageler.title}}</h4>
+                <p class="card-text">{{tageler.text}}</p>
+                <button class="btn btn-danger"
                       mwlConfirm
                       [title]="title"
                       [message]="message"
                       (cancel)="cancelClicked = true"
                       placement="top"
-                      (confirm)="deleteTageler(tageler)">Delete Tageler</button>
-              <button class="btn btn-info" (click)="viewThisDetails(tageler)">View Details</button>
-              <button class="btn btn-info" (click)="updateThisTageler(tageler)">Update</button>
+                      (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
+                <button class="btn btn-info" (click)="showDetailForm(tageler)">Details</button>
+                <button class="btn btn-info" (click)="showUpdateForm(tageler)">Edit</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
+    <!-- Shows details of selected tageler in a form -->
     <div *ngIf="view">
       <div class="col-md-12">
         <form [formGroup]="tagelerForm">
@@ -229,21 +273,23 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-3 col-form-label">Image upload:</label>
+              <label class="col-3 col-form-label">Bild hochladen:</label>
               <div class="col-9">
                 <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
                 <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
               </div>
             </div>
           </fieldset>
-          <button class="btn btn-info" (click)="cancel()">Close</button>
+          <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
         </form>
       </div>
     </div>
 
+
+    <!-- Update Form -->
     <div *ngIf="update">
       <div class="col-md-12">
-        <form [formGroup]="tagelerForm"  (ngSubmit)="onSubmitUpdate()" novalidate>
+        <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
           <div class="form-group row">
             <label class="col-3 col-form-label">Titel:</label>
             <div class="col-9">
@@ -323,15 +369,15 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Image upload:</label>
+            <label class="col-3 col-form-label">Bild hochladen:</label>
             <div class="col-9">
               <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
               <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
               <input class="form-control" formControlName="picture" [(ngModel)]="tageler.picture" placeholder="{{tageler.picture}}">
             </div>
           </div>
-          <button class="btn btn-info" type="submit">Save</button>
-          <button class="btn btn-info" (click)="cancel()">Cancel</button>
+          <button class="btn btn-info" type="submit">Speichern</button>
+          <button class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
         </form>
       </div>
     </div>

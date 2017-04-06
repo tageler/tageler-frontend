@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
-import { GroupListComponent } from './groups/group-list/group-list.component';
 
 import { GroupService } from './groups/group.service';
 
@@ -23,10 +22,10 @@ import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
 import { AdminComponent } from './admin/admin.component';
 
-import { FilterTagelerByGroupPipe } from './pipes/filterTagelerByGroup.pipe';
-import { SameDateTagelerPipe } from './pipes/sameDateTageler.pipe';
-import { CurrentTagelerPipe } from './pipes/currentTageler.pipe';
+import { FilterGroupByTypePipe } from './pipes/groupType.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
+import { OtherTagelerPipe } from './pipes/otherTageler.pipe';
+import { TagelerByGroup } from './pipes/tagelerByGroup.pipe'
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -37,13 +36,12 @@ import { LOCALE_ID } from '@angular/core';
     TagelerListComponent,
     TagelerDetailsComponent,
     GroupDetailsComponent,
-    GroupListComponent,
     TagelerComponent,
     AdminComponent,
-    FilterTagelerByGroupPipe,
-    SameDateTagelerPipe,
-    CurrentTagelerPipe,
+    FilterGroupByTypePipe,
     NextTagelerPipe,
+    OtherTagelerPipe,
+    TagelerByGroup
   ],
   imports: [
     BrowserModule,
