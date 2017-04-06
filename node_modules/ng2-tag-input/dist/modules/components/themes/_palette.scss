@@ -1,0 +1,29 @@
+$color-focused: (
+    default: $color-focused-default,
+    minimal: $color-focused-minimal,
+    dark: $color-focused-dark
+);
+
+$color-primary: (
+    default: $color-primary-default,
+    minimal: $color-primary-minimal,
+    dark: $color-primary-dark
+);
+
+$color-error: (
+    default: $color-error-default,
+    minimal: $color-error-minimal,
+    dark: $color-error-dark
+);
+
+$color-arrow: (
+    default: $color-arrow-default,
+    minimal: $color-arrow-minimal,
+    dark: $color-arrow-dark
+);
+
+$color-arrow-focused: (
+    default: $color-arrow-default-focused,
+    minimal: $color-arrow-minimal-focused,
+    dark: $color-arrow-dark-focused
+);
