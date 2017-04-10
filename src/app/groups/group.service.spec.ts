@@ -3,7 +3,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { GroupService } from './group.service';
 
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import { MockBackend, MockConnection } from '@angular/http/testing';
 
 
 
@@ -45,10 +45,39 @@ describe('GroupService', () => {
         groupService.getGroups().then(
           (data) => {
             expect(data.length).toBe(3);
+            expect(data[1].type).toEqual('Trupp');
+            expect(data[2].type).toEqual('Meute');
+            expect(data[3].type).toEqual('Equipe');
             expect(data[1].name).toEqual('A');
             expect(data[2].name).toEqual('B');
             expect(data[3].name).toEqual('C');
           });
       }));
+  });
+
+  describe('getGroup()', () => {
+
+    it('should get a single group by id',
+      inject([GroupService, MockBackend], (groupService, mockBackend) => {
+
+        const mockResponse = {
+          data: [
+            {id: 1, type: 'Trupp', name: 'A'},
+          ]
+        };
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          connection.mockRespond(new Response(new ResponseOptions({
+            body: (mockResponse)
+          })));
+        });
+
+        groupService.getGroup(1).then(
+          (data) => {
+            expect(data[1].id).toBe(1);
+            expect(data[1].type).toEqual('Trupp');
+            expect(data[1].name).toEqual('A');
+          })
+    }));
   });
 });

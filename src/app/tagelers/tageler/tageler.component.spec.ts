@@ -1,27 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockBackend } from '@angular/http/testing';
+import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
 
 import { TagelerComponent } from './tageler.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-import{
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-
-import {
-  HttpModule,
-} from '@angular/http'
-
-import { FilterTagelerByGroupPipe } from '../../pipes/filterTagelerByGroup.pipe';
-import { SameDateTagelerPipe } from '../../pipes/sameDateTageler.pipe';
-import { CurrentTagelerPipe } from '../../pipes/currentTageler.pipe';
-import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
+import { FilterGroupByTypePipe } from '../../pipes/groupType.pipe';
 
 import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
-import { Tageler } from '../tageler';
-
 
 describe('TagelerComponent', () => {
   let component: TagelerComponent;
@@ -29,16 +17,28 @@ describe('TagelerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TagelerComponent,
-        FilterTagelerByGroupPipe,
-        SameDateTagelerPipe,
-        CurrentTagelerPipe,
-        NextTagelerPipe,
-        ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpModule, RouterTestingModule ],
-      providers: [{provide: TagelerService}, {provide: GroupService}, {provide: Tageler}],
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule,
+        HttpModule,
+      ],
+      declarations: [
+        TagelerComponent,
+        FilterGroupByTypePipe,
+      ],
+      providers: [
+        MockBackend,
+        {
+          provide: Http,
+          deps: [MockBackend, BaseRequestOptions],
+          useFactory: function (backend:ConnectionBackend, defaultOptions:BaseRequestOptions) {
+            return new Http(backend, defaultOptions);
+          },
+        },
+        { provide: GroupService, useClass: GroupService },
+        { provide: TagelerService, useClass: TagelerService },
+        BaseRequestOptions
+      ]})
+      .compileComponents()
   }));
 
   beforeEach(() => {

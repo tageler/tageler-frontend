@@ -1,19 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockBackend } from '@angular/http/testing';
+import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
 
 import { TagelerDetailsComponent } from './tageler-details.component';
-
+import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
 
 import { RouterTestingModule } from '@angular/router/testing';
-
-import{
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-
-import {
-  HttpModule,
-} from '@angular/http';
 
 describe('TagelerDetailsComponent', () => {
   let component: TagelerDetailsComponent;
@@ -21,11 +14,27 @@ describe('TagelerDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TagelerDetailsComponent ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpModule, RouterTestingModule],
-      providers: [{provide: GroupService}],
-    })
-    .compileComponents();
+      imports: [
+        RouterTestingModule,
+        HttpModule,
+      ],
+      declarations: [
+        TagelerDetailsComponent,
+      ],
+      providers: [
+        MockBackend,
+        {
+          provide: Http,
+          deps: [MockBackend, BaseRequestOptions],
+          useFactory: function (backend:ConnectionBackend, defaultOptions:BaseRequestOptions) {
+            return new Http(backend, defaultOptions);
+          },
+        },
+        { provide: GroupService, useClass: GroupService },
+        { provide: TagelerService, useClass: TagelerService },
+        BaseRequestOptions
+      ]})
+      .compileComponents()
   }));
 
   beforeEach(() => {
