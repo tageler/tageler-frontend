@@ -7,8 +7,8 @@ describe('tageler App', () => {
     page = new TagelerPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying Willkommen zum neuen Tageler-System!', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Willkommen zum neuen Tageler-System!');
   });
 });
