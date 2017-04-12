@@ -44,7 +44,7 @@ export class AdminComponent implements OnInit {
   public title: string = 'Achtung';
   public message: string = 'Soll dieser Tageler wirklich gelöscht werden?';
 
-  public uploader:FileUploader = new FileUploader({url: URL});
+  public uploader: FileUploader = new FileUploader({url: URL});
 
   @Input()
   tageler: Tageler;
@@ -121,13 +121,13 @@ export class AdminComponent implements OnInit {
   }
 
   showCreateTagelerForm() {
-    var tageler: Tageler = {
+    let tageler: Tageler = {
       title: '',
       text: '',
       group: [''],
       start: new Date,
       end: new Date,
-      bring_along: '',
+      bringAlong: '',
       uniform: '',
       picture: '',
       checkout: {
@@ -184,7 +184,7 @@ export class AdminComponent implements OnInit {
       date_end: Date,
       time_start: '',
       time_end: '',
-      bring_along: '',
+      bringAlong: '',
       uniform: '',
       picture: '',
       picture_file: '',
@@ -209,7 +209,7 @@ export class AdminComponent implements OnInit {
       group: [this.tagelerForm.value.group as string],
       start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start),
       end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
-      bring_along: this.tagelerForm.value.bring_along as string,
+      bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.tagelerForm.value.picture as string,
       picture_file: this.picFile,
@@ -256,7 +256,7 @@ export class AdminComponent implements OnInit {
       group: [this.tagelerForm.value.group as string],
       start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start),
       end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
-      bring_along: this.tagelerForm.value.bring_along as string,
+      bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.tagelerForm.value.picture as string,
       checkout : {
@@ -273,7 +273,7 @@ export class AdminComponent implements OnInit {
   }
 
   cancelUpdate() {
-    this.update= false;
+    this.update = false;
   }
 
   /***************************
@@ -281,7 +281,7 @@ export class AdminComponent implements OnInit {
    **************************/
   deleteSelectedTageler(tageler: Tageler): void {
     this.tagelerService.deleteTageler(tageler._id);
-    window.location.reload()
+    window.location.reload();
   }
 
 }

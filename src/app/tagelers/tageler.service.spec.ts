@@ -31,7 +31,7 @@ describe('TagelerService', () => {
           group: ['Trupp'],
           start: '06.06.2017, 12:00:00',
           end: '06.06.2017, 17:00:00',
-          bring_along: 'BMPS',
+          bringAlong: 'BMPS',
           uniform: 'Uniform',
           checkout: {
             deadline: '05.05.2017, 12:00:00',
@@ -49,7 +49,7 @@ describe('TagelerService', () => {
           group: ['Meute'],
           start: '06.07.2017, 12:00:00',
           end: '06.07.2017, 17:00:00',
-          bring_along: 'BMPS',
+          bringAlong: 'BMPS',
           uniform: 'Kravatte',
           checkout: {
             deadline: '05.07.2017, 12:00:00',
@@ -79,7 +79,7 @@ describe('TagelerService', () => {
           expect(data[1].group).toEqual('Trupp');
           expect(data[1].start).toEqual('06.06.2017, 12:00:00');
           expect(data[1].end).toEqual('06.06.2017, 17:00:00');
-          expect(data[1].bring_along).toEqual('BMPS');
+          expect(data[1].bringAlong).toEqual('BMPS');
           expect(data[1].uniform).toEqual('Uniform');
           expect(data[1].checkout.deadline).toEqual('05.06.2017, 12:00:00');
           expect(data[1].checkout.contact[0].name).toEqual('Leiter A');
@@ -92,7 +92,7 @@ describe('TagelerService', () => {
           expect(data[2].group).toEqual('Meute');
           expect(data[2].start).toEqual('06.07.2017, 12:00:00');
           expect(data[2].end).toEqual('06.07.2017, 17:00:00');
-          expect(data[2].bring_along).toEqual('BMPS');
+          expect(data[2].bringAlong).toEqual('BMPS');
           expect(data[2].uniform).toEqual('Kravatte');
           expect(data[2].checkout.deadline).toEqual('05.07.2017, 12:00:00');
           expect(data[2].checkout.contact[0].name).toEqual('Leiter B');
@@ -114,7 +114,7 @@ describe('TagelerService', () => {
               group: ['Trupp'],
               start: '06.06.2017, 12:00:00',
               end: '06.06.2017, 17:00:00',
-              bring_along: 'BMPS',
+              bringAlong: 'BMPS',
               uniform: 'Uniform',
               checkout: {
                 deadline: '05.05.2017, 12:00:00',
@@ -144,7 +144,7 @@ describe('TagelerService', () => {
             expect(data[1].group).toEqual('Trupp');
             expect(data[1].start).toEqual('06.06.2017, 12:00:00');
             expect(data[1].end).toEqual('06.06.2017, 17:00:00');
-            expect(data[1].bring_along).toEqual('BMPS');
+            expect(data[1].bringAlong).toEqual('BMPS');
             expect(data[1].uniform).toEqual('Uniform');
             expect(data[1].checkout.deadline).toEqual('05.06.2017, 12:00:00');
             expect(data[1].checkout.contact[0].name).toEqual('Leiter A');

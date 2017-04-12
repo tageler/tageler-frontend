@@ -5,7 +5,7 @@ export class Tageler {
   group: [string];
   start: Date;
   end: Date;
-  bring_along: string;
+  bringAlong: string;
   uniform: string;
   picture?: string;
   picture_file?: File;

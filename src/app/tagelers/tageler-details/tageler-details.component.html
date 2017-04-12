@@ -6,7 +6,7 @@
         <p>{{tageler.text}}</p>
         <li *ngIf="tageler.start">Start: {{tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr</li>
         <li *ngIf="tageler.end">Ende: {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</li>
-        <li>Mitbringen: {{tageler.bring_along}}</li>
+        <li>Mitbringen: {{tageler.bringAlong}}</li>
         <li>Gruppe: {{tageler.group}}</li>
         <li>Anziehen: {{tageler.uniform}}</li>
         <img *ngIf="tageler.picture" src={{tageler.picture}} alt="No picture" style="width:400px;">
