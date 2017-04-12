@@ -103,7 +103,7 @@ describe('TagelerService', () => {
     }));
 
     it('should get a single tageler by id',
-      inject([TagelerService, MockBackend], (groupService, mockBackend) => {
+      inject([TagelerService, MockBackend], (tagelerService, mockBackend) => {
 
         const mockResponse = {
           data: [
@@ -135,7 +135,7 @@ describe('TagelerService', () => {
           })));
         });
 
-        groupService.getTageler(1).then(
+        tagelerService.getTageler(1).then(
           (data) => {
             expect(data.length).toBe(1);
             expect(data[1]._id).toBe(1);

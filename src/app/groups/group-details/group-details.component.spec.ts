@@ -1,13 +1,14 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+import { async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import { HttpModule, Http, ConnectionBackend, BaseRequestOptions, ResponseOptions, Response } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
 import { GroupDetailsComponent } from './group-details.component';
 import { OtherTagelerPipe } from '../../pipes/otherTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
-import 'rxjs/add/observable/of';
+import { Tageler } from '../../tagelers/tageler';
+import { Group } from '../group';
 import 'rxjs/add/operator/map';
 
 describe('GroupDetailsComponent', () => {
@@ -46,9 +47,9 @@ describe('GroupDetailsComponent', () => {
 
   beforeEach(() => {
     tagelerService = TestBed.get(TagelerService);
+    groupService = TestBed.get(GroupService);
     fixture = TestBed.createComponent(GroupDetailsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
 
@@ -66,17 +67,42 @@ describe('GroupDetailsComponent', () => {
       expect(groupService).toBeDefined();
     }));
 
-  it('should call the tagelers when ngOnInit is called', async(() => {
-    fixture.detectChanges();
+  it('should call getTagelers when ngOnInit is called', async(() => {
+    spyOn(tagelerService, 'getTagelers').and.returnValue(Promise.resolve(Array<Tageler>()));
     component.ngOnInit();
-    spyOn(tagelerService, 'getTagelers');
+    fixture.detectChanges();
+    expect(tagelerService).toBeDefined();
     expect(tagelerService.getTagelers).toHaveBeenCalled();
   }));
 
-  it('should call the groups when ngOnInit is called', inject([GroupService], (groupService) => {
+  it('should call getGroup when ngOnInit is called', async(() => {
+    spyOn(groupService, 'getGroup').and.returnValue(Promise.resolve(Group));
     component.ngOnInit();
-    spyOn(groupService, 'getGroup');
     fixture.detectChanges();
+    expect(groupService).toBeDefined();
     expect(groupService.getGroup).toHaveBeenCalled();
   }));
+
+  it('should get the groups',
+    inject([MockBackend, GroupService], (mockBackend:MockBackend, groupService:GroupService) => {
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        connection.mockRespond(new Response(new ResponseOptions({
+            body: [{
+              id: '1',
+              type: 'Trupp',
+              name: 'Gruppe 1'
+            }]
+          })));
+      });
+      groupService.getGroup('1').then(
+        (group:Group) => {
+          expect(group[1]._id).toBe('1');
+          expect(group[1].type).toBe('Trupp');
+          expect(group[1].name).toBe('Gruppe 1');
+        },
+        (error:any) => {
+          // we can call a failure case here...
+          fail(error);
+        });
+    }));
 });

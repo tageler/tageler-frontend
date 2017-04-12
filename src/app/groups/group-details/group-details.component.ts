@@ -34,8 +34,6 @@ export class GroupDetailsComponent implements OnInit {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
-        this.tagelers = tagelers;
-        this.tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
         this.tagelers = tagelers.map((tageler) => {
           if (!tageler.title) {
             tageler.title = 'default';
