@@ -7,15 +7,16 @@
           <div class="row">
             <div class="col md-6">
               <h3 class="card-title">{{tageler.title}}</h3>
-              <h5> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br>
+              <h5 *ngIf="!tageler.free"> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br>
                   {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</h5>
+              <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
               <p class="card-text">{{tageler.text}}</p>
               <p class="card-text">{{tageler.group}}</p>
-              <p class="card-text">{{tageler.bringAlong}}</p>
-              <p class="card-text">{{tageler.uniform}}</p>
+              <p class="card-text" *ngIf="!tageler.free">{{tageler.bringAlong}}</p>
+              <p class="card-text" *ngIf="!tageler.free">{{tageler.uniform}}</p>
             </div>
             <div class="col-md-6">
-              <div class="alert alert-warning" role="alert">
+              <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
                 <h4 class="alert-heading">Wichtig - Abmeldung</h4>
                 <p>Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
                 <p>Bei: {{tageler.checkout.contact[0].name}} </p>
@@ -23,6 +24,9 @@
                   <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
                   <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
                 </ul>
+              </div>
+              <div *ngIf="tageler.free">
+                <img class="card-img-top" src={{tageler.picture}} width="318" height="180">
               </div>
             </div>
           </div>
