@@ -73,7 +73,7 @@
   <!-- Create tageler form -->
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
-      <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()" novalidate>
+      <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()">
         <div class="form-group row">
           <label class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
@@ -83,7 +83,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="title">
+            <input class="form-control" formControlName="title" required>
           </div>
         </div>
         <div class="form-group row">
@@ -95,7 +95,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Einheit:</label>
           <div class="col-3">
-            <select class="form-control" formControlName="group">
+            <select class="form-control" formControlName="group" required>
               <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
             </select>
           </div>
@@ -104,7 +104,7 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
-              <input class="form-control" formControlName="date_start" type="date">
+              <input class="form-control" formControlName="date_start" type="date" required>
             </div>
           </div>
         </div>
@@ -112,31 +112,31 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Start:</label>
             <div class="col-5">
-              <input class="form-control" formControlName="date_start" type="date">
+              <input class="form-control" formControlName="date_start" type="date" required>
             </div>
             <div class="col-4">
-              <input class="form-control" formControlName="time_start" type="time">
+              <input class="form-control" formControlName="time_start" type="text" pattern="([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}" placeholder="hh:mm">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
-              <input class="form-control" formControlName="date_end" type="date">
+              <input class="form-control" formControlName="date_end" type="date" required>
             </div>
             <div class="col-4">
-              <input class="form-control" formControlName="time_end" type="time">
+              <input class="form-control" formControlName="time_end" type="text" pattern="([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}" placeholder="hh:mm">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Mitbringen:</label>
             <div class="col-9">
-              <textarea class="form-control" formControlName="bringAlong" rows="2"></textarea>
+              <textarea class="form-control" formControlName="bringAlong" rows="2" required></textarea>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Kleidung:</label>
             <div class="col-9">
-              <textarea class="form-control" formControlName="uniform" rows="2"></textarea>
+              <textarea class="form-control" formControlName="uniform" rows="2" required></textarea>
             </div>
           </div>
           <div formGroupName="checkout">

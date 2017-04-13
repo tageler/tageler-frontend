@@ -231,6 +231,7 @@ export class AdminComponent implements OnInit {
       saveTageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
       saveTageler.uniform = 'free';
       saveTageler.bringAlong = 'free';
+      saveTageler.picture = 'https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg';
     }
     this.createSuccess = true;
     this.selectedTageler = null;
