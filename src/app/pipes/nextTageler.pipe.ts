@@ -20,4 +20,5 @@ export class NextTagelerPipe implements PipeTransform {
     nextTageler = tagelers[0];
     return tagelers.filter(tageler => tageler == nextTageler);
   }
+
 }

@@ -1,8 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import { TagelerService } from './tageler.service';
 import { Tageler } from './tageler';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
+import {Mock} from "protractor/built/driverProviders";
 
 describe('TagelerService', () => {
   beforeEach(() => {
@@ -16,7 +17,7 @@ describe('TagelerService', () => {
     });
   });
 
-  it('should ...', inject([TagelerService], (service: TagelerService) => {
+  it('should inject TagelerService', inject([TagelerService], (service: TagelerService) => {
     expect(service).toBeTruthy();
   }));
 
@@ -154,5 +155,130 @@ describe('TagelerService', () => {
           })
       }));
 
+
+    it('should insert a new tageler into the database',
+       async(() => {
+         let tagelerService: TagelerService = TestBed.get(TagelerService);
+         let mockBackend: MockBackend = TestBed.get(MockBackend);
+
+         mockBackend.connections.subscribe((connection: MockConnection) => {
+           expect(connection.request.method).toBe(RequestMethod.Post);
+           connection.mockRespond(new Response(new ResponseOptions({status: 201})));
+         });
+
+         var start_date1 = '2017-10-28T12:00:00.824Z';
+         var end_date1 = '2017-10-28T17:00:00.824Z';
+         var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+         const tageler: Tageler =
+           {title: 'Tageler 1',
+            text: 'Text 1',
+            group: ['Baghira'],
+            start: new Date(start_date1),
+            end: new Date(end_date1),
+            bringAlong: 'Essen',
+            uniform: 'Kleidung',
+            checkout: {
+              deadline: new Date(checkout_date1),
+              contact: [{
+                name: 'Person 1',
+                phone: '01234',
+                mail: 'person1@mail.com',
+                other: ''}]
+            }
+          };
+
+         tagelerService.createTageler(tageler, null).then(
+           (successResult) => {
+             expect(successResult).toBeDefined();
+             expect(successResult.title).toEqual('Tageler 1');
+             expect(status).toBe(201);
+
+           });
+
+    }));
+
+
+  it('should update an existing tageler',
+    async(() => {
+      let tagelerService: TagelerService = TestBed.get(TagelerService);
+      let mockBackend: MockBackend = TestBed.get(MockBackend);
+
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        expect(connection.request.method).toBe(RequestMethod.Put);
+        connection.mockRespond(new Response(new ResponseOptions({status: 204})));
+      });
+
+      var start_date1 = '2017-10-28T12:00:00.824Z';
+      var end_date1 = '2017-10-28T17:00:00.824Z';
+      var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+      const tageler: Tageler =
+        {title: 'Tageler 2',
+          text: 'Text 2',
+          group: ['Baghira'],
+          start: new Date(start_date1),
+          end: new Date(end_date1),
+          bringAlong: 'Essen',
+          uniform: 'Kleidung',
+          checkout: {
+            deadline: new Date(checkout_date1),
+            contact: [{
+              name: 'Person 1',
+              phone: '01234',
+              mail: 'person1@mail.com',
+              other: ''}]
+          }
+        };
+
+      tagelerService.updateTageler(tageler, null).then(
+        (successResult) => {
+          expect(successResult).toBeDefined();
+          expect(successResult.title).toEqual('Tageler 2');
+          expect(status).toBe(204);
+        });
+
+    }));
+
+
+  it('should delete an existing tageler',
+    async(() => {
+      let tagelerService: TagelerService = TestBed.get(TagelerService);
+      let mockBackend: MockBackend = TestBed.get(MockBackend);
+
+      mockBackend.connections.subscribe((connection: MockConnection) => {
+        expect(connection.request.method).toBe(RequestMethod.Delete);
+        connection.mockRespond(new Response(new ResponseOptions({status: 204})));
+      });
+
+      var start_date1 = '2017-10-28T12:00:00.824Z';
+      var end_date1 = '2017-10-28T17:00:00.824Z';
+      var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+      const tageler: Tageler =
+        {title: 'Tageler 2',
+          text: 'Text 2',
+          group: ['Baghira'],
+          start: new Date(start_date1),
+          end: new Date(end_date1),
+          bringAlong: 'Essen',
+          uniform: 'Kleidung',
+          checkout: {
+            deadline: new Date(checkout_date1),
+            contact: [{
+              name: 'Person 1',
+              phone: '01234',
+              mail: 'person1@mail.com',
+              other: ''}]
+          }
+        };
+
+      tagelerService.deleteTageler(JSON.stringify(tageler)).then(
+        (successResult) => {
+          expect(successResult).toBeDefined();
+          expect(status).toBe(204);
+        });
+
+    }));
 
 });

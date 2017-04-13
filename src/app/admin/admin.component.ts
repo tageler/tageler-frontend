@@ -283,5 +283,4 @@ export class AdminComponent implements OnInit {
     this.tagelerService.deleteTageler(tageler._id);
     window.location.reload();
   }
-
 }

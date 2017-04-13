@@ -19,7 +19,7 @@ describe('GroupService', () => {
     });
   });
 
-  it('should ...', inject([GroupService], (service: GroupService) => {
+  it('should inject GroupService', inject([GroupService], (service: GroupService) => {
     expect(service).toBeTruthy();
   }));
 

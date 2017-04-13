@@ -12,4 +12,5 @@ export class FilterGroupByTypePipe implements PipeTransform {
     }
     return groups.filter(group => group.type == args);
   }
+
 }
