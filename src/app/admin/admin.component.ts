@@ -120,6 +120,17 @@ export class AdminComponent implements OnInit {
     this.showTageler = true;
   }
 
+  // this is probably evil
+  fillFree(e) {
+    if (e.target.checked) {
+      this.tagelerForm.controls['title'].setValue('Übungsfrei');
+      this.tagelerForm.controls['picture'].setValue('https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg');
+    }else {
+      this.tagelerForm.controls['title'].setValue('');
+      this.tagelerForm.controls['picture'].setValue('');
+    }
+  }
+
   showCreateTagelerForm() {
     let tageler: Tageler = {
       title: '',
@@ -138,8 +149,9 @@ export class AdminComponent implements OnInit {
           mail: '',
           other: '',
         }]
-      }
-    };
+      },
+      free: false
+    }
 
     // By default, a newly-created tageler will have the selected state.
     this.selectTageler(tageler);
@@ -197,31 +209,40 @@ export class AdminComponent implements OnInit {
           mail: '',
           other: '',
         })
-      })
+      }),
+      free: false
     });
   }
 
 
   prepareSaveTageler(): Tageler {
-    const saveTageler: Tageler= {
-      title: this.tagelerForm.value.title as string,
-      text: this.tagelerForm.value.text as string,
-      group: [this.tagelerForm.value.group as string],
-      start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start),
-      end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
-      bringAlong: this.tagelerForm.value.bringAlong as string,
-      uniform: this.tagelerForm.value.uniform as string,
-      picture: this.tagelerForm.value.picture as string,
-      picture_file: this.picFile,
-      checkout : {
-        deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time),
-        contact: [{
-          name: this.tagelerForm.value.checkout.contact.name as string,
-          phone: this.tagelerForm.value.checkout.contact.phone as string,
-          mail: this.tagelerForm.value.checkout.contact.mail as string,
-          other: this.tagelerForm.value.checkout.contact.other as string,
-        }]
-      }
+      const saveTageler: Tageler = {
+        title: this.tagelerForm.value.title as string,
+        text: this.tagelerForm.value.text as string,
+        group: [this.tagelerForm.value.group as string],
+        // accept both . and :
+        start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
+        end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
+        bringAlong: this.tagelerForm.value.bringAlong as string,
+        uniform: this.tagelerForm.value.uniform as string,
+        picture: this.tagelerForm.value.picture as string,
+        picture_file: this.picFile,
+        checkout : {
+          deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':')),
+          contact: [{
+            name: this.tagelerForm.value.checkout.contact.name as string,
+            phone: this.tagelerForm.value.checkout.contact.phone as string,
+            mail: this.tagelerForm.value.checkout.contact.mail as string,
+            other: this.tagelerForm.value.checkout.contact.other as string,
+          }]
+        },
+        free: this.tagelerForm.value.free as boolean
+      };
+    if (saveTageler.free) {
+      saveTageler.start = new Date(this.tagelerForm.value.date_start + 'T00:00');
+      saveTageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
+      saveTageler.uniform = 'free';
+      saveTageler.bringAlong = 'free';
     }
     this.createSuccess = true;
     this.selectedTageler = null;
@@ -267,7 +288,8 @@ export class AdminComponent implements OnInit {
           mail: this.tagelerForm.value.checkout.contact.mail as string,
           other: this.tagelerForm.value.checkout.contact.other as string,
         }]
-      }
+      },
+      free: this.tagelerForm.value.free as boolean
     }
     return updateTageler;
   }

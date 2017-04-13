@@ -9,13 +9,14 @@ export class Tageler {
   uniform: string;
   picture?: string;
   picture_file?: File;
-  checkout? :{
+  checkout?: {
     deadline?: Date;
-    contact? :[{
+    contact?: [{
       name?: string;
       phone?: string;
       mail?: string;
       other?: string;
     }]
   }
+  free: boolean;
 }

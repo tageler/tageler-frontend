@@ -73,11 +73,17 @@
   <!-- Create tageler form -->
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
-      <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()" novalidate>
+      <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()">
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Übungsfrei</label>
+          <div class="col-9">
+              <input type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)">
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="title">
+            <input class="form-control" formControlName="title" required>
           </div>
         </div>
         <div class="form-group row">
@@ -89,76 +95,86 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Einheit:</label>
           <div class="col-3">
-            <select class="form-control" formControlName="group">
+            <select class="form-control" formControlName="group" required>
               <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
             </select>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Start:</label>
-          <div class="col-5">
-            <input class="form-control" formControlName="date_start" type="date">
-          </div>
-          <div class="col-4">
-            <input class="form-control" formControlName="time_start" type="time">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Ende:</label>
-          <div class="col-5">
-            <input class="form-control" formControlName="date_end" type="date">
-          </div>
-          <div class="col-4">
-            <input class="form-control" formControlName="time_end" type="time">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Mitbringen:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="bringAlong">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Kleidung:</label>
-          <div class="col-9">
-            <input class="form-control" formControlName="uniform">
-          </div>
-        </div>
-        <div formGroupName="checkout">
+        <div *ngIf="free">
           <div class="form-group row">
-            <label class="col-3 col-form-label">Absagen bis:</label>
+            <label class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
-              <input class="form-control" formControlName="deadline_date" type="date">
+              <input class="form-control" formControlName="date_start" type="date" required>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!free">
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Start:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_start" type="date" required>
             </div>
             <div class="col-4">
-              <input class="form-control" formControlName="deadline_time" type="time">
+              <input class="form-control" formControlName="time_start" type="text" pattern="([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}" placeholder="hh:mm">
             </div>
           </div>
-          <div formGroupName="contact">
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Absagen bei:</label>
-                <div class="col-9">
-                  <input class="form-control" formControlName="name">
-                </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Ende:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_end" type="date" required>
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="time_end" type="text" pattern="([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}" placeholder="hh:mm">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Mitbringen:</label>
+            <div class="col-9">
+              <textarea class="form-control" formControlName="bringAlong" rows="2" required></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Kleidung:</label>
+            <div class="col-9">
+              <textarea class="form-control" formControlName="uniform" rows="2" required></textarea>
+            </div>
+          </div>
+          <div formGroupName="checkout">
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Absagen bis:</label>
+              <div class="col-5">
+                <input class="form-control" formControlName="deadline_date" type="date">
               </div>
-              <div class="form-group row">
-                 <label class="col-3 col-form-label">Kanal:</label>
+              <div class="col-4">
+                <input class="form-control" formControlName="deadline_time" type="time">
+              </div>
+            </div>
+            <div formGroupName="contact">
+                <div class="form-group row">
+                  <label class="col-3 col-form-label">Absagen bei:</label>
                   <div class="col-9">
-                     <input class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
-                    <input class="form-control" formControlName="mail" type="email" placeholder="Email">
-                    <input class="form-control" formControlName="other" placeholder="Text">
+                    <input class="form-control" formControlName="name">
                   </div>
-              </div>
+                </div>
+                <div class="form-group row">
+                   <label class="col-3 col-form-label">Kanal:</label>
+                    <div class="col-9">
+                       <input class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
+                      <input class="form-control" formControlName="mail" type="email" placeholder="Email">
+                      <input class="form-control" formControlName="other" placeholder="Text">
+                    </div>
+                </div>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-3 col-form-label">Bild hochladen:</label>
-          <div class="col-9">
-            <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
-            <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
-            <input class="form-control" formControlName="picture" placeholder="url">
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Bild hochladen:</label>
+            <div class="col-9">
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
+              <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+              <input class="form-control" formControlName="picture" placeholder="url">
+            </div>
           </div>
-        </div>
         <button type="submit" class="btn btn-secondary">Speichern</button>
       </form>
     </div>
@@ -215,70 +231,71 @@
                 </select>
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Start:</label>
-              <div class="col-5">
-                <input class="form-control" type="date" placeholder="{{tageler.start}}">
-              </div>
-              <div class="col-4">
-                <input class="form-control" type="time" placeholder="{{tageler.start}}">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Ende:</label>
-              <div class="col-5">
-                <input class="form-control" type="date" placeholder="{{tageler.start}}">
-              </div>
-              <div class="col-4">
-                <input class="form-control" type="time" placeholder="{{tageler.start}}">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Mitbringen:</label>
-              <div class="col-9">
-                <input class="form-control" placeholder="{{tageler.bringAlong}}">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Kleidung:</label>
-              <div class="col-9">
-                <input class="form-control" placeholder="{{tageler.uniform}}">
-              </div>
-            </div>
-            <div formGroupName="checkout">
               <div class="form-group row">
-                <label class="col-3 col-form-label">Absagen bis:</label>
+                <label class="col-3 col-form-label">Start:</label>
                 <div class="col-5">
-                  <input class="form-control" type="date">
+                  <input class="form-control" type="date" placeholder="{{tageler.start}}">
                 </div>
                 <div class="col-4">
-                  <input class="form-control"type="time">
+                  <input class="form-control" type="time" placeholder="{{tageler.start}}">
                 </div>
               </div>
-              <div formGroupName="contact">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Ende:</label>
+                <div class="col-5">
+                  <input class="form-control" type="date" placeholder="{{tageler.start}}">
+                </div>
+                <div class="col-4">
+                  <input class="form-control" type="time" placeholder="{{tageler.start}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Mitbringen:</label>
+                <div class="col-9">
+                  <input class="form-control" placeholder="{{tageler.bringAlong}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Kleidung:</label>
+                <div class="col-9">
+                  <input class="form-control" placeholder="{{tageler.uniform}}">
+                </div>
+              </div>
+              <div formGroupName="checkout">
                 <div class="form-group row">
-                  <label class="col-3 col-form-label">Absagen bei:</label>
-                  <div class="col-9">
-                    <input class="form-control" placeholder="{{tageler.checkout.contact[0].name}}">
+                  <label class="col-3 col-form-label">Absagen bis:</label>
+                  <div class="col-5">
+                    <input class="form-control" type="date">
+                  </div>
+                  <div class="col-4">
+                    <input class="form-control"type="time">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-3 col-form-label">Kanal:</label>
-                  <div class="col-9">
-                    <input class="form-control" type="tel" placeholder="{{tageler.checkout.contact[0].phone}}">
-                    <input class="form-control" type="email" placeholder="{{tageler.checkout.contact[0].mail}}">
-                    <input class="form-control" placeholder="{{tageler.checkout.contact[0].other}}">
+                <div formGroupName="contact">
+                  <div class="form-group row">
+                    <label class="col-3 col-form-label">Absagen bei:</label>
+                    <div class="col-9">
+                      <input class="form-control" placeholder="{{tageler.checkout.contact[0].name}}">
+                    </div>
                   </div>
+                  <div class="form-group row">
+                    <label class="col-3 col-form-label">Kanal:</label>
+                    <div class="col-9">
+                      <input class="form-control" type="tel" placeholder="{{tageler.checkout.contact[0].phone}}">
+                      <input class="form-control" type="email" placeholder="{{tageler.checkout.contact[0].mail}}">
+                      <input class="form-control" placeholder="{{tageler.checkout.contact[0].other}}">
+                    </div>
+                  </div>
+
                 </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Bild hochladen:</label>
-              <div class="col-9">
-                <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
-                <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Bild hochladen:</label>
+                <div class="col-9">
+                  <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+                  <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+                </div>
               </div>
-            </div>
           </fieldset>
           <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
         </form>

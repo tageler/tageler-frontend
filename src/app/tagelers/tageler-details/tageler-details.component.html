@@ -4,16 +4,17 @@
       <div *ngIf="tageler">
         <h2>{{tageler.title}}</h2>
         <p>{{tageler.text}}</p>
-        <li *ngIf="tageler.start">Start: {{tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr</li>
-        <li *ngIf="tageler.end">Ende: {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</li>
-        <li>Mitbringen: {{tageler.bringAlong}}</li>
+        <li *ngIf="tageler.start && !tageler.free">Start: {{tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr</li>
+        <li *ngIf="tageler.end && !tageler.free">Ende: {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</li>
+        <li *ngIf="tageler.free">Datum: {{tageler.start | date: 'fullDate'}}</li>
+        <li *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</li>
         <li>Gruppe: {{tageler.group}}</li>
-        <li>Anziehen: {{tageler.uniform}}</li>
+        <li *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</li>
         <img *ngIf="tageler.picture" src={{tageler.picture}} alt="No picture" style="width:400px;">
       </div>
     </div>
     <div class="col-md-6">
-      <div *ngIf="tageler">
+      <div *ngIf="tageler && !tageler.free">
         <div class="alert alert-warning" role="alert">
           <h4 class="alert-heading">Wichtig - Abmeldung</h4>
           <p *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
