@@ -77,7 +77,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
-              <input type="checkbox" name="free" formControlName="free" [(ngModel)]="free">
+              <input type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)">
           </div>
         </div>
         <div class="form-group row">
