@@ -192,8 +192,8 @@ export class AdminComponent implements OnInit {
       title: '',
       text: '',
       group: [''],
-      date_start: Date,
-      date_end: Date,
+      date_start: '',
+      date_end: '',
       time_start: '14:00',
       time_end: '17:00',
       bringAlong: 'BPMSTZ und Zvieri',
@@ -212,6 +212,19 @@ export class AdminComponent implements OnInit {
       }),
       free: false
     });
+    this.setNextSaturday();
+  }
+
+
+  setNextSaturday() {
+    let sat = new Date;
+    for (let i = 0; i < 7; i++) {
+      if ((sat.getDay() + i) === 6) {
+        sat.setDate(sat.getDate() + i);
+      }
+    }
+    this.tagelerForm.controls['date_start'].setValue(sat.toISOString().substr(0, 10));
+    this.tagelerForm.controls['date_end'].setValue(sat.toISOString().substr(0, 10));
   }
 
 
