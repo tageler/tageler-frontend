@@ -218,11 +218,8 @@ export class AdminComponent implements OnInit {
 
   setNextSaturday() {
     let sat = new Date;
-    for (let i = 0; i < 7; i++) {
-      if ((sat.getDay() + i) === 6) {
-        sat.setDate(sat.getDate() + i);
-      }
-    }
+    // sets the date to next saturday
+    sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7);
     this.tagelerForm.controls['date_start'].setValue(sat.toISOString().substr(0, 10));
     this.tagelerForm.controls['date_end'].setValue(sat.toISOString().substr(0, 10));
   }
