@@ -243,6 +243,9 @@ export class AdminComponent implements OnInit {
       saveTageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
       saveTageler.uniform = 'free';
       saveTageler.bringAlong = 'free';
+    }else {
+      // checkbox returns undefined if never checked or unchecked
+      saveTageler.free = false;
     }
     this.createSuccess = true;
     this.selectedTageler = null;
