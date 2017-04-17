@@ -146,7 +146,7 @@
                 <input class="form-control" formControlName="deadline_date" type="date">
               </div>
               <div class="col-4">
-                <input class="form-control" formControlName="deadline_time" type="time">
+                <input class="form-control" formControlName="deadline_time" type="text" pattern="([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}" placeholder="hh:mm">
               </div>
             </div>
             <div formGroupName="contact">
