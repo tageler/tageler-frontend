@@ -1,17 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
-
 import { Tageler } from '../tageler';
 import { TagelerService } from '../tageler.service';
-
 import { Group } from '../../groups/group';
 import { GroupService } from '../../groups/group.service';
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-
-//https://devcenter.heroku.com/articles/mean-apps-restful-api
 
 @Component({
   selector: 'tageler-component',

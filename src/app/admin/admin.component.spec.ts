@@ -1,8 +1,8 @@
 import { async, fakeAsync, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import { HttpModule, Http, ConnectionBackend, BaseRequestOptions, ResponseOptions, Response } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 import { AdminComponent } from './admin.component';
-import { FormsModule, FormGroup, ReactiveFormsModule, FormBuilder, FormControl} from '@angular/forms';
+import { FormsModule, FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -113,7 +113,8 @@ describe('Component: AdminComponent', () => {
           mail: 'Fake mail',
           other: 'Fake other',
         }
-      }
+      },
+      free: false
     };
     component.tagelerForm.controls['title'].setValue(testTageler.title);
     component.tagelerForm.controls['text'].setValue(testTageler.text);
@@ -132,6 +133,7 @@ describe('Component: AdminComponent', () => {
     component.tagelerForm.get('checkout.contact.phone').setValue(testTageler.checkout.contact.phone);
     component.tagelerForm.get('checkout.contact.mail').setValue(testTageler.checkout.contact.mail);
     component.tagelerForm.get('checkout.contact.other').setValue(testTageler.checkout.contact.other);
+    component.tagelerForm.controls['free'].setValue(testTageler.free);
     expect(component.tagelerForm.value).toEqual(testTageler);
   }));
 

@@ -1,9 +1,8 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { TagelerService } from './tageler.service';
 import { Tageler } from './tageler';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend, RequestMethod } from '@angular/http';
+import { HttpModule, Response, ResponseOptions, XHRBackend, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import {Mock} from "protractor/built/driverProviders";
 
 describe('TagelerService', () => {
   beforeEach(() => {
@@ -185,8 +184,9 @@ describe('TagelerService', () => {
                 phone: '01234',
                 mail: 'person1@mail.com',
                 other: ''}]
-            }
-          };
+            },
+             free: false,
+       };
 
          tagelerService.createTageler(tageler, null).then(
            (successResult) => {
@@ -228,7 +228,8 @@ describe('TagelerService', () => {
               phone: '01234',
               mail: 'person1@mail.com',
               other: ''}]
-          }
+          },
+          free: false
         };
 
       tagelerService.updateTageler(tageler, null).then(
@@ -270,7 +271,8 @@ describe('TagelerService', () => {
               phone: '01234',
               mail: 'person1@mail.com',
               other: ''}]
-          }
+          },
+          free: false
         };
 
       tagelerService.deleteTageler(JSON.stringify(tageler)).then(

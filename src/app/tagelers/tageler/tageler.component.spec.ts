@@ -1,13 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
-
 import { TagelerComponent } from './tageler.component';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { FilterGroupByTypePipe } from '../../pipes/groupType.pipe';
-
 import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
 

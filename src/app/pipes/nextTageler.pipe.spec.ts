@@ -36,7 +36,8 @@ describe('NextTagelerPipe', () => {
             phone: '01234',
             mail: 'person1@mail.com',
             other: ''}]
-        }
+        },
+        free: false,
       },
       { title: 'Tageler 2',
         text: 'Text 2',
@@ -52,7 +53,8 @@ describe('NextTagelerPipe', () => {
             phone: '01234',
             mail: 'person1@mail.com',
             other: ''}]
-        }
+        },
+        free: false
       }
     ];
 
@@ -71,7 +73,8 @@ describe('NextTagelerPipe', () => {
             phone: '01234',
             mail: 'person1@mail.com',
             other: ''}]
-        }
+        },
+        free: false
       }
     ]);
   });
