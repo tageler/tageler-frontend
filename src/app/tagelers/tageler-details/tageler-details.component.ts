@@ -10,7 +10,6 @@ import { Group } from '../../groups/group';
   selector: 'tageler-details',
   templateUrl: './tageler-details.component.html',
   styleUrls: ['./tageler-details.component.css'],
-  providers: [TagelerService]
 })
 
 export class TagelerDetailsComponent implements OnInit {
@@ -26,8 +25,6 @@ export class TagelerDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* Ramona*/
-
     console.log("Init Details");
     this.route.params
       .switchMap((params: Params) => this.tagelerService.getTageler(params['id']))

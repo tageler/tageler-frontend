@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
 import { TagelerComponent } from './tageler.component';
@@ -6,10 +6,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FilterGroupByTypePipe } from '../../pipes/groupType.pipe';
 import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
+import { Tageler } from '../tageler';
+import { Group } from '../../groups/group';
 
 describe('TagelerComponent', () => {
-  let component: TagelerComponent;
-  let fixture: ComponentFixture<TagelerComponent>;
+  let tagelerService: TagelerService,
+      groupService: GroupService,
+      component: TagelerComponent,
+      fixture: ComponentFixture<TagelerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,12 +42,39 @@ describe('TagelerComponent', () => {
   }));
 
   beforeEach(() => {
+    tagelerService = TestBed.get(TagelerService);
+    groupService = TestBed.get(GroupService);
     fixture = TestBed.createComponent(TagelerComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('tagelerService should be injected',
+    inject([TagelerService], (tagelerService) => {
+      expect(tagelerService).toBeDefined();
+    }));
+
+  it('groupService should be injected',
+    inject([GroupService], (groupService) => {
+      expect(groupService).toBeDefined();
+    }));
+
+  it('should call getTagelers when ngOnInit is called', async(() => {
+    spyOn(tagelerService, 'getTagelers').and.returnValue(Promise.resolve(Array<Tageler>()));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(tagelerService).toBeDefined();
+    expect(tagelerService.getTagelers).toHaveBeenCalled();
+  }));
+
+  it('should call getGroups when ngOnInit is called', async(() => {
+    spyOn(groupService, 'getGroups').and.returnValue(Promise.resolve(Array<Group>()));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(groupService).toBeDefined();
+    expect(groupService.getGroups).toHaveBeenCalled();
+  }));
 });
