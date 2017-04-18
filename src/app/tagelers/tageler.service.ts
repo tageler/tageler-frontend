@@ -41,41 +41,17 @@ export class TagelerService {
         .catch(this.handleError);
   }
 
-  uploadPicture(id: String, file: File): Promise<Tageler>{
-    let formData:FormData = new FormData();
-        console.log("add that picture! id: " + id);
-        formData.append('picture', file, file.name);
-        formData.append('_id', id);
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Accept', 'application/json');
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.put('/api/v1/tageler/admin/update/?_id='+id,formData)
-          .toPromise()
-          .then(res => res.json() as Tageler)
-          .catch(this.handleError);
-
-  }
-
   // post("/api/Tagelers")
-  createTageler(newTageler: Tageler, file: File): Promise<Tageler> {
+  createTageler(newTageler: Tageler): Promise<Tageler> {
     console.log(JSON.stringify(newTageler));
     // let formData:FormData = new FormData();
-    // formData.append('picture', file, file.name);
     // formData.append('_id', "123456789");
     // formData.append('tageler', JSON.stringify(newTageler));
 
-    return this.http.post(this.tagelersUrlPost,newTageler)
+    return this.http.post(this.tagelersUrlPost, newTageler)
       .toPromise()
       .then(res => {
-        if (typeof file !== "undefined"){
-          let id:string = JSON.parse(res.text()).result._id.toString();
-          // console.log("ID: "+id);
-          return this.uploadPicture(id,file);
-        }else{
           return res.json() as Tageler;
-        }
       })
       .catch(this.handleError);
 
@@ -101,19 +77,13 @@ export class TagelerService {
   }
 
   // put("/api/contacts/:id")
-  updateTageler(putTageler: Tageler, file: File): Promise<Tageler> {
+  updateTageler(putTageler: Tageler): Promise<Tageler> {
     console.log("Update ID: " + putTageler._id);
      var putUrl = this.tagelerUrlUpdate;// + '?_id=' + putTageler._id;
      return this.http.put(putUrl, putTageler)
        .toPromise()
        .then(res => {
-        if (typeof file !== "undefined"){
-          let id:string = JSON.parse(res.text()).result._id.toString();
-          // console.log("ID: "+id);
-          return this.uploadPicture(id,file);
-        }else{
           return res.json() as Tageler;
-        }
       })
       .catch(this.handleError);
   }

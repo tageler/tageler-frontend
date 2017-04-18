@@ -14,7 +14,7 @@ import { Positioning } from 'angular2-bootstrap-confirm/position';
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
-//https://devcenter.heroku.com/articles/mean-apps-restful-api
+// https://devcenter.heroku.com/articles/mean-apps-restful-api
 
 @Component({
   selector: 'admin-component',
@@ -38,13 +38,12 @@ export class AdminComponent implements OnInit {
   deleteSuccess: boolean;
   update: boolean;
   view: boolean;
-  picFile: File;
+  base64textString: String;
+  previewBase64: String;
 
 
-  public title: string = 'Achtung';
-  public message: string = 'Soll dieser Tageler wirklich gelöscht werden?';
-
-  public uploader: FileUploader = new FileUploader({url: URL});
+  public title: String = 'Achtung';
+  public message: String = 'Soll dieser Tageler wirklich gelöscht werden?';
 
   @Input()
   tageler: Tageler;
@@ -57,16 +56,28 @@ export class AdminComponent implements OnInit {
     this.createForm();
   }
 
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    console.log("New File!");
-    console.log("it is: " + fileList[0].name);
+  handleFileSelect(evt) {
+    let files = evt.target.files;
+    let file = files[0];
 
-    this.picFile = fileList[0];
+    if (files && file) {
+      let reader = new FileReader();
+
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    console.log(btoa(binaryString));
+    this.previewBase64 = 'data:image/png;base64,' + btoa(binaryString);
   }
 
   ngOnInit() {
-    console.log("Init");
+    console.log('Init');
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
@@ -124,10 +135,10 @@ export class AdminComponent implements OnInit {
   fillFree(e) {
     if (e.target.checked) {
       this.tagelerForm.controls['title'].setValue('Übungsfrei');
-      this.tagelerForm.controls['picture'].setValue('https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg');
+      // this.tagelerForm.controls['picture'].setValue('https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg');
     }else {
       this.tagelerForm.controls['title'].setValue('');
-      this.tagelerForm.controls['picture'].setValue('');
+      // this.tagelerForm.controls['picture'].setValue('');
     }
   }
 
@@ -174,7 +185,7 @@ export class AdminComponent implements OnInit {
   showUpdateForm(tageler: Tageler) {
     this.tageler = tageler;
     this.view = false;
-    this.update= true;
+    this.update = true;
   }
 
   showDetailForm(tageler: Tageler) {
@@ -199,7 +210,6 @@ export class AdminComponent implements OnInit {
       bringAlong: 'BPMSTZ und Zvieri',
       uniform: 'Uniform und Kravatte, dem Wetter angepasste Kleidung',
       picture: '',
-      picture_file: '',
       checkout: this.fb.group({
         deadline_date: Date,
         deadline_time: '',
@@ -235,8 +245,7 @@ export class AdminComponent implements OnInit {
         end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
         bringAlong: this.tagelerForm.value.bringAlong as string,
         uniform: this.tagelerForm.value.uniform as string,
-        picture: this.tagelerForm.value.picture as string,
-        picture_file: this.picFile,
+        picture: this.base64textString as string,
         checkout : {
           deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':')),
           contact: [{
@@ -267,7 +276,7 @@ export class AdminComponent implements OnInit {
     this.tageler = this.prepareSaveTageler();
     this.createTageler = false;
     this.showTageler = true;
-    this.tagelerService.createTageler(this.tageler,this.picFile);
+    this.tagelerService.createTageler(this.tageler);
   }
 
 
@@ -277,7 +286,7 @@ export class AdminComponent implements OnInit {
 
   updateTageler() {
     this.tageler = this.prepareUpdateTageler();
-    this.tagelerService.updateTageler(this.tageler, this.picFile);
+    this.tagelerService.updateTageler(this.tageler);
     this.update = false;
     this.view = true;
   }
@@ -292,7 +301,7 @@ export class AdminComponent implements OnInit {
       end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end),
       bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
-      picture: this.tagelerForm.value.picture as string,
+      picture: this.base64textString as string,
       checkout : {
         deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time),
         contact: [{

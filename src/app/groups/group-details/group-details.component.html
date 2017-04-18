@@ -26,7 +26,7 @@
                 </ul>
               </div>
               <div *ngIf="tageler.free">
-                <img class="card-img-top" src={{tageler.picture}} width="318" height="180">
+                <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
       <div *ngFor="let tageler of tagelers | otherTagelerFilter: group">
         <a href="../tageler-details/{{tageler._id}}">
           <div class="card">
-            <img class="card-img-top" src={{tageler.picture}} width="318" height="180">
+            <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
             <div class="card-block">
               <h4 class="card-title">{{tageler.title}}</h4>
               <h4 class="card-title">{{ tageler.start | date: 'fullDate'}}</h4>

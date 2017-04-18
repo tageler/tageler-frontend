@@ -10,7 +10,7 @@
         <li *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</li>
         <li>Gruppe: {{tageler.group}}</li>
         <li *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</li>
-        <img *ngIf="tageler.picture" src={{tageler.picture}} alt="No picture" style="width:400px;">
+        <img *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" alt="No picture" style="width:400px;">
       </div>
     </div>
     <div class="col-md-6">
