@@ -1,8 +1,23 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, protractor } from 'protractor';
+
+var origFn = browser.driver.controlFlow().execute;
+
+browser.driver.controlFlow().execute = function() {
+  var args = arguments;
+
+  // queue 100ms wait
+  origFn.call(browser.driver.controlFlow(), function() {
+    return protractor.promise.delayed(100);
+  });
+
+  return origFn.apply(browser.driver.controlFlow(), args);
+};
 
 export class TagelerPage {
   navigateTo() {
-    return browser.get('/');
+    browser.get('/');
+    browser.waitForAngular();
+    return browser;
   }
 
   getParagraphText() {
@@ -29,7 +44,9 @@ export class TagelerPage {
 export class AdminPage{
 
   navigateToAdminPage() {
-    return browser.get('/tageler/admin');
+    browser.get('/tageler/admin');
+    browser.waitForAngular();
+    return browser;
   }
 
   getParagraphText() {
@@ -43,11 +60,15 @@ export class AdminPage{
 
 export class TagelerDetailPage{
   navigateToTagelerDetailPage(){
-    return browser.get('/tageler-details');
+    browser.get('/tageler-details');
+    browser.waitForAngular();
+    return browser;
   }
 
   navigateToSpecificDetailPage(){
-    return browser.get('/tageler-details/58e3a16e9e1be60ef209a62b');
+    browser.get('/tageler-details/58e3a16e9e1be60ef209a62b');
+    browser.waitForAngular();
+    return browser;
   }
 
   getTitle(){
@@ -69,7 +90,9 @@ export class TagelerDetailPage{
 
 export class GroupDetailsPage{
   navigateToSpecificGroupPage(){
-    return browser.get('/group/58f36c9885b29e0c261106b0');
+    browser.get('/group/58f36c9885b29e0c261106b0');
+    browser.waitForAngular();
+    return browser;
   }
 
   getParagraphText() {

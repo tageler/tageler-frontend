@@ -8,12 +8,17 @@ import { TagelerService } from '../tageler.service';
 import { GroupService} from '../../groups/group.service';
 import { Tageler } from '../tageler';
 import { Group } from '../../groups/group';
+import { DebugElement } from '@angular/core';
+import { By }           from '@angular/platform-browser';
 
 describe('TagelerComponent', () => {
   let tagelerService: TagelerService,
       groupService: GroupService,
       component: TagelerComponent,
       fixture: ComponentFixture<TagelerComponent>;
+  let de:      DebugElement;
+  let el:      HTMLElement;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,6 +51,10 @@ describe('TagelerComponent', () => {
     groupService = TestBed.get(GroupService);
     fixture = TestBed.createComponent(TagelerComponent);
     component = fixture.componentInstance;
+
+    // query for the title <h4> by CSS element selector
+    de = fixture.debugElement.query(By.css('h4'));
+    el = de.nativeElement;
   });
 
   it('should create', () => {
@@ -76,5 +85,26 @@ describe('TagelerComponent', () => {
     fixture.detectChanges();
     expect(groupService).toBeDefined();
     expect(groupService.getGroups).toHaveBeenCalled();
+  }));
+
+  it('should render title Trupp in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(TagelerComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h4').firstChild.textContent).toContain('Trupp');
+  }));
+
+  it('should render title Meute in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(TagelerComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('h4')[1].textContent).toContain('Meute');
+  }));
+
+  it('should render title Equipe in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(TagelerComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('h4')[2].textContent).toContain('Equipe');
   }));
 });
