@@ -135,9 +135,11 @@ export class AdminComponent implements OnInit {
   fillFree(e) {
     if (e.target.checked) {
       this.tagelerForm.controls['title'].setValue('Übungsfrei');
+      console.log("Free status: " + this.tagelerForm.controls['free'].value)
       // this.tagelerForm.controls['picture'].setValue('https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg');
     }else {
       this.tagelerForm.controls['title'].setValue('');
+      console.log("Free status: " + this.tagelerForm.controls['free'].value)
       // this.tagelerForm.controls['picture'].setValue('');
     }
   }
@@ -186,12 +188,14 @@ export class AdminComponent implements OnInit {
     this.tageler = tageler;
     this.view = false;
     this.update = true;
+    this.tagelerForm.controls['free'].setValue(tageler.free);
   }
 
   showDetailForm(tageler: Tageler) {
     this.tageler = tageler;
     this.view = true;
     this.update = false;
+    this.tagelerForm.controls['free'].setValue(tageler.free);
   }
 
   /***************************
@@ -277,6 +281,7 @@ export class AdminComponent implements OnInit {
     this.createTageler = false;
     this.showTageler = true;
     this.tagelerService.createTageler(this.tageler);
+    window.location.reload()
   }
 
 

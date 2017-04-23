@@ -22,29 +22,30 @@
   </div>
 
   <div *ngIf="showGroups">
-  <div class="row">
-    <div class="col md-4">
-      <h4>Trupp</h4>
-      <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
-        <button class="btn btn-secondary" (click)="selectGroup(group)">
+    <div class="row">
+      <div class="col md-4">
+        <h4>Trupp</h4>
+        <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
+          <button class="btn btn-secondary" (click)="selectGroup(group)">
             {{group.name}}
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="col md-4">
-      <h4>Meute</h4>
-      <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
-        <button class="btn btn-secondary" (click)="selectGroup(group)">
+      <div class="col md-4">
+        <h4>Meute</h4>
+        <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
+          <button class="btn btn-secondary" (click)="selectGroup(group)">
           {{group.name}}
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="col md-4">
-      <h4>Equipe</h4>
-      <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
-        <button class="btn btn-secondary" (click)="selectGroup(group)">
-          {{group.name}}
-        </button>
+      <div class="col md-4">
+        <h4>Equipe</h4>
+        <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
+          <button class="btn btn-secondary" (click)="selectGroup(group)">
+            {{group.name}}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -67,8 +68,6 @@
       <p>Tageler erfolgreich gelöscht!</p>
     </div>
   </div>
-  </div>
-
 
   <!-- Create tageler form -->
   <div class="col-md-6">
@@ -206,106 +205,298 @@
     </div>
 
     <!-- Shows details of selected tageler in a form -->
-    <div *ngIf="view">
-      <div class="col-md-12">
-        <form [formGroup]="tagelerForm">
-          <fieldset disabled>
+    <div *ngIf="view && !tageler.free" class="col-md-6">
+      <form [formGroup]="tagelerForm">
+        <fieldset disabled>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Übungsfrei</label>
+            <div class="col-9">
+              <input type="checkbox" checked="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Titel:</label>
+            <div class="col-9">
+              <input class="form-control" value="{{tageler.title}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Text:</label>
+            <div class="col-9">
+              <textarea class="form-control" rows="3" value="{{tageler.text}}"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Einheit:</label>
+            <div class="col-9">
+              <select class="form-control">
+                <option default>{{tageler.group}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Start:</label>
+            <div class="col-5">
+              <input class="form-control" value="{{tageler.start | date: 'mediumDate'}}">
+            </div>
+            <div class="col-4">
+              <input class="form-control" value="{{tageler.start | date: 'shortTime'}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Ende:</label>
+            <div class="col-5">
+              <input class="form-control" value="{{tageler.end | date: 'mediumDate'}}">
+            </div>
+            <div class="col-4">
+              <input class="form-control" value="{{tageler.end | date: 'shortTime'}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Mitbringen:</label>
+            <div class="col-9">
+              <input class="form-control" value="{{tageler.bringAlong}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Kleidung:</label>
+            <div class="col-9">
+              <input class="form-control" value="{{tageler.uniform}}">
+            </div>
+          </div>
+          <div formGroupName="checkout">
             <div class="form-group row">
-              <label class="col-3 col-form-label">Titel:</label>
-              <div class="col-9">
-                <input class="form-control" placeholder="{{tageler.title}}">
+              <label class="col-3 col-form-label">Absagen bis:</label>
+              <div class="col-5">
+                <input class="form-control" value="{{tageler.checkout.deadline | date: 'mediumDate'}}">
+              </div>
+              <div class="col-4">
+                <input class="form-control" value="{{tageler.checkout.deadline | date: 'shortTime'}}">
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Text:</label>
-              <div class="col-9">
-                <textarea class="form-control" rows="3" placeholder="{{tageler.text}}"></textarea>
+            <div formGroupName="contact">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Absagen bei:</label>
+                <div class="col-9">
+                  <input class="form-control" value="{{tageler.checkout.contact[0].name}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Kanal:</label>
+                <div class="col-9">
+                  <input class="form-control" value="{{tageler.checkout.contact[0].phone}}">
+                  <input class="form-control" value="{{tageler.checkout.contact[0].mail}}">
+                  <input class="form-control" value="{{tageler.checkout.contact[0].other}}">
+                </div>
               </div>
             </div>
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Einheit:</label>
-              <div class="col-9">
-                <select class="form-control">
-                  <option default>{{tageler.group}}</option>
-                </select>
-              </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Bild hochladen:</label>
+            <div class="col-9">
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+              <input value="{{tageler.picture}}">
             </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Start:</label>
-                <div class="col-5">
-                  <input class="form-control" type="date" placeholder="{{tageler.start}}">
-                </div>
-                <div class="col-4">
-                  <input class="form-control" type="time" placeholder="{{tageler.start}}">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Ende:</label>
-                <div class="col-5">
-                  <input class="form-control" type="date" placeholder="{{tageler.start}}">
-                </div>
-                <div class="col-4">
-                  <input class="form-control" type="time" placeholder="{{tageler.start}}">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Mitbringen:</label>
-                <div class="col-9">
-                  <input class="form-control" placeholder="{{tageler.bringAlong}}">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Kleidung:</label>
-                <div class="col-9">
-                  <input class="form-control" placeholder="{{tageler.uniform}}">
-                </div>
-              </div>
-              <div formGroupName="checkout">
-                <div class="form-group row">
-                  <label class="col-3 col-form-label">Absagen bis:</label>
-                  <div class="col-5">
-                    <input class="form-control" type="date">
-                  </div>
-                  <div class="col-4">
-                    <input class="form-control"type="time">
-                  </div>
-                </div>
-                <div formGroupName="contact">
-                  <div class="form-group row">
-                    <label class="col-3 col-form-label">Absagen bei:</label>
-                    <div class="col-9">
-                      <input class="form-control" placeholder="{{tageler.checkout.contact[0].name}}">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-3 col-form-label">Kanal:</label>
-                    <div class="col-9">
-                      <input class="form-control" type="tel" placeholder="{{tageler.checkout.contact[0].phone}}">
-                      <input class="form-control" type="email" placeholder="{{tageler.checkout.contact[0].mail}}">
-                      <input class="form-control" placeholder="{{tageler.checkout.contact[0].other}}">
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-3 col-form-label">Bild hochladen:</label>
-                <div class="col-9">
-                  <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
-                  <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
-                </div>
-              </div>
-          </fieldset>
-          <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
-        </form>
-      </div>
+          </div>
+        </fieldset>
+        <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
+      </form>
     </div>
 
 
-    <!-- Update Form -->
-    <div *ngIf="update">
+    <!-- Shows details of selected tageler (free) in a form -->
+    <div *ngIf="view && tageler.free == true" class="col-md-6">
+      <form [formGroup]="tagelerForm">
+        <fieldset disabled>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Übungsfrei</label>
+            <div class="col-9">
+              <input type="checkbox" checked="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Titel:</label>
+            <div class="col-9">
+              <input class="form-control" value="{{tageler.title}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Text:</label>
+            <div class="col-9">
+              <textarea class="form-control" rows="3" value="{{tageler.text}}"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Einheit:</label>
+            <div class="col-9">
+              <select class="form-control">
+                <option default>{{tageler.group}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Datum:</label>
+            <div class="col-5">
+              <input class="form-control" value="{{tageler.start | date: 'mediumDate'}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Bild hochladen:</label>
+            <div class="col-9">
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+              <input value="{{tageler.picture}}">
+            </div>
+          </div>
+        </fieldset>
+        <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
+      </form>
+    </div>
+
+
+    <!-- Update Form
+    <div *ngIf="update && !tageler.free">
       <div class="col-md-12">
         <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Titel:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="title" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Text:</label>
+            <div class="col-9">
+              <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Einheit:</label>
+            <div class="col-9">
+              <select class="form-control" formControlName="group" [(ngModel)]="tageler.group">
+                <option default>{{tageler.group}}</option>
+                <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Start:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_start" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="time_start" type="time">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Ende:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_end" type="date">
+            </div>
+            <div class="col-4">
+              <input class="form-control" formControlName="time_end" type="time">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Mitbringen:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" placeholder="{{tageler.bringAlong}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Kleidung:</label>
+            <div class="col-9">
+              <input class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}">
+            </div>
+          </div>
+          <div formGroupName="checkout">
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Absagen bis:</label>
+              <div class="col-5">
+                <input class="form-control" formControlName="deadline_date" type="date">
+              </div>
+              <div class="col-4">
+                <input class="form-control" formControlName="deadline_time" type="time">
+              </div>
+            </div>
+            <div formGroupName="contact">
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Absagen bei:</label>
+                <div class="col-9">
+                  <input class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" placeholder="{{tageler.checkout.contact[0].name}}">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-3 col-form-label">Kanal:</label>
+                <div class="col-9">
+                  <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" placeholder="{{tageler.checkout.contact[0].phone}}">
+                  <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail" placeholder="{{tageler.checkout.contact[0].mail}}">
+                  <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other" placeholder="{{tageler.checkout.contact[0].other}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Bild hochladen:</label>
+            <div class="col-9">
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>--><!--
+              <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+              <input class="form-control" formControlName="picture" [(ngModel)]="tageler.picture" placeholder="{{tageler.picture}}">
+            </div>
+          </div>
+          <button class="btn btn-info" type="submit">Speichern</button>
+          <button class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
+        </form>
+      </div>
+    </div>
+-->
+
+  <!-- Update Form (free)-->
+  <div *ngIf="update" class="col-md-6">
+    <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
+      <div class="form-group row">
+        <label class="col-3 col-form-label">Übungsfrei</label>
+        <div class="col-9">
+          <input type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)" [checked]="tageler.free">
+        </div>
+      </div>
+      <div *ngIf="tagelerForm.controls['free'].value">
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Titel:</label>
+          <div class="col-9">
+            <input class="form-control" formControlName="title" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Text:</label>
+          <div class="col-9">
+            <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Einheit:</label>
+          <div class="col-9">
+            <select class="form-control" formControlName="group" [(ngModel)]="tageler.group">
+              <option default>{{tageler.group}}</option>
+              <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Datum:</label>
+          <div class="col-5">
+            <input class="form-control" formControlName="date_start" type="date" required placeholder="{{tageler.start}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Bild hochladen:</label>
+          <div class="col-9">
+            <!--<input type="file" ng2FileSelect [uploader]="uploader" formControlName="picture"/>-->
+            <input type="file" (change)="fileChange($event)" placeholder="Upload picture" accept=".jpg,.png">
+            <input class="form-control" formControlName="picture" [(ngModel)]="tageler.picture" placeholder="{{tageler.picture}}">
+          </div>
+        </div>
+        </div>
+        <div *ngIf="!tagelerForm.controls['free'].value">
           <div class="form-group row">
             <label class="col-3 col-form-label">Titel:</label>
             <div class="col-9">
@@ -392,10 +583,10 @@
               <input class="form-control" formControlName="picture" [(ngModel)]="tageler.picture" placeholder="{{tageler.picture}}">
             </div>
           </div>
-          <button class="btn btn-info" type="submit">Speichern</button>
-          <button class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
-        </form>
-      </div>
+        </div>
+        <button class="btn btn-info" type="submit">Speichern</button>
+        <button class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
+      </form>
     </div>
   </div>
 </div>
