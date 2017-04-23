@@ -1,6 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileUploader } from 'ng2-file-upload';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Tageler } from '../tagelers/tageler';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -135,11 +134,9 @@ export class AdminComponent implements OnInit {
   fillFree(e) {
     if (e.target.checked) {
       this.tagelerForm.controls['title'].setValue('Übungsfrei');
-      console.log("Free status: " + this.tagelerForm.controls['free'].value)
       // this.tagelerForm.controls['picture'].setValue('https://entradalissabon.files.wordpress.com/2012/12/freizeit.jpg');
     }else {
       this.tagelerForm.controls['title'].setValue('');
-      console.log("Free status: " + this.tagelerForm.controls['free'].value)
       // this.tagelerForm.controls['picture'].setValue('');
     }
   }
@@ -281,6 +278,7 @@ export class AdminComponent implements OnInit {
     this.createTageler = false;
     this.showTageler = true;
     this.tagelerService.createTageler(this.tageler);
+    this.tagelerForm.reset();
     window.location.reload()
   }
 

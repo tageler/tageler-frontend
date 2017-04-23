@@ -5,7 +5,8 @@ import {Observable} from 'rxjs/Observable';
 // import {Observable} from "RxJS/Rx";
 import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
 import 'rxjs/add/operator/map';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMap';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
+import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
 
 
 
@@ -14,9 +15,8 @@ export class TagelerService {
   private tagelersUrlPost = '/api/v1/tageler/admin/create';
   private tagelersUrlGet = '/api/v1/tageler/getTagelers';
   private tagelersUrlGetById = '/api/v1/tageler/getById';
-  private tagelerUrlDelete = '/api/v1/tageler/admin/delete/';
-  private tagelerUrlUpdate = '/api/v1/tageler/admin/update/';
-  private createdTageler:Tageler;
+  private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
+  private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
 
   constructor(private http: Http) { }
 // get("/api/tagelers")
@@ -68,21 +68,25 @@ export class TagelerService {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     let options = new RequestOptions({ headers: headers });
-
     console.log("delete tageler with ID: "+delTageler);
-     return this.http.delete(this.tagelerUrlDelete+'?_id='+delTageler,options)
-       .toPromise()
-       .then(response => response.json() as String)
-       .catch(this.handleError);
+    return this.http.delete(this.tagelerUrlDelete+'/'+delTageler,options)
+      .toPromise()
+      .then(response => response.json() as String)
+      .catch(this.handleError);
   }
 
   // put("/api/contacts/:id")
   updateTageler(putTageler: Tageler): Promise<Tageler> {
-    console.log("Update ID: " + putTageler._id);
-     var putUrl = this.tagelerUrlUpdate;// + '?_id=' + putTageler._id;
-     return this.http.put(putUrl, putTageler)
+
+    const body = JSON.stringify(putTageler);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    console.log("Update tageler with ID: "+ putTageler._id);
+    return this.http.put(this.tagelerUrlUpdate+'/'+putTageler._id, body, { headers: headers })
        .toPromise()
        .then(res => {
+         console.log(res.json() as Tageler);
           return res.json() as Tageler;
       })
       .catch(this.handleError);

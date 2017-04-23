@@ -103,7 +103,6 @@ describe('Component: AdminComponent', () => {
       bringAlong: 'Tasse',
       uniform: 'Kleid',
       picture: '',
-      picture_file: '',
       checkout: {
         deadline_date: new Date,
         deadline_time: '10:00',
@@ -126,7 +125,6 @@ describe('Component: AdminComponent', () => {
     component.tagelerForm.controls['bringAlong'].setValue(testTageler.bringAlong);
     component.tagelerForm.controls['uniform'].setValue(testTageler.uniform);
     component.tagelerForm.controls['picture'].setValue(testTageler.picture);
-    component.tagelerForm.controls['picture_file'].setValue(testTageler.picture_file);
     component.tagelerForm.get('checkout.deadline_date').setValue(testTageler.checkout.deadline_date);
     component.tagelerForm.get('checkout.deadline_time').setValue(testTageler.checkout.deadline_time);
     component.tagelerForm.get('checkout.contact.name').setValue(testTageler.checkout.contact.name);
