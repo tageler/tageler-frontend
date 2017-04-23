@@ -205,13 +205,13 @@
     </div>
 
     <!-- Shows details of selected tageler in a form -->
-    <div *ngIf="view && !tageler.free" class="col-md-6">
+    <div *ngIf="view" class="col-md-6">
       <form [formGroup]="tagelerForm">
         <fieldset disabled>
           <div class="form-group row">
             <label class="col-3 col-form-label">Übungsfrei</label>
             <div class="col-9">
-              <input type="checkbox" checked="true">
+              <input type="checkbox" checked="{{tageler.free}}">
             </div>
           </div>
           <div class="form-group row">
@@ -234,6 +234,7 @@
               </select>
             </div>
           </div>
+          <div *ngIf="!tageler.free">
           <div class="form-group row">
             <label class="col-3 col-form-label">Start:</label>
             <div class="col-5">
@@ -291,6 +292,15 @@
               </div>
             </div>
           </div>
+          </div>
+          <div *ngIf="tageler.free">
+            <div class="form-group row">
+              <label class="col-3 col-form-label">Datum:</label>
+              <div class="col-5">
+                <input class="form-control" value="{{tageler.start | date: 'mediumDate'}}">
+              </div>
+            </div>
+          </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Bild hochladen:</label>
             <div class="col-9">
@@ -304,7 +314,7 @@
     </div>
 
 
-    <!-- Shows details of selected tageler (free) in a form -->
+    <!-- Shows details of selected tageler (free) in a form
     <div *ngIf="view && tageler.free == true" class="col-md-6">
       <form [formGroup]="tagelerForm">
         <fieldset disabled>
@@ -343,7 +353,7 @@
           <div class="form-group row">
             <label class="col-3 col-form-label">Bild hochladen:</label>
             <div class="col-9">
-              <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+              <!--<input type="file" ng2FileSelect [uploader]="uploader" />--><!--
               <input value="{{tageler.picture}}">
             </div>
           </div>
@@ -351,7 +361,7 @@
         <button class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
       </form>
     </div>
-
+    -->
 
     <!-- Update Form
     <div *ngIf="update && !tageler.free">
@@ -450,7 +460,7 @@
     </div>
 -->
 
-  <!-- Update Form (free)-->
+  <!-- Update Form -->
   <div *ngIf="update" class="col-md-6">
     <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
       <div class="form-group row">
