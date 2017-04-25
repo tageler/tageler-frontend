@@ -2,26 +2,30 @@
   <div class="row">
     <div>
       <div class="col-md-2" *ngIf="!createTageler">
-        <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
+        <button class="btn btn-primary" (click)="showCreateTagelerForm()" style="margin-left: 2%; margin-top: 2%;">
+          Tageler erstellen</button>
       </div>
       <div class="col-md-2" *ngIf="createTageler">
-        <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
+        <button class="btn btn-primary" (click)="cancelCreateTageler()" style="margin-left: 2%; margin-bottom: 2%;">
+          Abbrechen</button>
       </div>
     </div>
     <div>
       <div class="col-md-2" *ngIf="!showGroups && !createTageler">
-        <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
+        <button class="btn btn-primary" (click)="showListOfGroups()" style="margin-left: 2%; margin-top: 2%;">
+          Gruppen anzeigen</button>
       </div>
       <div class="col-md-2" *ngIf="showGroups && !createTageler">
-        <button class="btn btn-primary" (click)="hideListOfGroups()">Ansicht schliessen</button>
+        <button class="btn btn-primary" (click)="hideListOfGroups()" style="margin-left: 2%; margin-top: 2%;">
+          Ansicht schliessen</button>
       </div>
     </div>
     <div class="col-md-2" *ngIf="showGroups && !createTageler">
-      <button class="btn btn-primary" (click)="unselectSelectedGroups()">Auswahl aufheben</button>
+      <button class="btn btn-primary" (click)="unselectSelectedGroups()" style="margin-left: 1%; margin-top: 1%;">Auswahl aufheben</button>
     </div>
   </div>
 
-  <div *ngIf="showGroups">
+  <div *ngIf="showGroups" style="margin-top: 2%;">
     <div class="row">
       <div class="col md-4">
         <h4>Trupp</h4>
@@ -184,7 +188,7 @@
       <div class="row">
         <div *ngIf="showTageler">
           <div *ngFor="let tageler of tagelers | tagelerByGroup: selectedGroup">
-            <div class="card w-100">
+            <div class="card w-100" style="margin-top: 4%; margin-bottom: 4%;">
               <div class="card-block">
                 <h4 class="card-title">{{tageler.title}}</h4>
                 <p class="card-text">{{tageler.text}}</p>
