@@ -2,22 +2,18 @@
   <div class="row">
     <div>
       <div class="col-md-2" *ngIf="!createTageler">
-        <button class="btn btn-primary" (click)="showCreateTagelerForm()" style="margin-left: 2%; margin-top: 2%;">
-          Tageler erstellen</button>
+        <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
       </div>
       <div class="col-md-2" *ngIf="createTageler">
-        <button class="btn btn-primary" (click)="cancelCreateTageler()" style="margin-left: 2%; margin-bottom: 2%;">
-          Abbrechen</button>
+        <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
       </div>
     </div>
     <div>
       <div class="col-md-2" *ngIf="!showGroups && !createTageler">
-        <button class="btn btn-primary" (click)="showListOfGroups()" style="margin-left: 2%; margin-top: 2%;">
-          Gruppen anzeigen</button>
+        <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
       </div>
       <div class="col-md-2" *ngIf="showGroups && !createTageler">
-        <button class="btn btn-primary" (click)="hideListOfGroups()" style="margin-left: 2%; margin-top: 2%;">
-          Ansicht schliessen</button>
+        <button class="btn btn-primary" (click)="hideListOfGroups()">Ansicht schliessen</button>
       </div>
     </div>
     <div class="col-md-2" *ngIf="showGroups && !createTageler">
