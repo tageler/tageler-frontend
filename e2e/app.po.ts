@@ -20,6 +20,18 @@ export class TagelerPage {
     return browser;
   }
 
+  getFirstListElement(){
+    return element.all(by.css('app-root li')).first().getText();
+  }
+
+  getSecondListElement(){
+    return element.all(by.css('app-root li')).get(1).getText();
+  }
+
+  getFirstTitleElement(){
+    return element.all(by.css('app-root a')).first().getText();
+  }
+
   getParagraphText() {
     return element(by.css('app-root h1')).getText();
   }
@@ -55,6 +67,18 @@ export class AdminPage{
 
   getButtons(){
     return element(by.css('.btn.btn-primary')).isPresent();
+  }
+
+  getThirButton(){
+    return element.all(by.css('.btn.btn-primary')).get(2).isPresent();
+  }
+
+  getFourthButton(){
+    return element.all(by.css('.btn.btn-primary')).get(3).isPresent();
+  }
+
+  getFithtButton(){
+    return element.all(by.css('.btn.btn-primary')).get(4).isPresent();
   }
 }
 
