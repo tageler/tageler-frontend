@@ -1,50 +1,46 @@
 <div class="container" *ngIf="group">
   <h3>Tagelers of {{group.name}}</h3>
-  <div class="row">
-    <div class="pipe" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-      <div class="card">
-        <div class="card-block">
-          <div class="row">
-            <div class="col md-6">
-              <h3 class="card-title">{{tageler.title}}</h3>
-              <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis <br>
-                {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
-              <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-              <p class="card-text">{{tageler.text}}</p>
-              <p class="card-text">{{tageler.group}}</p>
-              <p class="card-text" *ngIf="!tageler.free">{{tageler.bringAlong}}</p>
-              <p class="card-text" *ngIf="!tageler.free">{{tageler.uniform}}</p>
+  <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
+    <div class="card" style="width: 100% !important;">
+      <div class="card-block">
+        <div class="row">
+          <div class="col md-7">
+            <h3 class="card-title">{{tageler.title}}</h3>
+            <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis <br>
+              {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
+            <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
+            <p class="card-text">{{tageler.text}}</p>
+            <p class="card-text">{{tageler.group}}</p>
+            <p class="card-text" *ngIf="!tageler.free">{{tageler.bringAlong}}</p>
+            <p class="card-text" *ngIf="!tageler.free">{{tageler.uniform}}</p>
+          </div>
+          <div class="col-md-5">
+            <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
+              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+              <p class="checkout-info">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
+              <p class="checkout-info">Bei: {{tageler.checkout.contact[0].name}} </p>
+              <ul>
+                <li class="checkout-info">Tel: {{tageler.checkout.contact[0].phone}}</li>
+                <li class="checkout-info">Mail: {{tageler.checkout.contact[0].mail}}</li>
+              </ul>
             </div>
-            <div class="col-md-6">
-              <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
-                <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-                <p class="checkout-info">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
-                <p class="checkout-info">Bei: {{tageler.checkout.contact[0].name}} </p>
-                <ul>
-                  <li class="checkout-info">Tel: {{tageler.checkout.contact[0].phone}}</li>
-                  <li class="checkout-info">Mail: {{tageler.checkout.contact[0].mail}}</li>
-                </ul>
-              </div>
-              <div *ngIf="tageler.free">
-                <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
-              </div>
-            </div>
+            <img class="rounded float-right" [src]="'data:image/png;base64,' + tageler.picture" width="440" height="220">
           </div>
         </div>
       </div>
     </div>
-    <div class="row" style="margin-left:0px !important; margin-right: 0px !important;">
-      <div *ngFor="let tageler of tagelers | otherTagelerFilter: group">
-        <a href="../tageler-details/{{tageler._id}}">
-          <div class="card">
-            <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
-            <div class="card-block">
-              <h4 class="card-title">{{tageler.title}}</h4>
-              <h4 class="card-title">{{ tageler.start | date: 'fullDate'}}</h4>
-            </div>
+  </div>
+  <div class="row" >
+    <div *ngFor="let tageler of tagelers | otherTagelerFilter: group">
+      <a href="../tageler-details/{{tageler._id}}">
+        <div class="card" style="margin-left:0px !important; margin-right: 0px !important; width: 20rem">
+          <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+          <div class="card-block">
+            <h5 class="card-title">{{tageler.title}}</h5>
+            <h5 class="card-title">{{ tageler.start | date: 'fullDate'}}</h5>
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
     </div>
   </div>
 </div>
