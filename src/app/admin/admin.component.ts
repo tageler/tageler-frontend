@@ -213,12 +213,13 @@ export class AdminComponent implements OnInit {
 
   showUpdateForm(tageler: Tageler) {
     this.tageler = tageler;
-    this.tagelerForm.controls['date_start'].setValue(this.tageler.start.toISOString().substr(0, 10));
-    console.log(this.tageler.start);
+    this.fillDates(tageler);
     this.view = false;
     this.update = true;
     this.tagelerForm.controls['free'].setValue(tageler.free);
-    this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    if (this.tageler.picture !== '') {
+      this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    }
   }
 
   showDetailForm(tageler: Tageler) {
@@ -226,7 +227,9 @@ export class AdminComponent implements OnInit {
     this.view = true;
     this.update = false;
     this.tagelerForm.controls['free'].setValue(tageler.free);
-    this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    if (this.tageler.picture !== '') {
+      this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    }
   }
 
   /***************************
@@ -337,6 +340,14 @@ export class AdminComponent implements OnInit {
     this.tagelerService.updateTageler(this.tageler);
     this.update = false;
     this.view = true;
+  }
+
+  fillDates(tageler: Tageler) {
+    this.tagelerForm.controls['date_start'].setValue(new Date(tageler.start).toISOString().slice(0, 10));
+    this.tagelerForm.controls['date_end'].setValue(new Date(tageler.end).toISOString().slice(0, 10));
+    this.tagelerForm.controls['time_start'].setValue(new Date(tageler.start).toISOString().slice(11, 16));
+    this.tagelerForm.controls['time_end'].setValue(new Date(tageler.end).toISOString().slice(11, 16));
+    // this.tagelerForm.controls['checkout.deadline_date'].setValue(new Date(tageler.checkout.deadline).toISOString().slice(0, 10));
   }
 
   prepareUpdateTageler(): Tageler {
