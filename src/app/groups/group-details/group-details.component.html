@@ -1,14 +1,14 @@
 <div class="container" *ngIf="group">
   <h3>Tagelers of {{group.name}}</h3>
   <div class="row">
-    <div *ngFor="let tageler of tagelers | nextTagelerFilter: group ">
+    <div class="pipe" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
       <div class="card">
         <div class="card-block">
           <div class="row">
             <div class="col md-6">
               <h3 class="card-title">{{tageler.title}}</h3>
-              <h5 *ngIf="!tageler.free"> {{ tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr bis <br>
-                  {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</h5>
+              <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis <br>
+                {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
               <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
               <p class="card-text">{{tageler.text}}</p>
               <p class="card-text">{{tageler.group}}</p>
@@ -18,11 +18,11 @@
             <div class="col-md-6">
               <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
                 <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-                <p>Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
-                <p>Bei: {{tageler.checkout.contact[0].name}} </p>
+                <p class="checkout-info">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
+                <p class="checkout-info">Bei: {{tageler.checkout.contact[0].name}} </p>
                 <ul>
-                  <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
-                  <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
+                  <li class="checkout-info">Tel: {{tageler.checkout.contact[0].phone}}</li>
+                  <li class="checkout-info">Mail: {{tageler.checkout.contact[0].mail}}</li>
                 </ul>
               </div>
               <div *ngIf="tageler.free">

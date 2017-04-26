@@ -188,7 +188,7 @@ describe('TagelerService', () => {
              free: false,
        };
 
-         tagelerService.createTageler(tageler, null).then(
+         tagelerService.createTageler(tageler).then(
            (successResult) => {
              expect(successResult).toBeDefined();
              expect(successResult.title).toEqual('Tageler 1');
@@ -232,7 +232,7 @@ describe('TagelerService', () => {
           free: false
         };
 
-      tagelerService.updateTageler(tageler, null).then(
+      tagelerService.updateTageler(tageler).then(
         (successResult) => {
           expect(successResult).toBeDefined();
           expect(successResult.title).toEqual('Tageler 2');
