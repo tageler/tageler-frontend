@@ -75,4 +75,5 @@ describe('TagelerDetailsComponent', () => {
     expect(groupService).toBeDefined();
     expect(groupService.getGroups).toHaveBeenCalled();
   }));
+
 });

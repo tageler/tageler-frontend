@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DebugElement } from '@angular/core';
 import { By }           from '@angular/platform-browser';
 
+
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
@@ -50,4 +51,6 @@ describe('AppComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Willkommen zum neuen Tageler-System!');
   }));
+
+
 });

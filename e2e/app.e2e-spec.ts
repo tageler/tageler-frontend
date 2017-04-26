@@ -12,25 +12,40 @@ describe('tageler App', () => {
     expect(page.getParagraphText()).toEqual('Willkommen zum neuen Tageler-System!');
   });
 
+  it('should display Tageler in a tag', () =>{
+    page.navigateTo();
+    expect(page.getFirstTitleElement()).toEqual('Tageler');
+  });
+
+  it('should display Home in li tag', () =>{
+    page.navigateTo();
+    expect(page.getFirstListElement()).toEqual('Home');
+  });
+
+  it('should display Übersicht Tageler in li tag', () =>{
+    page.navigateTo();
+    expect(page.getFirstListElement()).toEqual('Home');
+  });
+
   it('should display Gruppen in h2 tag', () =>{
     page.navigateTo();
-    expect(page.getParagraphForGroups()).toEqual('Gruppen');
-  })
+    expect(page.getSecondListElement()).toEqual('Übersicht Tageler');
+  });
 
   it('should display Trupp in h4 tag', () =>{
     page.navigateTo();
     expect(page.getFirstGroupName()).toEqual('Trupp');
-  })
+  });
 
   it('should display Meute in h4 tag', () =>{
     page.navigateTo();
     expect(page.getSecondGroupName()).toEqual('Meute');
-  })
+  });
 
   it('should display Equipe in h4 tag', () =>{
     page.navigateTo();
     expect(page.getThirdGroupName()).toEqual('Equipe');
-  })
+  });
 });
 
 describe('tageler Admin', () => {
@@ -48,7 +63,27 @@ describe('tageler Admin', () => {
   it('Tageler erstellen button should exist', () => {
     adminPage.navigateToAdminPage();
     expect(adminPage.getButtons()).toBeTruthy();
-  })
+  });
+
+  it('Abbrechen button should exist', () => {
+    adminPage.navigateToAdminPage();
+    expect(adminPage.getButtons()).toBeTruthy();
+  });
+
+  it('Gruppen anzeigen erstellen button should exist', () => {
+    adminPage.navigateToAdminPage();
+    expect(adminPage.getButtons()).toBeTruthy();
+  });
+
+  it('Ansicht schliessen button should exist', () => {
+    adminPage.navigateToAdminPage();
+    expect(adminPage.getButtons()).toBeTruthy();
+  });
+
+  it('Auswahl aufheben button should exist', () => {
+    adminPage.navigateToAdminPage();
+    expect(adminPage.getButtons()).toBeTruthy();
+  });
 
 });
 
@@ -71,7 +106,7 @@ describe('specific Tageler-Detail Page', () => {
 
   beforeEach(function () {
     tagelerDetailPage = new TagelerDetailPage();
-  })
+  });
 
   it('same h1 tag as in Index page', () => {
     tagelerDetailPage.navigateToSpecificDetailPage();
@@ -81,17 +116,17 @@ describe('specific Tageler-Detail Page', () => {
   it('should display titel Fürla in h2 tag', () => {
     tagelerDetailPage.navigateToSpecificDetailPage();
     expect(tagelerDetailPage.getSpecificTagelerTitle()).toEqual('Fürlä');
-  })
+  });
 
   it('tageler Text should be in p element and text should be adsfdg', () => {
     tagelerDetailPage.navigateToSpecificDetailPage();
     expect(tagelerDetailPage.getTagelerText()).toEqual('adsfdg');
-  })
+  });
 
   it('should display Wichtig-Abmeldung in h4 tag', ()=> {
     tagelerDetailPage.navigateToSpecificDetailPage();
     expect(tagelerDetailPage.getElementOfh4Tag()).toEqual('Wichtig-Abmeldung');
-  })
+  });
 });
 
 describe('Grouppage', () => {
@@ -109,10 +144,10 @@ describe('Grouppage', () => {
   it('should display Tagelers of Obsidian', () => {
     groupDetailsPage.navigateToSpecificGroupPage();
     expect(groupDetailsPage.getGroupTitle()).toEqual('Tagelers of Obsidian');
-  })
+  });
 
   it('should display Wichtig-Abmeldung in h4 tag', ()=> {
     groupDetailsPage.navigateToSpecificGroupPage();
     expect(groupDetailsPage.getElementOfh4Tag()).toEqual('Wichtig-Abmeldung');
-  })
+  });
 });
