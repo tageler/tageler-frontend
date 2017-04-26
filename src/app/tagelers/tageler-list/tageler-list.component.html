@@ -6,6 +6,7 @@
         <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
         <div class="card-block">
           <h5 class="card-title">{{tageler.title}}</h5>
+          <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
         </div>
       </div>
       </a>

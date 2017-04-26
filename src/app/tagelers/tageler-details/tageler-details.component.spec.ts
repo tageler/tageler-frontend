@@ -7,6 +7,8 @@ import { GroupService} from '../../groups/group.service';
 import { Tageler } from '../tageler';
 import { Group } from '../../groups/group';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LOCALE_ID } from '@angular/core';
+
 
 describe('TagelerDetailsComponent', () => {
   let tagelerService: TagelerService,
@@ -34,7 +36,8 @@ describe('TagelerDetailsComponent', () => {
         },
         { provide: GroupService, useClass: GroupService },
         { provide: TagelerService, useClass: TagelerService },
-        BaseRequestOptions
+        BaseRequestOptions,
+        { provide: LOCALE_ID, useValue: "de" },
       ]})
       .compileComponents()
   }));
@@ -75,4 +78,80 @@ describe('TagelerDetailsComponent', () => {
     expect(groupService).toBeDefined();
     expect(groupService.getGroups).toHaveBeenCalled();
   }));
+
+  it('tageler should be displayed correctly', () => {
+    var start_date1 = '2017-10-28T12:00:00.824Z';
+    var end_date1 = '2017-10-28T15:00:00.824Z';
+    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tageler: Array<Tageler> = [{ title: 'Tageler 1',
+      text: 'Test',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: false
+    }];
+
+    const fixture = TestBed.createComponent(TagelerDetailsComponent);
+    fixture.componentInstance.tageler = tageler[0];
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('h2').textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('p').firstChild.textContent).toContain('Test');
+    expect(fixture.debugElement.nativeElement.querySelector('li').firstChild.textContent).toContain('Start: Samstag, 28. Oktober 2017, 14:00 Uhr');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[1].textContent).toContain('Ende: Samstag, 28. Oktober 2017, 17:00 Uhr');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[2].textContent).toContain('Mitbringen: Essen');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[3].textContent).toContain('Gruppe: Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[4].textContent).toContain('Anziehen: Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Wichtig - Abmeldung');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('p')[1].textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00 Uhr');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('p')[2].textContent).toContain('Bei: Person 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[5].textContent).toContain('Tel: 01234');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[6].textContent).toContain('Mail: person1@mail.com');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[7]).toBeUndefined();
+  });
+
+  it('free tageler should be displayed correctly', () => {
+    var start_date1 = '2017-10-28T12:00:00.824Z';
+    var end_date1 = '2017-10-28T15:00:00.824Z';
+    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tageler: Array<Tageler> = [{ title: 'Tageler 1',
+      text: 'Test',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: true
+    }];
+
+    const fixture = TestBed.createComponent(TagelerDetailsComponent);
+    fixture.componentInstance.tageler = tageler[0];
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('h2').textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('p').firstChild.textContent).toContain('Test');
+    expect(fixture.debugElement.nativeElement.querySelector('li').firstChild.textContent).toContain('Datum: Samstag, 28. Oktober 2017');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[1].textContent).toContain('Gruppe: Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('.alert alert-warning')).toBeNull();
+    });
 });

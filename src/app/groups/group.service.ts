@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Group } from './group';
-import { Http, Headers, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
-// import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
 
 @Injectable()
 export class GroupService {

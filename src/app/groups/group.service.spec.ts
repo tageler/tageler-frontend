@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { GroupService } from './group.service';
 
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { HttpModule, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 
@@ -30,9 +30,9 @@ describe('GroupService', () => {
 
         const mockResponse = {
           data: [
-            {id: 1, type: 'Trupp', name: 'A'},
-            {id: 2, type: 'Meute', name: 'B'},
-            {id: 3, type: 'Equipe', name: 'C'},
+            {_id: 1, type: 'Trupp', name: 'A'},
+            {_id: 2, type: 'Meute', name: 'B'},
+            {_id: 3, type: 'Equipe', name: 'C'},
           ]
         };
 
@@ -62,7 +62,7 @@ describe('GroupService', () => {
 
         const mockResponse = {
           data: [
-            {id: 1, type: 'Trupp', name: 'A'},
+            {_id: 1, type: 'Trupp', name: 'A'},
           ]
         };
 
@@ -74,7 +74,7 @@ describe('GroupService', () => {
 
         groupService.getGroup(1).then(
           (data) => {
-            expect(data[1].id).toBe(1);
+            expect(data[1]._id).toBe(1);
             expect(data[1].type).toEqual('Trupp');
             expect(data[1].name).toEqual('A');
           })

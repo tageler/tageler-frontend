@@ -214,7 +214,8 @@ describe('TagelerService', () => {
       var checkout_date1 = '2017-10-25T12:00:00.824Z';
 
       const tageler: Tageler =
-        {title: 'Tageler 2',
+        { _id: '1',
+          title: 'Tageler 2',
           text: 'Text 2',
           group: ['Baghira'],
           start: new Date(start_date1),
@@ -257,7 +258,8 @@ describe('TagelerService', () => {
       var checkout_date1 = '2017-10-25T12:00:00.824Z';
 
       const tageler: Tageler =
-        {title: 'Tageler 2',
+        { _id: '1',
+          title: 'Tageler 2',
           text: 'Text 2',
           group: ['Baghira'],
           start: new Date(start_date1),

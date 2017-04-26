@@ -6,8 +6,7 @@
         <div class="row">
           <div class="col md-7">
             <h3 class="card-title">{{tageler.title}}</h3>
-            <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis <br>
-              {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
+            <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
             <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
             <p class="card-text">{{tageler.text}}</p>
             <p class="card-text">{{tageler.group}}</p>
@@ -31,7 +30,7 @@
     </div>
   </div>
   <div class="row" >
-    <div *ngFor="let tageler of tagelers | otherTagelerFilter: group">
+    <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
       <a href="../tageler-details/{{tageler._id}}">
         <div class="card" style="margin-left:0px !important; margin-right: 0px !important; width: 20rem">
           <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">

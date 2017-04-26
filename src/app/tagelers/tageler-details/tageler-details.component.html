@@ -4,8 +4,8 @@
       <div *ngIf="tageler">
         <h2>{{tageler.title}}</h2>
         <p>{{tageler.text}}</p>
-        <li *ngIf="tageler.start && !tageler.free">Start: {{tageler.start | date: 'fullDate'}}, {{tageler.start.slice(11,16)}} Uhr</li>
-        <li *ngIf="tageler.end && !tageler.free">Ende: {{tageler.end | date: 'fullDate'}}, {{tageler.end.slice(11,16)}} Uhr</li>
+        <li *ngIf="tageler.start && !tageler.free">Start: {{tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr</li>
+        <li *ngIf="tageler.end && !tageler.free">Ende: {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</li>
         <li *ngIf="tageler.free">Datum: {{tageler.start | date: 'fullDate'}}</li>
         <li *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</li>
         <li>Gruppe: {{tageler.group}}</li>
@@ -17,11 +17,12 @@
       <div *ngIf="tageler && !tageler.free">
         <div class="alert alert-warning" role="alert">
           <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-          <p *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline.slice(11, 16)}}</p>
+          <p *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}} Uhr</p>
           <p>Bei: {{tageler.checkout.contact[0].name}} </p>
           <ul>
-            <li>Tel: {{tageler.checkout.contact[0].phone}}</li>
-            <li>Mail: {{tageler.checkout.contact[0].mail}}</li>
+            <li *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
+            <li *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
+            <li *ngIf="tageler.checkout.contact[0].other">Über: {{tageler.checkout.contact[0].other}}</li>
           </ul>
         </div>
       </div>
