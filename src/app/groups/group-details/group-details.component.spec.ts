@@ -9,7 +9,7 @@ import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 import { Tageler } from '../../tagelers/tageler';
 import { Group } from '../group';
-import 'rxjs/add/operator/map';
+import { LOCALE_ID } from '@angular/core';
 
 describe('GroupDetailsComponent', () => {
 
@@ -40,8 +40,9 @@ describe('GroupDetailsComponent', () => {
         },
         { provide: GroupService, useClass: GroupService },
         { provide: TagelerService, useClass: TagelerService },
-        BaseRequestOptions
-        ]})
+        BaseRequestOptions,
+        { provide: LOCALE_ID, useValue: "de" },
+      ]})
       .compileComponents()
   }));
 
@@ -105,4 +106,54 @@ describe('GroupDetailsComponent', () => {
           fail(error);
         });
     }));
+
+  it('Should display group name', () => {
+    const fixture = TestBed.createComponent(GroupDetailsComponent);
+    fixture.componentInstance.group = {name: 'Baghira', type: 'Trupp'};
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira')
+  });
+
+  it('Should display tageler of that group', () => {
+    var start_date1 = '2017-10-28T12:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const group: Group = {type: 'Trupp', name: 'Baghira'};
+    const tageler: Array<Tageler> = [{ title: 'Tageler 1',
+        text: 'Text 1',
+        group: ['Baghira'],
+        start: new Date(start_date1),
+        end: new Date(end_date1),
+        bringAlong: 'Essen',
+        uniform: 'Kleidung',
+        checkout: {
+          deadline: new Date(checkout_date1),
+          contact: [{
+            name: 'Person 1',
+            phone: '01234',
+            mail: 'person1@mail.com',
+            other: ''}]
+        },
+        free: false
+      }];
+
+    const fixture = TestBed.createComponent(GroupDetailsComponent);
+    fixture.componentInstance.group = group;
+    fixture.componentInstance.tagelers = tageler;
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Text 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[2].textContent).toContain('Essen');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[3].textContent).toContain('Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Wichtig - Abmeldung');
+    expect(fixture.debugElement.nativeElement.querySelector('.checkout-info').firstChild.textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.checkout-info')[1].textContent).toContain('Bei: Person 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.checkout-info')[2].textContent).toContain('Tel: 01234');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.checkout-info')[3].textContent).toContain('Mail: person1@mail.com');
+
+  });
 });

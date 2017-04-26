@@ -13,8 +13,6 @@ import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 
 
-
-
 describe('Component: AdminComponent', () => {
   let tagelerService: TagelerService,
     groupService: GroupService,
@@ -48,7 +46,10 @@ describe('Component: AdminComponent', () => {
     groupService = TestBed.get(GroupService);
     fixture = TestBed.createComponent(AdminComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+  });
+
+  it('Admin component should be created', () => {
+    expect(component).toBeTruthy();
   });
 
   it('tagelerService should be injected',
@@ -134,5 +135,80 @@ describe('Component: AdminComponent', () => {
     component.tagelerForm.controls['free'].setValue(testTageler.free);
     expect(component.tagelerForm.value).toEqual(testTageler);
   }));
+
+
+  it('should display "Tageler erstellen" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('button').firstChild.textContent).toContain('Tageler erstellen');
+  });
+
+  it('should display "Abbrechen" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('button').firstChild.textContent).toContain('Abbrechen');
+  });
+
+  it('should display "Gruppen anzeigen" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.componentInstance.showGroups = false;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[1].textContent).toContain('Gruppen anzeigen');
+  });
+
+  it('should display "Ansicht schliessen" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[1].textContent).toContain('Ansicht schliessen');
+  });
+
+  it('should display "Auswahl aufheben" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[2].textContent).toContain('Auswahl aufheben');
+  });
+
+  it('should render title Trupp in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h4').firstChild.textContent).toContain('Trupp');
+  }));
+
+  it('should render title Meute in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('h4')[1].textContent).toContain('Meute');
+  }));
+
+  it('should render title Equipe in a h4 tag', async(() => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelectorAll('h4')[2].textContent).toContain('Equipe');
+  }));
+
+  it('should display groups when "show groups" is clicked', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.groups = [{name: 'Baghira', type: 'Trupp'},
+                                        {name: 'Mogli', type: 'Meute'},
+                                        {name: 'Turmalin', type: 'Equipe'}];
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].firstChild.textContent).toContain('Baghira')
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Mogli')
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Turmalin')
+});
 
 });
