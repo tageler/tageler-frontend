@@ -187,7 +187,6 @@ describe('TagelerService', () => {
             },
              free: false,
        };
-
          tagelerService.createTageler(tageler, null).then(
            (successResult) => {
              expect(successResult).toBeDefined();
