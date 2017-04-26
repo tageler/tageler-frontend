@@ -42,8 +42,9 @@ export class TagelerService {
   }
 
   // post("/api/Tagelers")
-  createTageler(newTageler: Tageler): Promise<Tageler> {
-    console.log(JSON.stringify(newTageler));
+  // TODO: return JSON promise for all crud functions, fix tests
+  createTageler(newTageler: Tageler): Promise<JSON> {
+    // console.log(JSON.stringify(newTageler));
     // let formData:FormData = new FormData();
     // formData.append('_id', "123456789");
     // formData.append('tageler', JSON.stringify(newTageler));
@@ -51,7 +52,10 @@ export class TagelerService {
     return this.http.post(this.tagelersUrlPost, newTageler)
       .toPromise()
       .then(res => {
-          return res.json() as Tageler;
+          // console.log('json response from api: ' + res.json().msg);
+        if (res.ok) {
+          return res.json();
+        }
       })
       .catch(this.handleError);
 

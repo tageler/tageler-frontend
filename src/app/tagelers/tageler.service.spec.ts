@@ -190,8 +190,9 @@ describe('TagelerService', () => {
 
          tagelerService.createTageler(tageler).then(
            (successResult) => {
-             expect(successResult).toBeDefined();
-             expect(successResult.title).toEqual('Tageler 1');
+             let jsonResponse = JSON.parse(JSON.stringify(successResult));
+             expect(jsonResponse.success).toBeTruthy();
+             expect(jsonResponse.title).toEqual('Tageler 1');
              expect(status).toBe(201);
 
            });
