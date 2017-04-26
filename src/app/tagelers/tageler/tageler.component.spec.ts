@@ -107,4 +107,16 @@ describe('TagelerComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelectorAll('h4')[2].textContent).toContain('Equipe');
   }));
+
+  it('should display group names in the right place', () => {
+    const fixture = TestBed.createComponent(TagelerComponent);
+    fixture.componentInstance.groups = [{name: 'Baghira', type: 'Trupp'},
+                                        {name: 'Mogli', type: 'Meute'},
+                                        {name: 'Turmalin', type: 'Equipe'}];
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('.list-group-item').firstChild.textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.list-group-item')[1].textContent).toContain('Mogli');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.list-group-item')[2].textContent).toContain('Turmalin');
+  });
+
 });

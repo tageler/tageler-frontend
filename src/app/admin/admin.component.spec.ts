@@ -209,6 +209,6 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].firstChild.textContent).toContain('Baghira')
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Mogli')
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Turmalin')
-});
+  });
 
 });

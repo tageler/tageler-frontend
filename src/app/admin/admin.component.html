@@ -325,20 +325,19 @@
       <div class="form-group row">
         <label class="col-3 col-form-label">Titel:</label>
         <div class="col-9">
-          <input class="form-control" formControlName="title" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}">
+          <input class="form-control" formControlName="title" [(ngModel)]="tageler.title">
         </div>
       </div>
       <div class="form-group row">
         <label class="col-3 col-form-label">Text:</label>
         <div class="col-9">
-          <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
+          <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text"></textarea>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-3 col-form-label">Einheit:</label>
         <div class="col-9">
           <select class="form-control" formControlName="group" [(ngModel)]="tageler.group">
-            <option default>{{tageler.group}}</option>
             <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
           </select>
         </div>
@@ -347,7 +346,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Datum:</label>
           <div class="col-5">
-            <input class="form-control" formControlName="date_start" type="date" required placeholder="{{tageler.start}}">
+            <input class="form-control" formControlName="date_start" type="date" required">
           </div>
         </div>
         <div class="form-group row">
@@ -380,13 +379,13 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Mitbringen:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" placeholder="{{tageler.bringAlong}}">
+            <input class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-3 col-form-label">Kleidung:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}">
+            <input class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform">
           </div>
         </div>
         <div formGroupName="checkout">
@@ -403,15 +402,15 @@
             <div class="form-group row">
               <label class="col-3 col-form-label">Absagen bei:</label>
               <div class="col-9">
-                <input class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" placeholder="{{tageler.checkout.contact[0].name}}">
+                <input class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-3 col-form-label">Kanal:</label>
               <div class="col-9">
-                <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" placeholder="{{tageler.checkout.contact[0].phone}}">
-                <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail" placeholder="{{tageler.checkout.contact[0].mail}}">
-                <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other" placeholder="{{tageler.checkout.contact[0].other}}">
+                <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone">
+                <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail">
+                <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other">
               </div>
             </div>
           </div>
