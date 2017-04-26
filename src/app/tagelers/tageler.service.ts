@@ -42,6 +42,7 @@ export class TagelerService {
   }
 
   // post("/api/Tagelers")
+  // TODO: return JSON promise for all crud functions, fix tests
   createTageler(newTageler: Tageler): Promise<JSON> {
     // console.log(JSON.stringify(newTageler));
     // let formData:FormData = new FormData();
