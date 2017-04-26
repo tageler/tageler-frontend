@@ -185,7 +185,7 @@ export class AdminComponent implements OnInit {
     this.tageler = tageler;
     this.view = false;
     this.update = true;
-    this.tagelerForm.controls['free'].setValue(tageler.free);
+    this.createUpdateForm(this.tageler);
   }
 
   showDetailForm(tageler: Tageler) {
@@ -287,6 +287,31 @@ export class AdminComponent implements OnInit {
    Update Tageler
    **************************/
 
+  createUpdateForm(tageler: Tageler) {
+    this.tagelerForm = this.fb.group({
+      title: tageler.title,
+      text: tageler.text,
+      group: [tageler.group],
+      date_start: new Date(tageler.start).toISOString().slice(0, 10),
+      date_end: new Date(tageler.end).toISOString().slice(0, 10),
+      time_start: new Date(tageler.start).toLocaleTimeString().slice(0,5),
+      time_end: new Date(tageler.end).toLocaleTimeString().slice(0,5),
+      bringAlong: tageler.bringAlong,
+      uniform: tageler.uniform,
+      picture: '',
+      checkout: this.fb.group({
+        deadline_date: new Date(tageler.checkout.deadline).toISOString().slice(0, 10),
+        deadline_time: new Date(tageler.checkout.deadline).toLocaleTimeString().slice(0,5),
+        contact: this.fb.group({
+          name: tageler.checkout.contact[0].name,
+          phone: tageler.checkout.contact[0].phone,
+          mail: tageler.checkout.contact[0].mail,
+          other: tageler.checkout.contact[0].other,
+        })
+      }),
+      free: false
+    });
+  }
   updateTageler() {
     this.tageler = this.prepareUpdateTageler();
     this.tagelerService.updateTageler(this.tageler);
