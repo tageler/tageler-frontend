@@ -82,7 +82,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="title" required>
+            <input class="form-control" formControlName="title"> <!-- REQUIREDOMG -->
           </div>
         </div>
         <div class="form-group row">
@@ -204,107 +204,118 @@
       </div>
     </div>
 
-    <!-- Shows details of selected tageler in a form -->
-    <div *ngIf="view" class="col-md-6">
-      <form [formGroup]="tagelerForm">
-        <fieldset disabled>
+  <!-- Update and view Form -->
+  <div *ngIf="update || view" class="col-md-6">
+    <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
+      <fieldset id="enableInput" [disabled]="view">
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Übungsfrei</label>
+          <div class="col-9">
+            <input type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)" [checked]="tageler.free">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Titel:</label>
+          <div class="col-9">
+            <input class="form-control" formControlName="title" [(ngModel)]="tageler.title" placeholder="{{tageler.title}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Text:</label>
+          <div class="col-9">
+            <textarea class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" placeholder="{{tageler.text}}"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Einheit:</label>
+          <div class="col-9">
+            <select class="form-control" formControlName="group" [(ngModel)]="tageler.group">
+              <option default>{{tageler.group}}</option>
+              <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="free">
           <div class="form-group row">
-            <label class="col-3 col-form-label">Übungsfrei</label>
-            <div class="col-9">
-              <input type="checkbox" value="{{tageler.free}}">
+            <label class="col-3 col-form-label">Datum:</label>
+            <div class="col-5">
+              <input class="form-control" formControlName="date_start" type="date" required placeholder="{{tageler.start}}">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Titel:</label>
+            <label *ngIf="update" for="filePicker">Bild auswählen</label><br>
             <div class="col-9">
-              <input class="form-control" value="{{tageler.title}}">
+              <input *ngIf="update" type="file" id="filePicker" accept=".jpg,.png" (change)="handleFileSelect($event)">
             </div>
+            <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
           </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label">Text:</label>
-            <div class="col-9">
-              <textarea class="form-control" rows="3" value="{{tageler.text}}"></textarea>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label">Einheit:</label>
-            <div class="col-9">
-              <select class="form-control">
-                <option default>{{tageler.group}}</option>
-              </select>
-            </div>
-          </div>
-          <div *ngIf="!tageler.free">
+        </div>
+        <div *ngIf="!free">
           <div class="form-group row">
             <label class="col-3 col-form-label">Start:</label>
             <div class="col-5">
-              <input class="form-control" value="{{tageler.start | date: 'mediumDate'}}">
+              <input class="form-control" formControlName="date_start" type="date">
             </div>
             <div class="col-4">
-              <input class="form-control" value="{{tageler.start | date: 'shortTime'}}">
+              <input class="form-control" formControlName="time_start" type="time">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
-              <input class="form-control" value="{{tageler.end | date: 'mediumDate'}}">
+              <input class="form-control" formControlName="date_end" type="date">
             </div>
             <div class="col-4">
-              <input class="form-control" value="{{tageler.end | date: 'shortTime'}}">
+              <input class="form-control" formControlName="time_end" type="time">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Mitbringen:</label>
             <div class="col-9">
-              <input class="form-control" value="{{tageler.bringAlong}}">
+              <input class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" placeholder="{{tageler.bringAlong}}">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-3 col-form-label">Kleidung:</label>
             <div class="col-9">
-              <input class="form-control" value="{{tageler.uniform}}">
+              <input class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" placeholder="{{tageler.uniform}}">
             </div>
           </div>
           <div formGroupName="checkout">
             <div class="form-group row">
               <label class="col-3 col-form-label">Absagen bis:</label>
               <div class="col-5">
-                <input class="form-control" value="{{tageler.checkout.deadline | date: 'mediumDate'}}">
+                <input class="form-control" formControlName="deadline_date" type="date">
               </div>
               <div class="col-4">
-                <input class="form-control" value="{{tageler.checkout.deadline | date: 'shortTime'}}">
+                <input class="form-control" formControlName="deadline_time" type="time">
               </div>
             </div>
             <div formGroupName="contact">
               <div class="form-group row">
                 <label class="col-3 col-form-label">Absagen bei:</label>
                 <div class="col-9">
-                  <input class="form-control" value="{{tageler.checkout.contact[0].name}}">
+                  <input class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" placeholder="{{tageler.checkout.contact[0].name}}">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-3 col-form-label">Kanal:</label>
                 <div class="col-9">
-                  <input class="form-control" value="{{tageler.checkout.contact[0].phone}}">
-                  <input class="form-control" value="{{tageler.checkout.contact[0].mail}}">
-                  <input class="form-control" value="{{tageler.checkout.contact[0].other}}">
+                  <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" placeholder="{{tageler.checkout.contact[0].phone}}">
+                  <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail" placeholder="{{tageler.checkout.contact[0].mail}}">
+                  <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other" placeholder="{{tageler.checkout.contact[0].other}}">
                 </div>
               </div>
             </div>
           </div>
-          </div>
-          <div *ngIf="tageler.free">
-            <div class="form-group row">
-              <label class="col-3 col-form-label">Datum:</label>
-              <div class="col-5">
-                <input class="form-control" value="{{tageler.start | date: 'mediumDate'}}">
-              </div>
-            </div>
-          </div>
           <div class="form-group row">
-            <label class="col-3 col-form-label">Bild hochladen:</label>
+            <label *ngIf="update" for="filePicker">Bild auswählen</label><br>
             <div class="col-9">
-              <!--<input type="file" ng2FileSelect [uploader]="uploader" />-->
+
+
+              <!-- TODO: merge
+
+
               <input value="{{tageler.picture}}">
             </div>
           </div>
@@ -313,7 +324,7 @@
       </form>
     </div>
 
-  <!-- Update Form -->
+  <!-- Update Form
   <div *ngIf="update" class="col-md-6">
     <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
       <div class="form-group row">
@@ -411,20 +422,15 @@
                 <input class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone">
                 <input class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail">
                 <input class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other">
-              </div>
+              </div> -->
+              <input *ngIf="update" type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" (change)="handleFileSelect($event)">
             </div>
+            <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="filePicker">Bild auswählen</label><br>
-          <div class="col-9">
-            <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" (change)="handleFileSelect($event)">
-          </div>
-          <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
-        </div>
-      </div>
-      <button class="btn btn-info" type="submit">Speichern</button>
-      <button class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
+        <button *ngIf="update" class="btn btn-info" type="submit">Speichern</button>
+        <button *ngIf="update" class="btn btn-info" (click)="cancelUpdate()">Abbrechen</button>
+      </fieldset>
     </form>
   </div>
   </div>
