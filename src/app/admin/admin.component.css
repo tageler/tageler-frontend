@@ -1,6 +1,6 @@
-.btn-primary{
-  margin-left: 2%;
+.buttons{
   margin-top: 2%;
+  margin-right: 2%;
 }
 
 .btn-secondary:active{
@@ -15,5 +15,9 @@
   margin-bottom: 2%;
   margin-top: 2%;
   color: orange;
+}
+
+.updateAndViewForm{
+  margin-left: 2%;
 }
 
