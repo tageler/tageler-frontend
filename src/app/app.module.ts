@@ -25,7 +25,8 @@ import { AdminComponent } from './admin/admin.component';
 import { FilterGroupByTypePipe } from './pipes/groupType.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
 import { OtherTagelerPipe } from './pipes/otherTageler.pipe';
-import { TagelerByGroup } from './pipes/tagelerByGroup.pipe'
+import { TagelerByGroup } from './pipes/tagelerByGroup.pipe';
+import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe'
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -41,7 +42,8 @@ import { LOCALE_ID } from '@angular/core';
     FilterGroupByTypePipe,
     NextTagelerPipe,
     OtherTagelerPipe,
-    TagelerByGroup
+    TagelerByGroup,
+    TagelerByGroupAndByDate
   ],
   imports: [
     BrowserModule,
