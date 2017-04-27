@@ -10,3 +10,10 @@
 .btn-secondary:focus{
   background-color: lightgrey;
 }
+
+.warning{
+  margin-bottom: 2%;
+  margin-top: 2%;
+  color: orange;
+}
+

@@ -73,6 +73,7 @@
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
       <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()">
+        <div class="warning"><b>Hinweis: Felder, die mit ****** markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
         <div class="form-group row">
           <label class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
@@ -82,7 +83,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="title" required> <!-- REQUIREDOMG -->
+            <input class="form-control" formControlName="title" placeholder="******" required> <!-- REQUIREDOMG -->
           </div>
         </div>
         <div class="form-group row">
@@ -95,6 +96,8 @@
           <label class="col-3 col-form-label">Einheit:</label>
           <div class="col-3">
             <select class="form-control" formControlName="group" required>
+              <option value="" disabled selected>******</option>
+              <option value="" disabled selected>Wähle Einheit!</option>
               <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
             </select>
           </div>
