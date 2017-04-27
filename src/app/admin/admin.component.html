@@ -82,7 +82,7 @@
         <div class="form-group row">
           <label class="col-3 col-form-label">Name:</label>
           <div class="col-9">
-            <input class="form-control" formControlName="title"> <!-- REQUIREDOMG -->
+            <input class="form-control" formControlName="title" required> <!-- REQUIREDOMG -->
           </div>
         </div>
         <div class="form-group row">
@@ -183,10 +183,11 @@
     <div class="col-md-6">
       <div class="row">
         <div *ngIf="showTageler">
-          <div *ngFor="let tageler of tagelers | tagelerByGroup: selectedGroup">
+          <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
             <div class="card w-100" style="margin-top: 4%; margin-bottom: 4%;">
               <div class="card-block">
                 <h4 class="card-title">{{tageler.title}}</h4>
+                <h5 class="card-title">{{ tageler.start | date: 'fullDate'}}</h5>
                 <p class="card-text">{{tageler.text}}</p>
                 <button class="btn btn-danger"
                       mwlConfirm
