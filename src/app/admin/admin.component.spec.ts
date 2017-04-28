@@ -11,7 +11,7 @@ import { TagelerByGroup } from '../pipes/tagelerByGroup.pipe';
 import { FilterGroupByTypePipe } from '../pipes/groupType.pipe';
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
-
+import { TagelerByGroupAndByDate } from '../pipes/tagelerByGroupAndByDate.pipe';
 
 describe('Component: AdminComponent', () => {
   let tagelerService: TagelerService,
@@ -21,7 +21,7 @@ describe('Component: AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent, TagelerByGroup, FilterGroupByTypePipe ],
+      declarations: [ AdminComponent, TagelerByGroup, FilterGroupByTypePipe, TagelerByGroupAndByDate ],
       imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule],
       providers: [
         FormBuilder,
