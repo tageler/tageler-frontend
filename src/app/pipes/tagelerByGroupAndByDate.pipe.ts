@@ -15,9 +15,9 @@ export class TagelerByGroupAndByDate implements PipeTransform {
         .filter(tageler => new Date(tageler.start) >= new Date());
     }
     if ( (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null ) {
-      return tagelers = tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+      return tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
         .filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
     }
-    return tagelers = tagelers.filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
+    return tagelers.filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
   }
 }

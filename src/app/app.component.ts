@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Willkommen zum neuen Tageler-System!';
-  h1 = this.title;
 }
