@@ -335,6 +335,120 @@ describe('TagelerByGroupAndByDate', () => {
     }]);
   });
 
+  it('should return the correct order even if two tagelers have the exact same dates', () => {
+
+    var start_date1 = '2017-10-28T12:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var start_date2 = '2017-11-28T12:00:00.824Z';
+    var end_date2 = '2017-11-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tagelers: Array<Tageler> = [{
+      title: 'Tageler 1',
+      text: 'Text 1',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+      deadline: new Date(checkout_date1),
+        contact: [{
+        name: 'Person 1',
+        phone: '01234',
+        mail: 'person1@mail.com',
+        other: ''}]
+      },
+      free: false
+    }, {
+      title: 'Tageler 2',
+      text: 'Text 2',
+      group: ['Mogli'],
+      start: new Date(start_date2),
+      end: new Date(end_date2),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+      deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: false
+    }, {
+      title: 'Tageler 3',
+      text: 'Text 3',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 3',
+          phone: '33333',
+          mail: 'person3@mail.com',
+          other: ''}]
+      },
+      free: false
+    }];
+
+    expect(pipe.transform(tagelers, null)).toEqual([{
+      title: 'Tageler 1',
+      text: 'Text 1',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: false
+    }, {
+      title: 'Tageler 3',
+      text: 'Text 3',
+      group: ['Baghira'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 3',
+          phone: '33333',
+          mail: 'person3@mail.com',
+          other: ''}]
+      },
+      free: false
+    }, { title: 'Tageler 2',
+      text: 'Text 2',
+      group: ['Mogli'],
+      start: new Date(start_date2),
+      end: new Date(end_date2),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: false
+    }]);
+  });
+
   it('return null if there is no tageler but a group', () => {
     expect(pipe.transform(null, 'X')).toBe(null);
   });
