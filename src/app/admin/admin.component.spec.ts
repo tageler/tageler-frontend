@@ -14,6 +14,7 @@ import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
+
 describe('Component: AdminComponent', () => {
   let tagelerService: TagelerService,
     groupService: GroupService,
@@ -317,7 +318,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('input')[2].value).toContain('Samstag, 28. Oktober');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('input')[2].value).toContain('2017-10-28');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[5].textContent).toContain('Bild:');
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Ansicht schliessen');
 
