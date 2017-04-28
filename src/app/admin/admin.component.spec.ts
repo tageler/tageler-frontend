@@ -272,7 +272,6 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[7].textContent).toContain('Edit');
   });
 
-
   it('test if short details form is shown when tageler is free', () => {
     const start_date1 = '2017-10-28T12:00:00.824Z';
     const end_date1 = '2017-10-28T15:00:00.824Z';
@@ -303,26 +302,224 @@ describe('Component: AdminComponent', () => {
     fixture.componentInstance.showDetailForm(tageler[0]);
     fixture.detectChanges();
 
-    let checkbox = fixture.debugElement.query(By.css('input[type=checkbox]')).nativeElement;
-
     expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#enableInput').disabled).toBeTruthy();
     expect(fixture.componentInstance.view).toBe(true);
     expect(fixture.componentInstance.update).toBe(false);
-    expect(checkbox.checked).toBeTruthy();
-    expect(fixture.componentInstance.tagelerForm.controls['title'].value).toBe('Übungsfrei');
-    expect(fixture.debugElement.nativeElement.querySelector('label').firstChild.textContent).toContain('Übungsfrei');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('input')[1].value).toContain('Übungsfrei');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
-    expect(fixture.debugElement.nativeElement.querySelector('textarea').value).toContain('Text 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('input')[2].value).toContain('2017-10-28');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[5].textContent).toContain('Bild:');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Ansicht schliessen');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_info')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#filePicker2')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_picture')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#close').textContent).toContain('Ansicht schliessen');
+    expect(fixture.debugElement.nativeElement.querySelector('#save')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#cancel')).toBeNull();
+  });
 
+  it('test if short update form is shown when tageler is free', () => {
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
+    const tageler: Array<Tageler> = [
+      { title: 'Übungsfrei',
+        text: 'Text 1',
+        group: ['Baghira'],
+        start: new Date(start_date1),
+        end: new Date(end_date1),
+        bringAlong: 'Essen',
+        uniform: 'Kleidung',
+        checkout: {
+          deadline: new Date(checkout_date1),
+          contact: [{
+            name: 'Person 1',
+            phone: '01234',
+            mail: 'person1@mail.com',
+            other: ''}]
+        },
+        free: true
+      }];
+
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.tagelers = tageler;
+    fixture.componentInstance.tageler = tageler[0];
+    fixture.componentInstance.showUpdateForm(tageler[0]);
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#enableInput').disabled).toBeFalsy();
+    expect(fixture.componentInstance.view).toBe(false);
+    expect(fixture.componentInstance.update).toBe(true);
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_info')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#filePicker2')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_picture')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#close')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#save').textContent).toContain('Speichern');
+    expect(fixture.debugElement.nativeElement.querySelector('#cancel').textContent).toContain('Abbrechen');
+  });
+
+  it('test if full details form is shown when tageler is not free', () => {
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tageler: Array<Tageler> = [
+      { title: 'Brätle',
+        text: 'Text 1',
+        group: ['Baghira'],
+        start: new Date(start_date1),
+        end: new Date(end_date1),
+        bringAlong: 'Essen',
+        uniform: 'Kleidung',
+        checkout: {
+          deadline: new Date(checkout_date1),
+          contact: [{
+            name: 'Person 1',
+            phone: '01234',
+            mail: 'person1@mail.com',
+            other: ''
+          }]
+        },
+        free: false,
+      }];
+
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.tagelers = tageler;
+    fixture.componentInstance.tageler = tageler[0];
+    fixture.componentInstance.showDetailForm(tageler[0]);
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#enableInput').disabled).toBeTruthy();
+    expect(fixture.componentInstance.view).toBe(true);
+    expect(fixture.componentInstance.update).toBe(false);
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time').value).toContain('17:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').value).toContain('Essen');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform').value).toContain('Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').value).toContain('2017-10-25');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name').value).toContain('Person 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_info').value).toContain('01234');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail').value).toContain('person1@mail.com');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other').value).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#filePicker2')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_picture')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#close').textContent).toContain('Ansicht schliessen');
+    expect(fixture.debugElement.nativeElement.querySelector('#save')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#cancel')).toBeNull();
+  });
+
+  it('test if full update form is shown when tageler is not free', () => {
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tageler: Array<Tageler> = [
+      { title: 'Brätle',
+        text: 'Text 1',
+        group: ['Baghira'],
+        start: new Date(start_date1),
+        end: new Date(end_date1),
+        bringAlong: 'Essen',
+        uniform: 'Kleidung',
+        checkout: {
+          deadline: new Date(checkout_date1),
+          contact: [{
+            name: 'Person 1',
+            phone: '01234',
+            mail: 'person1@mail.com',
+            other: ''
+          }]
+        },
+        free: false,
+      }];
+
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.tagelers = tageler;
+    fixture.componentInstance.tageler = tageler[0];
+    fixture.componentInstance.showUpdateForm(tageler[0]);
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#enableInput').disabled).toBeFalsy();
+    expect(fixture.componentInstance.view).toBe(false);
+    expect(fixture.componentInstance.update).toBe(true);
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end').value).toContain('2017-10-28');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time').value).toContain('17:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').value).toContain('Essen');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform').value).toContain('Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').value).toContain('2017-10-25');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name').value).toContain('Person 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_info').value).toContain('01234');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail').value).toContain('person1@mail.com');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other').value).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#filePicker2')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_picture')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#close')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#save').textContent).toContain('Speichern');
+    expect(fixture.debugElement.nativeElement.querySelector('#cancel').textContent).toContain('Abbrechen');
   });
 
 });

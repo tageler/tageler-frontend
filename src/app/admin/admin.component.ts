@@ -338,18 +338,56 @@ export class AdminComponent implements OnInit {
   }
 
   prepareUpdateTageler(): Tageler {
+    let freeUpdated, startUpdated, endUpdated, deadlineUpdated;
+    if (this.tagelerForm.value.free == null) {
+      freeUpdated = this.tageler.free;
+    } else {
+      freeUpdated = this.tagelerForm.value.free;
+    }
+
+    if (!this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
+      startUpdated = this.tageler.start
+    } else if(!this.tagelerForm.value.date_start && this.tagelerForm.value.time_start) {
+      startUpdated = new Date(new Date(this.tageler.start).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.time_start.replace('.', ':'));
+    } else if(this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
+      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' + new Date(this.tageler.start).toISOString().slice(11, 16));
+    } else {
+      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':'));
+    }
+
+    if (!this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
+      endUpdated = this.tageler.end
+    } else if(!this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
+      endUpdated = new Date(new Date(this.tageler.end).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.time_end.replace('.', ':'));
+    } else if(this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
+      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' + new Date(this.tageler.end).toISOString().slice(11, 16));
+    } else if (this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
+      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':'));
+    }
+
+    if (((this.tagelerForm.value.checkout.deadline_date == Date)) && !((this.tagelerForm.value.checkout.deadline_time == Date)) && !(this.tagelerForm.value.checkout.deadline_time)) {
+      deadlineUpdated = this.tageler.checkout.deadline
+    } else if(!(this.tagelerForm.value.checkout.deadline_date == Date) && !(this.tagelerForm.value.checkout.deadline_time == Date) && !(this.tagelerForm.value.checkout.deadline_time)) {
+      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
+    } else if(((this.tagelerForm.value.checkout.deadline_date == Date)) && !((this.tagelerForm.value.checkout.deadline_time == Date)) && (this.tagelerForm.value.checkout.deadline_time)) {
+      deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+    } else if (!(this.tagelerForm.value.checkout.deadline_date == Date) && !(this.tagelerForm.value.checkout.deadline_time == Date) && (this.tagelerForm.value.checkout.deadline_time)) {
+      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+    }
+    console.log(deadlineUpdated);
+
     const updateTageler: Tageler = {
       _id: this.tageler._id,
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
       group: [this.tagelerForm.value.group as string],
-      start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
-      end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
+      start: startUpdated,
+      end: endUpdated,
       bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.base64textString as string,
       checkout : {
-        deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':')),
+        deadline: deadlineUpdated,
         contact: [{
           name: this.tagelerForm.value.checkout.contact.name as string,
           phone: this.tagelerForm.value.checkout.contact.phone as string,
@@ -357,12 +395,13 @@ export class AdminComponent implements OnInit {
           other: this.tagelerForm.value.checkout.contact.other as string,
         }]
       },
-      free: this.tagelerForm.value.free as boolean
-    }
+      free: freeUpdated as boolean,
+    };
     // keep old picture if no new one is selected
     if (this.base64textString === '') {
       updateTageler.picture = this.tageler.picture;
     }
+    console.log(updateTageler.free);
     return updateTageler;
   }
 
