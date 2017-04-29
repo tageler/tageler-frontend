@@ -107,7 +107,7 @@
           <div class="form-group row">
             <label for="create_formControlName_date_start_free" class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
-              <input id="create_formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" required>
+              <input id="create_formControlName_date_start_free" class="form-control" formControlName="date_start" type="date">
             </div>
           </div>
         </div>
@@ -115,19 +115,19 @@
           <div class="form-group row">
             <label for="create_formControlName_date_start" class="col-3 col-form-label">Start:</label>
             <div class="col-5">
-              <input id="create_formControlName_date_start" class="form-control" formControlName="date_start" type="date" required>
+              <input id="create_formControlName_date_start" class="form-control" formControlName="date_start" type="date">
             </div>
             <div class="col-4">
-              <input class="form-control" formControlName="time_start" type="text">
+              <input id="create_formControlName_date_start_time" class="form-control" formControlName="time_start" type="text">
             </div>
           </div>
           <div class="form-group row">
             <label for="create_formControlName_date_end" class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
-              <input id="create_formControlName_date_end" class="form-control" formControlName="date_end" type="date" required>
+              <input id="create_formControlName_date_end" class="form-control" formControlName="date_end" type="date">
             </div>
             <div class="col-4">
-              <input class="form-control" formControlName="time_end" type="text">
+              <input id="create_formControlName_date_end_time" class="form-control" formControlName="time_end" type="text">
             </div>
           </div>
           <div class="form-group row">
@@ -155,7 +155,7 @@
                 <input id="create_formControlName_deadline" class="form-control" formControlName="deadline_date" type="date" placeholder="yyyy-MM-dd">
               </div>
               <div class="col-4">
-                <input class="form-control" formControlName="deadline_time" type="time" placeholder="hh:mm">
+                <input id="create_formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="time" placeholder="hh:mm">
               </div>
             </div>
             <div formGroupName="contact">
@@ -166,11 +166,11 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                   <label for="create_formControlName_checkout" class="col-3 col-form-label">Kanal:</label>
+                   <label for="create_formControlName_checkout_phone" class="col-3 col-form-label">Kanal:</label>
                     <div class="col-9">
-                      <input id="create_formControlName_checkout" class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
-                      <input class="form-control" formControlName="mail" type="email" placeholder="Email">
-                      <input class="form-control" formControlName="other" placeholder="Text">
+                      <input id="create_formControlName_checkout_phone" class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
+                      <input id="create_formControlName_checkout_mail" class="form-control" formControlName="mail" type="email" placeholder="Email">
+                      <input id="create_formControlName_checkout_other" class="form-control" formControlName="other" placeholder="Text">
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@
             <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
           </div>
         </div>
-        <button type="submit" class="btn btn-secondary" [disabled]="!tagelerForm.valid">Speichern</button>
+        <button id="saveNew" type="submit" class="btn btn-secondary" [disabled]="!tagelerForm.valid">Speichern</button>
       </form>
     </div>
   </div>
@@ -223,7 +223,7 @@
   <!-- Update and view Form -->
   <div class="updateAndViewForm col-md-6" *ngIf="update || view">
     <form [formGroup]="tagelerForm" (submit)="updateTageler()" novalidate>
-      <div class="warning" *ngIf="update"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
+      <div id="hint" class="warning" *ngIf="update"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
       <fieldset id="enableInput" [disabled]="view">
         <div class="form-group row">
           <label for="formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
@@ -262,7 +262,7 @@
           <div class="form-group row">
             <label for="formControlName_date_start_free" class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
-              <input id="formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}" required>
+              <input id="formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}">
             </div>
           </div>
         </div>
@@ -270,19 +270,19 @@
           <div class="form-group row">
             <label for="formControlName_date_start" class="col-3 col-form-label">Start:</label>
             <div class="col-5">
-              <input id="formControlName_date_start" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}" required>
+              <input id="formControlName_date_start" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}">
             </div>
             <div class="col-4">
-              <input id="formControlName_date_start_time" class="form-control" formControlName="time_start" type="time" value="{{tageler.start | date: 'HH:mm'}}" required>
+              <input id="formControlName_date_start_time" class="form-control" formControlName="time_start" type="time" value="{{tageler.start | date: 'HH:mm'}}">
             </div>
           </div>
           <div class="form-group row">
             <label for="formControlName_date_end" class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
-              <input id="formControlName_date_end" class="form-control" formControlName="date_end" type="date" value="{{tageler.end | date: 'yyyy-MM-dd'}}" required>
+              <input id="formControlName_date_end" class="form-control" formControlName="date_end" type="date" value="{{tageler.end | date: 'yyyy-MM-dd'}}">
             </div>
             <div class="col-4">
-              <input id="formControlName_date_end_time" class="form-control" formControlName="time_end" type="time" value="{{tageler.end | date: 'HH:mm'}}" required>
+              <input id="formControlName_date_end_time" class="form-control" formControlName="time_end" type="time" value="{{tageler.end | date: 'HH:mm'}}">
             </div>
           </div>
           <div class="form-group row">
@@ -321,9 +321,9 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label for="formControlName_checkout_info" class="col-3 col-form-label">Kanal:</label>
+                <label for="formControlName_checkout_phone" class="col-3 col-form-label">Kanal:</label>
                 <div class="col-9">
-                  <input id="formControlName_checkout_info" class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" value="{{tageler.checkout.contact[0].phone}}">
+                  <input id="formControlName_checkout_phone" class="form-control" formControlName="phone" type="tel" [(ngModel)]="tageler.checkout.contact[0].phone" value="{{tageler.checkout.contact[0].phone}}">
                   <input id="formControlName_checkout_mail" class="form-control" formControlName="mail" type="email" [(ngModel)]="tageler.checkout.contact[0].mail" value="{{tageler.checkout.contact[0].mail}}">
                   <input id="formControlName_checkout_other" class="form-control" formControlName="other" [(ngModel)]="tageler.checkout.contact[0].other" value="{{tageler.checkout.contact[0].other}}">
                 </div>
