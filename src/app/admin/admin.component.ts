@@ -159,28 +159,27 @@ export class AdminComponent implements OnInit {
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
-      'title': [this.tageler.title, [Validators.required]],
-      'text': [this.tageler.text],
-      'group': [[this.tageler.group], [Validators.required]],
+      'title': ['', [Validators.required]],
+      'text': [''],
+      'group': ['', [Validators.required]],
       'date_start': [this.tageler.start.toISOString().slice(0, 10)],
       'date_end': [this.tageler.end.toISOString().slice(0, 10)],
       'time_start': [this.tageler.start.toISOString().slice(11, 16), [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
       'time_end': [this.tageler.end.toISOString().slice(11, 16), [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
       'bringAlong': [this.tageler.bringAlong, [Validators.required]],
       'uniform': [this.tageler.uniform, [Validators.required]],
-      'picture': [this.tageler.picture],
+      'picture': [''],
       'checkout': this.fb.group({
         'deadline_date': [''],
         'deadline_time': ['', [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
         'contact': this.fb.group({
-          'name': [this.tageler.checkout.contact[0].name],
-          'phone': [this.tageler.checkout.contact[0].phone, [
-            Validators.pattern("^(0041|041|\\+41|\\+\\+41|41\)?(0|\\(0\\)\)?([1-9]\\d{1}\)(\\d{3}\)(\\d{2}\)(\\d{2}\)$")]],
-          'mail': [this.tageler.checkout.contact[0].mail, [Validators.pattern("[^ @]*@[^ @]*")]],
-          'other': [this.tageler.checkout.contact[0].other],
+          'name': [''],
+          'phone': [''],
+          'mail': [''],
+          'other': [''],
         })
       }),
-      'free': [this.tageler.free]
+      'free': ['']
     });
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -219,12 +218,20 @@ export class AdminComponent implements OnInit {
     },
     'group': {
       'required': 'Wählen Sie bitte eine Gruppe aus.'
+    },
+    'bringAlong': {
+      'required': 'Bitte Feld ausfüllen.'
+    },
+    'uniform': {
+      'required': 'Bitte Feld ausfüllen.'
     }
   };
 
   formErrors = {
     'title': 'Geben Sie bitte einen Namen ein.',
-    'group': 'Wählen Sie bitte eine Gruppe aus.'
+    'group': 'Wählen Sie bitte eine Gruppe aus.',
+    'bringAlong': 'Bitte Feld ausfüllen',
+    'uniform': 'Bitte Feld ausfüllen',
   };
 
   cancelCreateTageler() {
@@ -264,23 +271,20 @@ export class AdminComponent implements OnInit {
       'title': [this.tageler.title, [Validators.required]],
       'text': [this.tageler.text],
       'group': [[this.tageler.group], [Validators.required]],
-      'date_start': [''],
-      'date_end': [''],
-      'time_start': [''],
-      'time_end': [''],
+      'date_start': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
+      'date_end': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
+      'time_start': [new Date(this.tageler.start).toISOString().slice(11, 16), [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
+      'time_end': [new Date(this.tageler.end).toISOString().slice(11, 16), [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
       'bringAlong': [this.tageler.bringAlong, [Validators.required]],
       'uniform': [this.tageler.uniform, [Validators.required]],
       'picture': [''],
       'checkout': this.fb.group({
         'deadline_date': [''],
-        'deadline_time': ['', [
-          Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
+        'deadline_time': ['', [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
         'contact': this.fb.group({
           'name': [this.tageler.checkout.contact[0].name],
-          'phone': [this.tageler.checkout.contact[0].phone, [
-            Validators.pattern("^(0041|041|\\+41|\\+\\+41|41\)?(0|\\(0\\)\)?([1-9]\\d{1}\)(\\d{3}\)(\\d{2}\)(\\d{2}\)$")]],
-          'mail': [this.tageler.checkout.contact[0].mail, [
-            Validators.pattern("[01]?([0-9]{1}|2[0-3]{1}\)(:|\\.\)[0-5]{1}[0-9]{1}")]],
+          'phone': [this.tageler.checkout.contact[0].phone],
+          'mail': [this.tageler.checkout.contact[0].mail],
           'other': [this.tageler.checkout.contact[0].other],
         })
       }),
@@ -459,6 +463,8 @@ export class AdminComponent implements OnInit {
 
   cancelUpdate() {
     this.update = false;
+    this.view = false;
+    window.location.reload();
   }
 
   /***************************

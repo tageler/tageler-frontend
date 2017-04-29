@@ -74,8 +74,6 @@
           <label for="create_formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
               <input id="create_formControlName_free" type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)">
-            {{tageler.free}}
-            {{tagelerForm.value.free}}
           </div>
         </div>
         <div class="form-group row">
@@ -107,7 +105,7 @@
         </div>
         <div *ngIf="free">
           <div class="form-group row">
-            <label for="create_formControlName_date_start_free" class="col-3 col-form-label">Datum*:</label>
+            <label for="create_formControlName_date_start_free" class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
               <input id="create_formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" required>
             </div>
@@ -115,7 +113,7 @@
         </div>
         <div *ngIf="!free">
           <div class="form-group row">
-            <label for="create_formControlName_date_start" class="col-3 col-form-label">Start*:</label>
+            <label for="create_formControlName_date_start" class="col-3 col-form-label">Start:</label>
             <div class="col-5">
               <input id="create_formControlName_date_start" class="form-control" formControlName="date_start" type="date" required>
             </div>
@@ -124,7 +122,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="create_formControlName_date_end" class="col-3 col-form-label">Ende*:</label>
+            <label for="create_formControlName_date_end" class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
               <input id="create_formControlName_date_end" class="form-control" formControlName="date_end" type="date" required>
             </div>
@@ -136,12 +134,18 @@
             <label for="create_formControlName_bringAlong" class="col-3 col-form-label">Mitbringen*:</label>
             <div class="col-9">
               <textarea id="create_formControlName_bringAlong" class="form-control" formControlName="bringAlong" rows="2" required></textarea>
+              <div *ngIf="formErrors.bringAlong" class="alert alert-danger">
+                {{ formErrors.bringAlong }}
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="create_formControlName_uniform" class="col-3 col-form-label">Kleidung*:</label>
             <div class="col-9">
               <textarea id="create_formControlName_uniform" class="form-control" formControlName="uniform" rows="2" required></textarea>
+              <div *ngIf="formErrors.uniform" class="alert alert-danger">
+                {{ formErrors.uniform }}
+              </div>
             </div>
           </div>
           <div formGroupName="checkout">
@@ -158,7 +162,7 @@
                 <div class="form-group row">
                   <label for="create_formControlName_name" class="col-3 col-form-label">Absagen bei:</label>
                   <div class="col-9">
-                    <input id="create_formControlName_name" class="form-control" formControlName="name">
+                    <input id="create_formControlName_name" class="form-control" formControlName="name" placeholder="Leiter Tageler">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -184,7 +188,7 @@
             <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
           </div>
         </div>
-        <button type="submit" class="btn btn-secondary">Speichern</button>
+        <button type="submit" class="btn btn-secondary" [disabled]="!tagelerForm.valid">Speichern</button>
       </form>
     </div>
   </div>
@@ -218,10 +222,9 @@
 
   <!-- Update and view Form -->
   <div class="updateAndViewForm col-md-6" *ngIf="update || view">
-    <form [formGroup]="tagelerForm"  (ngSubmit)="updateTageler()" novalidate>
+    <form [formGroup]="tagelerForm" (submit)="updateTageler()" novalidate>
       <div class="warning" *ngIf="update"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
       <fieldset id="enableInput" [disabled]="view">
-      {{tagelerForm.valid}}
         <div class="form-group row">
           <label for="formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
@@ -257,7 +260,7 @@
         </div>
         <div *ngIf="tagelerForm.controls['title'].value == 'Übungsfrei'">
           <div class="form-group row">
-            <label for="formControlName_date_start_free" class="col-3 col-form-label">Datum*:</label>
+            <label for="formControlName_date_start_free" class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
               <input id="formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}" required>
             </div>
@@ -265,7 +268,7 @@
         </div>
         <div *ngIf="tagelerForm.controls['title'].value != 'Übungsfrei'">
           <div class="form-group row">
-            <label for="formControlName_date_start" class="col-3 col-form-label">Start*:</label>
+            <label for="formControlName_date_start" class="col-3 col-form-label">Start:</label>
             <div class="col-5">
               <input id="formControlName_date_start" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}" required>
             </div>
@@ -274,7 +277,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="formControlName_date_end" class="col-3 col-form-label">Ende*:</label>
+            <label for="formControlName_date_end" class="col-3 col-form-label">Ende:</label>
             <div class="col-5">
               <input id="formControlName_date_end" class="form-control" formControlName="date_end" type="date" value="{{tageler.end | date: 'yyyy-MM-dd'}}" required>
             </div>
@@ -286,22 +289,28 @@
             <label for="formControlName_bringAlong" class="col-3 col-form-label">Mitbringen*:</label>
             <div class="col-9">
               <input id="formControlName_bringAlong" class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" value="{{tageler.bringAlong}}" required>
+              <div *ngIf="formErrors.bringAlong" class="alert alert-danger">
+                {{ formErrors.bringAlong }}
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <label for="formControlName_uniform" class="col-3 col-form-label">Kleidung*:</label>
             <div class="col-9">
               <input id="formControlName_uniform" class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" value="{{tageler.uniform}}" required>
+              <div *ngIf="formErrors.uniform" class="alert alert-danger">
+                {{ formErrors.uniform }}
+              </div>
             </div>
           </div>
           <div formGroupName="checkout">
             <div class="form-group row">
               <label for="formControlName_deadline" class="col-3 col-form-label">Absagen bis:</label>
               <div class="col-5">
-                <input id="formControlName_deadline" class="form-control" formControlName="deadline_date" type="date" value="{{tageler.checkout.deadline | date: 'yyyy-MM-dd'}}" required>
+                <input id="formControlName_deadline" class="form-control" formControlName="deadline_date" type="date" value="{{tageler.checkout.deadline | date: 'yyyy-MM-dd'}}">
               </div>
               <div class="col-4">
-                <input id="formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="time" value="{{tageler.checkout.deadline | date: 'HH:mm'}}" required>
+                <input id="formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="time" value="{{tageler.checkout.deadline | date: 'HH:mm'}}">
               </div>
             </div>
             <div formGroupName="contact">

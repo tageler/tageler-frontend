@@ -90,25 +90,29 @@ describe('Component: AdminComponent', () => {
   });
 
   it('should create a `FormGroup` comprised of `FormControl`s', () => {
-    component.ngOnInit();
+    component.showCreateTagelerForm();
     expect(component.tagelerForm instanceof FormGroup).toBe(true);
   });
 
 
-  it('tageler should update from form changes', fakeAsync(() => {
+  it('tagelerForm should contain right data', fakeAsync(() => {
+    component.showCreateTagelerForm();
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
     const testTageler = {
       title: 'test',
       text: 'text',
       group: 'Test Group',
-      date_start: new Date,
-      date_end: new Date,
+      date_start: new Date(start_date1).toISOString().slice(0, 10),
+      date_end: new Date(end_date1).toISOString().slice(0, 10),
       time_start: '14:00',
       time_end: '17:00',
       bringAlong: 'Tasse',
       uniform: 'Kleid',
       picture: '',
       checkout: {
-        deadline_date: new Date,
+        deadline_date: new Date(checkout_date1).toISOString().slice(0, 10),
         deadline_time: '10:00',
         contact: {
           name: 'Fake name',
@@ -307,11 +311,11 @@ describe('Component: AdminComponent', () => {
     expect(fixture.componentInstance.view).toBe(true);
     expect(fixture.componentInstance.update).toBe(false);
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeTruthy();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
@@ -369,11 +373,11 @@ describe('Component: AdminComponent', () => {
     expect(fixture.componentInstance.view).toBe(false);
     expect(fixture.componentInstance.update).toBe(true);
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeTruthy();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
@@ -432,11 +436,11 @@ describe('Component: AdminComponent', () => {
     expect(fixture.componentInstance.view).toBe(true);
     expect(fixture.componentInstance.update).toBe(false);
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
@@ -495,11 +499,11 @@ describe('Component: AdminComponent', () => {
     expect(fixture.componentInstance.view).toBe(false);
     expect(fixture.componentInstance.update).toBe(true);
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_free').checked).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[1].textContent).toContain('Titel*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
     expect(fixture.debugElement.nativeElement.querySelector('option').firstChild.textContent).toContain('Baghira');
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
