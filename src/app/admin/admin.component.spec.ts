@@ -299,7 +299,7 @@ describe('Component: AdminComponent', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.tagelers = tageler;
     fixture.componentInstance.tageler = tageler[0];
-    fixture.componentInstance.showDetailForm(tageler[0]);
+    fixture.componentInstance.showTagelerDetailsForm(tageler[0]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
@@ -361,7 +361,7 @@ describe('Component: AdminComponent', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.tagelers = tageler;
     fixture.componentInstance.tageler = tageler[0];
-    fixture.componentInstance.showUpdateForm(tageler[0]);
+    fixture.componentInstance.showTagelerEditForm(tageler[0]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
@@ -424,7 +424,7 @@ describe('Component: AdminComponent', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.tagelers = tageler;
     fixture.componentInstance.tageler = tageler[0];
-    fixture.componentInstance.showDetailForm(tageler[0]);
+    fixture.componentInstance.showTagelerDetailsForm(tageler[0]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();
@@ -487,7 +487,7 @@ describe('Component: AdminComponent', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.tagelers = tageler;
     fixture.componentInstance.tageler = tageler[0];
-    fixture.componentInstance.showUpdateForm(tageler[0]);
+    fixture.componentInstance.showTagelerEditForm(tageler[0]);
     fixture.detectChanges();
 
     expect(fixture.debugElement.nativeElement.querySelector('.updateAndViewForm')).toBeDefined();

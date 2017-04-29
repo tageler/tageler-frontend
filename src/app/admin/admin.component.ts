@@ -1,5 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, Validator} from '@angular/forms';
 
 import { Tageler } from '../tagelers/tageler';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
   showGroups = false;
   createSuccess: boolean;
   deleteSuccess: boolean;
+  formNotDisplayed = true;
   update: boolean;
   view: boolean;
   base64textString: String;
@@ -53,9 +54,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private tagelerService: TagelerService,
     private groupService: GroupService,
-    private fb: FormBuilder) {
-    this.createForm();
-  }
+    private fb: FormBuilder) {}
 
   handleFileSelect(evt) {
     let files = evt.target.files;
@@ -101,12 +100,6 @@ export class AdminComponent implements OnInit {
         });
       });
   }
-
-  selectTageler(tageler: Tageler) {
-    this.selectedTageler = tageler;
-    this.selectedGroup = this.groups.find(x => x._id === tageler._id);
-  }
-
   selectGroup(group: Group) {
     this.selectedGroup = group;
   }
@@ -140,20 +133,18 @@ export class AdminComponent implements OnInit {
       this.previewBase64 = 'data:image/png;base64,' + this.defaultPicture;
     }else {
       this.tagelerForm.controls['title'].setValue('');
-      // this.tagelerForm.controls['picture'].setValue('');
     }
   }
-
   showCreateTagelerForm() {
-    this.tagelerForm.reset();
-    let tageler: Tageler = {
+    let sat = new Date;
+    this.tageler = {
       title: '',
       text: '',
       group: [''],
-      start: new Date,
-      end: new Date,
-      bringAlong: '',
-      uniform: '',
+      start: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00'),
+      end: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00'),
+      bringAlong: 'BPMSTZ und Zvieri',
+      uniform: 'Uniform und Krvatte, dem Wetter angepasste Kleidung' ,
       picture: '',
       checkout: {
         deadline: new Date,
@@ -164,38 +155,38 @@ export class AdminComponent implements OnInit {
           other: '',
         }]
       },
-      free: false
-    }
+      free: false,
+    };
+    this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
-      title: '',
-      text: '',
-      group: [''],
-      date_start: '',
-      date_end: '',
-      time_start: '14:00',
-      time_end: '17:00',
-      bringAlong: 'BPMSTZ und Zvieri',
-      uniform: 'Uniform und Kravatte, dem Wetter angepasste Kleidung',
-      picture: '',
-      checkout: this.fb.group({
-        deadline_date: Date,
-        deadline_time: '',
-        contact: this.fb.group({
-          name: '',
-          phone: '',
-          mail: '',
-          other: '',
+      'title': [this.tageler.title, [Validators.required]],
+      'text': [this.tageler.text],
+      'group': [[this.tageler.group], [Validators.required]],
+      'date_start': [this.tageler.start.toISOString().slice(0, 10)],
+      'date_end': [this.tageler.end.toISOString().slice(0, 10)],
+      'time_start': [this.tageler.start.toISOString().slice(11, 16), [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
+      'time_end': [this.tageler.end.toISOString().slice(11, 16), [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
+      'bringAlong': [this.tageler.bringAlong, [Validators.required]],
+      'uniform': [this.tageler.uniform, [Validators.required]],
+      'picture': [this.tageler.picture],
+      'checkout': this.fb.group({
+        'deadline_date': [''],
+        'deadline_time': ['', [Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
+        'contact': this.fb.group({
+          'name': [this.tageler.checkout.contact[0].name],
+          'phone': [this.tageler.checkout.contact[0].phone, [
+            Validators.pattern("^(0041|041|\\+41|\\+\\+41|41\)?(0|\\(0\\)\)?([1-9]\\d{1}\)(\\d{3}\)(\\d{2}\)(\\d{2}\)$")]],
+          'mail': [this.tageler.checkout.contact[0].mail, [Validators.pattern("[^ @]*@[^ @]*")]],
+          'other': [this.tageler.checkout.contact[0].other],
         })
       }),
-      free: false
+      'free': [this.tageler.free]
     });
+    this.tagelerForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+
     this.previewBase64 = '';
-    this.setNextSaturday();
-
-    // By default, a newly-created tageler will have the selected state.
-    this.selectTageler(tageler);
-
-    // Hide other buttons and forms
+    this.selectedTageler = this.tageler;
     this.selectedGroup = null;
     this.showGroups = false;
     this.showTageler = false;
@@ -204,88 +195,136 @@ export class AdminComponent implements OnInit {
     this.view = false;
   }
 
+  onValueChanged(data?: any) {
+    if (!this.tagelerForm) { return; }
+    const form = this.tagelerForm;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  validationMessages = {
+    'title': {
+      'required': 'Geben Sie bitte einen Namen ein.',
+    },
+    'group': {
+      'required': 'Wählen Sie bitte eine Gruppe aus.'
+    }
+  };
+
+  formErrors = {
+    'title': 'Geben Sie bitte einen Namen ein.',
+    'group': 'Wählen Sie bitte eine Gruppe aus.'
+  };
+
   cancelCreateTageler() {
     this.createTageler = false;
     this.showTageler = true;
     this.selectedTageler = null;
+    this.tagelerForm.reset();
   }
 
-  showUpdateForm(tageler: Tageler) {
+  showTagelerEditForm(tageler: Tageler) {
     this.tageler = tageler;
     this.view = false;
     this.update = true;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    this.showDetailsAndEditForm(this.tageler);
   }
 
-  showDetailForm(tageler: Tageler) {
+  showTagelerDetailsForm(tageler: Tageler) {
     this.tageler = tageler;
     this.view = true;
     this.update = false;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
+    this.showDetailsAndEditForm(this.tageler);
+  }
+
+  showDetailsAndEditForm(tageler: Tageler) {
+    this.tageler = tageler;
+    if (this.formNotDisplayed) {
+      this.editAndUpdateForm(this.tageler);
+      this.formNotDisplayed = false;
+    }
+  }
+
+  editAndUpdateForm(tageler: Tageler) {
+    this.tageler = tageler;
+    this.tagelerForm = this.fb.group({
+      'title': [this.tageler.title, [Validators.required]],
+      'text': [this.tageler.text],
+      'group': [[this.tageler.group], [Validators.required]],
+      'date_start': [''],
+      'date_end': [''],
+      'time_start': [''],
+      'time_end': [''],
+      'bringAlong': [this.tageler.bringAlong, [Validators.required]],
+      'uniform': [this.tageler.uniform, [Validators.required]],
+      'picture': [''],
+      'checkout': this.fb.group({
+        'deadline_date': [''],
+        'deadline_time': ['', [
+          Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")]],
+        'contact': this.fb.group({
+          'name': [this.tageler.checkout.contact[0].name],
+          'phone': [this.tageler.checkout.contact[0].phone, [
+            Validators.pattern("^(0041|041|\\+41|\\+\\+41|41\)?(0|\\(0\\)\)?([1-9]\\d{1}\)(\\d{3}\)(\\d{2}\)(\\d{2}\)$")]],
+          'mail': [this.tageler.checkout.contact[0].mail, [
+            Validators.pattern("[01]?([0-9]{1}|2[0-3]{1}\)(:|\\.\)[0-5]{1}[0-9]{1}")]],
+          'other': [this.tageler.checkout.contact[0].other],
+        })
+      }),
+      free: [this.tageler.free]
+    });
+    this.tagelerForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
   }
 
   /***************************
   Create & save new Tageler
    **************************/
 
-  createForm() {
-    this.tagelerForm = this.fb.group({
-      title: '',
-      text: '',
-      group: [''],
-      date_start: '',
-      date_end: '',
-      time_start: '',
-      time_end: '',
-      bringAlong: '',
-      uniform: '',
-      picture: '',
-      checkout: this.fb.group({
-        deadline_date: Date,
-        deadline_time: '',
-        contact: this.fb.group({
-          name: '',
-          phone: '',
-          mail: '',
-          other: '',
-        })
-      }),
-      free: false
-    });
-  }
-
-
-  setNextSaturday() {
-    let sat = new Date;
-    // sets the date to next saturday
-    sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7);
-    this.tagelerForm.controls['date_start'].setValue(sat.toISOString().substr(0, 10));
-    this.tagelerForm.controls['date_end'].setValue(sat.toISOString().substr(0, 10));
-  }
-
-
   prepareSaveTageler(): Tageler {
-      const saveTageler: Tageler = {
-        title: this.tagelerForm.value.title as string,
-        text: this.tagelerForm.value.text as string,
-        group: [this.tagelerForm.value.group as string],
-        // accept both . and :
-        start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
-        end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
-        bringAlong: this.tagelerForm.value.bringAlong as string,
-        uniform: this.tagelerForm.value.uniform as string,
-        picture: this.base64textString as string,
-        checkout : {
-          deadline: new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':')),
-          contact: [{
-            name: this.tagelerForm.value.checkout.contact.name as string,
-            phone: this.tagelerForm.value.checkout.contact.phone as string,
-            mail: this.tagelerForm.value.checkout.contact.mail as string,
-            other: this.tagelerForm.value.checkout.contact.other as string,
-          }]
-        },
-        free: this.tagelerForm.value.free as boolean
-      };
+
+    let deadlineSaved;
+    if(this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
+      deadlineSaved = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'))
+    } else {
+      deadlineSaved = null;
+    }
+
+    const saveTageler: Tageler = {
+      title: this.tagelerForm.value.title as string,
+      text: this.tagelerForm.value.text as string,
+      group: [this.tagelerForm.value.group as string],
+      // accept both . and :
+      start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
+      end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
+      bringAlong: this.tagelerForm.value.bringAlong as string,
+      uniform: this.tagelerForm.value.uniform as string,
+      picture: this.base64textString as string,
+      checkout : {
+        deadline: deadlineSaved,
+        contact: [{
+          name: this.tagelerForm.value.checkout.contact.name as string,
+          phone: this.tagelerForm.value.checkout.contact.phone as string,
+          mail: this.tagelerForm.value.checkout.contact.mail as string,
+          other: this.tagelerForm.value.checkout.contact.other as string,
+        }]
+      },
+      free: this.tagelerForm.value.free as boolean
+    };
+
     if (saveTageler.free) {
       saveTageler.start = new Date(this.tagelerForm.value.date_start + 'T00:00');
       saveTageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
@@ -298,6 +337,7 @@ export class AdminComponent implements OnInit {
       // checkbox returns undefined if never checked or unchecked
       saveTageler.free = false;
     }
+    this.onValueChanged();
     this.selectedTageler = null;
     return saveTageler;
   }
@@ -331,8 +371,22 @@ export class AdminComponent implements OnInit {
    **************************/
 
   updateTageler() {
+    this.onValueChanged(this.tageler);
     this.tageler = this.prepareUpdateTageler();
-    this.tagelerService.updateTageler(this.tageler);
+    this.tagelerService.updateTageler(this.tageler).then(
+      data => {
+        let jsonData = JSON.parse(JSON.stringify(data));
+        if (jsonData.success) {
+          console.log('success: ' + jsonData.msg);
+          this.createSuccess = true;
+        } else {
+          console.log('fail: ' + jsonData.msg);
+          this.createSuccess = false;
+        }
+      },
+      error => {
+        console.log('Something went wrong');
+      });
     this.update = false;
     this.view = true;
   }
@@ -365,17 +419,15 @@ export class AdminComponent implements OnInit {
       endUpdated = new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':'));
     }
 
-    if (((this.tagelerForm.value.checkout.deadline_date == Date)) && !((this.tagelerForm.value.checkout.deadline_time == Date)) && !(this.tagelerForm.value.checkout.deadline_time)) {
+    if (!this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
       deadlineUpdated = this.tageler.checkout.deadline
-    } else if(!(this.tagelerForm.value.checkout.deadline_date == Date) && !(this.tagelerForm.value.checkout.deadline_time == Date) && !(this.tagelerForm.value.checkout.deadline_time)) {
-      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
-    } else if(((this.tagelerForm.value.checkout.deadline_date == Date)) && !((this.tagelerForm.value.checkout.deadline_time == Date)) && (this.tagelerForm.value.checkout.deadline_time)) {
+    } else if(!this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
       deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
-    } else if (!(this.tagelerForm.value.checkout.deadline_date == Date) && !(this.tagelerForm.value.checkout.deadline_time == Date) && (this.tagelerForm.value.checkout.deadline_time)) {
+    } else if(this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
+      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
+    } else if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
       deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
     }
-    console.log(deadlineUpdated);
-
     const updateTageler: Tageler = {
       _id: this.tageler._id,
       title: this.tagelerForm.value.title as string,
@@ -401,7 +453,7 @@ export class AdminComponent implements OnInit {
     if (this.base64textString === '') {
       updateTageler.picture = this.tageler.picture;
     }
-    console.log(updateTageler.free);
+    this.onValueChanged();
     return updateTageler;
   }
 
@@ -413,7 +465,20 @@ export class AdminComponent implements OnInit {
    Delete Tageler
    **************************/
   deleteSelectedTageler(tageler: Tageler): void {
-    this.tagelerService.deleteTageler(tageler._id);
+    this.tagelerService.deleteTageler(tageler._id).then(
+      data => {
+        let jsonData = JSON.parse(JSON.stringify(data));
+        if (jsonData.success) {
+          console.log('success: ' + jsonData.msg);
+          this.createSuccess = true;
+        } else {
+          console.log('fail: ' + jsonData.msg);
+          this.createSuccess = false;
+        }
+      },
+      error => {
+        console.log('Something went wrong');
+      });
     window.location.reload();
   }
 }
