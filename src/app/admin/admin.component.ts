@@ -281,8 +281,8 @@ export class AdminComponent implements OnInit {
       'title': [this.tageler.title, [Validators.required]],
       'text': [this.tageler.text],
       'group': [[this.tageler.group], [Validators.required]],
-      'date_start': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
-      'date_end': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
+      'date_start': [new Date(this.tageler.start).toISOString().slice(0, 10)],
+      'date_end': [new Date(this.tageler.start).toISOString().slice(0, 10)],
       'time_start': [new Date(this.tageler.start).toISOString().slice(11, 16),
         [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
       'time_end': [new Date(this.tageler.end).toISOString().slice(11, 16),
@@ -543,7 +543,7 @@ export class AdminComponent implements OnInit {
     this.tageler.checkout.contact[0].phone = null;
     this.tageler.checkout.contact[0].mail = null;
     this.tageler.checkout.contact[0].other = null;
-    
+
     if (typeof this.tageler.picture === 'undefined') {
       this.tageler.picture = this.defaultPicture.toString();
     }

@@ -90,7 +90,7 @@
               [options]="myOptions"
               [texts]="myTexts"
               [settings]="mySettings"
-              [(ngModel)]="group"
+              [ngModel]="group"
               class="form-control"
               id="create_formControlName_group"
               formControlName="group"
@@ -262,7 +262,7 @@
             </div>
           </div>
           <div class="col-9" *ngIf="view">
-            <textarea class="form-control" formControlName="group" rows="3" *ngFor="let group of tageler.group">{{tageler.group}}</textarea>
+            <textarea id="formControlName_group_view" class="form-control" formControlName="group" rows="3" *ngFor="let group of tageler.group">{{tageler.group}}</textarea>
           </div>
         </div>
         <div *ngIf="tagelerForm.controls['title'].value == 'Übungsfrei'">

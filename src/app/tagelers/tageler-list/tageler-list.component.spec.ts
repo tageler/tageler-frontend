@@ -5,6 +5,7 @@ import { MockBackend } from '@angular/http/testing';
 import { TagelerService } from '../tageler.service';
 import { Tageler } from '../tageler';
 import { TagelerListComponent } from "./tageler-list.component";
+import { TagelerByGroupAndByDate } from '../../pipes/tagelerByGroupAndByDate.pipe';
 import { LOCALE_ID } from '@angular/core';
 
 describe('TagelerListComponent', () => {
@@ -15,7 +16,7 @@ describe('TagelerListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpModule],
-      declarations: [ TagelerListComponent ],
+      declarations: [ TagelerListComponent, TagelerByGroupAndByDate ],
       providers: [
         MockBackend,
         {
