@@ -47,24 +47,16 @@
   </div>
 
 
-  <!-- Alerts unschön, müssen noch refactored werden (code dupliziert)
-  <div *ngIf="createSuccess">
+  <!-- Alert -->
+  <div *ngIf="jsonMessage">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <p>Tageler erfolgreich erstellt!</p>
+      <p>{{jsonMessage}}</p>
     </div>
   </div>
-  <div *ngIf="deleteSuccess">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <p>Tageler erfolgreich gelöscht!</p>
-    </div>
-  </div>
--->
+
   <!-- Create tageler form -->
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
@@ -93,11 +85,17 @@
         </div>
         <div class="form-group row">
           <label for="create_formControlName_group" class="col-3 col-form-label">Einheit*:</label>
-          <div class="col-3">
-            <select id="create_formControlName_group" class="form-control" formControlName="group" required>
-              <option value="" disabled selected>Bitte wählen</option>
-              <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
-            </select>
+          <div class="col-9">
+            <ss-multiselect-dropdown
+              [options]="myOptions"
+              [texts]="myTexts"
+              [settings]="mySettings"
+              [(ngModel)]="group"
+              class="form-control"
+              id="create_formControlName_group"
+              formControlName="group"
+              required
+            ></ss-multiselect-dropdown>
             <div *ngIf="formErrors.group" class="alert alert-danger">
               {{ formErrors.group }}
             </div>
@@ -248,14 +246,23 @@
         </div>
         <div class="form-group row">
           <label for="formControlName_group" class="col-3 col-form-label">Einheit*:</label>
-          <div class="col-9">
-            <select id="formControlName_group" class="form-control" formControlName="group" [(ngModel)]="tageler.group" required>
-              <option selected disabled>{{tageler.group}}</option>
-              <option *ngFor="let group of groups" value={{group.name}}>{{group.name}}</option>
-            </select>
+          <div *ngIf="update" class="col-9">
+            <ss-multiselect-dropdown
+              [options]="myOptions"
+              [texts]="myTexts"
+              [settings]="mySettings"
+              [(ngModel)]="group"
+              class="form-control"
+              id="formControlName_group"
+              formControlName="group"
+              required
+            ></ss-multiselect-dropdown>
             <div *ngIf="formErrors.group" class="alert alert-danger">
               {{ formErrors.title }}
             </div>
+          </div>
+          <div class="col-9" *ngIf="view">
+            <textarea class="form-control" formControlName="group" rows="3" *ngFor="let group of tageler.group">{{tageler.group}}</textarea>
           </div>
         </div>
         <div *ngIf="tagelerForm.controls['title'].value == 'Übungsfrei'">
