@@ -3,7 +3,7 @@
     <div *ngFor="let tageler of tagelers" style="margin: 1%">
       <a href="../tageler-details/{{tageler._id}}">
       <div class="card">
-        <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+        <img class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
         <div class="card-block">
           <div *ngIf="tageler.title.length < 30">
             <h5 class="card-title">{{tageler.title}}</h5>

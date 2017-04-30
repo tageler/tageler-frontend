@@ -35,6 +35,7 @@ export class AdminComponent implements OnInit {
   showGroups = false;
   createSuccess: boolean;
   deleteSuccess: boolean;
+  updateSuccess: boolean;
   formNotDisplayed = true;
   update: boolean;
   view: boolean;
@@ -273,8 +274,10 @@ export class AdminComponent implements OnInit {
       'group': [[this.tageler.group], [Validators.required]],
       'date_start': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
       'date_end': [new Date(this.tageler.start).toISOString().slice(0, 10), [Validators.required]],
-      'time_start': [new Date(this.tageler.start).toISOString().slice(11, 16), [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
-      'time_end': [new Date(this.tageler.end).toISOString().slice(11, 16), [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
+      'time_start': [new Date(this.tageler.start).toISOString().slice(11, 16),
+        [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
+      'time_end': [new Date(this.tageler.end).toISOString().slice(11, 16),
+        [Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]],
       'bringAlong': [this.tageler.bringAlong, [Validators.required]],
       'uniform': [this.tageler.uniform, [Validators.required]],
       'picture': [''],
@@ -302,7 +305,8 @@ export class AdminComponent implements OnInit {
 
     let deadlineSaved;
     if(this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineSaved = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'))
+      deadlineSaved = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
+        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'))
     } else {
       deadlineSaved = null;
     }
@@ -330,13 +334,7 @@ export class AdminComponent implements OnInit {
     };
 
     if (saveTageler.free) {
-      saveTageler.start = new Date(this.tagelerForm.value.date_start + 'T00:00');
-      saveTageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
-      saveTageler.uniform = 'free';
-      saveTageler.bringAlong = 'free';
-      if (typeof saveTageler.picture === 'undefined') {
-        saveTageler.picture = this.defaultPicture.toString();
-      }
+      this.setValuesForFreeTageler(saveTageler);
     }else {
       // checkbox returns undefined if never checked or unchecked
       saveTageler.free = false;
@@ -366,26 +364,25 @@ export class AdminComponent implements OnInit {
         console.log('Something went wrong');
       });
     this.tagelerForm.reset();
-    // window.location.reload();
+    window.location.reload();
   }
 
-
   /***************************
-   Update Tageler
+   * Update Tageler
    **************************/
 
+  // Passes the updated tageler to the tageler service method (updateTageler)
   updateTageler() {
-    this.onValueChanged(this.tageler);
     this.tageler = this.prepareUpdateTageler();
     this.tagelerService.updateTageler(this.tageler).then(
       data => {
         let jsonData = JSON.parse(JSON.stringify(data));
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
-          this.createSuccess = true;
+          this.updateSuccess = true;
         } else {
           console.log('fail: ' + jsonData.msg);
-          this.createSuccess = false;
+          this.updateSuccess = false;
         }
       },
       error => {
@@ -397,41 +394,66 @@ export class AdminComponent implements OnInit {
 
   prepareUpdateTageler(): Tageler {
     let freeUpdated, startUpdated, endUpdated, deadlineUpdated;
+
+    // set free value correctly
     if (this.tagelerForm.value.free == null) {
       freeUpdated = this.tageler.free;
     } else {
       freeUpdated = this.tagelerForm.value.free;
     }
 
+    // Set start date correct, if nothing/only one field/both fields changed
     if (!this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
       startUpdated = this.tageler.start
+
     } else if(!this.tagelerForm.value.date_start && this.tagelerForm.value.time_start) {
-      startUpdated = new Date(new Date(this.tageler.start).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.time_start.replace('.', ':'));
+      startUpdated = new Date(new Date(this.tageler.start).toISOString().slice(0, 10) + 'T' +
+        this.tagelerForm.value.time_start.replace('.', ':'));
+
     } else if(this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
-      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' + new Date(this.tageler.start).toISOString().slice(11, 16));
+      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' +
+        new Date(this.tageler.start).toISOString().slice(11, 16));
+
     } else {
-      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':'));
+      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' +
+        this.tagelerForm.value.time_start.replace('.', ':'));
     }
 
+    // Set end date correct, if nothing/only one field/both fields changed
     if (!this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
       endUpdated = this.tageler.end
+
     } else if(!this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
-      endUpdated = new Date(new Date(this.tageler.end).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.time_end.replace('.', ':'));
+      endUpdated = new Date(new Date(this.tageler.end).toISOString().slice(0, 10) + 'T' +
+        this.tagelerForm.value.time_end.replace('.', ':'));
+
     } else if(this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
-      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' + new Date(this.tageler.end).toISOString().slice(11, 16));
+      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' +
+        new Date(this.tageler.end).toISOString().slice(11, 16));
+
     } else if (this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
-      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':'));
+      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' +
+        this.tagelerForm.value.time_end.replace('.', ':'));
     }
 
+    // Set checkout deadline date correct, if nothing/only one field/both fields changed
     if (!this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
       deadlineUpdated = this.tageler.checkout.deadline
+
     } else if(!this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+      deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' +
+        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+
     } else if(this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
+      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
+        new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
+
     } else if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' + this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
+        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
     }
+
+    // update Tageler should contain (new) values from tageler Form
     const updateTageler: Tageler = {
       _id: this.tageler._id,
       title: this.tagelerForm.value.title as string,
@@ -453,14 +475,19 @@ export class AdminComponent implements OnInit {
       },
       free: freeUpdated as boolean,
     };
+
+    if (updateTageler.free) {
+      this.setValuesForFreeTageler(updateTageler);
+    }
+
     // keep old picture if no new one is selected
     if (this.base64textString === '') {
       updateTageler.picture = this.tageler.picture;
     }
-    this.onValueChanged();
     return updateTageler;
   }
 
+  // handles a canceled update
   cancelUpdate() {
     this.update = false;
     this.view = false;
@@ -470,16 +497,18 @@ export class AdminComponent implements OnInit {
   /***************************
    Delete Tageler
    **************************/
+
+  // Passes the id of the tageler to delete to the tageler service method (deleteTageler)
   deleteSelectedTageler(tageler: Tageler): void {
     this.tagelerService.deleteTageler(tageler._id).then(
       data => {
         let jsonData = JSON.parse(JSON.stringify(data));
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
-          this.createSuccess = true;
+          this.deleteSuccess = true;
         } else {
           console.log('fail: ' + jsonData.msg);
-          this.createSuccess = false;
+          this.deleteSuccess = false;
         }
       },
       error => {
@@ -487,4 +516,29 @@ export class AdminComponent implements OnInit {
       });
     window.location.reload();
   }
+
+  /***************************
+   Helper Methods
+   **************************/
+
+  setValuesForFreeTageler(tageler: Tageler) {
+    this.tageler = tageler;
+    this.tageler.start = new Date(this.tagelerForm.value.date_start + 'T00:00');
+    this.tageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
+    this.tageler.uniform = 'free';
+    this.tageler.bringAlong = 'free';
+    this.tageler.checkout.deadline = null;
+    this.tageler.checkout.contact[0].name = null;
+    this.tageler.checkout.contact[0].phone = null;
+    this.tageler.checkout.contact[0].mail = null;
+    this.tageler.checkout.contact[0].other = null;
+
+
+    if (typeof this.tageler.picture === 'undefined') {
+      this.tageler.picture = this.defaultPicture.toString();
+    }
+  }
+
+
+
 }

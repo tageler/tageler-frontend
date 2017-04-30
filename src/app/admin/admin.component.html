@@ -198,7 +198,7 @@
     <div *ngIf="showTageler">
       <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
         <div class="card" style="margin-bottom: 2%;">
-          <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
           <div class="card-block">
             <div *ngIf="tageler.title.length < 30 || tageler.title == null">
               <h5 class="card-title">{{tageler.title}}</h5>
@@ -340,7 +340,7 @@
         <div class="form-group row">
           <label for="formControlName_picture" class="col-3 col-form-label">Bild:</label>
           <div class="col-9">
-            <img id="formControlName_picture" [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
+            <img id="formControlName_picture" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="180" width="320"/>
           </div>
         </div>
         <button id="save" *ngIf="update" class="btn btn-info" type="submit" [disabled]="!tagelerForm.valid">Speichern</button>
