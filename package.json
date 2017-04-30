@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "angular2-flash-messages": "1.0.5",
     "angular-date-value-accessor": "0.0.2",
     "angular2-bootstrap-confirm": "^1.0.4",
     "angular2-image-upload": "^0.4.1",
@@ -55,6 +56,6 @@
     "timepicker": "^1.11.9",
     "ts-node": "~2.0.0",
     "tslint": "~4.4.2",
-    "typescript": "~2.0.0"
+    "typescript": "~2.0.10"
   }
 }

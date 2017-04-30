@@ -1,5 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, Validator} from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { Tageler } from '../tagelers/tageler';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -54,7 +55,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private tagelerService: TagelerService,
     private groupService: GroupService,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder,
+    private flashMessage: FlashMessagesService) {}
 
   handleFileSelect(evt) {
     let files = evt.target.files;
@@ -357,13 +359,17 @@ export class AdminComponent implements OnInit {
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
           this.createSuccess = true;
+          this.flashMessage.show('Tageler erfolgreich erstellt', {cssClass: 'alert-success', timeout: 3000} );
+
         } else {
           console.log('fail: ' + jsonData.msg);
           this.createSuccess = false;
+          this.flashMessage.show('Es gab einen Fehler beim Erstellen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Erstellen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
     this.tagelerForm.reset();
     // window.location.reload();
@@ -383,13 +389,16 @@ export class AdminComponent implements OnInit {
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
           this.createSuccess = true;
+          this.flashMessage.show('Die Änderungen wurden gespeichert', {cssClass: 'alert-success', timeout: 3000} );
         } else {
           console.log('fail: ' + jsonData.msg);
           this.createSuccess = false;
+          this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
       });
     this.update = false;
     this.view = true;
@@ -477,13 +486,16 @@ export class AdminComponent implements OnInit {
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
           this.createSuccess = true;
+          this.flashMessage.show('Der Tageler wurde gelöscht', {cssClass: 'alert-success', timeout: 3000} );
         } else {
           console.log('fail: ' + jsonData.msg);
           this.createSuccess = false;
+          this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
     window.location.reload();
   }
