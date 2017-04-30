@@ -1,4 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, Validator} from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
@@ -56,7 +57,8 @@ export class AdminComponent implements OnInit {
     private tagelerService: TagelerService,
     private groupService: GroupService,
     private fb: FormBuilder,
-    private flashMessage: FlashMessagesService) {}
+    private flashMessage: FlashMessagesService,
+    private router: Router) {}
 
   handleFileSelect(evt) {
     let files = evt.target.files;
@@ -80,6 +82,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     console.log('Init');
+    this.fetchTagelers();
+  }
+
+  fetchTagelers() {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
@@ -102,6 +108,7 @@ export class AdminComponent implements OnInit {
         });
       });
   }
+
   selectGroup(group: Group) {
     this.selectedGroup = group;
   }
@@ -372,7 +379,7 @@ export class AdminComponent implements OnInit {
         this.flashMessage.show('Es gab einen Fehler beim Erstellen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
     this.tagelerForm.reset();
-    // window.location.reload();
+    this.fetchTagelers();
   }
 
 
@@ -402,6 +409,7 @@ export class AdminComponent implements OnInit {
       });
     this.update = false;
     this.view = true;
+    this.fetchTagelers();
   }
 
   prepareUpdateTageler(): Tageler {
@@ -497,6 +505,6 @@ export class AdminComponent implements OnInit {
         console.log('Something went wrong');
         this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
-    window.location.reload();
+    this.fetchTagelers();
   }
 }
