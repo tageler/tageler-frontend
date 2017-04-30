@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { Tageler } from '../tagelers/tageler';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -39,7 +40,6 @@ export class AdminComponent implements OnInit {
   showTageler = true;
   createTageler = false;
   showGroups = false;
-  jsonMessage: String;
   formNotDisplayed = true;
   update: boolean;
   view: boolean;
@@ -56,9 +56,12 @@ export class AdminComponent implements OnInit {
   tageler: Tageler;
   tagelerForm: FormGroup;
 
-  constructor(private tagelerService: TagelerService,
-              private groupService: GroupService,
-              private fb: FormBuilder) {
+
+  constructor(
+    private tagelerService: TagelerService,
+    private groupService: GroupService,
+    private fb: FormBuilder,
+    private flashMessage: FlashMessagesService) {
   }
 
   handleFileSelect(evt) {
@@ -83,6 +86,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     console.log('Init');
+    this.fetchTagelers();
+  }
+
+  fetchTagelers() {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
@@ -363,17 +370,19 @@ export class AdminComponent implements OnInit {
         let jsonData = JSON.parse(JSON.stringify(data));
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Tageler erfolgreich erstellt', {cssClass: 'alert-success', timeout: 3000} );
+
         } else {
           console.log('fail: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Es gab einen Fehler beim Erstellen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Erstellen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
     this.tagelerForm.reset();
-    this.jsonMessage = null;
+    this.fetchTagelers();
   }
 
   /***************************
@@ -388,18 +397,19 @@ export class AdminComponent implements OnInit {
         let jsonData = JSON.parse(JSON.stringify(data));
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Die Änderungen wurden gespeichert', {cssClass: 'alert-success', timeout: 3000} );
         } else {
           console.log('fail: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
       });
     this.update = false;
     this.view = true;
-    this.jsonMessage = null;
+    this.fetchTagelers();
   }
 
   prepareUpdateTageler(): Tageler {
@@ -501,7 +511,7 @@ export class AdminComponent implements OnInit {
   cancelUpdate() {
     this.update = false;
     this.view = false;
-    window.location.reload();
+    this.fetchTagelers();
   }
 
   /***************************
@@ -515,17 +525,17 @@ export class AdminComponent implements OnInit {
         let jsonData = JSON.parse(JSON.stringify(data));
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Der Tageler wurde gelöscht', {cssClass: 'alert-success', timeout: 3000} );
         } else {
           console.log('fail: ' + jsonData.msg);
-          this.jsonMessage = jsonData.msg;
+          this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
         }
       },
       error => {
         console.log('Something went wrong');
+        this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
       });
-    window.location.reload();
-    this.jsonMessage = null;
+    this.fetchTagelers();
   }
 
   /***************************
@@ -543,7 +553,7 @@ export class AdminComponent implements OnInit {
     this.tageler.checkout.contact[0].phone = null;
     this.tageler.checkout.contact[0].mail = null;
     this.tageler.checkout.contact[0].other = null;
-    
+
     if (typeof this.tageler.picture === 'undefined') {
       this.tageler.picture = this.defaultPicture.toString();
     }

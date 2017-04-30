@@ -10,6 +10,7 @@ import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -47,6 +48,7 @@ import { LOCALE_ID } from '@angular/core';
   ],
   imports: [
     BrowserModule,
+    FlashMessagesModule,
     FormsModule,
     HttpModule,
     Ng2DropdownModule,

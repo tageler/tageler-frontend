@@ -64,7 +64,7 @@ export class TagelerService {
   // get("/api/Tageler/:id") endpoint not used by Angular app
 
   // delete("/api/Tagelers/:id")
-  deleteTageler(delTageler: String): Promise<String> {
+  deleteTageler(delTageler: String): Promise<JSON> {
     var fd:FormData = new FormData();
     fd.append('_id', delTageler);
 
@@ -75,12 +75,17 @@ export class TagelerService {
     console.log("delete tageler with ID: "+delTageler);
     return this.http.delete(this.tagelerUrlDelete+'/'+delTageler,options)
       .toPromise()
-      .then(response => response.json() as String)
+      .then(res => {
+        // console.log('json response from api: ' + res.json().msg);
+        if (res.ok) {
+          return res.json();
+        }
+      })
       .catch(this.handleError);
   }
 
   // put("/api/contacts/:id")
-  updateTageler(putTageler: Tageler): Promise<Tageler> {
+  updateTageler(putTageler: Tageler): Promise<JSON> {
 
     const body = JSON.stringify(putTageler);
     let headers = new Headers();
@@ -90,9 +95,11 @@ export class TagelerService {
     return this.http.put(this.tagelerUrlUpdate+'/'+putTageler._id, body, { headers: headers })
        .toPromise()
        .then(res => {
-         console.log(res.json() as Tageler);
-          return res.json() as Tageler;
-      })
+         // console.log('json response from api: ' + res.json().msg);
+         if (res.ok) {
+           return res.json();
+         }
+       })
       .catch(this.handleError);
   }
 
