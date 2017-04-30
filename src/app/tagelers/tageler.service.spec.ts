@@ -236,8 +236,9 @@ describe('TagelerService', () => {
 
       tagelerService.updateTageler(tageler).then(
         (successResult) => {
-          expect(successResult).toBeDefined();
-          expect(successResult.title).toEqual('Tageler 2');
+          let jsonResponse = JSON.parse(JSON.stringify(successResult));
+          expect(jsonResponse.success).toBeTruthy();
+          expect(jsonResponse.title).toEqual('Tageler 2');
           expect(status).toBe(204);
         });
 
@@ -280,7 +281,9 @@ describe('TagelerService', () => {
 
       tagelerService.deleteTageler(JSON.stringify(tageler)).then(
         (successResult) => {
-          expect(successResult).toBeDefined();
+          let jsonResponse = JSON.parse(JSON.stringify(successResult));
+          expect(jsonResponse.success).toBeTruthy();
+          expect(jsonResponse.title).toEqual('Tageler 2');
           expect(status).toBe(204);
         });
 
