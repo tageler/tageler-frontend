@@ -526,6 +526,7 @@ export class AdminComponent implements OnInit {
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
           this.flashMessage.show('Der Tageler wurde gelöscht', {cssClass: 'alert-success', timeout: 3000} );
+          this.fetchTagelers();
         } else {
           console.log('fail: ' + jsonData.msg);
           this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
