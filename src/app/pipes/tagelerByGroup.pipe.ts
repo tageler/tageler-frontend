@@ -13,6 +13,7 @@ export class TagelerByGroup implements PipeTransform {
     if (!args) {
       return tagelers;
     }
+    console.log(tagelers.filter(tageler => tageler.group == args.name));
     return tagelers.filter(tageler => tageler.group == args.name);
   }
 }

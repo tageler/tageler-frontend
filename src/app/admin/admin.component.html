@@ -46,17 +46,6 @@
     </div>
   </div>
 
-
-  <!-- Alert -->
-  <div *ngIf="jsonMessage">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <p>{{jsonMessage}}</p>
-    </div>
-  </div>
-
   <!-- Create tageler form -->
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
@@ -198,13 +187,14 @@
         <div class="card" style="margin-bottom: 2%;">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
           <div class="card-block">
-            <div *ngIf="tageler.title.length < 30 || tageler.title == null">
+            <div *ngIf="tageler.title.length <= 30 || tageler.title == null">
               <h5 class="card-title">{{tageler.title}}</h5>
             </div>
             <div *ngIf="tageler.title.length > 30 || tageler.title == null">
               <h5 class="card-title">{{tageler.title.slice(0,27)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
+            <h5 class="card-text" *ngFor="let group of tageler.group">{{group}}</h5>
             <button class="btn btn-danger"
                     mwlConfirm
                     [title]="title"

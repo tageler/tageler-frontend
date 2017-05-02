@@ -17,9 +17,9 @@ export class NextTagelerPipe implements PipeTransform {
     }
     if ( (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null ) {
       tagelers = tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
-        .filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
+        .filter(tageler => new Date(tageler.start) >= new Date() && tageler.group.toString().includes(args.name));
     } else {
-      tagelers = tagelers.filter(tageler => new Date(tageler.start) >= new Date() && tageler.group == args.name);
+      tagelers = tagelers.filter(tageler => new Date(tageler.start) >= new Date() && tageler.group.toString().includes(args.name));
     }
     nextTageler = tagelers[0];
     return tagelers.filter(tageler => tageler == nextTageler);

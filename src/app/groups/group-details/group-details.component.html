@@ -35,7 +35,7 @@
         <div class="card" style="margin-left:0px !important; margin-right: 0px !important; width: 20rem">
           <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
           <div class="card-block">
-            <div *ngIf="tageler.title.length < 30">
+            <div *ngIf="tageler.title.length <= 30">
               <h5 class="card-title">{{tageler.title}}</h5>
             </div>
             <div *ngIf="tageler.title.length > 30">

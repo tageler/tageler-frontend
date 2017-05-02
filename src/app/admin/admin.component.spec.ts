@@ -4,6 +4,7 @@ import { MockBackend } from '@angular/http/testing';
 import { AdminComponent } from './admin.component';
 import { FormsModule, FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { TagelerService } from '../tagelers/tageler.service';
@@ -24,7 +25,8 @@ describe('Component: AdminComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe ],
-      imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule],
+      imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule,
+        FlashMessagesModule],
       providers: [
         FormBuilder,
         MockBackend,
