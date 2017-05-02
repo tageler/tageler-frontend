@@ -474,7 +474,6 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other')).toBeNull();
 
     // Picture
-    expect(fixture.debugElement.nativeElement.querySelector('#filePicker2')).toBeNull();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_picture')).toBeDefined();
 
     // Buttons
