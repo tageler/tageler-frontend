@@ -313,7 +313,6 @@ export class AdminComponent implements OnInit {
     });
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
-    this.fetchTagelers();
   }
 
   /***************************
@@ -401,18 +400,21 @@ export class AdminComponent implements OnInit {
         if (jsonData.success) {
           console.log('success: ' + jsonData.msg);
           this.flashMessage.show('Die Änderungen wurden gespeichert', {cssClass: 'alert-success', timeout: 3000} );
+          this.fetchTagelers();
         } else {
           console.log('fail: ' + jsonData.msg);
           this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
+          this.fetchTagelers();
         }
       },
       error => {
         console.log('Something went wrong');
-        this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000} );
+        this.flashMessage.show('Es gab einen Fehler beim Speichern der Änderungen', {cssClass: 'alert-danger', timeout: 3000}
+        );
+        this.fetchTagelers();
       });
     this.update = false;
     this.view = true;
-    this.fetchTagelers();
   }
 
   prepareUpdateTageler(): Tageler {
