@@ -255,7 +255,7 @@
             <textarea id="formControlName_group_view" class="form-control" formControlName="group" rows="3" *ngFor="let group of tageler.group">{{tageler.group}}</textarea>
           </div>
         </div>
-        <div *ngIf="tagelerForm.controls['title'].value == 'Übungsfrei'">
+        <div *ngIf="tageler.free">
           <div class="form-group row">
             <label for="formControlName_date_start_free" class="col-3 col-form-label">Datum:</label>
             <div class="col-5">
@@ -263,7 +263,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="tagelerForm.controls['title'].value != 'Übungsfrei'">
+        <div *ngIf="!tageler.free">
           <div class="form-group row">
             <label for="formControlName_date_start" class="col-3 col-form-label">Start:</label>
             <div class="col-5">
