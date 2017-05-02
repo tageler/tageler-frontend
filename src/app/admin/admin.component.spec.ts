@@ -278,6 +278,41 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelectorAll('button')[7].textContent).toContain('Edit');
   });
 
+  it('tageler should contain 2 groups', () => {
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
+
+    const tageler: Array<Tageler> = [
+      { title: 'Tageler 1',
+      text: 'Text 1',
+      group: ['Baghira','Rikki-Tikki'],
+      start: new Date(start_date1),
+      end: new Date(end_date1),
+      bringAlong: 'Essen',
+      uniform: 'Kleidung',
+      checkout: {
+        deadline: new Date(checkout_date1),
+        contact: [{
+          name: 'Person 1',
+          phone: '01234',
+          mail: 'person1@mail.com',
+          other: ''}]
+      },
+      free: false
+    }];
+
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.tagelers = tageler;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('.card-title').firstChild.textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[1].textContent).toContain('Samstag, 28. Oktober 2017');
+    expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Baghira','Rikki-Tikki');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[2].textContent).toContain('Löschen');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].textContent).toContain('Details');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Edit');
+  });
+
   it('test if short details form is shown when tageler is free', () => {
     const start_date1 = '2017-10-28T12:00:00.824Z';
     const end_date1 = '2017-10-28T15:00:00.824Z';
