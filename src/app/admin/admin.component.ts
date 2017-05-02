@@ -530,13 +530,14 @@ export class AdminComponent implements OnInit {
         } else {
           console.log('fail: ' + jsonData.msg);
           this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
+          this.fetchTagelers();
         }
       },
       error => {
         console.log('Something went wrong');
         this.flashMessage.show('Es gab einen Fehler beim Löschen des Tagelers', {cssClass: 'alert-danger', timeout: 3000} );
+        this.fetchTagelers();
       });
-    this.fetchTagelers();
   }
 
   /***************************
