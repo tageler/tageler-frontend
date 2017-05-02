@@ -145,8 +145,10 @@ export class AdminComponent implements OnInit {
     if (e.target.checked) {
       this.tagelerForm.controls['title'].setValue('Übungsfrei');
       this.previewBase64 = 'data:image/png;base64,' + this.defaultPicture;
+      this.tageler.free = true;
     } else {
       this.tagelerForm.controls['title'].setValue('');
+      this.tageler.free = false;
     }
   }
 
@@ -459,7 +461,7 @@ export class AdminComponent implements OnInit {
 
     // Set checkout deadline date correct, if nothing/only one field/both fields changed
     if (!this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = this.tageler.checkout.deadline
+      deadlineUpdated = this.tageler.checkout.deadline;
 
     } else if (!this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
       deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' +
