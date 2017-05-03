@@ -79,7 +79,7 @@
               [options]="myOptions"
               [texts]="myTexts"
               [settings]="mySettings"
-              [ngModel]="group"
+              [(ngModel)]="group"
               class="form-control"
               id="create_formControlName_group"
               formControlName="group"
@@ -213,6 +213,7 @@
     <form [formGroup]="tagelerForm" (submit)="updateTageler()" novalidate>
       <div id="hint" class="warning" *ngIf="update"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
       <fieldset id="enableInput" [disabled]="view">
+        {{'Tageler.group: ' + tageler.group}}
         <div class="form-group row">
           <label for="formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
           <div class="col-9">
@@ -231,7 +232,7 @@
         <div class="form-group row">
           <label for="formControlName_text" class="col-3 col-form-label">Text:</label>
           <div class="col-9">
-            <textarea id="formControlName_text" class="form-control" formControlName="text" rows="3" [(ngModel)]="tageler.text" value="{{tageler.text}}" ></textarea>
+            <textarea id="formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" value="{{tageler.text}}" autosize></textarea>
           </div>
         </div>
         <div class="form-group row">
@@ -241,7 +242,7 @@
               [options]="myOptions"
               [texts]="myTexts"
               [settings]="mySettings"
-              [(ngModel)]="group"
+              [(ngModel)]="tageler.group"
               class="form-control"
               id="formControlName_group"
               formControlName="group"
@@ -252,7 +253,7 @@
             </div>
           </div>
           <div class="col-9" *ngIf="view">
-            <textarea id="formControlName_group_view" class="form-control" formControlName="group" rows="3" *ngFor="let group of tageler.group">{{tageler.group}}</textarea>
+            <textarea id="formControlName_group_view" class="form-control" formControlName="group" [(ngModel)]="tageler.group" value="{{tageler.group}}" autosize></textarea>
           </div>
         </div>
         <div *ngIf="tageler.free">
@@ -285,7 +286,7 @@
           <div class="form-group row">
             <label for="formControlName_bringAlong" class="col-3 col-form-label">Mitbringen*:</label>
             <div class="col-9">
-              <input id="formControlName_bringAlong" class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" value="{{tageler.bringAlong}}" required>
+              <textarea id="formControlName_bringAlong" class="form-control" formControlName="bringAlong" [(ngModel)]="tageler.bringAlong" value="{{tageler.bringAlong}}" autosize required></textarea>
               <div *ngIf="formErrors.bringAlong" class="alert alert-danger">
                 {{ formErrors.bringAlong }}
               </div>
@@ -294,7 +295,7 @@
           <div class="form-group row">
             <label for="formControlName_uniform" class="col-3 col-form-label">Kleidung*:</label>
             <div class="col-9">
-              <input id="formControlName_uniform" class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" value="{{tageler.uniform}}" required>
+              <textarea id="formControlName_uniform" class="form-control" formControlName="uniform" [(ngModel)]="tageler.uniform" value="{{tageler.uniform}}"autosize required></textarea>
               <div *ngIf="formErrors.uniform" class="alert alert-danger">
                 {{ formErrors.uniform }}
               </div>

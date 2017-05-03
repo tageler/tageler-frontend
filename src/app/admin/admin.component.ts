@@ -17,6 +17,7 @@ import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 
 
+
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -90,6 +91,7 @@ export class AdminComponent implements OnInit {
   }
 
   fetchTagelers() {
+    this.myOptions = [];
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
@@ -321,7 +323,7 @@ export class AdminComponent implements OnInit {
 
   prepareSaveTageler(): Tageler {
 
-    let deadlineSaved;
+    let deadlineSaved, nameSaved, phoneSaved, mailSaved, otherSaved;
     if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
       deadlineSaved = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
         this.tagelerForm.value.checkout.deadline_time.replace('.', ':'))
@@ -573,7 +575,9 @@ export class AdminComponent implements OnInit {
     checkedStyle: 'checkboxes',
     buttonClasses: 'btn btn-secondary btn-block',
     dynamicTitleMaxItems: 3,
-    displayAllSelectedText: true
+    displayAllSelectedText: true,
+    showCheckAll: true,
+    showUncheckAll: true,
   };
 
 // Text configuration
@@ -583,8 +587,8 @@ export class AdminComponent implements OnInit {
     checked: 'Gruppe ausgewählt',
     checkedPlural: 'Gruppen ausgewählt',
     searchPlaceholder: 'Suchen',
-    defaultTitle: 'Gruppe(n) wählen',
+    defaultTitle: 'Gruppe(n) auswählen',
     allSelected: 'Alle ausgewählt',
-  };
+};
 
 }

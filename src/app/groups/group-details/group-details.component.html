@@ -1,34 +1,39 @@
 <div class="container" *ngIf="group">
   <h3>Tagelers of {{group.name}}</h3>
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-    <div class="card" style="width: 100% !important;">
+    <div class="card col-md-12">
       <div class="card-block">
         <div class="row">
-          <div class="col md-7">
+          <div class="col-md-7">
             <h3 class="card-title">{{tageler.title}}</h3>
             <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
             <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-            <p class="card-text">{{tageler.text}}</p>
-            <p class="card-text">{{tageler.group}}</p>
-            <p class="card-text" *ngIf="!tageler.free">{{tageler.bringAlong}}</p>
-            <p class="card-text" *ngIf="!tageler.free">{{tageler.uniform}}</p>
+            <p class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
+            <p class="card-text">Gruppe: {{tageler.group}}</p>
+            <p class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
+            <p class="card-text" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
           </div>
           <div class="col-md-5">
-            <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
+            <div class="alert alert-warning" *ngIf="!tageler.free && tageler.checkout.deadline" role="alert">
               <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p class="checkout-info">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
-              <p class="checkout-info">Bei: {{tageler.checkout.contact[0].name}} </p>
+              <p class="checkout-info" *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
+              <p class="checkout-info" *ngIf="tageler.checkout.contact[0].name">Bei: {{tageler.checkout.contact[0].name}} </p>
               <ul>
-                <li class="checkout-info">Tel: {{tageler.checkout.contact[0].phone}}</li>
-                <li class="checkout-info">Mail: {{tageler.checkout.contact[0].mail}}</li>
+                <li class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
+                <li class="checkout-info" *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
+                <li class="checkout-info" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
               </ul>
             </div>
-            <img class="rounded float-right" [src]="'data:image/png;base64,' + tageler.picture" width="440" height="220">
+            <img *ngIf="tageler.picture" class="rounded float-right" [src]="'data:image/png;base64,' + tageler.picture" width="440" height="220">
           </div>
         </div>
       </div>
     </div>
   </div>
+  <br>
+  <hr>
+  <br>
+
   <div class="row" >
     <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
       <a href="../tageler-details/{{tageler._id}}">

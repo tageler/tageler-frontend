@@ -11,6 +11,7 @@ import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import {Autosize} from 'angular2-autosize/src/autosize.directive';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -44,7 +45,8 @@ import { LOCALE_ID } from '@angular/core';
     NextTagelerPipe,
     OtherTagelerPipe,
     TagelerByGroup,
-    TagelerByGroupAndByDate
+    TagelerByGroupAndByDate,
+    Autosize
   ],
   imports: [
     BrowserModule,

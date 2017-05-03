@@ -1,9 +1,9 @@
-<div class="container" >
+<div class="container">
   <div class="row">
-    <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" style="margin: 1%">
+    <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
       <a href="../tageler-details/{{tageler._id}}">
       <div class="card">
-        <img class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+        <img class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
         <div class="card-block">
           <div *ngIf="tageler.title.length <= 30">
             <h5 class="card-title">{{tageler.title}}</h5>
@@ -11,7 +11,7 @@
           <div *ngIf="tageler.title.length > 30">
             <h5 class="card-title">{{tageler.title.slice(0,27)}}...</h5>
           </div>
-          <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
+          <h5 class="card-text">{{tageler.start | date: 'fullDate'}}</h5>
           <p class="card-text">{{tageler.group}}</p>
         </div>
       </div>
