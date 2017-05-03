@@ -1,3 +1,22 @@
+.card{
+  margin: 1%;
+  height: 360px;
+  width: 318;
+  background-color: #ededed;
+  border: 1px solid darkgray;
+  color: #bb0000;
+  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
 .card:hover{
-  background-color: lightskyblue;
+  background-color: darkgray;
+}
+
+.card-title{
+  font-size: 1.5em;
+  text-shadow: 0.5px 0.5px 0px #6b6565;
+}
+
+.card-text{
+  font-size: 1em;
 }
