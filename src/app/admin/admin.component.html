@@ -18,8 +18,8 @@
   </div>
 
   <div *ngIf="showGroups">
-    <div class="row">
-      <div class="col-md-3" style="padding-left: 0 !important;">
+    <div class="row" style="margin-top: 2%; margin-bottom: 2%;">
+      <div class="col-md-3" style="padding-left: 0 !important; margin-left: 5%;">
         <h4>Trupp</h4>
         <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
           <button class="btn btn-secondary col-sm-6" (click)="selectGroup(group)">
