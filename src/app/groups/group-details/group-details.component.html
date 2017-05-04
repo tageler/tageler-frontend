@@ -35,10 +35,10 @@
   <br>
 
   <div class="row" >
-    <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
+    <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group" class="col-md-4">
       <a href="../tageler-details/{{tageler._id}}">
         <div class="card" style="margin-left:0px !important; margin-right: 0px !important; width: 20rem">
-          <img class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
           <div class="card-block">
             <div *ngIf="tageler.title.length <= 30">
               <h5 class="card-title">{{tageler.title}}</h5>

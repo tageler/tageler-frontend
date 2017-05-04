@@ -3,16 +3,16 @@
     <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
       <a href="../tageler-details/{{tageler._id}}">
       <div class="card">
-        <img class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
+        <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
         <div class="card-block">
           <div *ngIf="tageler.title.length <= 30">
-            <h5 class="card-title">{{tageler.title}}</h5>
+            <h5 id="title_short" class="card-title">{{tageler.title}}</h5>
           </div>
           <div *ngIf="tageler.title.length > 30">
-            <h5 class="card-title">{{tageler.title.slice(0,27)}}...</h5>
+            <h5 id="title_long" class="card-title">{{tageler.title.slice(0,27)}}...</h5>
           </div>
-          <h5 class="card-text">{{tageler.start | date: 'fullDate'}}</h5>
-          <p class="card-text">{{tageler.group}}</p>
+          <h5 id="date" class="card-text">{{tageler.start | date: 'fullDate'}}</h5>
+          <p id="text" class="card-text">{{tageler.group}}</p>
         </div>
       </div>
       </a>

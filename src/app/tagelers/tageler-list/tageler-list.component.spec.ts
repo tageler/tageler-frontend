@@ -102,10 +102,10 @@ describe('TagelerListComponent', () => {
     const fixture = TestBed.createComponent(TagelerListComponent);
     fixture.componentInstance.tagelers = tageler;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelector('.card-title').firstChild.textContent).toContain('Tageler 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[1].textContent).toContain('Samstag, 28. Oktober 2017');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[2].textContent).toContain('Tageler 2');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[3].textContent).toContain('Sonntag, 29. Oktober 2017');
+    expect(fixture.debugElement.nativeElement.querySelector('#title_short').firstChild.textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#date').firstChild.textContent).toContain('Samstag, 28. Oktober 2017');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('#title_short')[1].textContent).toContain('Tageler 2');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('#date')[1].textContent).toContain('Sonntag, 29. Oktober 2017');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card').length).toBe(2);
   });
 

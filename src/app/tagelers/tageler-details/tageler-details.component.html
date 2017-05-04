@@ -4,23 +4,23 @@
           <div class="card-block">
             <div class="row">
               <div class="col-md-7">
-                <h3 class="card-title">{{tageler.title}}</h3>
-                <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
-                <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-                <p class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
-                <p class="card-text">Gruppe: {{tageler.group}}</p>
-                <p class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
-                <p class="card-text" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
+                <h3 id="title" class="card-title">{{tageler.title}}</h3>
+                <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis {{tageler.end | date: 'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
+                <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
+                <p id="text" class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
+                <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
+                <p id="bringAlong" class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
+                <p id="uniform" class="card-text" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
               </div>
-              <div class="col-md-5" *ngIf="!tageler.free && tageler.checkout.deadline">
+              <div id="warnin" class="col-md-5" *ngIf="!tageler.free && tageler.checkout.deadline">
                 <div id="abmelden" class="alert alert-warning">
                   <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-                  <p class="checkout-info" *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
-                  <p class="checkout-info" *ngIf="tageler.checkout.contact[0].name">Bei: {{tageler.checkout.contact[0].name}} </p>
+                  <p id="deadline_date" class="checkout-info" *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
+                  <p id="deadline_name" class="checkout-info" *ngIf="tageler.checkout.contact[0].name">Bei: {{tageler.checkout.contact[0].name}} </p>
                   <ul>
-                    <li class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
-                    <li class="checkout-info" *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
-                    <li class="checkout-info" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
+                    <li id="deadline_phone" class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
+                    <li id="deadline_mail" class="checkout-info" *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
+                    <li id="deadline_other" class="checkout-info" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
                   </ul>
                 </div>
                 <div id="image">

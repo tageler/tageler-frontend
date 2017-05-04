@@ -362,7 +362,7 @@ describe('Component: AdminComponent', () => {
 
     // Group
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').value).toContain('Baghira');
 
     // Date
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
@@ -532,7 +532,7 @@ describe('Component: AdminComponent', () => {
 
     // Group
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[3].textContent).toContain('Einheit*:');
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').value).toContain('Baghira');
 
     // Start & End date should be defined
     expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');

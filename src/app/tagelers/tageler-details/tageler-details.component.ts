@@ -30,6 +30,7 @@ export class TagelerDetailsComponent implements OnInit {
       .switchMap((params: Params) => this.tagelerService.getTageler(params['id']))
       .subscribe(tageler => this.tageler = tageler);
 
+
     this.groupService
       .getGroups()
       .then((groups: Group[]) => {

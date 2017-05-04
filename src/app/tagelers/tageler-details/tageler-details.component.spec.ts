@@ -106,19 +106,19 @@ describe('TagelerDetailsComponent', () => {
     fixture.componentInstance.tageler = tageler[0];
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.querySelector('h2').textContent).toContain('Tageler 1');
-    expect(fixture.debugElement.nativeElement.querySelector('p').firstChild.textContent).toContain('Test');
-    expect(fixture.debugElement.nativeElement.querySelector('li').firstChild.textContent).toContain('Start: Samstag, 28. Oktober 2017, 14:00 Uhr');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[1].textContent).toContain('Ende: Samstag, 28. Oktober 2017, 17:00 Uhr');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[2].textContent).toContain('Mitbringen: Essen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[3].textContent).toContain('Gruppe: Baghira');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[4].textContent).toContain('Anziehen: Kleidung');
-    expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Wichtig - Abmeldung');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('p')[1].textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00 Uhr');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('p')[2].textContent).toContain('Bei: Person 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[5].textContent).toContain('Tel: 01234');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[6].textContent).toContain('Mail: person1@mail.com');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[7]).toBeUndefined();
+    expect(fixture.debugElement.nativeElement.querySelector('#title').textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#text').textContent).toContain('Test');
+    expect(fixture.debugElement.nativeElement.querySelector('#date').textContent).toContain('Samstag, 28. Oktober 2017, 14:00 Uhr bis Samstag, 28. Oktober 2017, 17:00 Uhr');
+    expect(fixture.debugElement.nativeElement.querySelector('#bringAlong').textContent).toContain('Mitbringen: Essen');
+    expect(fixture.debugElement.nativeElement.querySelector('#group').textContent).toContain('Gruppe: Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#uniform').textContent).toContain('Anziehen: Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelector('#warning')).toBeDefined();
+    expect(fixture.debugElement.nativeElement.querySelector('.alert-heading').textContent).toContain('Wichtig - Abmeldung');
+    expect(fixture.debugElement.nativeElement.querySelector('#deadline_date').textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00 Uhr');
+    expect(fixture.debugElement.nativeElement.querySelector('#deadline_name').textContent).toContain('Bei: Person 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#deadline_phone').textContent).toContain('Tel: 01234');
+    expect(fixture.debugElement.nativeElement.querySelector('#deadline_mail').textContent).toContain('Mail: person1@mail.com');
+    expect(fixture.debugElement.nativeElement.querySelector('#deadline_other')).toBeNull();
   });
 
   it('free tageler should be displayed correctly', () => {
@@ -148,10 +148,12 @@ describe('TagelerDetailsComponent', () => {
     fixture.componentInstance.tageler = tageler[0];
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.querySelector('h2').textContent).toContain('Tageler 1');
-    expect(fixture.debugElement.nativeElement.querySelector('p').firstChild.textContent).toContain('Test');
-    expect(fixture.debugElement.nativeElement.querySelector('li').firstChild.textContent).toContain('Datum: Samstag, 28. Oktober 2017');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('li')[1].textContent).toContain('Gruppe: Baghira');
-    expect(fixture.debugElement.nativeElement.querySelector('.alert alert-warning')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#title').textContent).toContain('Tageler 1');
+    expect(fixture.debugElement.nativeElement.querySelector('#date_free').textContent).toContain('Samstag, 28. Oktober 2017');
+    expect(fixture.debugElement.nativeElement.querySelector('#text').textContent).toContain('Test');
+    expect(fixture.debugElement.nativeElement.querySelector('#group').textContent).toContain('Gruppe: Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#bringAlong')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#uniform')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#warning')).toBeNull();
     });
 });
