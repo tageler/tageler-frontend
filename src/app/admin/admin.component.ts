@@ -221,6 +221,9 @@ export class AdminComponent implements OnInit {
       return;
     }
     const form = this.tagelerForm;
+    console.log(this.tagelerForm.controls['date_end'].value);
+    this.compareStartAndEndDate();
+    this.checkCheckoutDeadlineDate();
 
     for (const field in this.formErrors) {
       // clear previous error message (if any)
@@ -552,6 +555,29 @@ export class AdminComponent implements OnInit {
   /***************************
    Helper Methods
    **************************/
+
+  endDateError:any={isError:false,errorMessage:''};
+  checkoutError:any={isCheckoutError:false,errorCheckoutMessage:''};
+
+  compareStartAndEndDate(){
+    if(new Date(this.tagelerForm.controls['date_end'].value)<new Date(this.tagelerForm.controls['date_start'].value)){
+      this.endDateError={isError:true,errorMessage:'Das End-Datum darf nicht vor dem Start-Datum liegen!'};
+      }
+    if(new Date(this.tagelerForm.controls['date_end'].value)>=new Date(this.tagelerForm.controls['date_start'].value)){
+      this.endDateError={isError:false,errorMessage:''};
+    }
+  }
+
+  checkCheckoutDeadlineDate() {
+    if(this.tagelerForm.get('checkout.deadline_date')) {
+      if (new Date(this.tagelerForm.get('checkout.deadline_date').value) > new Date(this.tagelerForm.controls['date_start'].value)) {
+        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen!'};
+      }
+      if (new Date(this.tagelerForm.get('checkout.deadline_date').value) <= new Date(this.tagelerForm.controls['date_start'].value)) {
+        this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
+      }
+    }
+  }
 
   setValuesForFreeTageler(tageler: Tageler) {
     this.tageler = tageler;

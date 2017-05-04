@@ -116,6 +116,9 @@
             <div class="col-4">
               <input id="create_formControlName_date_end_time" class="form-control" formControlName="time_end" type="text">
             </div>
+            <div *ngIf="endDateError.isError" class="alert alert-danger">
+              {{ endDateError.errorMessage }}
+            </div>
           </div>
           <div class="form-group row">
             <label for="create_formControlName_bringAlong" class="col-3 col-form-label">Mitbringen*:</label>
@@ -144,6 +147,9 @@
               <div class="col-4">
                 <input id="create_formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="time" placeholder="hh:mm">
               </div>
+            </div>
+            <div *ngIf="checkoutError.isCheckoutError" class="alert alert-danger">
+              {{ checkoutError.errorCheckoutMessage }}
             </div>
             <div formGroupName="contact">
                 <div class="form-group row">
@@ -278,11 +284,11 @@
             <div class="col-5">
               <input id="formControlName_date_end" class="form-control" formControlName="date_end" type="date" value="{{tageler.end | date: 'yyyy-MM-dd'}}">
             </div>
-            <div *ngIf="formErrors.date_end" class="alert alert-danger">
-              {{ formErrors.date_end }}
-            </div>
             <div class="col-4">
               <input id="formControlName_date_end_time" class="form-control" formControlName="time_end" type="time" value="{{tagelerForm.value.time_end}}">
+            </div>
+            <div *ngIf="endDateError.isError" class="alert alert-danger">
+              {{ endDateError.errorMessage }}
             </div>
           </div>
           <div class="form-group row">
@@ -312,6 +318,9 @@
               <div class="col-4">
                 <input id="formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="time" value="{{tagelerForm.value.checkout.deadline_time}}">
               </div>
+            </div>
+            <div *ngIf="checkoutError.isCheckoutError" class="alert alert-danger">
+              {{ checkoutError.errorCheckoutMessage }}
             </div>
             <div formGroupName="contact">
               <div class="form-group row">
@@ -343,7 +352,7 @@
             <img id="formControlName_picture" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="180" width="320"/>
           </div>
         </div>
-        <button id="save" *ngIf="update" class="btn btn-info" type="submit" [disabled]="!tagelerForm.valid">Speichern</button>
+        <button id="save" *ngIf="update" class="btn btn-info" type="submit" [disabled]="!tagelerForm.valid ||  endDateError.isError || checkoutError.isCheckoutError">Speichern</button>
         <button id="cancel" type="reset" (click)="cancelUpdate()" [disabled]="tagelerForm.pristine" class="btn btn-info" *ngIf="update">Abbrechen</button>
       </fieldset>
       <button id="close" *ngIf="view" class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
