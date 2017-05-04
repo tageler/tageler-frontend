@@ -1,6 +1,7 @@
 .buttons{
   margin-top: 2%;
   margin-right: 2%;
+  margin-left: 1%;
 }
 
 .btn-secondary:active{
@@ -20,4 +21,14 @@
 .updateAndViewForm{
   margin-left: 2%;
 }
+
+.card{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #ededed;
+  border: 1px solid darkgray;
+  color: #bb0000;
+  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
 
