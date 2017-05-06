@@ -179,7 +179,7 @@ export class AdminComponent implements OnInit {
       start: startDate,
       end: endDate,
       bringAlong: 'BPMSTZ und Zvieri',
-      uniform: 'Uniform und Krvatte, dem Wetter angepasste Kleidung',
+      uniform: 'Uniform und Kravatte, dem Wetter angepasste Kleidung',
       picture: '',
       checkout: {
         deadline: checkoutDate,
@@ -208,7 +208,7 @@ export class AdminComponent implements OnInit {
         deadline_date: this.tageler.checkout.deadline.toISOString().slice(0, 10),
         deadline_time: [this.tageler.checkout.deadline.toISOString().slice(11, 16), Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")],
         contact: this.fb.group({
-          name: '',
+          name: ['', Validators.required],
           phone: '',
           mail: '',
           other: '',
@@ -234,8 +234,12 @@ export class AdminComponent implements OnInit {
       return;
     }
     const form = this.tagelerForm;
+
+    // Form validation for start/end/checkout date and mail/phone
     this.compareStartAndEndDate();
     this.checkCheckoutDeadlineDate();
+    this.checkIfMailOrPhoneIsPresent();
+    this.checkIfLeiterIsPresent();
 
     for (const field in this.formErrors) {
       // clear previous error message (if any)
@@ -258,19 +262,11 @@ export class AdminComponent implements OnInit {
     'group': {
       'required': 'Wählen Sie bitte eine Gruppe aus.'
     },
-    'bringAlong': {
-      'required': 'Bitte Feld ausfüllen.'
-    },
-    'uniform': {
-      'required': 'Bitte Feld ausfüllen.'
-    },
   };
 
   formErrors = {
-    'title': 'Geben Sie bitte einen Namen ein.',
-    'group': 'Wählen Sie bitte eine Gruppe aus.',
-    'bringAlong': 'Bitte Feld ausfüllen',
-    'uniform': 'Bitte Feld ausfüllen',
+    'title': '',
+    'group': '',
   };
 
   cancelCreateTageler() {
@@ -321,7 +317,7 @@ export class AdminComponent implements OnInit {
         deadline_date: new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10),
         deadline_time: [new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16), Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")],
         contact: this.fb.group({
-          name: this.tageler.checkout.contact[0].name,
+          name: [this.tageler.checkout.contact[0].name, Validators.required],
           phone: this.tageler.checkout.contact[0].phone,
           mail: this.tageler.checkout.contact[0].mail,
           other: this.tageler.checkout.contact[0].other,
@@ -570,10 +566,12 @@ export class AdminComponent implements OnInit {
 
   endDateError:any={isError:false,errorMessage:''};
   checkoutError:any={isCheckoutError:false,errorCheckoutMessage:''};
+  mailOrPhoneError:any={isMailOrPhoneError: false,errorMailOrPhoneMessage:''};
+  leiterError:any={isLeiterError: false,errorMessageLeiter:''}
 
   compareStartAndEndDate(){
     if(new Date(this.tagelerForm.controls['date_end'].value)<new Date(this.tagelerForm.controls['date_start'].value)){
-      this.endDateError={isError:true,errorMessage:'Das End-Datum darf nicht vor dem Start-Datum liegen!'};
+      this.endDateError={isError:true,errorMessage:'Das Datum darf nicht vor dem Start-Datum liegen.'};
       }
     if(new Date(this.tagelerForm.controls['date_end'].value)>=new Date(this.tagelerForm.controls['date_start'].value)){
       this.endDateError={isError:false,errorMessage:''};
@@ -583,10 +581,36 @@ export class AdminComponent implements OnInit {
   checkCheckoutDeadlineDate() {
     if(this.tagelerForm.get('checkout.deadline_date')) {
       if (new Date(this.tagelerForm.get('checkout.deadline_date').value) > new Date(this.tagelerForm.controls['date_start'].value)) {
-        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen!'};
+        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen.'};
       }
       if (new Date(this.tagelerForm.get('checkout.deadline_date').value) <= new Date(this.tagelerForm.controls['date_start'].value)) {
         this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
+      }
+    }
+  }
+
+  checkIfMailOrPhoneIsPresent() {
+    if (this.tagelerForm.get('checkout.contact.mail').dirty || this.tagelerForm.get('checkout.contact.phone').dirty) {
+      if (!this.tagelerForm.get('checkout.contact.mail').value && !this.tagelerForm.get('checkout.contact.phone').value) {
+        this.mailOrPhoneError = {
+          isMailOrPhoneError: true,
+          errorMailOrPhoneMessage: 'Bitte Mail oder Telefonnummer angeben'
+        };
+      }
+      if (this.tagelerForm.get('checkout.contact.mail').value || this.tagelerForm.get('checkout.contact.phone').value) {
+        this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
+      }
+    }
+  }
+
+  checkIfLeiterIsPresent() {
+    if (this.tagelerForm.get('checkout.contact.name').dirty) {
+      if (!this.tagelerForm.get('checkout.contact.name').value) {
+        this.leiterError = {isLeiterError: true, errorMessageLeiter: 'Bitte einen Leiter angeben.'
+        };
+      }
+      if (this.tagelerForm.get('checkout.contact.name').value) {
+        this.leiterError = {isLeiterError: false, errorMessageLeiter: ''};
       }
     }
   }
