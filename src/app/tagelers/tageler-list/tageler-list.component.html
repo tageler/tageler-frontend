@@ -5,11 +5,11 @@
       <div class="card">
         <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
         <div class="card-block">
-          <div *ngIf="tageler.title.length <= 30">
+          <div *ngIf="tageler.title.length <= 25">
             <h5 id="title_short" class="card-title">{{tageler.title}}</h5>
           </div>
-          <div *ngIf="tageler.title.length > 30">
-            <h5 id="title_long" class="card-title">{{tageler.title.slice(0,27)}}...</h5>
+          <div *ngIf="tageler.title.length > 25">
+            <h5 id="title_long" class="card-title">{{tageler.title.slice(0,25)}}...</h5>
           </div>
           <h5 id="date" class="card-text">{{tageler.start | date: 'fullDate'}}</h5>
           <p id="text" class="card-text">{{tageler.group}}</p>

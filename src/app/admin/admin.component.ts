@@ -14,10 +14,6 @@ import { Positioning } from 'angular2-bootstrap-confirm/position';
 import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
-import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";
-
-
-
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -39,9 +35,10 @@ export class AdminComponent implements OnInit {
   groups: Group[];
   selectedTageler: Tageler;
   selectedGroup: Group;
-  showTageler = true;
+  showUpcomingTageler = true;
   createTageler = false;
   showGroups = false;
+  showOldTagelers = false;
   formNotDisplayed = true;
   update: boolean;
   view: boolean;
@@ -132,6 +129,7 @@ export class AdminComponent implements OnInit {
 
   hideListOfGroups() {
     this.showGroups = false;
+    this.selectedGroup = null;
   }
 
   closeDetailsOfTageler() {
@@ -141,7 +139,17 @@ export class AdminComponent implements OnInit {
   unselectSelectedGroups() {
     this.selectedGroup = null;
     this.showGroups = true;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
+  }
+
+  showAllOldTagelers() {
+    this.showOldTagelers = true;
+    this.view = this.update = this.createTageler = this.showUpcomingTageler = false;
+  }
+
+  hideAllOldTagelers() {
+    this.showOldTagelers = false;
+    this.showUpcomingTageler = true;
   }
 
   // set default title (TODO:picture)
@@ -210,7 +218,7 @@ export class AdminComponent implements OnInit {
     this.selectedTageler = this.tageler;
     this.selectedGroup = null;
     this.showGroups = false;
-    this.showTageler = false;
+    this.showUpcomingTageler = false;
     this.createTageler = true;
     this.update = false;
     this.view = false;
@@ -221,7 +229,6 @@ export class AdminComponent implements OnInit {
       return;
     }
     const form = this.tagelerForm;
-    console.log(this.tagelerForm.controls['date_end'].value);
     this.compareStartAndEndDate();
     this.checkCheckoutDeadlineDate();
 
@@ -263,7 +270,7 @@ export class AdminComponent implements OnInit {
 
   cancelCreateTageler() {
     this.createTageler = false;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
     this.selectedTageler = null;
     this.tagelerForm.reset();
   }
@@ -372,7 +379,7 @@ export class AdminComponent implements OnInit {
   saveNewTageler() {
     this.tageler = this.prepareSaveTageler();
     this.createTageler = false;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
     this.tagelerService.createTageler(this.tageler).then(
       data => {
         let jsonData = JSON.parse(JSON.stringify(data));
