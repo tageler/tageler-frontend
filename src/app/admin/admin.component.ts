@@ -167,17 +167,22 @@ export class AdminComponent implements OnInit {
 
   showCreateTagelerForm() {
     let sat = new Date;
+    let wed = new Date;
+    let startDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00');
+    let endDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00');
+    let checkoutDate = new Date(new Date(wed.setDate(startDate.getDate() - 3)).toISOString().slice(0, 10) + 'T' + '00:00:00');
+
     this.tageler = {
       title: '',
       text: '',
       group: [''],
-      start: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00'),
-      end: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00'),
+      start: startDate,
+      end: endDate,
       bringAlong: 'BPMSTZ und Zvieri',
       uniform: 'Uniform und Krvatte, dem Wetter angepasste Kleidung',
       picture: '',
       checkout: {
-        deadline: new Date,
+        deadline: checkoutDate,
         contact: [{
           name: '',
           phone: '',
