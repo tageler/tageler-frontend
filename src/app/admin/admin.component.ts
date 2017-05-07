@@ -196,20 +196,20 @@ export class AdminComponent implements OnInit {
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
       title: ['', Validators.required],
-      text: '',
+      text: ['', Validators.required],
       group: [[''], Validators.required],
-      date_start: this.tageler.start.toISOString().slice(0, 10),
-      date_end: this.tageler.end.toISOString().slice(0, 10),
-      time_start: [this.tageler.start.toISOString().slice(11, 16), Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")],
-      time_end: [this.tageler.end.toISOString().slice(11, 16), Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")],
-      bringAlong: [this.tageler.bringAlong, Validators.required],
-      uniform: [this.tageler.uniform, Validators.required],
+      date_start: [this.tageler.start.toISOString().slice(0, 10), Validators.required],
+      date_end: [this.tageler.end.toISOString().slice(0, 10), Validators.required],
+      time_start: [this.tageler.start.toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
+      time_end: [this.tageler.end.toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
+      bringAlong: this.tageler.bringAlong,
+      uniform: this.tageler.uniform,
       picture: '',
       checkout: this.fb.group({
-        deadline_date: this.tageler.checkout.deadline.toISOString().slice(0, 10),
-        deadline_time: [this.tageler.checkout.deadline.toISOString().slice(11, 16), Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")],
+        deadline_date: [this.tageler.checkout.deadline.toISOString().slice(0, 10), Validators.required],
+        deadline_time: [this.tageler.checkout.deadline.toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
         contact: this.fb.group({
-          name: ['', Validators.required],
+          name: '',
           phone: '',
           mail: '',
           other: '',
@@ -244,9 +244,18 @@ export class AdminComponent implements OnInit {
     this.formValidation();
 
     for (const field in this.formErrors) {
+
       // clear previous error message (if any)
       this.formErrors[field] = '';
-      const control = form.get(field);
+      let control;
+
+      if (field == 'deadline_date') {
+        control = form.get('checkout.deadline_date')
+      } else if (field == 'deadline_time') {
+        control = form.get('checkout.deadline_time')
+      } else {
+        control = form.get(field);
+      }
 
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
@@ -264,12 +273,47 @@ export class AdminComponent implements OnInit {
     'group': {
       'required': 'Wählen Sie bitte eine Gruppe aus.'
     },
+    'text': {
+      'required': 'Beschreiben Sie bitte die Aktivität.'
+    },
+    'date_start': {
+      'required': 'Bitte Datum angeben.'
+    },
+    'time_start': {
+      'required': 'Bitte Zeit angeben.',
+      'pattern': 'Bitte korrekte Zeit angeben.'
+    },
+    'date_end': {
+      'required': 'Bitte Datum angeben.'
+    },
+    'time_end': {
+      'required': 'Bitte Zeit angeben.',
+      'pattern': 'Bitte korrekte Zeit angeben.'
+    },
+    'picture': {
+      'required': 'Bitte Bild einfügen.'
+    },
+    'deadline_date': {
+      'required': 'Bitte Datum angeben.',
+    },
+    'deadline_time': {
+      'required': 'Bitte korrekte Zeit angeben.',
+      'pattern': 'Bitte korrekte Zeit angeben.'
+    },
   };
 
   formErrors = {
     'title': '',
     'group': '',
-  };
+    'text': '',
+    'date_start': '',
+    'time_start': '',
+    'date_end': '',
+    'time_end': '',
+    'picture': '',
+    'deadline_date': '',
+    'deadline_time': '',
+  }
 
   cancelCreateTageler() {
     this.createTageler = false;
@@ -306,20 +350,20 @@ export class AdminComponent implements OnInit {
     this.tageler = tageler;
     this.tagelerForm = this.fb.group({
       title: [this.tageler.title, Validators.required],
-      text: this.tageler.text,
+      text: [this.tageler.text, Validators.required],
       group: [[this.tageler.group], Validators.required],
-      date_start: new Date(this.tageler.start).toISOString().slice(0, 10),
-      date_end: new Date(this.tageler.end).toISOString().slice(0, 10),
-      time_start: [new Date(this.tageler.start).toISOString().slice(11, 16), Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")],
-      time_end: [new Date(this.tageler.end).toISOString().slice(11, 16), Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")],
-      bringAlong: [this.tageler.bringAlong, Validators.required],
-      uniform: [this.tageler.uniform, Validators.required],
+      date_start: [new Date(this.tageler.start).toISOString().slice(0, 10), Validators.required],
+      date_end: [new Date(this.tageler.end).toISOString().slice(0, 10), Validators.required],
+      time_start: [new Date(this.tageler.start).toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
+      time_end: [new Date(this.tageler.end).toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
+      bringAlong: this.tageler.bringAlong,
+      uniform: this.tageler.uniform,
       picture: '',
       checkout: this.fb.group({
-        deadline_date: new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10),
-        deadline_time: [new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16), Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")],
+        deadline_date: [new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10), Validators.required],
+        deadline_time: [new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16), Validators.compose([Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}"), Validators.required])],
         contact: this.fb.group({
-          name: [this.tageler.checkout.contact[0].name, Validators.required],
+          name: this.tageler.checkout.contact[0].name,
           phone: this.tageler.checkout.contact[0].phone,
           mail: this.tageler.checkout.contact[0].mail,
           other: this.tageler.checkout.contact[0].other,
@@ -572,74 +616,107 @@ export class AdminComponent implements OnInit {
   leiterError:any={isLeiterError: false,errorMessageLeiter:''};
 
   formValidation() {
-    if (
-      this.tagelerForm.controls['title'].valid &&
-      this.tagelerForm.controls['group'].valid &&
-      this.tagelerForm.get('checkout.contact.name').value != '' &&
-      (this.tagelerForm.get('checkout.contact.mail').value != ''  ||
-      this.tagelerForm.get('checkout.contact.phone').value != '') &&
-      !this.endDateError.isError &&
-      !this.checkoutError.isCheckoutError &&
-      !this.mailOrPhoneError.isMailOrPhoneError &&
-      !this.leiterError.isLeiterError)
-    {
-      this.formValid = true;
-    } else {
-      this.formValid = false;
+    if (!this.tageler.free) {
+      if (
+        this.tagelerForm.controls['title'].valid &&
+        this.tagelerForm.controls['group'].valid &&
+        this.tagelerForm.get('checkout.contact.name').value != '' &&
+        (this.tagelerForm.get('checkout.contact.mail').value != '' ||
+        this.tagelerForm.get('checkout.contact.phone').value != '') &&
+        !this.endDateError.isError &&
+        !this.checkoutError.isCheckoutError &&
+        !this.mailOrPhoneError.isMailOrPhoneError &&
+        !this.leiterError.isLeiterError) {
+        this.formValid = true;
+      } else {
+        this.formValid = false;
+      }
+    }
+    if (this.tageler.free) {
+      if (
+        this.tagelerForm.controls['title'].valid &&
+        this.tagelerForm.controls['group'].valid &&
+        this.tagelerForm.controls['date_start'].valid) {
+        this.formValid = true;
+      } else {
+        this.formValid = false;
+      }
     }
   }
 
   compareStartAndEndDate(){
-    if(new Date(this.tagelerForm.controls['date_end'].value)<new Date(this.tagelerForm.controls['date_start'].value)){
-      this.endDateError={isError:true,errorMessage:'Das Datum darf nicht vor dem Start-Datum liegen.'};
+    if (!this.tageler.free) {
+      if (new Date(this.tagelerForm.controls['date_end'].value) < new Date(this.tagelerForm.controls['date_start'].value)) {
+        this.endDateError = {isError: true, errorMessage: 'Das Datum darf nicht vor dem Start-Datum liegen.'};
       }
-    if(new Date(this.tagelerForm.controls['date_end'].value)>=new Date(this.tagelerForm.controls['date_start'].value)){
-      this.endDateError={isError:false,errorMessage:''};
+      if (new Date(this.tagelerForm.controls['date_end'].value) >= new Date(this.tagelerForm.controls['date_start'].value)) {
+        this.endDateError = {isError: false, errorMessage: ''};
+      }
+    } else {
+      this.endDateError = {isError: false, errorMessage: ''};
     }
   }
 
   checkCheckoutDeadlineDate() {
-    if(this.tagelerForm.get('checkout.deadline_date')) {
-      if (new Date(this.tagelerForm.get('checkout.deadline_date').value) > new Date(this.tagelerForm.controls['date_start'].value)) {
-        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen.'};
+    if(!this.tageler.free) {
+      if (this.tagelerForm.get('checkout.deadline_date')) {
+        if (new Date(this.tagelerForm.get('checkout.deadline_date').value) > new Date(this.tagelerForm.controls['date_start'].value)) {
+          this.checkoutError = {
+            isCheckoutError: true,
+            errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen.'
+          };
+        }
+        if (new Date(this.tagelerForm.get('checkout.deadline_date').value) <= new Date(this.tagelerForm.controls['date_start'].value)) {
+          this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
+        }
       }
-      if (new Date(this.tagelerForm.get('checkout.deadline_date').value) <= new Date(this.tagelerForm.controls['date_start'].value)) {
-        this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
-      }
+    }else {
+      this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
     }
   }
 
   checkIfMailOrPhoneIsPresent() {
-    // either mail or phone has to be set
-    if (this.tagelerForm.get('checkout.contact.mail').dirty || this.tagelerForm.get('checkout.contact.phone').dirty) {
+    if (!this.tageler.free) {
+      // either mail or phone has to be set
+      if (this.tagelerForm.get('checkout.contact.mail').dirty || this.tagelerForm.get('checkout.contact.phone').dirty) {
 
-      // if mail or phone is deleted, error message is shown
-      if (!this.tagelerForm.get('checkout.contact.mail').value && !this.tagelerForm.get('checkout.contact.phone').value) {
-        this.mailOrPhoneError = {
-          isMailOrPhoneError: true,
-          errorMailOrPhoneMessage: 'Bitte Mail oder Telefonnummer angeben'
-        };
-      }
+        // if mail or phone is deleted, error message is shown
+        if (!this.tagelerForm.get('checkout.contact.mail').value && !this.tagelerForm.get('checkout.contact.phone').value) {
+          this.mailOrPhoneError = {
+            isMailOrPhoneError: true,
+            errorMailOrPhoneMessage: 'Bitte Mail oder Telefonnummer angeben'
+          };
+        }
 
-      // if mail or phone is set, form is valid
-      if (this.tagelerForm.get('checkout.contact.mail').value || this.tagelerForm.get('checkout.contact.phone').value) {
-        this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
+        // if mail or phone is set, form is valid
+        if (this.tagelerForm.get('checkout.contact.mail').value || this.tagelerForm.get('checkout.contact.phone').value) {
+          this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
+        }
       }
+    } else {
+      this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
     }
   }
+
 
   checkIfLeiterIsPresent() {
-    // if leiter is not blank, form is valid
-    if (this.tagelerForm.get('checkout.contact.name').dirty) {
-      if (!this.tagelerForm.get('checkout.contact.name').value) {
-        this.leiterError = {isLeiterError: true, errorMessageLeiter: 'Bitte einen Leiter angeben.'
-        };
+    if (!this.tageler.free) {
+      // if leiter is not blank, form is valid
+      if (this.tagelerForm.get('checkout.contact.name').dirty) {
+        if (!this.tagelerForm.get('checkout.contact.name').value) {
+          this.leiterError = {
+            isLeiterError: true, errorMessageLeiter: 'Bitte einen Leiter angeben.'
+          };
+        }
+        if (this.tagelerForm.get('checkout.contact.name').value) {
+          this.leiterError = {isLeiterError: false, errorMessageLeiter: ''};
+        }
       }
-      if (this.tagelerForm.get('checkout.contact.name').value) {
-        this.leiterError = {isLeiterError: false, errorMessageLeiter: ''};
-      }
+    } else {
+      this.leiterError = {isLeiterError: false, errorMessageLeiter: ''};
     }
   }
+
 
   setValuesForFreeTageler(tageler: Tageler) {
     this.tageler = tageler;
