@@ -30,6 +30,11 @@
   color: #bb0000;
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
+.nodecor:hover{
+  color:none;
+  text-decoration-line: none;
+  text-decoration: none;
+}
 
 #abmelden{
   width: 400px;
