@@ -9,9 +9,8 @@
             <div class="col-md-7">
               <!--<a href="../tageler-details/{{tageler._id}}">-->
               <h3 class="card-title">{{tageler.title}}</h3>
-              <h5 *ngIf="!tageler.free">{{ tageler.start | date: 'fullDate'}}, {{tageler.start | date: 'shortTime'}} Uhr bis {{tageler.end | date:
-                'fullDate'}}, {{tageler.end | date: 'shortTime'}} Uhr</h5>
-              <h5 *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
+              <h5 *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime }} Uhr</h5>
+              <h5 *ngIf="tageler.free"> {{ tageler.start | convertToLocalDate }}</h5>
               <p class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
               <p class="card-text">Gruppe: {{tageler.group}}</p>
               <p class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
@@ -20,9 +19,9 @@
             </div>
             <div class="col-md-5">
               <!--<a href="../tageler-details/{{tageler._id}}">-->
-              <div class="alert alert-warning" *ngIf="!tageler.free && tageler.checkout.deadline" role="alert">
+              <div class="alert alert-warning" *ngIf="!tageler.free" role="alert">
                 <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-                <p class="checkout-info" *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | date:'fullDate'}}, {{tageler.checkout.deadline | date: 'shortTime'}}</p>
+                <p class="checkout-info" *ngIf="tageler.checkout.deadline">Bis: {{tageler.checkout.deadline | convertToLocalDate }}</p>
                 <p class="checkout-info" *ngIf="tageler.checkout.contact[0].name">Bei: {{tageler.checkout.contact[0].name}} </p>
                 <ul>
                   <li class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
@@ -54,7 +53,7 @@
             <div *ngIf="tageler.title.length > 25">
               <h5 class="card-title">{{tageler.title.slice(0,25)}}...</h5>
             </div>
-            <h5 class="card-title">{{ tageler.start | date: 'fullDate'}}</h5>
+            <h5 class="card-title">{{ tageler.start | convertToLocalDate }}</h5>
           </div>
         </div>
       </a>

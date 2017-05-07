@@ -28,8 +28,10 @@ import { AdminComponent } from './admin/admin.component';
 import { FilterGroupByTypePipe } from './pipes/groupType.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
 import { OtherTagelerPipe } from './pipes/otherTageler.pipe';
-import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe'
-import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe'
+import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe';
+import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe';
+import { ToLocalTimePipe } from './pipes/toLocalTimePipe.pipe';
+import { ToLocalDatePipe } from './pipes/toLocalDatePipe.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -47,6 +49,8 @@ import { LOCALE_ID } from '@angular/core';
     OtherTagelerPipe,
     TagelerByGroupAndByDate,
     OldTagelerByGroupAndByDate,
+    ToLocalTimePipe,
+    ToLocalDatePipe,
     Autosize
   ],
   imports: [
