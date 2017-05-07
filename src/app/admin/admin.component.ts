@@ -14,10 +14,6 @@ import { Positioning } from 'angular2-bootstrap-confirm/position';
 import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
-import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";
-
-
-
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -39,15 +35,17 @@ export class AdminComponent implements OnInit {
   groups: Group[];
   selectedTageler: Tageler;
   selectedGroup: Group;
-  showTageler = true;
+  showUpcomingTageler = true;
   createTageler = false;
   showGroups = false;
+  showOldTagelers = false;
   formNotDisplayed = true;
   update: boolean;
   view: boolean;
   base64textString: String;
   previewBase64: String;
   myOptions: IMultiSelectOption[] = [];
+  formValid = false;
 
   public title: String = 'Achtung';
   public message: String = 'Soll dieser Tageler wirklich gelöscht werden?';
@@ -132,6 +130,7 @@ export class AdminComponent implements OnInit {
 
   hideListOfGroups() {
     this.showGroups = false;
+    this.selectedGroup = null;
   }
 
   closeDetailsOfTageler() {
@@ -141,7 +140,17 @@ export class AdminComponent implements OnInit {
   unselectSelectedGroups() {
     this.selectedGroup = null;
     this.showGroups = true;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
+  }
+
+  showAllOldTagelers() {
+    this.showOldTagelers = true;
+    this.view = this.update = this.createTageler = this.showUpcomingTageler = false;
+  }
+
+  hideAllOldTagelers() {
+    this.showOldTagelers = false;
+    this.showUpcomingTageler = true;
   }
 
   // set default title (TODO:picture)
@@ -159,17 +168,22 @@ export class AdminComponent implements OnInit {
 
   showCreateTagelerForm() {
     let sat = new Date;
+    let wed = new Date;
+    let startDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00');
+    let endDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00');
+    let checkoutDate = new Date(new Date(wed.setDate(startDate.getDate() - 3)).toISOString().slice(0, 10) + 'T' + '00:00:00');
+
     this.tageler = {
       title: '',
       text: '',
       group: [''],
-      start: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00'),
-      end: new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00'),
+      start: startDate,
+      end: endDate,
       bringAlong: 'BPMSTZ und Zvieri',
-      uniform: 'Uniform und Krvatte, dem Wetter angepasste Kleidung',
+      uniform: 'Uniform und Kravatte, dem Wetter angepasste Kleidung',
       picture: '',
       checkout: {
-        deadline: new Date,
+        deadline: checkoutDate,
         contact: [{
           name: '',
           phone: '',
@@ -195,7 +209,7 @@ export class AdminComponent implements OnInit {
         deadline_date: this.tageler.checkout.deadline.toISOString().slice(0, 10),
         deadline_time: [this.tageler.checkout.deadline.toISOString().slice(11, 16), Validators.pattern("([01]?[0-9]{1}|2[0-3]{1})(:|\.)[0-5]{1}[0-9]{1}")],
         contact: this.fb.group({
-          name: '',
+          name: ['', Validators.required],
           phone: '',
           mail: '',
           other: '',
@@ -210,7 +224,7 @@ export class AdminComponent implements OnInit {
     this.selectedTageler = this.tageler;
     this.selectedGroup = null;
     this.showGroups = false;
-    this.showTageler = false;
+    this.showUpcomingTageler = false;
     this.createTageler = true;
     this.update = false;
     this.view = false;
@@ -221,9 +235,13 @@ export class AdminComponent implements OnInit {
       return;
     }
     const form = this.tagelerForm;
-    console.log(this.tagelerForm.controls['date_end'].value);
+
+    // Form validation for start/end/checkout date and mail/phone
     this.compareStartAndEndDate();
     this.checkCheckoutDeadlineDate();
+    this.checkIfMailOrPhoneIsPresent();
+    this.checkIfLeiterIsPresent();
+    this.formValidation();
 
     for (const field in this.formErrors) {
       // clear previous error message (if any)
@@ -246,24 +264,16 @@ export class AdminComponent implements OnInit {
     'group': {
       'required': 'Wählen Sie bitte eine Gruppe aus.'
     },
-    'bringAlong': {
-      'required': 'Bitte Feld ausfüllen.'
-    },
-    'uniform': {
-      'required': 'Bitte Feld ausfüllen.'
-    },
   };
 
   formErrors = {
-    'title': 'Geben Sie bitte einen Namen ein.',
-    'group': 'Wählen Sie bitte eine Gruppe aus.',
-    'bringAlong': 'Bitte Feld ausfüllen',
-    'uniform': 'Bitte Feld ausfüllen',
+    'title': '',
+    'group': '',
   };
 
   cancelCreateTageler() {
     this.createTageler = false;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
     this.selectedTageler = null;
     this.tagelerForm.reset();
   }
@@ -309,7 +319,7 @@ export class AdminComponent implements OnInit {
         deadline_date: new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10),
         deadline_time: [new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16), Validators.pattern("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")],
         contact: this.fb.group({
-          name: this.tageler.checkout.contact[0].name,
+          name: [this.tageler.checkout.contact[0].name, Validators.required],
           phone: this.tageler.checkout.contact[0].phone,
           mail: this.tageler.checkout.contact[0].mail,
           other: this.tageler.checkout.contact[0].other,
@@ -372,7 +382,7 @@ export class AdminComponent implements OnInit {
   saveNewTageler() {
     this.tageler = this.prepareSaveTageler();
     this.createTageler = false;
-    this.showTageler = true;
+    this.showUpcomingTageler = true;
     this.tagelerService.createTageler(this.tageler).then(
       data => {
         let jsonData = JSON.parse(JSON.stringify(data));
@@ -558,10 +568,30 @@ export class AdminComponent implements OnInit {
 
   endDateError:any={isError:false,errorMessage:''};
   checkoutError:any={isCheckoutError:false,errorCheckoutMessage:''};
+  mailOrPhoneError:any={isMailOrPhoneError: false,errorMailOrPhoneMessage:''};
+  leiterError:any={isLeiterError: false,errorMessageLeiter:''};
+
+  formValidation() {
+    if (
+      this.tagelerForm.controls['title'].valid &&
+      this.tagelerForm.controls['group'].valid &&
+      this.tagelerForm.get('checkout.contact.name').value != '' &&
+      (this.tagelerForm.get('checkout.contact.mail').value != ''  ||
+      this.tagelerForm.get('checkout.contact.phone').value != '') &&
+      !this.endDateError.isError &&
+      !this.checkoutError.isCheckoutError &&
+      !this.mailOrPhoneError.isMailOrPhoneError &&
+      !this.leiterError.isLeiterError)
+    {
+      this.formValid = true;
+    } else {
+      this.formValid = false;
+    }
+  }
 
   compareStartAndEndDate(){
     if(new Date(this.tagelerForm.controls['date_end'].value)<new Date(this.tagelerForm.controls['date_start'].value)){
-      this.endDateError={isError:true,errorMessage:'Das End-Datum darf nicht vor dem Start-Datum liegen!'};
+      this.endDateError={isError:true,errorMessage:'Das Datum darf nicht vor dem Start-Datum liegen.'};
       }
     if(new Date(this.tagelerForm.controls['date_end'].value)>=new Date(this.tagelerForm.controls['date_start'].value)){
       this.endDateError={isError:false,errorMessage:''};
@@ -571,10 +601,42 @@ export class AdminComponent implements OnInit {
   checkCheckoutDeadlineDate() {
     if(this.tagelerForm.get('checkout.deadline_date')) {
       if (new Date(this.tagelerForm.get('checkout.deadline_date').value) > new Date(this.tagelerForm.controls['date_start'].value)) {
-        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen!'};
+        this.checkoutError = {isCheckoutError: true, errorCheckoutMessage: 'Das Datum darf nicht nach dem Start-Datum liegen.'};
       }
       if (new Date(this.tagelerForm.get('checkout.deadline_date').value) <= new Date(this.tagelerForm.controls['date_start'].value)) {
         this.checkoutError = {isCheckoutError: false, errorCheckoutMessage: ''};
+      }
+    }
+  }
+
+  checkIfMailOrPhoneIsPresent() {
+    // either mail or phone has to be set
+    if (this.tagelerForm.get('checkout.contact.mail').dirty || this.tagelerForm.get('checkout.contact.phone').dirty) {
+
+      // if mail or phone is deleted, error message is shown
+      if (!this.tagelerForm.get('checkout.contact.mail').value && !this.tagelerForm.get('checkout.contact.phone').value) {
+        this.mailOrPhoneError = {
+          isMailOrPhoneError: true,
+          errorMailOrPhoneMessage: 'Bitte Mail oder Telefonnummer angeben'
+        };
+      }
+
+      // if mail or phone is set, form is valid
+      if (this.tagelerForm.get('checkout.contact.mail').value || this.tagelerForm.get('checkout.contact.phone').value) {
+        this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
+      }
+    }
+  }
+
+  checkIfLeiterIsPresent() {
+    // if leiter is not blank, form is valid
+    if (this.tagelerForm.get('checkout.contact.name').dirty) {
+      if (!this.tagelerForm.get('checkout.contact.name').value) {
+        this.leiterError = {isLeiterError: true, errorMessageLeiter: 'Bitte einen Leiter angeben.'
+        };
+      }
+      if (this.tagelerForm.get('checkout.contact.name').value) {
+        this.leiterError = {isLeiterError: false, errorMessageLeiter: ''};
       }
     }
   }

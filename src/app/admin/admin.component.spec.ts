@@ -11,6 +11,7 @@ import { TagelerService } from '../tagelers/tageler.service';
 import { GroupService } from '../groups/group.service';
 import { TagelerByGroupAndByDate } from '../pipes/tagelerByGroupAndByDate.pipe';
 import { FilterGroupByTypePipe } from '../pipes/groupType.pipe';
+import { OldTagelerByGroupAndByDate } from '../pipes/oldTagelerByGroupAndByDate.pipe'
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
@@ -24,7 +25,7 @@ describe('Component: AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe ],
+      declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe, OldTagelerByGroupAndByDate ],
       imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule,
         FlashMessagesModule],
       providers: [
@@ -150,14 +151,14 @@ describe('Component: AdminComponent', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.createTageler = false;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelector('button').firstChild.textContent).toContain('Tageler erstellen');
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton1').textContent).toContain('Tageler erstellen');
   });
 
   it('should display "Abbrechen" Button', () => {
     const fixture = TestBed.createComponent(AdminComponent);
     fixture.componentInstance.createTageler = true;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelector('button').firstChild.textContent).toContain('Abbrechen');
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton2').textContent).toContain('Abbrechen');
   });
 
   it('should display "Gruppen anzeigen" Button', () => {
@@ -165,7 +166,7 @@ describe('Component: AdminComponent', () => {
     fixture.componentInstance.createTageler = false;
     fixture.componentInstance.showGroups = false;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[1].textContent).toContain('Gruppen anzeigen');
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton3').textContent).toContain('Gruppen anzeigen');
   });
 
   it('should display "Ansicht schliessen" Button', () => {
@@ -173,7 +174,7 @@ describe('Component: AdminComponent', () => {
     fixture.componentInstance.createTageler = false;
     fixture.componentInstance.showGroups = true;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[1].textContent).toContain('Ansicht schliessen');
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton4').textContent).toContain('Ansicht schliessen');
   });
 
   it('should display "Auswahl aufheben" Button', () => {
@@ -181,7 +182,25 @@ describe('Component: AdminComponent', () => {
     fixture.componentInstance.createTageler = false;
     fixture.componentInstance.showGroups = true;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[2].textContent).toContain('Auswahl aufheben');
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton5').textContent).toContain('Auswahl aufheben');
+  });
+
+  it('should display "Vergangene Tageler" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.componentInstance.showOldTagelers = false;
+    fixture.componentInstance.showGroups = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton6').textContent).toContain('Vergangene Tageler');
+  });
+
+  it('should display "Aktuelle Tageler" Button', () => {
+    const fixture = TestBed.createComponent(AdminComponent);
+    fixture.componentInstance.createTageler = false;
+    fixture.componentInstance.showGroups = true;
+    fixture.componentInstance.showOldTagelers = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.nativeElement.querySelector('#navButton7').textContent).toContain('Aktuelle Tageler');
   });
 
   it('should render title Trupp in a h4 tag', async(() => {
@@ -215,12 +234,12 @@ describe('Component: AdminComponent', () => {
                                         {name: 'Turmalin', type: 'Equipe'}];
     fixture.componentInstance.showGroups = true;
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].firstChild.textContent).toContain('Baghira');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Mogli');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Turmalin');
+    expect(fixture.debugElement.nativeElement.querySelector('#groupButton1').textContent).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#groupButton2').textContent).toContain('Mogli');
+    expect(fixture.debugElement.nativeElement.querySelector('#groupButton3').textContent).toContain('Turmalin');
   });
 
-  it('tageler cards are displayed correctoy', () => {
+  it('tageler cards are displayed correctly', () => {
     const start_date1 = '2017-10-28T12:00:00.824Z';
     const end_date1 = '2017-10-28T15:00:00.824Z';
     const checkout_date1 = '2017-10-25T12:00:00.824Z';
@@ -267,15 +286,15 @@ describe('Component: AdminComponent', () => {
     fixture.detectChanges();
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').firstChild.textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[1].textContent).toContain('Samstag, 28. Oktober 2017');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[2].textContent).toContain('Löschen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].textContent).toContain('Details');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Edit');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton1Upcoming').textContent).toContain('Löschen');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton2Upcoming').textContent).toContain('Details');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton3Upcoming').textContent).toContain('Edit');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[2].textContent).toContain('Tageler 2');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[3].textContent).toContain('Sonntag, 29. Oktober 2017');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card').length).toBe(2);
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[5].textContent).toContain('Löschen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[6].textContent).toContain('Details');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[7].textContent).toContain('Edit');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('#cardButton1Upcoming')[1].textContent).toContain('Löschen');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('#cardButton2Upcoming')[1].textContent).toContain('Details');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('#cardButton3Upcoming')[1].textContent).toContain('Edit');
   });
 
   it('tageler should contain 2 groups', () => {
@@ -308,9 +327,9 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').firstChild.textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.card-title')[1].textContent).toContain('Samstag, 28. Oktober 2017');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Baghira','Rikki-Tikki');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[2].textContent).toContain('Löschen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[3].textContent).toContain('Details');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('button')[4].textContent).toContain('Edit');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton1Upcoming').textContent).toContain('Löschen');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton2Upcoming').textContent).toContain('Details');
+    expect(fixture.debugElement.nativeElement.querySelector('#cardButton3Upcoming').textContent).toContain('Edit');
   });
 
   it('test if short details form is shown when tageler is free', () => {
@@ -483,8 +502,8 @@ describe('Component: AdminComponent', () => {
   });
 
   it('test if full details form is shown when tageler is not free', () => {
-    const start_date1 = '2017-10-28T12:00:00.824Z';
-    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
     const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
     const tageler: Array<Tageler> = [
@@ -550,7 +569,7 @@ describe('Component: AdminComponent', () => {
 
     // Checkout deadline and contact
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').value).toContain('2017-10-25');
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('12:00');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name').value).toContain('Person 1');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_phone').value).toContain('01234');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail').value).toContain('person1@mail.com');
@@ -567,8 +586,8 @@ describe('Component: AdminComponent', () => {
   });
 
   it('test if full update form is shown when tageler is not free', () => {
-    const start_date1 = '2017-10-28T12:00:00.824Z';
-    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
     const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
     const tageler: Array<Tageler> = [
@@ -634,7 +653,7 @@ describe('Component: AdminComponent', () => {
 
     // Checkout deadline and contact
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').value).toContain('2017-10-25');
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('14:00');
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').value).toContain('12:00');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name').value).toContain('Person 1');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_phone').value).toContain('01234');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail').value).toContain('person1@mail.com');
@@ -695,9 +714,10 @@ describe('Component: AdminComponent', () => {
   it('test if form validation for create form works', () => {
     component.showCreateTagelerForm();
     fixture.detectChanges();
-    let sat = new Date, start, end;
+    let sat = new Date, wed = new Date(), start, end, checkoutDate;
     start = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00');
     end = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00');
+    checkoutDate = new Date(new Date(wed.setDate(start.getDate() - 3)).toISOString().slice(0, 10) + 'T' + '00:00:00');
 
     expect(component.selectedTageler).toBeDefined();
 
@@ -733,22 +753,22 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end_time').value).toBe(end.toISOString().slice(11, 16));
 
     // Bring along
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_bringAlong').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_bringAlong').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_bringAlong').value).toBe('BPMSTZ und Zvieri');
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_bringAlong').formErrors).toBeFalsy();
 
     // Uniform
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_uniform').required).toBeTruthy();
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_uniform').value).toBe('Uniform und Krvatte, dem Wetter angepasste Kleidung');
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_uniform').formErrors).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_uniform').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_uniform').value).toBe('Uniform und Kravatte, dem Wetter angepasste Kleidung');
 
     // Checkout deadline
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline').required).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline').value).toBe('');
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline_time').required).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline_time').value).toBe('');
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline').value).toBe(checkoutDate.toISOString().slice(0, 10));
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline_time').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline_time').value).toBe(checkoutDate.toISOString().slice(11, 16));
 
     // Checkout contact
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_name').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_name').value).toBe('');
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_phone').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_phone').value).toBe('');
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_mail').required).toBeFalsy();
@@ -769,7 +789,7 @@ describe('Component: AdminComponent', () => {
 
   });
 
-  it('create form should be valid if title and group is set', () => {
+  it('create form should be valid if required inputs are set', () => {
     component.showCreateTagelerForm();
     fixture.detectChanges();
 
@@ -780,7 +800,16 @@ describe('Component: AdminComponent', () => {
     // set title and group
     component.tagelerForm.controls['title'].setValue('Test title');
     component.tagelerForm.controls['group'].setValue(['Turmalin']);
+    component.tagelerForm.get('checkout.contact.name').setValue('Leiter 1');
+    component.tagelerForm.get('checkout.contact.mail').setValue('abcd@abcd.com');
 
+    expect(component.tagelerForm.controls['title'].errors).toBeFalsy();
+    expect(component.tagelerForm.controls['group'].errors).toBeFalsy();
+    expect(component.endDateError.isError).toBeFalsy();
+    expect(component.checkoutError.isCheckoutError).toBeFalsy();
+    expect(component.mailOrPhoneError.isMailOrPhoneError).toBeFalsy();
+    expect(component.leiterError.isLeiterError).toBeFalsy();
+    
     fixture.detectChanges();
 
     // Form should be valid now
@@ -839,16 +868,14 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time').required).toBeFalsy();
 
     // Bring along
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').required).toBeTruthy();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').formErrors).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').required).toBeFalsy();
 
     // Uniform
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform').required).toBeTruthy();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform').formErrors).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_uniform').required).toBeFalsy();
 
     // Checkout deadline
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').required).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').required).toBeTruthy();
 
     // Checkout contact
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_phone').required).toBeFalsy();
@@ -859,8 +886,8 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#filePicker2').required).toBeFalsy();
 
     // Button
-    //expect(component.tagelerForm.valid).toBeTruthy();
-    //expect(fixture.debugElement.nativeElement.querySelector('#save').disabled).toBeFalsy();
+    expect(component.tagelerForm.valid).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#save').disabled).toBeFalsy();
 
   });
 });

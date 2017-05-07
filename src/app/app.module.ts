@@ -30,6 +30,7 @@ import { NextTagelerPipe } from './pipes/nextTageler.pipe';
 import { OtherTagelerPipe } from './pipes/otherTageler.pipe';
 import { TagelerByGroup } from './pipes/tagelerByGroup.pipe';
 import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe'
+import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe'
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -47,6 +48,7 @@ import { LOCALE_ID } from '@angular/core';
     OtherTagelerPipe,
     TagelerByGroup,
     TagelerByGroupAndByDate,
+    OldTagelerByGroupAndByDate,
     Autosize
   ],
   imports: [
