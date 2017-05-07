@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="create_formControlName_text" class="col-3 col-form-label">Text:*</label>
+          <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
           <div class="col-9">
             <textarea id="create_formControlName_text" class="form-control" formControlName="text" autosize required></textarea>
             <div *ngIf="formErrors.text" class="alert alert-danger">
@@ -146,13 +146,13 @@
           <div class="form-group row">
             <label for="create_formControlName_bringAlong" class="col-3 col-form-label">Mitbringen:</label>
             <div class="col-9">
-              <textarea id="create_formControlName_bringAlong" class="form-control" formControlName="bringAlong" rows="2"></textarea>
+              <textarea id="create_formControlName_bringAlong" class="form-control" formControlName="bringAlong" autosize></textarea>
             </div>
           </div>
           <div class="form-group row">
             <label for="create_formControlName_uniform" class="col-3 col-form-label">Kleidung:</label>
             <div class="col-9">
-              <textarea id="create_formControlName_uniform" class="form-control" formControlName="uniform" rows="2"></textarea>
+              <textarea id="create_formControlName_uniform" class="form-control" formControlName="uniform" autosize></textarea>
             </div>
           </div>
           <div formGroupName="checkout">
@@ -312,7 +312,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="formControlName_text" class="col-3 col-form-label">Text:</label>
+          <label for="formControlName_text" class="col-3 col-form-label">Text*:</label>
           <div class="col-9">
             <textarea id="formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" value="{{tageler.text}}" autosize required></textarea>
             <div *ngIf="formErrors.text" class="alert alert-danger">
@@ -421,7 +421,7 @@
               <div class="form-group row">
                 <label for="formControlName_checkout_name" class="col-3 col-form-label">Absagen bei*:</label>
                 <div class="col-9">
-                  <input id="formControlName_checkout_name" class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" value="{{tageler.checkout.contact[0].name}}" required>
+                  <input id="formControlName_checkout_name" class="form-control" formControlName="name" [(ngModel)]="tageler.checkout.contact[0].name" value="{{tageler.checkout.contact[0].name}}">
                   <div *ngIf="leiterError.isLeiterError && update" class="alert alert-danger">
                     {{ leiterError.errorMessageLeiter }}
                   </div>

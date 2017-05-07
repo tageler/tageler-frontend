@@ -376,7 +376,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
 
     //Text
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
 
     // Group
@@ -384,7 +384,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').value).toContain('Baghira');
 
     // Date
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
 
     // Start & End date are not defined
@@ -461,7 +461,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Übungsfrei');
 
     // Text
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
 
     // Group
@@ -469,14 +469,14 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group')).toBeDefined();
 
     // Date
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Datum*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free').value).toContain('2017-10-28');
 
     // Start & End date are not defined
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start')).toBeNull();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time')).toBeNull();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end')).toBeNull();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time')).toBeNull();true
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time')).toBeNull();
 
     // Bring along
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong')).toBeNull();
@@ -546,7 +546,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
 
     // Text
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
 
     // Group
@@ -554,7 +554,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group_view').value).toContain('Baghira');
 
     // Start & End date should be defined
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').value).toContain('14:00');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free')).toBeNull();
@@ -630,7 +630,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').value).toContain('Brätle');
 
     // Text
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[2].textContent).toContain('Text*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').value).toContain('Text 1');
 
     // Group
@@ -638,7 +638,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group')).toBeDefined();
 
     // Start & End date should be defined
-    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start:');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('label')[4].textContent).toContain('Start*:');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').value).toContain('2017-10-28');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').value).toContain('14:00');
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_free')).toBeNull();
@@ -733,23 +733,24 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_title').valid).toBeFalsy();
 
     // Text
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_text').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_text').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_text').value).toBe('');
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_title').valid).toBeFalsy();
 
     // Group
-    //expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_group').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_group').valid).toBeFalsy();
 
     // Start
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start').value).toBe(start.toISOString().slice(0, 10));
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start_time').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start_time').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start_time').value).toBe(start.toISOString().slice(11, 16));
 
+
     // End
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end').value).toBe(end.toISOString().slice(0, 10));
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end_time').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end_time').required).toBeTruthy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_end_time').value).toBe(end.toISOString().slice(11, 16));
 
     // Bring along
@@ -767,7 +768,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_deadline_time').value).toBe(checkoutDate.toISOString().slice(11, 16));
 
     // Checkout contact
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_name').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_name').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_name').value).toBe('');
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_phone').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_phone').value).toBe('');
@@ -799,6 +800,7 @@ describe('Component: AdminComponent', () => {
 
     // set title and group
     component.tagelerForm.controls['title'].setValue('Test title');
+    component.tagelerForm.controls['text'].setValue('Hi there');
     component.tagelerForm.controls['group'].setValue(['Turmalin']);
     component.tagelerForm.get('checkout.contact.name').setValue('Leiter 1');
     component.tagelerForm.get('checkout.contact.mail').setValue('abcd@abcd.com');
@@ -854,18 +856,18 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_title').formErrors).toBeFalsy();
 
     // Text
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_text').required).toBeTruthy();
 
     // Group
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_group').formErrors).toBeFalsy();
 
     // Start
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').required).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_start_time').required).toBeTruthy();
 
     // End
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end').required).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time').required).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end').required).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_date_end_time').required).toBeTruthy();
 
     // Bring along
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_bringAlong').required).toBeFalsy();
@@ -878,6 +880,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_deadline_time').required).toBeTruthy();
 
     // Checkout contact
+    expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_name').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_phone').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_mail').required).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#formControlName_checkout_other').required).toBeFalsy();
