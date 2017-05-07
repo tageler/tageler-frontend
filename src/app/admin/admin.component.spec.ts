@@ -809,7 +809,7 @@ describe('Component: AdminComponent', () => {
     expect(component.checkoutError.isCheckoutError).toBeFalsy();
     expect(component.mailOrPhoneError.isMailOrPhoneError).toBeFalsy();
     expect(component.leiterError.isLeiterError).toBeFalsy();
-    
+
     fixture.detectChanges();
 
     // Form should be valid now

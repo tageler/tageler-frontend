@@ -202,7 +202,7 @@
               <h5 class="card-title">{{tageler.title}}</h5>
             </div>
             <div *ngIf="tageler.title.length > 25 || tageler.title == null">
-              <h5 class="card-title">{{tageler.title.slice(0,25)}}...</h5>
+              <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
             <h5 class="card-text" *ngFor="let group of tageler.group">{{group}}</h5>
@@ -229,7 +229,7 @@
               <h5 class="card-title">{{tageler.title}}</h5>
             </div>
             <div *ngIf="tageler.title.length > 25 || tageler.title == null">
-              <h5 class="card-title">{{tageler.title.slice(0,25)}}...</h5>
+              <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
             <h5 class="card-text" *ngFor="let group of tageler.group">{{group}}</h5>

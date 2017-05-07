@@ -129,7 +129,6 @@ describe('NextTagelerPipe', () => {
 
   it('return null if there is no tageler', () => {
     expect(pipe.transform(null, 'X')).toBe(null);
-
   });
 
 });
