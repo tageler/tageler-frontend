@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, group, Input, OnInit} from '@angular/core';
 import { Tageler } from '../../tagelers/tageler';
 import { TagelerService } from '../../tagelers/tageler.service';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,8 @@ export class GroupDetailsComponent implements OnInit {
   tageler: Tageler;
   tagelers: Tageler[];
   group: Group;
+  groupEvents = [];
+  viewCalendar = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,8 +40,41 @@ export class GroupDetailsComponent implements OnInit {
           if (!tageler.title) {
             tageler.title = 'default';
           }
+          if (tageler.group.toString().includes(this.group.name)) {
+            this.groupEvents.push({title: tageler.title, start: tageler.start})
+          }
           return tageler;
         });
       });
+  }
+
+  calendarOptions:Object = {
+    height: 500,
+    fixedWeekCount : false,
+    defaultDate: new Date,
+    locale: 'de-CH',
+    timezone: 'local',
+    timeFormat: 'hh:mm',
+    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch',
+      'Donnerstag', 'Freitag', 'Samstag'],
+    dayNamesShort: ['SO', 'MO', 'DI', 'MI', 'DO', 'FR', 'SA'],
+    monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli',
+      'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthNamesShort: ['Jan.', 'Febr.', 'März', 'Apr.', 'Mai', 'Juni',
+      'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'],
+    buttonText: {
+      today:    'Heute',
+      month:    'Monat',
+      week:     'Woche',
+      day:      'Tag',
+      list:     'Liste'
+    },
+    editable: false,
+    eventLimit: true, // allow "more" link when too many events
+    events: this.groupEvents,
+  };
+
+  handleCalendarView() {
+    this.viewCalendar = !this.viewCalendar;
   }
 }

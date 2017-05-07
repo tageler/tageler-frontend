@@ -1,5 +1,6 @@
-<div class="container" *ngIf="group">
-  <h3>Tagelers of {{group.name}}</h3>
+<div class="container" *ngIf="group && !viewCalendar">
+  <button class="btn btn-secondary" style="float: right" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
+  <h3>Tagelers von {{group.name}}</h3>
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
     <div class="card col-md-12">
       <div class="card-block">
@@ -53,5 +54,12 @@
         </div>
       </a>
     </div>
+  </div>
+</div>
+<div class="container" *ngIf="group && viewCalendar">
+  <h3>Kalender von {{group.name}}</h3>
+  <button class="btn btn-secondary" style="float: right" *ngIf="viewCalendar" (click)="handleCalendarView()">Ansicht schliessen</button>
+  <div style="padding-top: 5%">
+    <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
   </div>
 </div>

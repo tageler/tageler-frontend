@@ -12,6 +12,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
+import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
+
 
 
 import { AppComponent } from './app.component';
@@ -51,7 +53,8 @@ import { LOCALE_ID } from '@angular/core';
     OldTagelerByGroupAndByDate,
     ToLocalTimePipe,
     ToLocalDatePipe,
-    Autosize
+    Autosize,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
