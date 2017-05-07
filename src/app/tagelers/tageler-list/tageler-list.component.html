@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
-      <a href="../tageler-details/{{tageler._id}}">
+      <a class="nodecor" href="../tageler-details/{{tageler._id}}">
       <div class="card">
         <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
         <div class="card-block">

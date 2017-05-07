@@ -21,4 +21,10 @@
   font-size: 1em;
 }
 
+.nodecor:hover{
+  color:none;
+  text-decoration-line: none;
+  text-decoration: none;
+}
+
 
