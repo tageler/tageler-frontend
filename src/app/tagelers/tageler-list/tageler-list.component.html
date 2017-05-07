@@ -4,7 +4,7 @@
       <a class="nodecor" href="../tageler-details/{{tageler._id}}">
       <div class="card">
         <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
-        <div class="card-block">
+        <div class="card-block" >
           <div *ngIf="tageler.title.length <= 25">
             <h5 id="title_short" class="card-title">{{tageler.title}}</h5>
           </div>

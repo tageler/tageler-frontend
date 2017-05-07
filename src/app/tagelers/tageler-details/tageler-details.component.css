@@ -1,6 +1,6 @@
 .card{
   margin: 1%;
-  height: 500px;
+  height: 520px;
   width: 100%;
   background-color: #ededed;
   border: 1px solid darkgray;
@@ -24,3 +24,8 @@
 p.checkout-info{
   margin-bottom: 0;
 }
+
+#picture{
+  border: 1px solid darkgray;
+}
+

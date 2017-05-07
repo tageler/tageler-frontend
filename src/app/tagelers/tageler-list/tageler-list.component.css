@@ -27,4 +27,8 @@
   text-decoration: none;
 }
 
+.card-img-top{
+  border-bottom: 1px solid darkgray;
+}
+
 
