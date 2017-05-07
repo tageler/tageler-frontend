@@ -12,7 +12,12 @@
             <h5 id="title_long" class="card-title">{{tageler.title.slice(0,22)}}...</h5>
           </div>
           <h5 id="date" class="card-text">{{tageler.start | date: 'fullDate'}}</h5>
-          <p id="text" class="card-text">{{tageler.group}}</p>
+          <div id="textShort" *ngIf="tageler.group[0].split(',').length <= 4">
+            <p class="card-text">{{tageler.group}}</p>
+          </div>
+          <div id="textLong" *ngIf="tageler.group[0].split(',').length > 4">
+            <p class="card-text">{{tageler.group[0].slice(0, 35)}}...</p>
+          </div>
         </div>
       </div>
       </a>

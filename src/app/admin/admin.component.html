@@ -205,7 +205,12 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <h5 class="card-text" *ngFor="let group of tageler.group">{{group}}</h5>
+            <div *ngIf="tageler.group[0].split(',').length <= 3">
+              <h5 class="card-text">{{tageler.group}}</h5>
+            </div>
+            <div *ngIf="tageler.group[0].split(',').length > 3">
+              <h5 class="card-text">{{tageler.group[0].slice(0, 24)}}...</h5>
+            </div>
             <button id="cardButton1Upcoming"
                     class="btn btn-danger"
                     mwlConfirm
@@ -232,7 +237,12 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <h5 class="card-text" *ngFor="let group of tageler.group">{{group}}</h5>
+            <div *ngIf="tageler.group[0].split(',').length <= 3">
+              <h5 class="card-text">{{tageler.group}}</h5>
+            </div>
+            <div *ngIf="tageler.group[0].split(',').length > 3">
+              <h5 class="card-text">{{tageler.group[0].slice(0, 24)}}...</h5>
+            </div>
             <button id="cardButton1Old"
                     class="btn btn-danger"
                     mwlConfirm
