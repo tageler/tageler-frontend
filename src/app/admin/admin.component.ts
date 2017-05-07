@@ -45,6 +45,7 @@ export class AdminComponent implements OnInit {
   base64textString: String;
   previewBase64: String;
   myOptions: IMultiSelectOption[] = [];
+  formValid = false;
 
   public title: String = 'Achtung';
   public message: String = 'Soll dieser Tageler wirklich gelöscht werden?';
@@ -240,6 +241,7 @@ export class AdminComponent implements OnInit {
     this.checkCheckoutDeadlineDate();
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
+    this.formValidation();
 
     for (const field in this.formErrors) {
       // clear previous error message (if any)
@@ -567,7 +569,25 @@ export class AdminComponent implements OnInit {
   endDateError:any={isError:false,errorMessage:''};
   checkoutError:any={isCheckoutError:false,errorCheckoutMessage:''};
   mailOrPhoneError:any={isMailOrPhoneError: false,errorMailOrPhoneMessage:''};
-  leiterError:any={isLeiterError: false,errorMessageLeiter:''}
+  leiterError:any={isLeiterError: false,errorMessageLeiter:''};
+
+  formValidation() {
+    if (
+      this.tagelerForm.controls['title'].valid &&
+      this.tagelerForm.controls['group'].valid &&
+      this.tagelerForm.get('checkout.contact.name').value != '' &&
+      (this.tagelerForm.get('checkout.contact.mail').value != ''  ||
+      this.tagelerForm.get('checkout.contact.phone').value != '') &&
+      !this.endDateError.isError &&
+      !this.checkoutError.isCheckoutError &&
+      !this.mailOrPhoneError.isMailOrPhoneError &&
+      !this.leiterError.isLeiterError)
+    {
+      this.formValid = true;
+    } else {
+      this.formValid = false;
+    }
+  }
 
   compareStartAndEndDate(){
     if(new Date(this.tagelerForm.controls['date_end'].value)<new Date(this.tagelerForm.controls['date_start'].value)){
@@ -590,13 +610,18 @@ export class AdminComponent implements OnInit {
   }
 
   checkIfMailOrPhoneIsPresent() {
+    // either mail or phone has to be set
     if (this.tagelerForm.get('checkout.contact.mail').dirty || this.tagelerForm.get('checkout.contact.phone').dirty) {
+
+      // if mail or phone is deleted, error message is shown
       if (!this.tagelerForm.get('checkout.contact.mail').value && !this.tagelerForm.get('checkout.contact.phone').value) {
         this.mailOrPhoneError = {
           isMailOrPhoneError: true,
           errorMailOrPhoneMessage: 'Bitte Mail oder Telefonnummer angeben'
         };
       }
+
+      // if mail or phone is set, form is valid
       if (this.tagelerForm.get('checkout.contact.mail').value || this.tagelerForm.get('checkout.contact.phone').value) {
         this.mailOrPhoneError = {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
       }
@@ -604,6 +629,7 @@ export class AdminComponent implements OnInit {
   }
 
   checkIfLeiterIsPresent() {
+    // if leiter is not blank, form is valid
     if (this.tagelerForm.get('checkout.contact.name').dirty) {
       if (!this.tagelerForm.get('checkout.contact.name').value) {
         this.leiterError = {isLeiterError: true, errorMessageLeiter: 'Bitte einen Leiter angeben.'
