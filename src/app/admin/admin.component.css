@@ -33,4 +33,9 @@
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
+.row{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 

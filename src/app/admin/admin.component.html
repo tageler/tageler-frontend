@@ -240,6 +240,8 @@
             <div *ngIf="!tageler.group[0]">
               <h5 class="card-text">{{tageler.group}}</h5>
             </div>
+            <button id="cardButton2Upcoming" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
+            <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
             <button id="cardButton1Upcoming"
                     class="btn btn-danger"
                     mwlConfirm
@@ -247,8 +249,6 @@
                     [message]="message"
                     (cancel)="cancelClicked = true"
                     (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
-            <button id="cardButton2Upcoming" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
-            <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
           </div>
         </div>
       </div>
