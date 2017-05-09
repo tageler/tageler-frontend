@@ -74,7 +74,7 @@
         <div class="form-group row">
           <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
           <div class="col-9">
-            <textarea id="create_formControlName_text" class="form-control" formControlName="text" autosize required></textarea>
+            <div id="create_formControlName_text" class="form-control" formControlName="text" required [froalaEditor] [(froalaModel)]="tageler.text"></div>
             <div *ngIf="formErrors.text" class="alert alert-danger">
               {{ formErrors.text }}
             </div>
@@ -314,7 +314,8 @@
         <div class="form-group row">
           <label for="formControlName_text" class="col-3 col-form-label">Text*:</label>
           <div class="col-9">
-            <textarea id="formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" value="{{tageler.text}}" autosize required></textarea>
+            <div *ngIf="update" id="formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" [froalaEditor] [(froalaModel)]="tageler.text" required></div>
+            <div *ngIf="view" [froalaView]="tageler.text"></div>
             <div *ngIf="formErrors.text" class="alert alert-danger">
               {{ formErrors.text }}
             </div>

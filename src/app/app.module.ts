@@ -13,6 +13,7 @@ import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 
 
 
@@ -69,6 +70,8 @@ import { LOCALE_ID } from '@angular/core';
     Ng2DatetimePickerModule,
     FileUploadModule,
     ConfirmModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [
     TagelerService,
