@@ -42,4 +42,11 @@ export class TagelerDetailsComponent implements OnInit {
         });
       });
   };
+
+  handleICal(tageler: Tageler) {
+    this.tageler = tageler;
+    console.log(this.tageler._id);
+    this.tagelerService.iCalForTageler(this.tageler);
+    console.log('TagelerService called');
+  }
 }

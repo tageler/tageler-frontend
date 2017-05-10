@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Tageler } from './tageler';
-import {Http, HttpModule, Headers, Response, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-// import {Observable} from "RxJS/Rx";
-import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
+import { Http, Headers, RequestOptions} from '@angular/http';
+import { Group } from "../groups/group";
+import 'rxjs/add/operator/toPromise';    // this adds the non-static 'toPromise' operator
 import 'rxjs/add/operator/map';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMap';
-import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';   // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
 
 
 
@@ -18,8 +16,13 @@ export class TagelerService {
   private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
   private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
 
+  // iCal routes
+  private iCalForOneTageler = '/api/v1/tageler/calForTageler';
+  private iCalForAllTagelersForAGroup = '/api/v1/tageler/calForGroup';
+
+
   constructor(private http: Http) { }
-// get("/api/tagelers")
+  // get("/api/tagelers")
   getTagelers(): Promise<Tageler[]> {
     return this.http.get(this.tagelersUrlGet)
       .toPromise()
@@ -34,11 +37,11 @@ export class TagelerService {
   }
 
   // get a Tageler by id
-    getTageler(id: String): Promise<Tageler> {
-      return this.http.get(this.tagelersUrlGetById + '/' + id)
-        .toPromise()
-        .then(response => response.json() as Tageler)
-        .catch(this.handleError);
+  getTageler(id: String): Promise<Tageler> {
+    return this.http.get(this.tagelersUrlGetById + '/' + id)
+      .toPromise()
+      .then(response => response.json() as Tageler)
+      .catch(this.handleError);
   }
 
   // post("/api/Tagelers")
@@ -108,4 +111,20 @@ export class TagelerService {
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
   }
+
+  // iCal
+  iCalForTageler(tageler: Tageler): Promise<Tageler> {
+    return this.http.get(this.iCalForOneTageler + '/' + tageler._id)
+      .toPromise()
+      .then(response => response.json() as Tageler)
+      .catch(this.handleError);
+  }
+
+  iCalForGroup(group: String): Promise<Tageler> {
+    return this.http.get(this.iCalForAllTagelersForAGroup + '/' + group)
+      .toPromise()
+      .then(response => response.json() as Tageler)
+      .catch(this.handleError);
+  }
+
 }

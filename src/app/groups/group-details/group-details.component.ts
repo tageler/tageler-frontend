@@ -48,6 +48,12 @@ export class GroupDetailsComponent implements OnInit {
       });
   }
 
+  handleICal(group: Group) {
+    this.group = group;
+    this.tagelerService.iCalForGroup(this.group.name);
+    console.log('TagelerService called');
+  }
+
   calendarOptions:Object = {
     height: 500,
     fixedWeekCount : false,
