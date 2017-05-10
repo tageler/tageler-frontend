@@ -9,7 +9,8 @@
         <div class="row">
           <div class="col-md-7">
             <h3 id="title" class="card-title">{{tageler.title}}</h3>
-            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
+            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate
+              }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
             <p id="text" class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
             <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
@@ -19,7 +20,9 @@
           <div id="warning" class="col-md-5" *ngIf="!tageler.free">
             <div id="abmelden" class="alert alert-warning">
               <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p id="deadline_date" class="checkout-info">Bis: {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}} Uhr</p>
+              <p id="deadline_date" class="checkout-info">Bis: {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}}
+                Uhr
+              </p>
               <p id="deadline_name" class="checkout-info">Bei: {{tageler.checkout.contact[0].name}} </p>
               <ul>
                 <li id="deadline_phone" class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
@@ -27,9 +30,12 @@
                 <li id="deadline_other" class="checkout-info" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
               </ul>
             </div>
-            <div id="image">
-              <img id="picture" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="400" height="220">
-            </div>
+            <a class="nodecor" href="../tageler-details/{{tageler._id}}">
+              <div id="image">
+                <img id="picture" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="400"
+                  height="220">
+              </div>
+            </a>
           </div>
         </div>
       </div>
