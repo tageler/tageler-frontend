@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Tageler } from './tageler';
-import { Http, Headers, RequestOptions} from '@angular/http';
-import { Group } from "../groups/group";
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';    // this adds the non-static 'toPromise' operator
 import 'rxjs/add/operator/map';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMap';   // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
 
 
 
@@ -113,18 +112,12 @@ export class TagelerService {
   }
 
   // iCal
-  iCalForTageler(tageler: Tageler): Promise<Tageler> {
-    return this.http.get(this.iCalForOneTageler + '/' + tageler._id)
-      .toPromise()
-      .then(response => response.json() as Tageler)
-      .catch(this.handleError);
+  iCalForTageler(tageler: Tageler): any {
+     return this.iCalForOneTageler + '/' + tageler._id;
   }
 
-  iCalForGroup(group: String): Promise<Tageler> {
-    return this.http.get(this.iCalForAllTagelersForAGroup + '/' + group)
-      .toPromise()
-      .then(response => response.json() as Tageler)
-      .catch(this.handleError);
+  iCalForGroup(group: String): any {
+    return this.iCalForAllTagelersForAGroup + '/' + group;
   }
 
 }
