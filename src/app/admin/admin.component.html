@@ -66,7 +66,7 @@
         <div class="form-group row">
           <label for="create_formControlName_title" class="col-3 col-form-label">Name*:</label>
           <div class="col-9">
-            <input id="create_formControlName_title" class="form-control" formControlName="title" [(ngModel)]="free" required>
+            <input id="create_formControlName_title" class="form-control" formControlName="title" required>
             <div *ngIf="formErrors.title" class="alert alert-danger">
               {{ formErrors.title }}
             </div>
@@ -201,7 +201,7 @@
           <div class="form-group row">
             <label for="filePicker" class="col-3 col-form-label">Bild auswählen</label><br>
             <div class="col-9">
-              <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" (change)="handleFileSelect($event)">
+              <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
             </div>
           </div>
         </div>
@@ -222,27 +222,27 @@
       <div class="card-block">
         <div class="row">
           <div class="col-md-7">
-            <h3 id="title" class="card-title_preview">{{tageler.title}}</h3>
-            <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
-            <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
+            <h3 id="title" class="card-title_preview">{{tagelerForm.value.title}}</h3>
+            <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
+            <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
             <p id="text" class="card-text_preview" *ngIf="tageler.text" [froalaView]="tageler.text"></p>
-            <p id="group" class="card-text_preview">Gruppe: {{tageler.group}}</p>
-            <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
-            <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
+            <p id="group" class="card-text_preview">Gruppe: {{group}}</p>
+            <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
+            <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
           </div>
           <div class="col-md-5" *ngIf="!tageler.free">
             <div id="abmelden" class="alert alert-warning">
               <h4 class="alert-heading_preview">Wichtig - Abmeldung</h4>
-              <p id="deadline_date" class="card-text_preview">Bis: {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}} Uhr</p>
-              <p id="deadline_name" class="card-text_preview">Bei: {{tageler.checkout.contact[0].name}} </p>
+              <p id="deadline_date" class="card-checkout_preview">Bis: {{tagelerForm.value.checkout.deadline_date | convertToLocalDate }}, {{tagelerForm.value.checkout.deadline_time}} Uhr</p>
+              <p id="deadline_name" class="card-checkout_preview">Bei: {{tagelerForm.value.checkout.contact.name}} </p>
               <ul>
-                <li id="deadline_phone" class="card-text_preview" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
-                <li id="deadline_mail" class="card-text_preview" *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
-                <li id="deadline_other" class="card-text_preview" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
+                <li id="deadline_phone" class="card-checkout_preview">Tel: {{tagelerForm.value.checkout.contact.phone}}</li>
+                <li id="deadline_mail" class="card-checkout_preview">Mail: {{tagelerForm.value.checkout.contact.mail}}</li>
+                <li id="deadline_other" class="card-checkout_preview">Other: {{tagelerForm.value.checkout.contact.other}}</li>
               </ul>
             </div>
             <div id="image">
-              <img id="picture_preview" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="400" height="220">
+              <img id="picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px">
             </div>
           </div>
         </div>

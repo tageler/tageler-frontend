@@ -56,8 +56,9 @@
   width: 100%;
 }
 
-p.checkout-info_preview {
+.card-checkout_preview {
   margin: 0;
+  font-size: 0.5em;
 }
 
 #picture_preview {
@@ -66,6 +67,10 @@ p.checkout-info_preview {
 }
 
 .alert-heading_preview {
-  font-size: 1em;
+  font-size: 0.8em;
+}
+
+ul {
+  padding-left: 15px;
 }
 
