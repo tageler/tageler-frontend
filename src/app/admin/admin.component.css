@@ -1,28 +1,28 @@
-.buttons{
+.buttons {
   margin-top: 2%;
   margin-right: 2%;
   margin-left: 1%;
 }
 
-.btn-secondary:active{
+.btn-secondary:active {
   background-color: grey;
 }
 
-.btn-secondary:focus{
+.btn-secondary:focus {
   background-color: lightgrey;
 }
 
-.warning{
+.warning {
   margin-bottom: 2%;
   margin-top: 2%;
   color: orange;
 }
 
-.updateAndViewForm{
+.updateAndViewForm {
   margin-left: 2%;
 }
 
-.card{
+.card {
   margin-top: 5%;
   margin-bottom: 5%;
   height: 360px;
@@ -33,4 +33,39 @@
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
+.card_preview {
+  margin-top: 1%;
+  height: 25%;
+  width: 100%;
+  background-color: #ededed;
+  border: 1px solid darkgray;
+  color: #bb0000;
+  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.card-title_preview {
+  font-size: 1.2em;
+  text-shadow: 0.5px 0.5px 0px #6b6565;
+}
+
+.card-text_preview {
+  font-size: 0.8em;
+}
+
+#abmelden_preview {
+  width: 100%;
+}
+
+p.checkout-info_preview {
+  margin: 0;
+}
+
+#picture_preview {
+  width: 100%;
+  border: 1px solid darkgray;
+}
+
+.alert-heading_preview {
+  font-size: 1em;
+}
 
