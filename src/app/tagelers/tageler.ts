@@ -1,21 +1,24 @@
 export class Tageler {
   _id?: string;
   title: string;
-  text?: string;
+  text: string;
   group: [string];
   start: Date;
   end: Date;
-  bringAlong: string;
-  uniform: string;
+  bringAlong?: string;
+  uniform?: string;
   picture?: string;
   checkout?: {
-    deadline?: Date;
+    deadline: Date;
     contact?: [{
-      name?: string;
+      name: string;
       phone?: string;
       mail?: string;
       other?: string;
     }]
-  }
+  };
   free: boolean;
+  background_color?: string;
+  color?: string;
+  font_family?: string;
 }
