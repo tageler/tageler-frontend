@@ -50,8 +50,8 @@ export class GroupDetailsComponent implements OnInit {
 
   handleICal(group: Group) {
     this.group = group;
-    this.tagelerService.iCalForGroup(this.group.name);
-    console.log('TagelerService called');
+    let link = this.tagelerService.iCalForGroup(this.group.name);
+    window.location.href=link;
   }
 
   calendarOptions:Object = {
