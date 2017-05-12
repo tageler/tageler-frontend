@@ -29,3 +29,8 @@ p.checkout-info{
   border: 1px solid darkgray;
 }
 
+.col-md-12{
+  height: auto;
+  width: auto;
+}
+

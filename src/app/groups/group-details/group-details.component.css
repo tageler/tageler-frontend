@@ -12,7 +12,6 @@
 
 #abmelden{
   width: 400px;
-  position: relative;
 }
 
 p.checkout-info{
@@ -26,7 +25,7 @@ p.checkout-info{
 .card.col-md-12{
   margin: 1%;
   height: auto;
-  width: 100%;
+  width: auto;
   background-color: #ededed;
   border: 1px solid darkgray;
   color: #bb0000;
@@ -34,7 +33,6 @@ p.checkout-info{
 }
 
 .card{
-  position: relative;
   margin: 1%;
   height: 360px;
   width: 318px;
