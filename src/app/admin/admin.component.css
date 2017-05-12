@@ -38,4 +38,6 @@
   margin-right: auto;
 }
 
-
+#updateViewForm {
+  position: absolute;
+}
