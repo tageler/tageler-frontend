@@ -15,6 +15,8 @@ import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
+import { DomSanitizer } from '@angular/platform-browser';
+
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -56,13 +58,15 @@ export class AdminComponent implements OnInit {
   @Input()
   tageler: Tageler;
   tagelerForm: FormGroup;
+  tagelerStyleForm: FormGroup;
 
 
   constructor(
     private tagelerService: TagelerService,
     private groupService: GroupService,
     private fb: FormBuilder,
-    private flashMessage: FlashMessagesService) {
+    private flashMessage: FlashMessagesService,
+    private sanitizer: DomSanitizer) {
   }
 
   handleFileSelect(evt) {
@@ -192,6 +196,7 @@ export class AdminComponent implements OnInit {
         }]
       },
       free: false,
+      background_color: '#ededed',
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
@@ -215,10 +220,16 @@ export class AdminComponent implements OnInit {
           other: '',
         })
       }),
-      free: ''
+      free: '',
     });
+
+    this.tagelerStyleForm = this.fb.group({
+      background_color: '',
+    });
+
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
+
 
     this.previewBase64 = '';
     this.selectedTageler = this.tageler;
@@ -408,7 +419,10 @@ export class AdminComponent implements OnInit {
           other: this.tagelerForm.value.checkout.contact.other as string,
         }]
       },
-      free: this.tagelerForm.value.free as boolean
+      free: this.tagelerForm.value.free as boolean,
+      background_color: this.tageler.background_color,
+      //color: this.tageler.color,
+      //font_family: this.tageler.font_family
     };
 
     if (saveTageler.free) {

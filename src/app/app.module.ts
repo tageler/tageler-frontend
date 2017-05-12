@@ -14,6 +14,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 
 
@@ -71,7 +72,8 @@ import { LOCALE_ID } from '@angular/core';
     FileUploadModule,
     ConfirmModule,
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    ColorPickerModule
   ],
   providers: [
     TagelerService,
