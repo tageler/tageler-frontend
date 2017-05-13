@@ -16,6 +16,9 @@ import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import { Font } from 'ngx-font-picker';
+
+
 
 // const URL = '/api/';
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -68,6 +71,20 @@ export class AdminComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private sanitizer: DomSanitizer) {
   }
+
+  private _presetFonts = ['Arial', 'Serif', 'Helvetica', 'Sans-Serif', 'Roboto Slab', 'Helvetica Neue', 'Trebuchet MS'];
+
+  public font: Font = new Font({
+    family: 'Roboto',
+    size: '14px',
+    style: 'regular',
+    styles: ['regular']
+  });
+
+  private presetFonts = this._presetFonts;
+  private sizeSelect: boolean = false;
+  private styleSelect: boolean = false;
+
 
   handleFileSelect(evt) {
     let files = evt.target.files;
@@ -197,6 +214,7 @@ export class AdminComponent implements OnInit {
       },
       free: false,
       background_color: '#ededed',
+      font_family: 'Arial'
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
@@ -225,6 +243,7 @@ export class AdminComponent implements OnInit {
 
     this.tagelerStyleForm = this.fb.group({
       background_color: '',
+      font_family: '',
     });
 
     this.tagelerForm.valueChanges
@@ -253,6 +272,7 @@ export class AdminComponent implements OnInit {
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
     this.formValidation();
+    this.tageler.font_family = this.font.family;
 
     for (const field in this.formErrors) {
 
@@ -422,7 +442,7 @@ export class AdminComponent implements OnInit {
       free: this.tagelerForm.value.free as boolean,
       background_color: this.tageler.background_color,
       //color: this.tageler.color,
-      //font_family: this.tageler.font_family
+      font_family: this.font.family
     };
 
     if (saveTageler.free) {

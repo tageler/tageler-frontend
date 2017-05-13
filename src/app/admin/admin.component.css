@@ -74,3 +74,16 @@ ul {
   padding-left: 15px;
 }
 
+.action-toggle-button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  border: 1px solid #555;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
