@@ -1,4 +1,6 @@
 <div class="container">
+
+  <!-- Buttons for navigation between different forms and views -->
   <div class="row">
     <div id="navButton1" class="buttons" *ngIf="!createTageler">
       <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
@@ -6,7 +8,7 @@
     <div id="navButton2" class="buttons" *ngIf="createTageler">
       <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
     </div>
-    <div id="navButton3" class="buttons" *ngIf="!showGroups && !createTageler">
+    <div id="navButton3" class="buttons groupButton" *ngIf="!showGroups && !createTageler">
       <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
     </div>
     <div id="navButton4" class="buttons" *ngIf="showGroups && !createTageler">
@@ -23,12 +25,12 @@
     </div>
   </div>
 
-  <!-- Show all group names on top of the site -->
+  <!-- Show all group names on top of the site with filter for each -->
   <div class="row" *ngIf="showGroups" style="margin-top: 2%; margin-bottom: 2%;">
     <div class="col-md-3">
       <h4>Trupp</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
-        <button id="groupButton1" class="btn btn-secondary col-sm-6" (click)="selectGroup(group)">
+        <button id="groupButton1" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
           {{group.name}}
         </button>
       </div>
@@ -36,7 +38,7 @@
     <div class="col-md-3">
       <h4>Meute</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
-        <button id="groupButton2" class="btn btn-secondary col-sm-6" (click)="selectGroup(group)">
+        <button id="groupButton2" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
           {{group.name}}
         </button>
       </div>
@@ -44,14 +46,14 @@
     <div class="col-md-3">
       <h4>Equipe</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
-        <button id="groupButton3" class="btn btn-secondary col-sm-6" (click)="selectGroup(group)">
+        <button id="groupButton3" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
             {{group.name}}
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Create tageler form -->
+  <!-- Form to create a new tageler -->
   <div class="col-md-6">
     <div *ngIf="selectedTageler" class="row">
       <form [formGroup]="tagelerForm"  (ngSubmit)="saveNewTageler()">
@@ -215,8 +217,10 @@
     </div>
   </div>
 
-  <!-- Tageler Cards upcoming tagelers-->
+  <!-- Tageler cards for all tagelers, gets filtered by group if applied -->
   <div class="row">
+
+    <!-- Upcoming Tagelers -->
     <div *ngIf="showUpcomingTageler && !showOldTagelers">
       <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
         <div class="card">
@@ -254,6 +258,7 @@
       </div>
     </div>
 
+    <!-- Past Tagelers -->
     <div *ngIf="showOldTagelers && !showUpcomingTageler">
       <div *ngFor="let tageler of tagelers | oldTagelerByGroupAndByDate: selectedGroup">
         <div class="card">
@@ -291,8 +296,9 @@
       </div>
     </div>
 
-  <!-- Update and view Form -->
-  <div class="updateAndViewForm col-md-6" *ngIf="update || view">
+  <!-- Form to view by detail or edit a Tageler, on the right side -->
+    <div id="updateViewForm" class="col-md-6">
+  <div class="updateAndViewForm" *ngIf="update || view">
     <form [formGroup]="tagelerForm" (ngSubmit)="updateTageler()" novalidate>
       <div id="hint" class="warning" *ngIf="update"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
       <fieldset id="enableInput" [disabled]="view">
@@ -459,5 +465,6 @@
       <button id="close" *ngIf="view" class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
     </form>
   </div>
+    </div>
   </div>
 </div>

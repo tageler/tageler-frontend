@@ -12,7 +12,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
-import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
+import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
 
 
@@ -26,6 +26,8 @@ import { GroupService } from './groups/group.service';
 import { TagelerService } from './tagelers/tageler.service';
 import { TagelerComponent } from './tagelers/tageler/tageler.component';
 import { AdminComponent } from './admin/admin.component';
+
+import { DefaultPictureService } from './default-pictures/default-picture.service';
 
 import { FilterGroupByTypePipe } from './pipes/groupType.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
@@ -73,6 +75,7 @@ import { LOCALE_ID } from '@angular/core';
   providers: [
     TagelerService,
     GroupService,
+    DefaultPictureService,
     {provide: LOCALE_ID, useValue: "de-DE"},
   ],
   bootstrap: [AppComponent]
