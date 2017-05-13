@@ -1,5 +1,3 @@
-
-
 .card:hover{
   background-color: darkgray;
 }
@@ -33,12 +31,12 @@ p.checkout-info{
 }
 
 .card{
-  margin: 1%;
+  margin-bottom: 1%;
   height: 360px;
-  width: 318px;
+  width: 319px;
   background-color: #ededed;
-  border: 1px solid darkgray;
   color: #bb0000;
+  border: 1px solid darkgray;
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
@@ -53,4 +51,11 @@ p.checkout-info{
 
 #picture{
   border: 1px solid darkgray;
+  width: 400px;
+  height: 220px;
+}
+
+.btn.btn-secondary {
+  float: right;
+  margin-top: 1%;
 }

@@ -7,10 +7,10 @@
             <h3 id="title" class="card-title" >{{tageler.title}}</h3>
             <h5 id="date" class="card-text" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" class="card-text" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-            <p id="text" class="card-text" *ngIf="tageler.text" [froalaView]="tageler.text"></p>
+            <p id="text" class="card-text" [froalaView]="tageler.text"></p>
             <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
-            <p id="bringAlong" class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
-            <p id="uniform" class="card-text" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
+            <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
+            <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>
           </div>
           <div class="col-md-5" *ngIf="!tageler.free">
             <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color">
@@ -20,7 +20,7 @@
               <ul>
                 <li id="deadline_phone" class="card-text" *ngIf="tageler.checkout.contact[0].phone">Tel: {{tageler.checkout.contact[0].phone}}</li>
                 <li id="deadline_mail" class="card-text" *ngIf="tageler.checkout.contact[0].mail">Mail: {{tageler.checkout.contact[0].mail}}</li>
-                <li id="deadline_other" class="card-text" *ngIf="tageler.checkout.contact[0].other">Other: {{tageler.checkout.contact[0].other}}</li>
+                <li id="deadline_other" class="card-text" *ngIf="tageler.checkout.contact[0].other">Sonstiges: {{tageler.checkout.contact[0].other}}</li>
               </ul>
             </div>
             <div id="image">

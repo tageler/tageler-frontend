@@ -1,10 +1,10 @@
 .card{
   margin: 1%;
   height: 360px;
-  width: 318px;
+  width: 319px;
   background-color: #ededed;
-  border: 1px solid darkgray;
   color: #bb0000;
+  border: 1px solid darkgray;
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
@@ -29,6 +29,11 @@
 
 .card-img-top{
   border-bottom: 1px solid darkgray;
+}
+
+#picture {
+  width: 318px;
+  height: 180px;
 }
 
 

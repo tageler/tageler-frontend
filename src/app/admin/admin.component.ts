@@ -404,8 +404,6 @@ export class AdminComponent implements OnInit {
       free: this.tageler.free
     });
 
-    /*
-
     if (this.tageler.background_color = '#fff') {
       this.tageler.background_color = '#ededed';
     }
@@ -417,7 +415,6 @@ export class AdminComponent implements OnInit {
     if (this.tageler.color = '#fff') {
       this.tageler.color = '#bb0000';
     }
-    */
 
     this.tagelerStyleForm = this.fb.group({
       background_color: this.tageler.background_color,

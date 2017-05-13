@@ -3,7 +3,7 @@
     <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
       <a class="nodecor" href="../tageler-details/{{tageler._id}}">
       <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
-        <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="card.with" height="180">
+        <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture">
         <div class="card-block" [style.color]="tageler.color" >
           <div *ngIf="tageler.title.length <= 25">
             <h5 id="title_short" class="card-title">{{tageler.title}}</h5>

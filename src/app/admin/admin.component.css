@@ -28,6 +28,8 @@
   height: 360px;
   width: 320px;
   border: 1px solid darkgray;
+  background-color: #ededed;
+  color: #bb0000;
 }
 
 .card_preview {
@@ -42,7 +44,7 @@
 }
 
 .card-text_preview {
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 #abmelden_preview {
