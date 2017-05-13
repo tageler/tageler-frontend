@@ -1,5 +1,7 @@
 export class DefaultPicture {
   _id?: string;
   name: string;
-  base64: string;
+  category?: string;
+  group?: string;
+  picture: string;
 }

@@ -72,7 +72,10 @@ export class AdminComponent implements OnInit {
   // Load all tagelers and the übungsfrei default picture once
   ngOnInit() {
     this.fetchTagelers();
-    this.defaultPictureUbungsfrei = this.defaultPictureService.defaultPictureByName('ubungsfrei').base64;
+    // TODO: change this to default ubungsfrei picture
+    this.defaultPictureService.getDefaultPictureByName('KevinPicture').then((defaultPicture) => {
+      this.defaultPictureUbungsfrei = defaultPicture.picture;
+    });
   }
 
   // Get all the tagelers and groups
