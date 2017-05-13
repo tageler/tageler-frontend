@@ -233,13 +233,12 @@ export class AdminComponent implements OnInit {
   }
 
   showDetailsAndEditForm(tageler: Tageler) {
+    // sets the offset for the details and edit form
     this.setOffsetTop();
 
     this.tageler = tageler;
-    if (this.formNotDisplayed) {
-      this.editAndUpdateForm(this.tageler);
-      this.formNotDisplayed = false;
-    }
+    this.editAndUpdateForm(this.tageler);
+    this.formNotDisplayed = false;
   }
 
   editAndUpdateForm(tageler: Tageler) {
@@ -247,7 +246,7 @@ export class AdminComponent implements OnInit {
     this.tagelerForm = this.fb.group({
       title: [this.tageler.title, Validators.required],
       text: [this.tageler.text, Validators.required],
-      group: [[this.tageler.group], Validators.required],
+      group: [this.tageler.group[0].split(','), Validators.required],
       date_start: [new Date(this.tageler.start).toISOString().slice(0, 10), Validators.required],
       date_end: [new Date(this.tageler.end).toISOString().slice(0, 10), Validators.required],
       time_start: [new Date(this.tageler.start).toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
@@ -772,7 +771,6 @@ export class AdminComponent implements OnInit {
     if (maxOffset <= 0) {
       document.getElementById('updateViewForm').style.top = document.body.scrollTop.toString() + 'px';
     }else {
-      console.log('im in here');
       document.getElementById('updateViewForm').style.top = 'auto';
     }
   }
