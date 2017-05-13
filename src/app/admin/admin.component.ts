@@ -274,7 +274,6 @@ export class AdminComponent implements OnInit {
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
     this.formValidation();
-    this.tageler.font_family = this.font.family;
 
     for (const field in this.formErrors) {
 

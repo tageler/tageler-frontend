@@ -27,25 +27,18 @@
   margin-bottom: 5%;
   height: 360px;
   width: 320px;
-  background-color: #ededed;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card_preview {
   margin-top: 1%;
   height: 25%;
   width: 100%;
-  /*background-color: #ededed;*/
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card-title_preview {
   font-size: 1.2em;
-  text-shadow: 0.5px 0.5px 0px #6b6565;
 }
 
 .card-text_preview {
