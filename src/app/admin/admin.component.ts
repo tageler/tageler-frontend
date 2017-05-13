@@ -75,7 +75,7 @@ export class AdminComponent implements OnInit {
   private _presetFonts = ['Arial', 'Serif', 'Helvetica', 'Sans-Serif', 'Roboto Slab', 'Helvetica Neue', 'Trebuchet MS'];
 
   public font: Font = new Font({
-    family: 'Roboto',
+    family: 'Helvetica',
     size: '14px',
     style: 'regular',
     styles: ['regular']
@@ -214,7 +214,7 @@ export class AdminComponent implements OnInit {
       },
       free: false,
       background_color: '#ededed',
-      font_family: 'Arial',
+      font_family: 'Helvetica',
       color: '#bb0000',
     };
     this.selectedTageler = this.tageler;
@@ -403,6 +403,28 @@ export class AdminComponent implements OnInit {
       }),
       free: this.tageler.free
     });
+
+    /*
+
+    if (this.tageler.background_color = '#fff') {
+      this.tageler.background_color = '#ededed';
+    }
+
+    if (!this.tageler.font_family) {
+      this.tageler.font_family = 'Helvetica';
+    }
+
+    if (this.tageler.color = '#fff') {
+      this.tageler.color = '#bb0000';
+    }
+    */
+
+    this.tagelerStyleForm = this.fb.group({
+      background_color: this.tageler.background_color,
+      font_family: this.tageler.font_family,
+      color: this.tageler.color,
+    });
+
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
   }
@@ -594,6 +616,9 @@ export class AdminComponent implements OnInit {
         }]
       },
       free: freeUpdated as boolean,
+      background_color: this.tageler.background_color,
+      color: this.tageler.color,
+      font_family: this.font.family,
     };
 
     if (updateTageler.free) {
