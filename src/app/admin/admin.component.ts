@@ -233,22 +233,7 @@ export class AdminComponent implements OnInit {
   }
 
   showDetailsAndEditForm(tageler: Tageler) {
-    let offsets = document.getElementById('groupButton2').getBoundingClientRect();
-    console.log('offset top: ' + offsets.top);
-
-    var elements = document.getElementsByClassName('groupButton');
-    let maxOffset = 0;
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i].getBoundingClientRect().top > maxOffset) {
-        maxOffset += elements[i].getBoundingClientRect().top;
-      }
-    }
-    console.log('max offset top: ' + maxOffset);
-    if (maxOffset < document.body.scrollTop) {
-      maxOffset = document.body.scrollTop;
-    }
-    document.getElementById('updateViewForm').style.top = maxOffset.toString() + 'px';
-    document.getElementById('updateViewForm').style.left = '400px';
+    this.setOffsetTop();
 
     this.tageler = tageler;
     if (this.formNotDisplayed) {
@@ -776,6 +761,22 @@ export class AdminComponent implements OnInit {
   }
 
   // Style and other configuration
+  setOffsetTop() {
+    const elements = document.getElementsByClassName('groupButton');
+    let maxOffset = 0;
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].getBoundingClientRect().top > maxOffset) {
+        maxOffset = elements[i].getBoundingClientRect().top;
+      }
+    }
+    if (maxOffset <= 0) {
+      document.getElementById('updateViewForm').style.top = document.body.scrollTop.toString() + 'px';
+    }else {
+      console.log('im in here');
+      document.getElementById('updateViewForm').style.top = 'auto';
+    }
+  }
+
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'checkboxes',

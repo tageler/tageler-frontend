@@ -8,7 +8,7 @@
     <div id="navButton2" class="buttons" *ngIf="createTageler">
       <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
     </div>
-    <div id="navButton3" class="buttons" *ngIf="!showGroups && !createTageler">
+    <div id="navButton3" class="buttons groupButton" *ngIf="!showGroups && !createTageler">
       <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
     </div>
     <div id="navButton4" class="buttons" *ngIf="showGroups && !createTageler">
