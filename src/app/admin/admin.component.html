@@ -222,23 +222,23 @@
         <div class="card-block">
           <div class="row">
             <div class="col-md-7">
-              <h3 id="title" class="card-title_preview">{{tagelerForm.value.title}}</h3>
-              <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
-              <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
-              <p id="text" class="card-text_preview" *ngIf="tageler.text" [froalaView]="tageler.text"></p>
-              <p id="group" class="card-text_preview">Gruppe: {{group}}</p>
-              <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
-              <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
+              <h3 id="title" class="card-title_preview" [style.color]="tageler.color">{{tagelerForm.value.title}}</h3>
+              <h5 id="date" class="card-text_preview" [style.color]="tageler.color" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
+              <h5 id="date_free" class="card-text_preview" [style.color]="tageler.color" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
+              <p id="text" class="card-text_preview" [style.color]="tageler.color" *ngIf="tageler.text" [froalaView]="tageler.text"></p>
+              <p id="group" class="card-text_preview" [style.color]="tageler.color">Gruppe: {{group}}</p>
+              <p id="bringAlong" class="card-text_preview" [style.color]="tageler.color" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
+              <p id="uniform" class="card-text_preview" [style.color]="tageler.color" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
             </div>
             <div class="col-md-5" *ngIf="!tageler.free">
               <div id="abmelden" class="alert alert-warning">
-                <h4 class="alert-heading_preview">Wichtig - Abmeldung</h4>
-                <p id="deadline_date" class="card-checkout_preview">Bis: {{tagelerForm.value.checkout.deadline_date | convertToLocalDate }}, {{tagelerForm.value.checkout.deadline_time}} Uhr</p>
-                <p id="deadline_name" class="card-checkout_preview">Bei: {{tagelerForm.value.checkout.contact.name}} </p>
+                <h4 class="alert-heading_preview" [style.color]="tageler.color">Wichtig - Abmeldung</h4>
+                <p id="deadline_date" class="card-checkout_preview" [style.color]="tageler.color">Bis: {{tagelerForm.value.checkout.deadline_date | convertToLocalDate }}, {{tagelerForm.value.checkout.deadline_time}} Uhr</p>
+                <p id="deadline_name" class="card-checkout_preview" [style.color]="tageler.color">Bei: {{tagelerForm.value.checkout.contact.name}} </p>
                 <ul>
-                  <li id="deadline_phone" class="card-checkout_preview">Tel: {{tagelerForm.value.checkout.contact.phone}}</li>
-                  <li id="deadline_mail" class="card-checkout_preview">Mail: {{tagelerForm.value.checkout.contact.mail}}</li>
-                  <li id="deadline_other" class="card-checkout_preview">Other: {{tagelerForm.value.checkout.contact.other}}</li>
+                  <li id="deadline_phone" class="card-checkout_preview" [style.color]="tageler.color">Tel: {{tagelerForm.value.checkout.contact.phone}}</li>
+                  <li id="deadline_mail" class="card-checkout_preview" [style.color]="tageler.color">Mail: {{tagelerForm.value.checkout.contact.mail}}</li>
+                  <li id="deadline_other" class="card-checkout_preview" [style.color]="tageler.color">Other: {{tagelerForm.value.checkout.contact.other}}</li>
                 </ul>
               </div>
               <div id="image">
@@ -258,19 +258,17 @@
             </div>
           </div>
           <div class="form-group row">
+            <label for="create_formControlName_color" class="col-3 col-form-label">Schriftfarbe</label>
+            <div class="col-9">
+              <input id="create_formControlName_color" [(colorPicker)]="tageler.color" [style.background]="tageler.color" formControlName="color"/>
+            </div>
+          </div>
+          <div class="form-group row">
             <label for="create_formControlName_font_family" class="col-3 col-form-label">Schriftart:</label>
             <div id="create_formControlName_font_family" class="form-control action-toggle-button col-9" fxLayout="column" fxLayoutAlign="center center" fxFlex [(fontPicker)]="font" [fpWidth]="'auto'" [fpPosition]="'bottom'" [fpPositionOffset]="'0%'" [fpPositionRelativeToArrow]="false" [fpPresetLabel]="'Preset fonts'" [fpPresetFonts]="presetFonts" [fpSizeSelect]="sizeSelect" [fpStyleSelect]="styleSelect">
               {{font.family}} {{font.style | FontStyles}} {{font.size}}
             </div>
           </div>
-          <!--
-          <div class="form-group row">
-            <label for="create_formControlName_color" class="col-3 col-form-label">Hintergrundfarbe</label>
-            <div class="col-9">
-              <input id="create_formControlName_color" [(colorPicker)]="tageler.color" [style.background]="tageler.color" formControlName="color"/>
-            </div>
-          </div>
-          -->
         </form>
       </div>
     </div>

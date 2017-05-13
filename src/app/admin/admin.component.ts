@@ -214,7 +214,8 @@ export class AdminComponent implements OnInit {
       },
       free: false,
       background_color: '#ededed',
-      font_family: 'Arial'
+      font_family: 'Arial',
+      color: '#bb0000',
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
@@ -244,6 +245,7 @@ export class AdminComponent implements OnInit {
     this.tagelerStyleForm = this.fb.group({
       background_color: '',
       font_family: '',
+      color: '',
     });
 
     this.tagelerForm.valueChanges
@@ -441,7 +443,7 @@ export class AdminComponent implements OnInit {
       },
       free: this.tagelerForm.value.free as boolean,
       background_color: this.tageler.background_color,
-      //color: this.tageler.color,
+      color: this.tageler.color,
       font_family: this.font.family
     };
 
