@@ -4,9 +4,6 @@ import { TagelerService } from '../tageler.service';
 import { Group } from '../../groups/group';
 import { GroupService } from '../../groups/group.service';
 
-// const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-
 @Component({
   selector: 'tageler-component',
   templateUrl: './tageler.component.html',

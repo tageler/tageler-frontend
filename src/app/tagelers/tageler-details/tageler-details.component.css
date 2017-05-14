@@ -1,5 +1,5 @@
 .card{
-  margin: 1%;
+  margin: 2%;
   height: 520px;
   width: 100%;
   background-color: #ededed;
@@ -27,10 +27,18 @@ p.checkout-info{
 
 #picture{
   border: 1px solid darkgray;
+  width: 400px;
+  height: 220px;
 }
 
 .col-md-12{
   height: auto;
   width: auto;
+}
+
+.btn.btn-secondary {
+  float: right;
+  margin-top: 1%;
+  margin-right: 2%;
 }
 

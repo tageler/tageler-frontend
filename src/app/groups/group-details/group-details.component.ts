@@ -48,12 +48,14 @@ export class GroupDetailsComponent implements OnInit {
       });
   }
 
+  // downloads all tagelers from a group
   handleICal(group: Group) {
     this.group = group;
     let link = this.tagelerService.iCalForGroup(this.group.name);
     window.location.href=link;
   }
 
+  // Set calendar options
   calendarOptions:Object = {
     height: 500,
     fixedWeekCount : false,

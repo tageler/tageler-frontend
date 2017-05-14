@@ -54,3 +54,11 @@ p.checkout-info{
 #picture{
   border: 1px solid darkgray;
 }
+
+.btn.btn-secondary {
+  float: right
+}
+
+.calendar {
+  padding-top: 5%
+}

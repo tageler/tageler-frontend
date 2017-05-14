@@ -1,7 +1,8 @@
 <div class="container" *ngIf="group && !viewCalendar">
-  <button class="btn btn-secondary" style="float: right" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
-  <button class="btn btn-secondary" style="float: right"  (click)="handleICal(group)">Events herunterladen</button>
+  <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
+  <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
 
+  <!-- Displays next upcoming tageler of the group -->
   <h3>Tagelers von {{group.name}}</h3>
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
     <div class="card col-md-12">
@@ -45,6 +46,7 @@
   <hr>
   <br>
 
+  <!-- Display all other upcoming tagelers as smaller cards -->
   <div class="row">
     <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group" class="col-md-4">
       <a class="nodecor" href="../tageler-details/{{tageler._id}}">
@@ -64,10 +66,12 @@
     </div>
   </div>
 </div>
+
+<!-- Displays calender if button "Kalender" is clicked -->
 <div class="container" *ngIf="group && viewCalendar">
+  <button class="btn btn-secondary" *ngIf="viewCalendar" (click)="handleCalendarView()">Ansicht schliessen</button>
   <h3>Kalender von {{group.name}}</h3>
-  <button class="btn btn-secondary" style="float: right" *ngIf="viewCalendar" (click)="handleCalendarView()">Ansicht schliessen</button>
-  <div style="padding-top: 5%">
+  <div class="calendar">
     <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
   </div>
 </div>

@@ -44,6 +44,7 @@ export class TagelerDetailsComponent implements OnInit {
       });
   };
 
+  // downloads this tageler as iCal
   handleICal(tageler: Tageler) {
     this.tageler = tageler;
     let link = this.tagelerService.iCalForTageler(this.tageler);
