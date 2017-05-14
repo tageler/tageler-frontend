@@ -5,6 +5,12 @@ import { Group } from "../groups/group";
   name: 'groupTypeFilter',
 })
 
+/*
+ * This pipe filters all groups by their type. It returns an array
+ * of groups that contains only groups of that type
+ * (either Trupp, Meute or Equipe).
+ */
+
 export class FilterGroupByTypePipe implements PipeTransform {
 
   // args is either Trupp, Meute or Equipe

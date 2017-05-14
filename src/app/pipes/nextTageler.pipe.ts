@@ -5,6 +5,11 @@ import { Tageler } from "../tagelers/tageler";
   name: 'nextTagelerFilter',
 })
 
+/*
+ * This pipe filters all tagelers of one group by their date.
+ * For each group, it returns the next upcoming tageler.
+ */
+
 export class NextTagelerPipe implements PipeTransform {
 
   // args is the name of a group (e.g. Baghira)
@@ -32,7 +37,7 @@ export class NextTagelerPipe implements PipeTransform {
     // get next tageler
     nextTageler = tagelers[0];
 
-    // return all tagelers that start after the next tageler
+    // return the next upcoming tageler
     return tagelers.filter(tageler => tageler == nextTageler);
   }
 

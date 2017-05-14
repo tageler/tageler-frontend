@@ -5,6 +5,12 @@ import { Tageler } from "../tagelers/tageler";
   name: 'otherTagelerFilter',
 })
 
+/*
+ * This pipe filters all tagelers of one group by their date.
+ * For each group, it returns an array of all upcoming tagelers
+ * but without the next upcoming tagelers.
+ */
+
 export class OtherTagelerPipe implements PipeTransform {
 
   // args is the name of a group (e.g. Baghira)

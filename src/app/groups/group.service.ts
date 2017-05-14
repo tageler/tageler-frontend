@@ -34,7 +34,20 @@ export class GroupService {
       .catch(this.handleError);
   }
 
-  // get("/api/group/:id") endpoint not used by Angular app
+  private handleError (error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+  }
+
+  /*
+   * The following methods are currently not used.
+   */
+
+  // get("/api/group/:id")
+  getGroupById(id: String): Promise<Group> {
+    return null;
+  }
 
   // delete("/api/group/:id")
   deleteGroup(delGroupId: String): Promise<String> {
@@ -44,11 +57,5 @@ export class GroupService {
   // put("/api/contacts/:id")
   updateGroup(putGroup: Group): Promise<Group> {
     return null;
-  }
-
-  private handleError (error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
   }
 }
