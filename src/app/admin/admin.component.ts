@@ -404,18 +404,6 @@ export class AdminComponent implements OnInit {
       free: this.tageler.free
     });
 
-    if (this.tageler.background_color = '#fff') {
-      this.tageler.background_color = '#ededed';
-    }
-
-    if (!this.tageler.font_family) {
-      this.tageler.font_family = 'Helvetica';
-    }
-
-    if (this.tageler.color = '#fff') {
-      this.tageler.color = '#bb0000';
-    }
-
     this.tagelerStyleForm = this.fb.group({
       background_color: this.tageler.background_color,
       font_family: this.tageler.font_family,
