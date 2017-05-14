@@ -27,6 +27,6 @@ export class OtherTagelerPipe implements PipeTransform {
     nextTageler = tagelers[0];
 
     // return all tagelers that start after the next tageler
-    return tagelers.filter(tageler => new Date(tageler.start) > new Date(nextTageler.start));
+    return tagelers.filter(tageler => new Date(tageler.start) >= new Date(nextTageler.start) && tageler != nextTageler);
   }
 }

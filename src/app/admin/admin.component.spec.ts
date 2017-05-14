@@ -9,6 +9,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { TagelerService } from '../tagelers/tageler.service';
 import { GroupService } from '../groups/group.service';
+import { DefaultPictureService } from '../default-pictures/default-picture.service';
 import { TagelerByGroupAndByDate } from '../pipes/tagelerByGroupAndByDate.pipe';
 import { FilterGroupByTypePipe } from '../pipes/groupType.pipe';
 import { OldTagelerByGroupAndByDate } from '../pipes/oldTagelerByGroupAndByDate.pipe'
@@ -40,6 +41,7 @@ describe('Component: AdminComponent', () => {
         },
         { provide: GroupService, useClass: GroupService },
         { provide: TagelerService, useClass: TagelerService },
+        { provide: DefaultPictureService, useClass: DefaultPictureService },
         BaseRequestOptions,
         { provide: LOCALE_ID, useValue: "de" },
       ]
@@ -798,24 +800,35 @@ describe('Component: AdminComponent', () => {
     expect(component.tagelerForm.valid).toBeFalsy();
     expect(fixture.debugElement.nativeElement.querySelector('#saveNew').disabled).toBeTruthy();
 
-    // set title and group
+    // set title, group, text and contact
     component.tagelerForm.controls['title'].setValue('Test title');
     component.tagelerForm.controls['text'].setValue('Hi there');
     component.tagelerForm.controls['group'].setValue(['Turmalin']);
     component.tagelerForm.get('checkout.contact.name').setValue('Leiter 1');
     component.tagelerForm.get('checkout.contact.mail').setValue('abcd@abcd.com');
 
-    expect(component.tagelerForm.controls['title'].errors).toBeFalsy();
-    expect(component.tagelerForm.controls['group'].errors).toBeFalsy();
+    // pretend image is there
+    component.imageIsPresent = true;
+
+    expect(component.tagelerForm.controls['title'].valid).toBeTruthy();
+    expect(component.tagelerForm.controls['group'].valid).toBeTruthy();
+    expect(component.tagelerForm.get('checkout.contact.name').valid).toBeTruthy();
+    expect(component.tagelerForm.get('checkout.contact.mail').valid).toBeTruthy();
     expect(component.endDateError.isError).toBeFalsy();
     expect(component.checkoutError.isCheckoutError).toBeFalsy();
     expect(component.mailOrPhoneError.isMailOrPhoneError).toBeFalsy();
     expect(component.leiterError.isLeiterError).toBeFalsy();
+    expect(component.imageIsPresent).toBeTruthy();
 
-    fixture.detectChanges();
+    // Do form validation
+    component.formValidation();
 
     // Form should be valid now
     expect(component.tagelerForm.valid).toBeTruthy();
+    expect(component.formValid).toBeTruthy();
+
+    // Detect changes
+    fixture.detectChanges();
     expect(fixture.debugElement.nativeElement.querySelector('#saveNew').disabled).toBeFalsy();
 
   });
@@ -842,8 +855,14 @@ describe('Component: AdminComponent', () => {
         free: false,
       };
 
+    // pretend image is there
+    component.imageIsPresent = true;
+
     component.showTagelerEditForm(tageler);
     fixture.detectChanges();
+
+    // do form validation
+    component.formValidation();
 
     // Hinweise
     expect(fixture.debugElement.nativeElement.querySelector('#hint').textContent).toContain('Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!');

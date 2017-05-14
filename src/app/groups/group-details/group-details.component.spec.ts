@@ -4,12 +4,16 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { GroupDetailsComponent } from './group-details.component';
 import { OtherTagelerPipe } from '../../pipes/otherTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
+import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
+import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe'
 import { RouterTestingModule } from '@angular/router/testing';
 import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 import { Tageler } from '../../tagelers/tageler';
 import { Group } from '../group';
 import { LOCALE_ID } from '@angular/core';
+import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
+
 
 describe('GroupDetailsComponent', () => {
 
@@ -26,8 +30,11 @@ describe('GroupDetailsComponent', () => {
       ],
       declarations: [
         GroupDetailsComponent,
+        CalendarComponent,
         OtherTagelerPipe,
-        NextTagelerPipe
+        NextTagelerPipe,
+        ToLocalTimePipe,
+        ToLocalDatePipe
       ],
       providers: [
         MockBackend,
@@ -111,13 +118,13 @@ describe('GroupDetailsComponent', () => {
     const fixture = TestBed.createComponent(GroupDetailsComponent);
     fixture.componentInstance.group = {name: 'Baghira', type: 'Trupp'};
     fixture.detectChanges();
-    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira')
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers von Baghira')
   });
 
   it('Should display tageler of a specific group', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    var start_date1 = '2017-10-28T14:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
@@ -143,7 +150,7 @@ describe('GroupDetailsComponent', () => {
     fixture.componentInstance.tagelers = tageler;
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers von Baghira');
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017, 14:00 Uhr bis Samstag, 28. Oktober 2017, 17:00 Uhr');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Text 1');
@@ -158,9 +165,9 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('Should display free tageler correctly', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    var start_date1 = '2017-10-28T14:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Übungsfrei',
@@ -186,7 +193,7 @@ describe('GroupDetailsComponent', () => {
     fixture.componentInstance.tagelers = tageler;
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers von Baghira');
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Übungsfrei');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Test');
@@ -197,12 +204,12 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('View should be correct if there is more than one tageler', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
-    var start_date2 = '2017-10-29T12:00:00.824Z';
-    var end_date2 = '2017-10-29T15:00:00.824Z';
-    var checkout_date2 = '2017-10-25T12:00:00.824Z';
+    var start_date1 = '2017-10-28T14:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    var start_date2 = '2017-10-29T14:00:00.824Z';
+    var end_date2 = '2017-10-29T17:00:00.824Z';
+    var checkout_date2 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
@@ -244,7 +251,7 @@ describe('GroupDetailsComponent', () => {
     fixture.componentInstance.tagelers = tageler;
     fixture.detectChanges();
 
-    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers of Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('h3').textContent).toContain('Tagelers von Baghira');
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017, 14:00 Uhr bis Samstag, 28. Oktober 2017, 17:00 Uhr');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Text 1');

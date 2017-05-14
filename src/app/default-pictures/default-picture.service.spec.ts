@@ -1,25 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { HttpModule, XHRBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 import { DefaultPictureService } from './default-picture.service';
 
-describe('DefaultPicturesComponent', () => {
-  let service: DefaultPictureService;
-  let fixture: ComponentFixture<DefaultPictureService>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DefaultPictureService ]
-    })
-    .compileComponents();
-  }));
+describe('DefaultPictureService', () => {
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DefaultPictureService);
-    service = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      providers: [
+        DefaultPictureService,
+        MockBackend,
+        { provide: XHRBackend, useClass: MockBackend }
+      ],
+      imports: [ HttpModule ],
+    });
   });
 
-  it('should create', () => {
+  it('should inject DefaultPictureService', inject([DefaultPictureService], (service: DefaultPictureService) => {
     expect(service).toBeTruthy();
-  });
+  }));
 });

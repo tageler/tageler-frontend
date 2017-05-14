@@ -39,6 +39,7 @@ export class AdminComponent implements OnInit {
   showOldTagelers = false;
   formNotDisplayed = true;
   formValid = false;
+  imageIsPresent = false;
 
   // For html display
   update: boolean;
@@ -518,6 +519,9 @@ export class AdminComponent implements OnInit {
       reader.onload = this._handleReaderLoaded.bind(this);
 
       reader.readAsBinaryString(file);
+      this.imageIsPresent = true;
+      console.log('Validation in file reader: ' + this.imageIsPresent)
+      this.formValidation()
     }
   }
 
@@ -528,7 +532,6 @@ export class AdminComponent implements OnInit {
     // console.log(btoa(binaryString));
     this.previewBase64 = 'data:image/png;base64,' + btoa(binaryString);
   }
-
 
   /***************************
    Form Validation
@@ -597,7 +600,8 @@ export class AdminComponent implements OnInit {
         !this.endDateError.isError &&
         !this.checkoutError.isCheckoutError &&
         !this.mailOrPhoneError.isMailOrPhoneError &&
-        !this.leiterError.isLeiterError) {
+        !this.leiterError.isLeiterError &&
+        this.imageIsPresent) {
         this.formValid = true;
       } else {
         this.formValid = false;
