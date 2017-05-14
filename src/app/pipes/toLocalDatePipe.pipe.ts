@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class ToLocalDatePipe implements PipeTransform {
 
-  // args is either Trupp, Meute or Equipe
   transform(date: Date) {
     let parsedDateTime;
     let wochentag, monat;
