@@ -20,12 +20,6 @@ export class NextTagelerPipe implements PipeTransform {
       return null;
     }
 
-    // if there's only one tageler, return that
-    if (tagelers.length == 1) {
-      nextTageler = tagelers[0];
-      return tagelers.filter(tageler => tageler == nextTageler);
-    }
-
     // sort tagelers by date
     if ( (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null ) {
       tagelers = tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
