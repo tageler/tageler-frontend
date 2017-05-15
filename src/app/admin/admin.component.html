@@ -75,7 +75,7 @@
           <div class="form-group row">
             <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
             <div class="col-9">
-              <div id="create_formControlName_text" class="form-control" formControlName="text" required [froalaEditor] [(froalaModel)]="tageler.text"></div>
+              <div id="create_formControlName_text" class="form-control" formControlName="text" required [froalaEditor]='options' [(froalaModel)]="tageler.text"></div>
               <div *ngIf="formErrors.text" class="alert alert-danger">
                 {{ formErrors.text }}
               </div>
@@ -279,7 +279,7 @@
         </div>
         <div class="form-group row">
           <label for="create_formControlName_font_family" class="col-3 col-form-label">Schriftart:</label>
-          <div id="create_formControlName_font_family" class="form-control action-toggle-button col-9" fxLayout="column" fxLayoutAlign="center center" fxFlex [(fontPicker)]="font" [fpWidth]="'auto'" [fpPosition]="'bottom'" [fpPositionOffset]="'0%'" [fpPositionRelativeToArrow]="false" [fpPresetLabel]="'Preset fonts'" [fpPresetFonts]="presetFonts" [fpSizeSelect]="sizeSelect" [fpStyleSelect]="styleSelect">
+          <div id="create_formControlName_font_family" class="form-control action-toggle-button" [(fontPicker)]="font" [fpWidth]="'auto'" [fpPositionOffset]="'1%'" [fpPresetLabel]="'Preset fonts'" [fpPresetFonts]="presetFonts" [fpSizeSelect]="sizeSelect" [fpStyleSelect]="styleSelect">
             {{font.family}}
           </div>
         </div>

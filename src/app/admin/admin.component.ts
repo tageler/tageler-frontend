@@ -19,12 +19,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Font } from 'ngx-font-picker';
 
 
-
-// const URL = '/api/';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
-
-// https://devcenter.heroku.com/articles/mean-apps-restful-api
-
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
@@ -781,7 +775,7 @@ export class AdminComponent implements OnInit {
     showUncheckAll: true,
   };
 
-// Text configuration
+  // Text configuration
   myTexts: IMultiSelectTexts = {
     checkAll: 'Alle auswählen',
     uncheckAll: 'Auswahl löschen',
@@ -791,5 +785,12 @@ export class AdminComponent implements OnInit {
     defaultTitle: 'Gruppe(n) auswählen',
     allSelected: 'Alle ausgewählt',
 };
+
+
+  // Options for Froala Editor
+  public options: Object = {
+    placeholderText: 'Beschreibung Tageler',
+    charCounterCount: false,
+  }
 
 }
