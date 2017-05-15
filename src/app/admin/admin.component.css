@@ -41,8 +41,8 @@
 
 .card_preview {
   margin-top: 1%;
-  height: 25%;
-  width: 100%;
+  height: auto;
+  width: auto;
   border: 1px solid darkgray;
 }
 
@@ -55,7 +55,7 @@
 }
 
 #abmelden_preview {
-  width: 100%;
+  width: auto;
 }
 
 .card-checkout_preview {
@@ -64,7 +64,7 @@
 }
 
 #picture_preview {
-  width: 100%;
+  width: auto;
   border: 1px solid darkgray;
 }
 
