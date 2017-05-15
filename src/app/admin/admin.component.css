@@ -18,9 +18,13 @@
   color: orange;
 }
 
-.updateAndViewForm {
+.viewForm {
   margin-left: 2%;
 }
+
+/*
+ * Cards of upcoming / old tagelers
+ */
 
 .card {
   margin-top: 5%;
@@ -28,9 +32,12 @@
   height: 360px;
   width: 320px;
   border: 1px solid darkgray;
-  background-color: #ededed;
-  color: #bb0000;
 }
+
+
+/*
+ * Preview Card in create / update
+ */
 
 .card_preview {
   margin-top: 1%;
@@ -40,7 +47,7 @@
 }
 
 .card-title_preview {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .card-text_preview {
@@ -68,6 +75,10 @@
 ul {
   padding-left: 15px;
 }
+
+/*
+ * Button for font picker
+ */
 
 .action-toggle-button {
   box-sizing: border-box;

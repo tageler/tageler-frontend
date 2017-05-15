@@ -8,6 +8,9 @@ import { Tageler } from '../tageler';
 import { Group } from '../../groups/group';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LOCALE_ID } from '@angular/core';
+import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
+import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 
 
 describe('TagelerDetailsComponent', () => {
@@ -21,9 +24,13 @@ describe('TagelerDetailsComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
+        FroalaEditorModule,
+        FroalaViewModule
       ],
       declarations: [
         TagelerDetailsComponent,
+        ToLocalTimePipe,
+        ToLocalDatePipe
       ],
       providers: [
         MockBackend,
@@ -80,9 +87,9 @@ describe('TagelerDetailsComponent', () => {
   }));
 
   it('tageler should be displayed correctly', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    var start_date1 = '2017-10-28T14:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
       text: 'Test',
@@ -122,9 +129,9 @@ describe('TagelerDetailsComponent', () => {
   });
 
   it('free tageler should be displayed correctly', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    var start_date1 = '2017-10-28T14:00:00.824Z';
+    var end_date1 = '2017-10-28T17:00:00.824Z';
+    var checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
       text: 'Test',
