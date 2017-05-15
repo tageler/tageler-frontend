@@ -205,9 +205,9 @@ export class AdminComponent implements OnInit {
         }]
       },
       free: false,
-      background_color: '#ededed',
-      font_family: 'Helvetica',
-      color: '#bb0000',
+      background_color: '',
+      font_family: '',
+      color: '',
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
