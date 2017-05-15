@@ -13,7 +13,6 @@ import { LOCALE_ID } from '@angular/core';
 import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 
 
 describe('GroupDetailsComponent', () => {
@@ -28,8 +27,6 @@ describe('GroupDetailsComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
-        FroalaEditorModule,
-        FroalaViewModule
       ],
       declarations: [
         GroupDetailsComponent,

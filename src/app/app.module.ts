@@ -13,7 +13,6 @@ import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import { ColorPickerModule } from 'angular2-color-picker';
 import { FontPickerModule, FontPickerConfigInterface } from 'ngx-font-picker';
 
@@ -74,8 +73,6 @@ const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     Ng2DatetimePickerModule,
     FileUploadModule,
     ConfirmModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
     ColorPickerModule,
     FontPickerModule.forRoot(FONT_PICKER_CONFIG)
   ],

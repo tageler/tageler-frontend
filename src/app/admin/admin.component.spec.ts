@@ -15,9 +15,8 @@ import { OldTagelerByGroupAndByDate } from '../pipes/oldTagelerByGroupAndByDate.
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import { ColorPickerModule } from 'angular2-color-picker';
-import { FontPickerModule, FontPickerConfigInterface } from 'ngx-font-picker';
+import { FontPickerModule } from 'ngx-font-picker';
 import { ToLocalTimePipe } from '../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../pipes/toLocalDatePipe.pipe';
 
@@ -32,7 +31,7 @@ describe('Component: AdminComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe, OldTagelerByGroupAndByDate, ToLocalTimePipe, ToLocalDatePipe ],
       imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule,
-        FlashMessagesModule, FroalaEditorModule, FroalaViewModule, ColorPickerModule, FontPickerModule],
+        FlashMessagesModule, ColorPickerModule, FontPickerModule],
       providers: [
         FormBuilder,
         MockBackend,

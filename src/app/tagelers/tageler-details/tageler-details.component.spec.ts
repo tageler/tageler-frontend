@@ -10,8 +10,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LOCALE_ID } from '@angular/core';
 import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-
 
 describe('TagelerDetailsComponent', () => {
   let tagelerService: TagelerService,
@@ -24,8 +22,6 @@ describe('TagelerDetailsComponent', () => {
       imports: [
         RouterTestingModule,
         HttpModule,
-        FroalaEditorModule,
-        FroalaViewModule
       ],
       declarations: [
         TagelerDetailsComponent,

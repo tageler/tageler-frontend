@@ -9,7 +9,7 @@
             <h3 id="title" class="card-title">{{tageler.title}}</h3>
             <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-            <p id="text" class="card-text" [froalaView]="tageler.text"></p>
+            <p id="text" class="card-text">{{tageler.text}}</p>
             <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
             <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
             <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>

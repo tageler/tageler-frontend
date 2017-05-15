@@ -786,11 +786,4 @@ export class AdminComponent implements OnInit {
     allSelected: 'Alle ausgewählt',
 };
 
-
-  // Options for Froala Editor
-  public options: Object = {
-    placeholderText: 'Beschreibung Tageler',
-    charCounterCount: false,
-  }
-
 }
