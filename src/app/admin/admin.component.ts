@@ -15,9 +15,6 @@ import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
-import { Font } from 'ngx-font-picker';
-
-
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
@@ -62,20 +59,6 @@ export class AdminComponent implements OnInit {
     private fb: FormBuilder,
     private flashMessage: FlashMessagesService) {
   }
-
-  private _presetFonts = ['Arial', 'Serif', 'Helvetica', 'Sans-Serif', 'Roboto Slab', 'Helvetica Neue', 'Trebuchet MS'];
-
-  public font: Font = new Font({
-    family: 'Helvetica',
-    size: '14px',
-    style: 'regular',
-    styles: ['regular']
-  });
-
-  private presetFonts = this._presetFonts;
-  private sizeSelect: boolean = false;
-  private styleSelect: boolean = false;
-
 
   handleFileSelect(evt) {
     let files = evt.target.files;
@@ -264,6 +247,7 @@ export class AdminComponent implements OnInit {
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
     this.formValidation();
+    this.tageler.font_family = this.tagelerStyleForm.value.font_family;
 
     for (const field in this.formErrors) {
 
@@ -432,7 +416,7 @@ export class AdminComponent implements OnInit {
       free: this.tagelerForm.value.free as boolean,
       background_color: this.tageler.background_color,
       color: this.tageler.color,
-      font_family: this.font.family
+      font_family: this.tagelerStyleForm.value.font_family as string
     };
 
     if (saveTageler.free) {
@@ -585,7 +569,7 @@ export class AdminComponent implements OnInit {
       free: freeUpdated as boolean,
       background_color: this.tageler.background_color,
       color: this.tageler.color,
-      font_family: this.font.family,
+      font_family: this.tageler.font_family,
     };
 
     if (updateTageler.free) {
@@ -782,6 +766,37 @@ export class AdminComponent implements OnInit {
     searchPlaceholder: 'Suchen',
     defaultTitle: 'Gruppe(n) auswählen',
     allSelected: 'Alle ausgewählt',
-};
+  };
+
+  myOptions_font: IMultiSelectOption[] = [
+    { id: 'Arial, Helvetica, sans-serif', name: 'Arial'},
+    { id: '"Arial Black", Gadget, sans-serif', name: 'Arial Black'},
+    { id: 'Helvetica', name: 'Helvetica'},
+    { id: 'Helvetica Neue, Helvetica, sans-serif', name: 'Helvetica Neue'},
+    { id: 'Roboto Slab, Helvetica, sans-serif', name: 'Roboto Slab'},
+    { id: '"Trebuchet MS", Helvetica, sans-serif', name: 'Trebuchet MS'},
+    { id: 'Tahoma, Geneva, sans-serif', name: 'Thaoma'},
+    { id: 'Verdana, Geneva, sans-serif', name: 'Verdana'},
+  ];
+
+  // Style and other configuration
+  mySettings_font: IMultiSelectSettings = {
+    enableSearch: false,
+    checkedStyle: 'checkboxes',
+    buttonClasses: 'btn btn-secondary btn-block',
+    dynamicTitleMaxItems: 1,
+    displayAllSelectedText: true,
+    showCheckAll: false,
+    showUncheckAll: true,
+    selectionLimit: 1,
+    autoUnselect: true,
+  };
+
+  // Text configuration
+  myTexts_font: IMultiSelectTexts = {
+    uncheckAll: 'Auswahl löschen',
+    checked: 'Schriftart ausgewählt',
+    defaultTitle: 'Schriftart wählen',
+  };
 
 }

@@ -14,7 +14,6 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ColorPickerModule } from 'angular2-color-picker';
-import { FontPickerModule, FontPickerConfigInterface } from 'ngx-font-picker';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -37,11 +36,6 @@ import { ToLocalDatePipe } from './pipes/toLocalDatePipe.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitizeHTML.pipe';
 
 import { LOCALE_ID } from '@angular/core';
-
-const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
-  apiKey: 'AIzaSyCsRnPfKOtulcbeKVNnUNmT9I2aGwmRZqY'
-};
-
 
 @NgModule({
   declarations: [
@@ -76,7 +70,6 @@ const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     FileUploadModule,
     ConfirmModule,
     ColorPickerModule,
-    FontPickerModule.forRoot(FONT_PICKER_CONFIG),
   ],
   providers: [
     TagelerService,

@@ -16,7 +16,6 @@ import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
 import { ColorPickerModule } from 'angular2-color-picker';
-import { FontPickerModule } from 'ngx-font-picker';
 import { ToLocalTimePipe } from '../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../pipes/toLocalDatePipe.pipe';
 
@@ -31,7 +30,7 @@ describe('Component: AdminComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe, OldTagelerByGroupAndByDate, ToLocalTimePipe, ToLocalDatePipe ],
       imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule,
-        FlashMessagesModule, ColorPickerModule, FontPickerModule],
+        FlashMessagesModule, ColorPickerModule],
       providers: [
         FormBuilder,
         MockBackend,
