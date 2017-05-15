@@ -15,7 +15,6 @@ import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ColorPickerModule } from 'angular2-color-picker';
 import { FontPickerModule, FontPickerConfigInterface } from 'ngx-font-picker';
-import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -35,6 +34,7 @@ import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe';
 import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe';
 import { ToLocalTimePipe } from './pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from './pipes/toLocalDatePipe.pipe';
+import { SanitizeHtmlPipe } from './pipes/sanitizeHTML.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 
@@ -58,6 +58,7 @@ const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     OldTagelerByGroupAndByDate,
     ToLocalTimePipe,
     ToLocalDatePipe,
+    SanitizeHtmlPipe,
     Autosize,
     CalendarComponent
   ],
@@ -76,7 +77,6 @@ const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     ConfirmModule,
     ColorPickerModule,
     FontPickerModule.forRoot(FONT_PICKER_CONFIG),
-    MarkdownModule
   ],
   providers: [
     TagelerService,

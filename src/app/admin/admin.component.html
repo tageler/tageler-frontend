@@ -75,7 +75,7 @@
           <div class="form-group row">
             <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
             <div class="col-9">
-              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>
+              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text"></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
               <div *ngIf="formErrors.text" class="alert alert-danger">
                 {{ formErrors.text }}
               </div>
@@ -233,7 +233,7 @@
               <h3 id="title" class="card-title_preview">{{tagelerForm.value.title}}</h3>
               <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
               <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
-              <p id="text" class="card-text_preview">{{tageler.text}}</p>
+              <p id="text" class="card-text_preview" [innerHTML]="tageler.text | sanitizeHtml"></p>
               <p id="group" class="card-text_preview">Gruppe: {{group}}</p>
               <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
               <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
@@ -383,7 +383,7 @@
           <div class="form-group row">
             <label for="formControlName_text" class="col-3 col-form-label">Text*:</label>
             <div class="col-9">
-              <textarea id="formControlName_text" class="form-control" formControlName="text" value="{{tageler.text}}" autosize></textarea>n
+              <textarea id="formControlName_text" class="form-control" formControlName="text" value="{{tageler.text}}" autosize></textarea>
             </div>
           </div>
           <div class="form-group row">

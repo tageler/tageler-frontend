@@ -15,7 +15,6 @@ import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
-import { DomSanitizer } from '@angular/platform-browser';
 import { Font } from 'ngx-font-picker';
 
 
@@ -61,8 +60,7 @@ export class AdminComponent implements OnInit {
     private tagelerService: TagelerService,
     private groupService: GroupService,
     private fb: FormBuilder,
-    private flashMessage: FlashMessagesService,
-    private sanitizer: DomSanitizer) {
+    private flashMessage: FlashMessagesService) {
   }
 
   private _presetFonts = ['Arial', 'Serif', 'Helvetica', 'Sans-Serif', 'Roboto Slab', 'Helvetica Neue', 'Trebuchet MS'];
