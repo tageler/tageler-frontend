@@ -15,6 +15,7 @@ import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
 import { ColorPickerModule } from 'angular2-color-picker';
 import { FontPickerModule, FontPickerConfigInterface } from 'ngx-font-picker';
+import { MarkdownModule } from 'angular2-markdown';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -74,7 +75,8 @@ const FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     FileUploadModule,
     ConfirmModule,
     ColorPickerModule,
-    FontPickerModule.forRoot(FONT_PICKER_CONFIG)
+    FontPickerModule.forRoot(FONT_PICKER_CONFIG),
+    MarkdownModule
   ],
   providers: [
     TagelerService,
