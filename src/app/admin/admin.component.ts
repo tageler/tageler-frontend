@@ -232,7 +232,7 @@ export class AdminComponent implements OnInit {
     this.view = false;
     this.update = true;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
-    this.editAndUpdateForm(this.tageler)
+    this.editAndUpdateForm(this.tageler);
   }
 
   showTagelerDetailsForm(tageler: Tageler) {
@@ -240,7 +240,7 @@ export class AdminComponent implements OnInit {
     this.view = true;
     this.update = false;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
-    this.editAndUpdateForm(this.tageler)
+    this.editAndUpdateForm(this.tageler);
   }
 
   editAndUpdateForm(tageler: Tageler) {

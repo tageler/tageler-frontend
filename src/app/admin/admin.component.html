@@ -87,6 +87,17 @@
             <label for="create_formControlName_group" class="col-3 col-form-label">Einheit*:</label>
             <div class="col-9">
               <ss-multiselect-dropdown
+                *ngIf="update"
+                [options]="myOptions"
+                [texts]="myTexts"
+                [settings]="mySettings"
+                class="form-control"
+                id="create_formControlName_group"
+                formControlName="group"
+                required
+              ></ss-multiselect-dropdown>
+              <ss-multiselect-dropdown
+                *ngIf="!update"
                 [options]="myOptions"
                 [texts]="myTexts"
                 [settings]="mySettings"
