@@ -20,6 +20,7 @@ p.checkout-info{
 }
 
 .card.col-md-12{
+  margin-top: 5%;
   margin: 1%;
   height: auto;
   width: auto;
@@ -59,10 +60,12 @@ p.checkout-info{
   margin-top: 1%;
 }
 
-.btn.btn-secondary {
-  float: right
-}
-
 .calendar {
   padding-top: 5%
+}
+
+h3 {
+  margin-top: 2%;
+  margin-bottom: 2%;
+
 }

@@ -77,7 +77,7 @@
           <div class="form-group row">
             <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
             <div class="col-9">
-              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text"></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
+              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
               <div *ngIf="formErrors.text" class="alert alert-danger">
                 {{ formErrors.text }}
               </div>
@@ -201,7 +201,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="filePicker" class="col-3 col-form-label">Bild auswählen</label><br>
+              <label for="filePicker" class="col-3 col-form-label">Bild*:</label><br>
               <div class="col-9" *ngIf="!update">
                 <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
               </div>
@@ -211,7 +211,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="create_formControlName_picture" class="col-3 col-form-label">Bild:</label>
+            <label for="create_formControlName_picture" class="col-3 col-form-label">Vorschau:</label>
             <div id="create_formControlName_picture" class="col-9" *ngIf="!update">
               <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
             </div>
@@ -252,7 +252,7 @@
                 </ul>
               </div>
               <div id="image" *ngIf="!update">
-                <img id="picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px">
+                <img id="picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px" width="100%">
               </div>
               <div *ngIf="update">
                 <img id="formControlName_picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="115" width="100%"/>
@@ -281,6 +281,7 @@
         </div>
         <div class="form-group row">
           <label for="create_formControlName_font_family" class="col-3 col-form-label">Schriftart:</label>
+          <div class="col-9">
           <ss-multiselect-dropdown
             [options]="myOptions_font"
             [texts]="myTexts_font"
@@ -291,6 +292,7 @@
             formControlName="font_family"
             required
             ></ss-multiselect-dropdown>
+          </div>
         </div>
       </form>
     </div>
@@ -301,7 +303,7 @@
   <div class="row">
 
     <!-- Upcoming Tagelers -->
-    <div *ngIf="showUpcomingTageler && !showOldTagelers">
+    <div *ngIf="showUpcomingTageler && !showOldTagelers &&!update">
       <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
         <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
@@ -339,7 +341,7 @@
     </div>
 
     <!-- Past Tagelers -->
-    <div *ngIf="showOldTagelers && !showUpcomingTageler">
+    <div *ngIf="showOldTagelers && !showUpcomingTageler &&!update">
       <div *ngFor="let tageler of tagelers | oldTagelerByGroupAndByDate: selectedGroup">
         <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
