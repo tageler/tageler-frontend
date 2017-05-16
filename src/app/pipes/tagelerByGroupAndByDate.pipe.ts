@@ -5,6 +5,12 @@ import { Tageler } from "../tagelers/tageler";
   name: 'tagelerByGroupAndByDate',
 })
 
+/*
+ * This pipe filters all tagelers by their date.
+ * It returns an array of tagelers that is either sorted
+ * by dates only or by dates and group.
+ */
+
 export class TagelerByGroupAndByDate implements PipeTransform {
 
   // args is the name of a group (e.g. Baghira)

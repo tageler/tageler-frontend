@@ -5,12 +5,11 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 
 @Injectable()
 export class GroupService {
-  private groupsUrlPost = '/api/v1/group/admin/create';
   private groupsUrlGet = '/api/v1/group/getGroups';
   private groupsUrlGetById = '/api/v1/group/getById';
 
   constructor(private http: Http) { }
-// get("/api/groups")
+  // get("/api/v1/group/getGroups")
   getGroups(): Promise<Group[]> {
     return this.http.get(this.groupsUrlGet)
       .toPromise()
@@ -18,7 +17,7 @@ export class GroupService {
       .catch(this.handleError);
   }
 
-  // get a group by id
+  // get("/api/v1/group/getById")
   getGroup(id: String): Promise<Group> {
     return this.http.get(this.groupsUrlGetById + '/' + id)
       .toPromise()
@@ -26,15 +25,20 @@ export class GroupService {
       .catch(this.handleError);
   }
 
-  // post("/api/group")
-  createGroup(newGroup: Group): Promise<Group> {
-    return this.http.post(this.groupsUrlPost, newGroup)
-      .toPromise()
-      .then(response => response.json() as Group)
-      .catch(this.handleError);
+  private handleError (error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
   }
 
-  // get("/api/group/:id") endpoint not used by Angular app
+  /*
+   * The following methods are currently not used.
+   */
+
+  // post("/api/group")
+  createGroup(newGroup: Group): Promise<Group> {
+    return null;
+  }
 
   // delete("/api/group/:id")
   deleteGroup(delGroupId: String): Promise<String> {
@@ -44,11 +48,5 @@ export class GroupService {
   // put("/api/contacts/:id")
   updateGroup(putGroup: Group): Promise<Group> {
     return null;
-  }
-
-  private handleError (error: any) {
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
   }
 }

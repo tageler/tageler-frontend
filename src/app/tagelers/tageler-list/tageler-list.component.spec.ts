@@ -6,6 +6,7 @@ import { TagelerService } from '../tageler.service';
 import { Tageler } from '../tageler';
 import { TagelerListComponent } from "./tageler-list.component";
 import { TagelerByGroupAndByDate } from '../../pipes/tagelerByGroupAndByDate.pipe';
+import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe'
 import { LOCALE_ID } from '@angular/core';
 import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';

@@ -4,9 +4,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'convertToLocalDate',
 })
 
+/*
+ * This pipe converts a date into a local date. It
+ * returns a date of the form 'Wochentag, Datum. Monat Jahr'
+ * (e.g. Samstag, 28. Oktober 2017).
+ */
+
 export class ToLocalDatePipe implements PipeTransform {
 
-  // args is either Trupp, Meute or Equipe
   transform(date: Date) {
     let parsedDateTime;
     let wochentag, monat;

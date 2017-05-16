@@ -28,6 +28,18 @@ p.checkout-info{
 #picture{
   width: 100%;
   border: 1px solid darkgray;
+  height: 220px;
+}
+
+.col-md-12{
+  height: auto;
+  width: auto;
+}
+
+.btn.btn-secondary {
+  float: right;
+  margin-top: 1%;
+  margin-right: 2%;
 }
 
 .alert-heading {

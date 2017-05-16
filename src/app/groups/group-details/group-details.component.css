@@ -5,7 +5,6 @@
 .nodecor:hover{
   color:none;
   text-decoration-line: none;
-  text-decoration: none;
 }
 
 #abmelden{
@@ -22,8 +21,8 @@ p.checkout-info{
 
 .card.col-md-12{
   margin: 1%;
-  height: 520px;
-  width: 100%;
+  height: auto;
+  width: auto;
   background-color: #ededed;
   border: 1px solid darkgray;
   color: #bb0000;
@@ -58,4 +57,12 @@ p.checkout-info{
 .btn.btn-secondary {
   float: right;
   margin-top: 1%;
+}
+
+.btn.btn-secondary {
+  float: right
+}
+
+.calendar {
+  padding-top: 5%
 }

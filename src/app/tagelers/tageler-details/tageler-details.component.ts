@@ -17,6 +17,7 @@ export class TagelerDetailsComponent implements OnInit {
   tageler: Tageler;
   tagelers: Tageler[];
   groups: Group[];
+  text: String;
 
   constructor(
     private tagelerService: TagelerService,
@@ -42,4 +43,11 @@ export class TagelerDetailsComponent implements OnInit {
         });
       });
   };
+
+  // downloads this tageler as iCal
+  handleICal(tageler: Tageler) {
+    this.tageler = tageler;
+    let link = this.tagelerService.iCalForTageler(this.tageler);
+    window.location.href=link;
+  }
 }

@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import {Component, group, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { Tageler } from '../../tagelers/tageler';
 import { TagelerService } from '../../tagelers/tageler.service';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -48,6 +48,14 @@ export class GroupDetailsComponent implements OnInit {
       });
   }
 
+  // downloads all tagelers from a group
+  handleICal(group: Group) {
+    this.group = group;
+    let link = this.tagelerService.iCalForGroup(this.group.name);
+    window.location.href=link;
+  }
+
+  // Set calendar options
   calendarOptions:Object = {
     height: 500,
     fixedWeekCount : false,

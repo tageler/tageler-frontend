@@ -13,11 +13,11 @@ describe('NextTagelerPipe', () => {
 
   it('filter array of tagelers to get the next tageler', () => {
 
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var start_date2 = '2017-11-28T12:00:00.824Z';
-    var end_date2 = '2017-11-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const start_date2 = '2017-11-28T12:00:00.824Z';
+    const end_date2 = '2017-11-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
 
@@ -81,9 +81,9 @@ describe('NextTagelerPipe', () => {
 
   it('if only one tageler exists return that', () => {
 
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
 

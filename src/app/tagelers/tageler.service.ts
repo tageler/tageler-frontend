@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Tageler } from './tageler';
-import {Http, HttpModule, Headers, Response, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-// import {Observable} from "RxJS/Rx";
-import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' operator
-import 'rxjs/add/operator/map';         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMap';
-import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";         // this adds the non-static 'map' operatorimport 'rxjs/add/operator/switchMap';
-
-
+import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/toPromise';   // this adds the non-static 'toPromise' operator
+import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
+import 'rxjs/add/operator/switchMap';   // this adds the non-static 'switchMap' operator
 
 @Injectable()
 export class TagelerService {
@@ -18,41 +13,38 @@ export class TagelerService {
   private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
   private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
 
+  // iCal routes
+  private iCalForOneTageler = '/api/v1/tageler/calForTageler';
+  private iCalForAllTagelersForAGroup = '/api/v1/tageler/calForGroup';
+
+
   constructor(private http: Http) { }
-// get("/api/tagelers")
+
+  /*
+   * CRUD methods
+   */
+
+  // get("/api/v1/tageler/getTagelers")
   getTagelers(): Promise<Tageler[]> {
     return this.http.get(this.tagelersUrlGet)
       .toPromise()
-      .then(response => response.json() as Tageler[]
-      // {
-      //   console.log(response.json());
-      //   response.json() as Tageler[];
-      //   console.log(response.json() as Tageler[]);
-      // }
-      )
+      .then(response => response.json() as Tageler[])
       .catch(this.handleError);
   }
 
-  // get a Tageler by id
-    getTageler(id: String): Promise<Tageler> {
-      return this.http.get(this.tagelersUrlGetById + '/' + id)
-        .toPromise()
-        .then(response => response.json() as Tageler)
-        .catch(this.handleError);
+  // get("/api/v1/tageler/getById")
+  getTageler(id: String): Promise<Tageler> {
+    return this.http.get(this.tagelersUrlGetById + '/' + id)
+      .toPromise()
+      .then(response => response.json() as Tageler)
+      .catch(this.handleError);
   }
 
-  // post("/api/Tagelers")
-  // TODO: return JSON promise for all crud functions, fix tests
+  // post("/api/v1/tageler/admin/create")
   createTageler(newTageler: Tageler): Promise<JSON> {
-    // console.log(JSON.stringify(newTageler));
-    // let formData:FormData = new FormData();
-    // formData.append('_id', "123456789");
-    // formData.append('tageler', JSON.stringify(newTageler));
-
     return this.http.post(this.tagelersUrlPost, newTageler)
       .toPromise()
       .then(res => {
-          // console.log('json response from api: ' + res.json().msg);
         if (res.ok) {
           return res.json();
         }
@@ -61,9 +53,7 @@ export class TagelerService {
 
   }
 
-  // get("/api/Tageler/:id") endpoint not used by Angular app
-
-  // delete("/api/Tagelers/:id")
+  // delete("/api/v1/tageler/admin/delete")
   deleteTageler(delTageler: String): Promise<JSON> {
     var fd:FormData = new FormData();
     fd.append('_id', delTageler);
@@ -72,11 +62,11 @@ export class TagelerService {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     let options = new RequestOptions({ headers: headers });
+
     console.log("delete tageler with ID: "+delTageler);
     return this.http.delete(this.tagelerUrlDelete+'/'+delTageler,options)
       .toPromise()
       .then(res => {
-        // console.log('json response from api: ' + res.json().msg);
         if (res.ok) {
           return res.json();
         }
@@ -84,7 +74,7 @@ export class TagelerService {
       .catch(this.handleError);
   }
 
-  // put("/api/contacts/:id")
+  // put("/api/v1/tageler/admin/update")
   updateTageler(putTageler: Tageler): Promise<JSON> {
 
     const body = JSON.stringify(putTageler);
@@ -95,7 +85,6 @@ export class TagelerService {
     return this.http.put(this.tagelerUrlUpdate+'/'+putTageler._id, body, { headers: headers })
        .toPromise()
        .then(res => {
-         // console.log('json response from api: ' + res.json().msg);
          if (res.ok) {
            return res.json();
          }
@@ -103,6 +92,19 @@ export class TagelerService {
       .catch(this.handleError);
   }
 
+  /*
+   * iCal
+   */
+
+  iCalForTageler(tageler: Tageler): any {
+     return this.iCalForOneTageler + '/' + tageler._id;
+  }
+
+  iCalForGroup(group: String): any {
+    return this.iCalForAllTagelersForAGroup + '/' + group;
+  }
+
+  // error handling
   private handleError (error: any) {
     let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

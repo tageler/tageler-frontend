@@ -4,16 +4,15 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { GroupDetailsComponent } from './group-details.component';
 import { OtherTagelerPipe } from '../../pipes/otherTageler.pipe';
 import { NextTagelerPipe } from '../../pipes/nextTageler.pipe';
+import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
+import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe'
 import { RouterTestingModule } from '@angular/router/testing';
 import { GroupService } from '../group.service';
 import { TagelerService } from '../../tagelers/tageler.service';
 import { Tageler } from '../../tagelers/tageler';
 import { Group } from '../group';
 import { LOCALE_ID } from '@angular/core';
-import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
-import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
-import { CalendarComponent } from "angular2-fullcalendar/src/calendar/calendar";
-
+import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
 describe('GroupDetailsComponent', () => {
 
@@ -122,9 +121,9 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('Should display tageler of a specific group', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
@@ -165,9 +164,9 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('Should display free tageler correctly', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Übungsfrei',
@@ -204,12 +203,12 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('View should be correct if there is more than one tageler', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
-    var start_date2 = '2017-10-29T14:00:00.824Z';
-    var end_date2 = '2017-10-29T17:00:00.824Z';
-    var checkout_date2 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date2 = '2017-10-29T14:00:00.824Z';
+    const end_date2 = '2017-10-29T17:00:00.824Z';
+    const checkout_date2 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
