@@ -77,7 +77,7 @@
           <div class="form-group row">
             <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
             <div class="col-9">
-              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
+              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
               <div *ngIf="formErrors.text" class="alert alert-danger">
                 {{ formErrors.text }}
               </div>
@@ -92,7 +92,7 @@
                 [texts]="myTexts"
                 [settings]="mySettings"
                 class="form-control"
-                id="create_formControlName_group"
+                id="create_formControlName_group_update"
                 formControlName="group"
                 required
               ></ss-multiselect-dropdown>
@@ -211,14 +211,14 @@
                 </div>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="filePicker" class="col-3 col-form-label">Bild*:</label><br>
-              <div class="col-9" *ngIf="!update">
-                <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
-              </div>
-              <div class="col-9" *ngIf="update">
-                <input type="file" formControlName="picture" id="filePicker2_update" accept=".jpg,.png" (change)="handleFileSelect($event)">
-              </div>
+          </div>
+          <div class="form-group row">
+            <label for="filePicker" class="col-3 col-form-label">Bild*:</label><br>
+            <div class="col-9" *ngIf="!update">
+              <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
+            </div>
+            <div class="col-9" *ngIf="update">
+              <input type="file" formControlName="picture" id="filePicker2_update" accept=".jpg,.png" (change)="handleFileSelect($event)">
             </div>
           </div>
           <div class="form-group row">
@@ -267,6 +267,14 @@
               </div>
               <div *ngIf="update">
                 <img id="formControlName_picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="115" width="100%"/>
+              </div>
+            </div>
+            <div class="col-md-5" *ngIf="tageler.free">
+              <div id="image_free" *ngIf="!update">
+                <img id="picture_preview_free" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px" width="100%">
+              </div>
+              <div *ngIf="update">
+                <img id="formControlName_picture_preview_free" class="rounded" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="115" width="100%"/>
               </div>
             </div>
           </div>

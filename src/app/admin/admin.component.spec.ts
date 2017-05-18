@@ -882,7 +882,7 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_text').formErrors).toBeFalsy();
 
     // Group
-    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_group').formErrors).toBeFalsy();
+    expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_group_update').formErrors).toBeFalsy();
 
     // Start
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_date_start').required).toBeTruthy();
@@ -909,8 +909,8 @@ describe('Component: AdminComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('#create_formControlName_checkout_other').required).toBeFalsy();
 
     // Button
-    expect(component.tagelerForm.valid).toBeFalsy();
-    expect(fixture.debugElement.nativeElement.querySelector('#saveUpdate').disabled).toBeTruthy();
+    expect(component.tagelerForm.valid).toBeTruthy();
+    expect(fixture.debugElement.nativeElement.querySelector('#saveUpdate').disabled).toBeFalsy();
 
   });
 });
