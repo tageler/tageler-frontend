@@ -20,6 +20,7 @@ export class GroupDetailsComponent implements OnInit {
   group: Group;
   groupEvents = [];
   viewCalendar = false;
+  showGroupDetailsComponent = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +44,7 @@ export class GroupDetailsComponent implements OnInit {
           if (tageler.group.toString().includes(this.group.name)) {
             this.groupEvents.push({title: tageler.title, start: tageler.start})
           }
+          this.showGroupDetailsComponent = true;
           return tageler;
         });
       });

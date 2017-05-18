@@ -1,11 +1,7 @@
 .card{
-   margin-top: 5%;
-   height: 50%;
-   width: 100%;
-   background-color: #ededed;
+   height: auto;
+   width: auto;
    border: 1px solid darkgray;
-   color: #bb0000;
-   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
  }
 
 .card-title{
@@ -31,18 +27,18 @@ p.checkout-info{
   height: 220px;
 }
 
-.col-md-12{
-  height: auto;
-  width: auto;
-}
 
-.btn.btn-secondary {
+.btn-secondary {
   float: right;
-  margin-top: 1%;
-  margin-right: 2%;
 }
 
 .alert-heading {
   font-size: 1.5em;
 }
+
+h3 {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 

@@ -8,36 +8,32 @@
 }
 
 #abmelden{
-  width: 400px;
+  width: auto;
 }
 
 p.checkout-info{
   margin-bottom: 0;
 }
 
-.card-img-top{
-  border-bottom: 1px solid darkgray;
-}
-
-.card.col-md-12{
-  margin-top: 5%;
-  margin: 1%;
+#bigCard {
+  margin-right: 15px;
+  margin-left: 15px;
   height: auto;
   width: auto;
-  background-color: #ededed;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card{
   margin-bottom: 1%;
-  height: 360px;
-  width: 319px;
-  background-color: #ededed;
-  color: #bb0000;
+  height: 400px;
+  width: auto;
   border: 1px solid darkgray;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.card-img-top{
+  height: 200px;
+  width: auto;
+  border-bottom: 1px solid darkgray;
 }
 
 .card-title{
@@ -50,22 +46,21 @@ p.checkout-info{
 }
 
 #picture{
+  float: right;
   border: 1px solid darkgray;
-  width: 400px;
+  width: auto;
   height: 220px;
 }
 
-.btn.btn-secondary {
+.btn-secondary {
   float: right;
-  margin-top: 1%;
 }
 
 .calendar {
-  padding-top: 5%
+  padding-top: 1%
 }
 
 h3 {
-  margin-top: 2%;
-  margin-bottom: 2%;
-
+  margin-top: 1%;
+  margin-bottom: 1%;
 }

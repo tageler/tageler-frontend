@@ -1,7 +1,7 @@
 <div class="container" *ngIf="tageler">
   <button class="btn btn-secondary" (click)="handleICal(tageler)">Event herunterladen</button>
   <h3>Tageler von {{tageler.group}}</h3>
-    <div class="card col-md-12" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
+    <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
       <div class="card-block">
         <div class="row">
           <div class="col-md-7">

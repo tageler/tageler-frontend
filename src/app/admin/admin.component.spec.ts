@@ -19,6 +19,7 @@ import { LOCALE_ID } from '@angular/core';
 import { ColorPickerModule } from 'angular2-color-picker';
 import { ToLocalTimePipe } from '../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../pipes/toLocalDatePipe.pipe';
+import { SanitizeHtmlPipe } from '../pipes/sanitizeHTML.pipe';
 
 
 describe('Component: AdminComponent', () => {
@@ -29,9 +30,22 @@ describe('Component: AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent, TagelerByGroupAndByDate, FilterGroupByTypePipe, OldTagelerByGroupAndByDate, ToLocalTimePipe, ToLocalDatePipe ],
-      imports: [ReactiveFormsModule, FileUploadModule, ConfirmModule, FormsModule, MultiselectDropdownModule,
-        FlashMessagesModule, ColorPickerModule],
+      declarations: [
+        AdminComponent,
+        TagelerByGroupAndByDate,
+        FilterGroupByTypePipe,
+        OldTagelerByGroupAndByDate,
+        ToLocalTimePipe,
+        ToLocalDatePipe,
+        SanitizeHtmlPipe ],
+      imports: [
+        ReactiveFormsModule,
+        FileUploadModule,
+        ConfirmModule,
+        FormsModule,
+        MultiselectDropdownModule,
+        FlashMessagesModule,
+        ColorPickerModule],
       providers: [
         FormBuilder,
         MockBackend,

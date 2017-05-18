@@ -268,20 +268,20 @@
       <!-- Form for styles -->
       <form [formGroup]="tagelerStyleForm">
         <div class="form-group row">
-          <label for="create_formControlName_background_color" class="col-3 col-form-label">Hintergrundfarbe:</label>
-          <div class="col-9">
+          <label for="create_formControlName_background_color" class="col-4 col-form-label">Hintergrund:</label>
+          <div class="col-8">
             <input id="create_formControlName_background_color" [(colorPicker)]="tageler.background_color" [style.background]="tageler.background_color" formControlName="background_color"/>
           </div>
         </div>
         <div class="form-group row">
-          <label for="create_formControlName_color" class="col-3 col-form-label">Schriftfarbe:</label>
-          <div class="col-9">
+          <label for="create_formControlName_color" class="col-4 col-form-label">Schrift:</label>
+          <div class="col-8">
             <input id="create_formControlName_color" [(colorPicker)]="tageler.color" [style.background]="tageler.color" formControlName="color"/>
           </div>
         </div>
         <div class="form-group row">
-          <label for="create_formControlName_font_family" class="col-3 col-form-label">Schriftart:</label>
-          <div class="col-9">
+          <label for="create_formControlName_font_family" class="col-4 col-form-label">Schriftart:</label>
+          <div class="col-8">
           <ss-multiselect-dropdown
             [options]="myOptions_font"
             [texts]="myTexts_font"
