@@ -19,7 +19,7 @@ p.checkout-info{
   margin-right: 15px;
   margin-left: 15px;
   height: auto;
-  width: auto;
+  width: 100%;
   border: 1px solid darkgray;
 }
 
@@ -28,6 +28,10 @@ p.checkout-info{
   height: 400px;
   width: auto;
   border: 1px solid darkgray;
+}
+
+.card-block {
+  width: auto;
 }
 
 .card-img-top{
@@ -53,6 +57,8 @@ p.checkout-info{
 }
 
 .btn-secondary {
+  margin: 1%;
+  position: relative;
   float: right;
 }
 

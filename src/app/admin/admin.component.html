@@ -247,7 +247,8 @@
               <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
               <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
               <p id="text" class="card-text_preview" [innerHTML]="tageler.text | sanitizeHtml"></p>
-              <p id="group" class="card-text_preview">Gruppe: {{group}}</p>
+              <p id="group" class="card-text_preview" *ngIf="group && createTageler"[innerHTML]="group.toString().split(',').join('<br \>')"></p>
+              <p id="groupUpdate" class="card-text_preview" *ngIf="tageler.group && update"[innerHTML]="tageler.group.toString().split(',').join('<br \>')"></p>
               <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
               <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
             </div>

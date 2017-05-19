@@ -644,6 +644,7 @@ export class AdminComponent implements OnInit {
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
     this.formValidation();
+    this.tageler.group = this.tagelerForm.controls['group'].value;
 
     for (const field in this.formErrors) {
 

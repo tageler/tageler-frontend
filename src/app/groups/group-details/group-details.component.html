@@ -1,19 +1,25 @@
 <div class="container" *ngIf="group && !viewCalendar">
-  <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
-  <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
-  <h3>Tagelers von {{group.name}}</h3>
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Tagelers von {{group.name}}</h3>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
+      <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
+    </div>
+  </div>
   <!-- Displays next upcoming tageler of the group -->
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-    <div class="card" id="bigCard" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family">
+    <div class="card" id="bigCard" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
       <div class="card-block">
         <div class="row">
-          <div class="col-md-7" [style.color]="tageler.color">
+          <div class="col-md-7">
             <h3 id="title" class="card-title">{{tageler.title}}</h3>
-            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate
-              }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
+            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
             <p id="text" class="card-text" [innerHTML]="tageler.text"></p>
-            <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
+            <p class="card-text">Gruppen:</p>
+            <p id="group" class="card-text" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
             <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
             <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>
           </div>
