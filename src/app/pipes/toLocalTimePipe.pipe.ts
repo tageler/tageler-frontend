@@ -19,7 +19,17 @@ export class ToLocalTimePipe implements PipeTransform {
     if (date==null) {
       return null;
     }
-    parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().slice(0, 5);
+
+    // Winter time
+    if (new Date(date).getTimezoneOffset() == -60) {
+      parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().slice(0, 5);
+    }
+
+    // Summer time
+    if (new Date(date).getTimezoneOffset() == -120) {
+      parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().slice(0, 5);
+    }
+
     return parsedDateTime;
   }
 
