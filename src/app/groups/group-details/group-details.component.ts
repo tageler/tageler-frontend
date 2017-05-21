@@ -20,6 +20,7 @@ export class GroupDetailsComponent implements OnInit {
   group: Group;
   groupEvents = [];
   viewCalendar = false;
+  showGroupDetailsComponent = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,16 +44,30 @@ export class GroupDetailsComponent implements OnInit {
           if (tageler.group.toString().includes(this.group.name)) {
             this.groupEvents.push({title: tageler.title, start: tageler.start})
           }
+          this.showGroupDetailsComponent = true;
           return tageler;
         });
       });
   }
+
+  /*
+   * iCal
+   */
 
   // downloads all tagelers from a group
   handleICal(group: Group) {
     this.group = group;
     let link = this.tagelerService.iCalForGroup(this.group.name);
     window.location.href=link;
+  }
+
+  /*
+   * Calendar
+   */
+
+  // handles calendar - if viewCalendar is true, then calendar is displayed
+  handleCalendarView() {
+    this.viewCalendar = !this.viewCalendar;
   }
 
   // Set calendar options
@@ -81,8 +96,4 @@ export class GroupDetailsComponent implements OnInit {
     eventLimit: true, // allow "more" link when too many events
     events: this.groupEvents,
   };
-
-  handleCalendarView() {
-    this.viewCalendar = !this.viewCalendar;
-  }
 }

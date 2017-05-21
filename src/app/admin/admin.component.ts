@@ -17,7 +17,6 @@ import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
-
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
@@ -37,7 +36,7 @@ export class AdminComponent implements OnInit {
   createTageler = false;
   showGroups = false;
   showOldTagelers = false;
-  formNotDisplayed = true;
+
   formValid = false;
   imageIsPresent = false;
 
@@ -61,6 +60,7 @@ export class AdminComponent implements OnInit {
   @Input()
   tageler: Tageler;
   tagelerForm: FormGroup;
+  tagelerStyleForm: FormGroup;
 
   constructor(
     private tagelerService: TagelerService,
@@ -132,7 +132,6 @@ export class AdminComponent implements OnInit {
   unselectSelectedGroups() {
     this.selectedGroup = null;
     this.showGroups = true;
-    this.showUpcomingTageler = true;
   }
 
   showAllOldTagelers() {
@@ -172,6 +171,9 @@ export class AdminComponent implements OnInit {
         }]
       },
       free: false,
+      background_color: '#ededed',
+      font_family: 'Helvetica',
+      color: '#bb0000',
     };
     this.selectedTageler = this.tageler;
     this.tagelerForm = this.fb.group({
@@ -195,10 +197,18 @@ export class AdminComponent implements OnInit {
           other: '',
         })
       }),
-      free: ''
+      free: '',
     });
+
+    this.tagelerStyleForm = this.fb.group({
+      background_color: '',
+      font_family: '',
+      color: '',
+    });
+
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
+
 
     this.previewBase64 = '';
     this.selectedTageler = this.tageler;
@@ -222,7 +232,7 @@ export class AdminComponent implements OnInit {
     this.view = false;
     this.update = true;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
-    this.showDetailsAndEditForm(this.tageler);
+    this.editAndUpdateForm(this.tageler);
   }
 
   showTagelerDetailsForm(tageler: Tageler) {
@@ -230,16 +240,7 @@ export class AdminComponent implements OnInit {
     this.view = true;
     this.update = false;
     this.previewBase64 = 'data:image/png;base64,' + this.tageler.picture;
-    this.showDetailsAndEditForm(this.tageler);
-  }
-
-  showDetailsAndEditForm(tageler: Tageler) {
-    // sets the offset for the details and edit form
-    this.setOffsetTop();
-
-    this.tageler = tageler;
     this.editAndUpdateForm(this.tageler);
-    this.formNotDisplayed = false;
   }
 
   editAndUpdateForm(tageler: Tageler) {
@@ -267,6 +268,13 @@ export class AdminComponent implements OnInit {
       }),
       free: this.tageler.free
     });
+
+    this.tagelerStyleForm = this.fb.group({
+      background_color: this.tageler.background_color,
+      font_family: this.tageler.font_family,
+      color: this.tageler.color,
+    });
+
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
   }
@@ -304,7 +312,10 @@ export class AdminComponent implements OnInit {
           other: this.tagelerForm.value.checkout.contact.other as string,
         }]
       },
-      free: this.tagelerForm.value.free as boolean
+      free: this.tagelerForm.value.free as boolean,
+      background_color: this.tageler.background_color,
+      color: this.tageler.color,
+      font_family: this.tagelerStyleForm.value.font_family as string
     };
 
     if (saveTageler.free) {
@@ -455,6 +466,9 @@ export class AdminComponent implements OnInit {
         }]
       },
       free: freeUpdated as boolean,
+      background_color: this.tageler.background_color,
+      color: this.tageler.color,
+      font_family: this.tageler.font_family,
     };
 
     if (updateTageler.free) {
@@ -520,7 +534,6 @@ export class AdminComponent implements OnInit {
 
       reader.readAsBinaryString(file);
       this.imageIsPresent = true;
-      console.log('Validation in file reader: ' + this.imageIsPresent)
       this.formValidation()
     }
   }
@@ -631,6 +644,7 @@ export class AdminComponent implements OnInit {
     this.checkIfMailOrPhoneIsPresent();
     this.checkIfLeiterIsPresent();
     this.formValidation();
+    this.tageler.group = this.tagelerForm.controls['group'].value;
 
     for (const field in this.formErrors) {
 
@@ -800,4 +814,34 @@ export class AdminComponent implements OnInit {
     allSelected: 'Alle ausgewählt',
   };
 
+  myOptions_font: IMultiSelectOption[] = [
+    { id: 'Arial, Helvetica, sans-serif', name: 'Arial'},
+    { id: '"Arial Black", Gadget, sans-serif', name: 'Arial Black'},
+    { id: 'Helvetica', name: 'Helvetica'},
+    { id: 'Helvetica Neue, Helvetica, sans-serif', name: 'Helvetica Neue'},
+    { id: 'Roboto Slab, Helvetica, sans-serif', name: 'Roboto Slab'},
+    { id: '"Trebuchet MS", Helvetica, sans-serif', name: 'Trebuchet MS'},
+    { id: 'Tahoma, Geneva, sans-serif', name: 'Thaoma'},
+    { id: 'Verdana, Geneva, sans-serif', name: 'Verdana'},
+  ];
+
+  // Style and other configuration
+  mySettings_font: IMultiSelectSettings = {
+    enableSearch: false,
+    checkedStyle: 'checkboxes',
+    buttonClasses: 'btn btn-secondary btn-block',
+    dynamicTitleMaxItems: 1,
+    displayAllSelectedText: true,
+    showCheckAll: false,
+    showUncheckAll: true,
+    selectionLimit: 1,
+    autoUnselect: true,
+  };
+
+  // Text configuration
+  myTexts_font: IMultiSelectTexts = {
+    uncheckAll: 'Auswahl löschen',
+    checked: 'Schriftart ausgewählt',
+    defaultTitle: 'Schriftart wählen',
+  };
 }

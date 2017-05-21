@@ -12,9 +12,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
+import { ColorPickerModule } from 'angular2-color-picker';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
-
-
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
@@ -36,9 +35,9 @@ import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe';
 import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe';
 import { ToLocalTimePipe } from './pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from './pipes/toLocalDatePipe.pipe';
+import { SanitizeHtmlPipe } from './pipes/sanitizeHTML.pipe';
 
 import { LOCALE_ID } from '@angular/core';
-
 
 @NgModule({
   declarations: [
@@ -55,6 +54,7 @@ import { LOCALE_ID } from '@angular/core';
     OldTagelerByGroupAndByDate,
     ToLocalTimePipe,
     ToLocalDatePipe,
+    SanitizeHtmlPipe,
     Autosize,
     CalendarComponent
   ],
@@ -71,6 +71,7 @@ import { LOCALE_ID } from '@angular/core';
     Ng2DatetimePickerModule,
     FileUploadModule,
     ConfirmModule,
+    ColorPickerModule,
   ],
   providers: [
     TagelerService,

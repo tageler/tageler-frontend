@@ -1,5 +1,3 @@
-
-
 .card:hover{
   background-color: darkgray;
 }
@@ -7,39 +5,39 @@
 .nodecor:hover{
   color:none;
   text-decoration-line: none;
-  text-decoration: none;
 }
 
 #abmelden{
-  width: 400px;
+  width: auto;
 }
 
 p.checkout-info{
   margin-bottom: 0;
 }
 
-.card-img-top{
-  border-bottom: 1px solid darkgray;
-}
-
-.card.col-md-12{
-  margin: 1%;
+#bigCard {
+  margin-right: 15px;
+  margin-left: 15px;
   height: auto;
-  width: auto;
-  background-color: #ededed;
+  width: 100%;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card{
-  margin: 1%;
-  height: 360px;
-  width: 318px;
-  background-color: #ededed;
+  margin-bottom: 1%;
+  height: 400px;
+  width: auto;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.card-block {
+  width: auto;
+}
+
+.card-img-top{
+  height: 200px;
+  width: auto;
+  border-bottom: 1px solid darkgray;
 }
 
 .card-title{
@@ -52,13 +50,23 @@ p.checkout-info{
 }
 
 #picture{
+  float: right;
   border: 1px solid darkgray;
+  width: auto;
+  height: 220px;
 }
 
-.btn.btn-secondary {
-  float: right
+.btn-secondary {
+  margin: 1%;
+  position: relative;
+  float: right;
 }
 
 .calendar {
-  padding-top: 5%
+  padding-top: 1%
+}
+
+h3 {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }

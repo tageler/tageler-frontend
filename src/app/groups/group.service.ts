@@ -9,7 +9,8 @@ export class GroupService {
   private groupsUrlGetById = '/api/v1/group/getById';
 
   constructor(private http: Http) { }
-  // get("/api/groups")
+
+  // get("/api/v1/group/getGroups")
   getGroups(): Promise<Group[]> {
     return this.http.get(this.groupsUrlGet)
       .toPromise()
@@ -17,7 +18,7 @@ export class GroupService {
       .catch(this.handleError);
   }
 
-  // get a group by id
+  // get("/api/v1/group/getById")
   getGroup(id: String): Promise<Group> {
     return this.http.get(this.groupsUrlGetById + '/' + id)
       .toPromise()

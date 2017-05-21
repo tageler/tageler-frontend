@@ -1,11 +1,12 @@
+.col-md-4{
+  margin-left: 12%;
+}
+
 .card{
   margin: 1%;
   height: 360px;
   width: 319px;
-  background-color: #ededed;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card:hover{

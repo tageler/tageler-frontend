@@ -9,7 +9,8 @@ import { Group } from '../../groups/group';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LOCALE_ID } from '@angular/core';
 import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
-import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe'
+import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
+import { SanitizeHtmlPipe } from '../../pipes/sanitizeHTML.pipe';
 
 
 describe('TagelerDetailsComponent', () => {
@@ -27,7 +28,8 @@ describe('TagelerDetailsComponent', () => {
       declarations: [
         TagelerDetailsComponent,
         ToLocalTimePipe,
-        ToLocalDatePipe
+        ToLocalDatePipe,
+        SanitizeHtmlPipe
       ],
       providers: [
         MockBackend,
@@ -84,9 +86,9 @@ describe('TagelerDetailsComponent', () => {
   }));
 
   it('tageler should be displayed correctly', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
       text: 'Test',
@@ -126,9 +128,9 @@ describe('TagelerDetailsComponent', () => {
   });
 
   it('free tageler should be displayed correctly', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
       text: 'Test',

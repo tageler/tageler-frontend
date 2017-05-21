@@ -14,7 +14,6 @@ import { Group } from '../group';
 import { LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
-
 describe('GroupDetailsComponent', () => {
 
   let tagelerService: TagelerService,
@@ -33,8 +32,8 @@ describe('GroupDetailsComponent', () => {
         CalendarComponent,
         OtherTagelerPipe,
         NextTagelerPipe,
-        ToLocalTimePipe,
-        ToLocalDatePipe
+        ToLocalDatePipe,
+        ToLocalTimePipe
       ],
       providers: [
         MockBackend,
@@ -122,9 +121,9 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('Should display tageler of a specific group', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
@@ -165,9 +164,9 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('Should display free tageler correctly', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Übungsfrei',
@@ -204,12 +203,12 @@ describe('GroupDetailsComponent', () => {
   });
 
   it('View should be correct if there is more than one tageler', () => {
-    var start_date1 = '2017-10-28T14:00:00.824Z';
-    var end_date1 = '2017-10-28T17:00:00.824Z';
-    var checkout_date1 = '2017-10-25T14:00:00.824Z';
-    var start_date2 = '2017-10-29T14:00:00.824Z';
-    var end_date2 = '2017-10-29T17:00:00.824Z';
-    var checkout_date2 = '2017-10-25T14:00:00.824Z';
+    const start_date1 = '2017-10-28T14:00:00.824Z';
+    const end_date1 = '2017-10-28T17:00:00.824Z';
+    const checkout_date1 = '2017-10-25T14:00:00.824Z';
+    const start_date2 = '2017-10-29T14:00:00.824Z';
+    const end_date2 = '2017-10-29T17:00:00.824Z';
+    const checkout_date2 = '2017-10-25T14:00:00.824Z';
 
     const group: Group = {type: 'Trupp', name: 'Baghira'};
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',

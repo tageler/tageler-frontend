@@ -1,12 +1,8 @@
 .card{
-  margin: 2%;
-  height: 520px;
-  width: 100%;
-  background-color: #ededed;
+  height: auto;
+  width: auto;
   border: 1px solid darkgray;
-  color: #bb0000;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
-}
+ }
 
 .card-title{
   font-size: 1.5em;
@@ -18,7 +14,7 @@
 }
 
 #abmelden{
-  width: 400px;
+  width: 100%;
 }
 
 p.checkout-info{
@@ -26,19 +22,23 @@ p.checkout-info{
 }
 
 #picture{
+  width: 100%;
   border: 1px solid darkgray;
-  width: 400px;
   height: 220px;
 }
 
-.col-md-12{
-  height: auto;
-  width: auto;
+
+.btn-secondary {
+  float: right;
 }
 
-.btn.btn-secondary {
-  float: right;
-  margin-top: 1%;
-  margin-right: 2%;
+.alert-heading {
+  font-size: 1.5em;
 }
+
+h3 {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
 

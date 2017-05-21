@@ -1,25 +1,33 @@
 <div class="container" *ngIf="group && !viewCalendar">
-  <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
-  <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Tagelers von {{group.name}}</h3>
+    </div>
+
+    <!-- Button for iCal and calendar -->
+    <div class="col-md-4">
+      <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
+      <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
+    </div>
+  </div>
 
   <!-- Displays next upcoming tageler of the group -->
-  <h3>Tagelers von {{group.name}}</h3>
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-    <div class="card col-md-12">
+    <div class="card" id="bigCard" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
       <div class="card-block">
         <div class="row">
           <div class="col-md-7">
             <h3 id="title" class="card-title">{{tageler.title}}</h3>
-            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate
-              }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
+            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-            <p id="text" class="card-text" *ngIf="tageler.text">{{tageler.text}}</p>
-            <p id="group" class="card-text">Gruppe: {{tageler.group}}</p>
-            <p id="bringAlong" class="card-text" *ngIf="!tageler.free">Mitbringen: {{tageler.bringAlong}}</p>
-            <p id="uniform" class="card-text" *ngIf="!tageler.free">Anziehen: {{tageler.uniform}}</p>
+            <p id="text" class="card-text" [innerHTML]="tageler.text"></p>
+            <p class="card-text">Gruppen:</p>
+            <p id="group" class="card-text" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
+            <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
+            <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>
           </div>
           <div id="warning" class="col-md-5" *ngIf="!tageler.free">
-            <div id="abmelden" class="alert alert-warning">
+            <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color">
               <h4 class="alert-heading">Wichtig - Abmeldung</h4>
               <p id="deadline_date" class="checkout-info">Bis: {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}}
                 Uhr
@@ -33,8 +41,7 @@
             </div>
             <a class="nodecor" href="../tageler-details/{{tageler._id}}">
               <div id="image">
-                <img id="picture" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture" width="400"
-                  height="220">
+                <img id="picture" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture">
               </div>
             </a>
           </div>
@@ -48,11 +55,11 @@
 
   <!-- Display all other upcoming tagelers as smaller cards -->
   <div class="row">
-    <div class="groupPipe" *ngFor="let tageler of tagelers | otherTagelerFilter: group" class="col-md-4">
+    <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
       <a class="nodecor" href="../tageler-details/{{tageler._id}}">
-        <div class="card" style="margin-left:0px !important; margin-right: 0px !important; width: 20rem">
-          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
-          <div class="card-block">
+        <div class="card" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family">
+          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture">
+          <div class="card-block" [style.color]="tageler.color">
             <div *ngIf="tageler.title.length <= 50">
               <h5 class="card-title">{{tageler.title}}</h5>
             </div>

@@ -15,7 +15,7 @@ export class OtherTagelerPipe implements PipeTransform {
 
   // args is the name of a group (e.g. Baghira)
   transform(tagelers: Tageler[], args: any): any {
-    var nextTageler: Tageler;
+    let nextTageler: Tageler;
 
     if (tagelers==null) {
       return null;
