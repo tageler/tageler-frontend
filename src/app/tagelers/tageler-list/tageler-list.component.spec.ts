@@ -9,7 +9,6 @@ import { TagelerByGroupAndByDate } from '../../pipes/tagelerByGroupAndByDate.pip
 import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe'
 import { LOCALE_ID } from '@angular/core';
 import { ToLocalTimePipe } from '../../pipes/toLocalTimePipe.pipe';
-import { ToLocalDatePipe } from '../../pipes/toLocalDatePipe.pipe';
 
 describe('TagelerListComponent', () => {
   let component: TagelerListComponent,
@@ -65,12 +64,12 @@ describe('TagelerListComponent', () => {
   }));
 
   it('tageler cards are displayed correctoy', () => {
-    var start_date1 = '2017-10-28T12:00:00.824Z';
-    var end_date1 = '2017-10-28T15:00:00.824Z';
-    var checkout_date1 = '2017-10-25T12:00:00.824Z';
-    var start_date2 = '2017-10-29T12:00:00.824Z';
-    var end_date2 = '2017-10-29T15:00:00.824Z';
-    var checkout_date2 = '2017-10-25T12:00:00.824Z';
+    const start_date1 = '2017-10-28T12:00:00.824Z';
+    const end_date1 = '2017-10-28T15:00:00.824Z';
+    const checkout_date1 = '2017-10-25T12:00:00.824Z';
+    const start_date2 = '2017-10-29T12:00:00.824Z';
+    const end_date2 = '2017-10-29T15:00:00.824Z';
+    const checkout_date2 = '2017-10-25T12:00:00.824Z';
 
     const tageler: Array<Tageler> = [{ title: 'Tageler 1',
       text: 'Text 1',

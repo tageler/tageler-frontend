@@ -6,10 +6,7 @@
   margin: 1%;
   height: 360px;
   width: 319px;
-  background-color: #ededed;
-  color: #bb0000;
   border: 1px solid darkgray;
-  font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .card:hover{

@@ -18,7 +18,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance; // BannerComponent test instance
+    component = fixture.componentInstance;
   });
 
   it('should create the app', async(() => {

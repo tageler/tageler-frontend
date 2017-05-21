@@ -1,9 +1,13 @@
 <div class="container" *ngIf="tageler">
   <div class="row">
+
+    <!-- Button for iCal -->
     <div class="col-12">
       <button class="btn btn-secondary" (click)="handleICal(tageler)">Event herunterladen</button>
     </div>
   </div>
+
+  <!-- Displays card of specific tageler -->
     <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
       <div class="card-block">
         <div class="row">

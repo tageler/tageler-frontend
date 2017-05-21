@@ -5,6 +5,11 @@ import { SecurityContext } from '@angular/core';
 @Pipe({
   name: 'sanitizeHtml'
 })
+
+/*
+ * Sanitizes html (used in tagelerForm)
+ */
+
 export class SanitizeHtmlPipe implements PipeTransform  {
 
   constructor(private sanitizer: DomSanitizer){}

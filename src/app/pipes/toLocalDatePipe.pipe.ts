@@ -20,6 +20,7 @@ export class ToLocalDatePipe implements PipeTransform {
       return null;
     }
 
+    // Get name of the day
     if(new Date(date).getUTCDay() == 0) { wochentag = 'Sonntag'}
     if(new Date(date).getUTCDay() == 6) { wochentag = 'Samstag'}
     if(new Date(date).getUTCDay() == 5) { wochentag = 'Freitag'}
@@ -28,6 +29,8 @@ export class ToLocalDatePipe implements PipeTransform {
     if(new Date(date).getUTCDay() == 2) { wochentag = 'Dienstag'}
     if(new Date(date).getUTCDay() == 1) { wochentag = 'Montag'}
 
+
+    // Get name of the month
     if(new Date(date).getUTCMonth() == 0) { monat = 'Januar'}
     if(new Date(date).getUTCMonth() == 1) { monat = 'Februar'}
     if(new Date(date).getUTCMonth() == 2) { monat = 'März'}

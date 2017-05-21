@@ -44,6 +44,10 @@ export class TagelerDetailsComponent implements OnInit {
       });
   };
 
+  /*
+   * iCal
+   */
+
   // downloads this tageler as iCal
   handleICal(tageler: Tageler) {
     this.tageler = tageler;

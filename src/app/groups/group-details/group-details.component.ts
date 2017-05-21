@@ -50,11 +50,24 @@ export class GroupDetailsComponent implements OnInit {
       });
   }
 
+  /*
+   * iCal
+   */
+
   // downloads all tagelers from a group
   handleICal(group: Group) {
     this.group = group;
     let link = this.tagelerService.iCalForGroup(this.group.name);
     window.location.href=link;
+  }
+
+  /*
+   * Calendar
+   */
+
+  // handles calendar - if viewCalendar is true, then calendar is displayed
+  handleCalendarView() {
+    this.viewCalendar = !this.viewCalendar;
   }
 
   // Set calendar options
@@ -83,8 +96,4 @@ export class GroupDetailsComponent implements OnInit {
     eventLimit: true, // allow "more" link when too many events
     events: this.groupEvents,
   };
-
-  handleCalendarView() {
-    this.viewCalendar = !this.viewCalendar;
-  }
 }

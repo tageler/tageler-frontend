@@ -165,9 +165,9 @@ describe('TagelerService', () => {
            connection.mockRespond(new Response(new ResponseOptions({status: 201})));
          });
 
-         var start_date1 = '2017-10-28T12:00:00.824Z';
-         var end_date1 = '2017-10-28T17:00:00.824Z';
-         var checkout_date1 = '2017-10-25T12:00:00.824Z';
+         const start_date1 = '2017-10-28T12:00:00.824Z';
+         const end_date1 = '2017-10-28T17:00:00.824Z';
+         const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
          const tageler: Tageler =
            {title: 'Tageler 1',
@@ -210,9 +210,9 @@ describe('TagelerService', () => {
         connection.mockRespond(new Response(new ResponseOptions({status: 204})));
       });
 
-      var start_date1 = '2017-10-28T12:00:00.824Z';
-      var end_date1 = '2017-10-28T17:00:00.824Z';
-      var checkout_date1 = '2017-10-25T12:00:00.824Z';
+      const start_date1 = '2017-10-28T12:00:00.824Z';
+      const end_date1 = '2017-10-28T17:00:00.824Z';
+      const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
       const tageler: Tageler =
         { _id: '1',
@@ -255,9 +255,9 @@ describe('TagelerService', () => {
         connection.mockRespond(new Response(new ResponseOptions({status: 204})));
       });
 
-      var start_date1 = '2017-10-28T12:00:00.824Z';
-      var end_date1 = '2017-10-28T17:00:00.824Z';
-      var checkout_date1 = '2017-10-25T12:00:00.824Z';
+      const start_date1 = '2017-10-28T12:00:00.824Z';
+      const end_date1 = '2017-10-28T17:00:00.824Z';
+      const checkout_date1 = '2017-10-25T12:00:00.824Z';
 
       const tageler: Tageler =
         { _id: '1',
