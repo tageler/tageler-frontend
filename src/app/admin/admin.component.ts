@@ -614,7 +614,7 @@ export class AdminComponent implements OnInit {
         !this.checkoutError.isCheckoutError &&
         !this.mailOrPhoneError.isMailOrPhoneError &&
         !this.leiterError.isLeiterError &&
-        this.imageIsPresent) {
+        (this.imageIsPresent || this.update)) {
         this.formValid = true;
       } else {
         this.formValid = false;
