@@ -535,6 +535,7 @@ export class AdminComponent implements OnInit {
       reader.readAsBinaryString(file);
       this.imageIsPresent = true;
       this.formValidation()
+      this.checkIfImageIsNotTooBig(file);
     }
   }
 
@@ -554,6 +555,8 @@ export class AdminComponent implements OnInit {
   checkoutError: any= {isCheckoutError: false, errorCheckoutMessage: ''};
   mailOrPhoneError: any= {isMailOrPhoneError: false, errorMailOrPhoneMessage: ''};
   leiterError: any= {isLeiterError: false, errorMessageLeiter: ''};
+  imageError: any= {isImageError: false, errorImageMessage: ''};
+
   validationMessages = {
     'title': {
       'required': 'Geben Sie bitte einen Namen ein.',
@@ -742,6 +745,23 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  checkIfImageIsNotTooBig(file: File) {
+    if (this.imageIsPresent) {
+      if (file.size > 10000000) {
+        this.imageError = {
+          isImageError: true, errorImageMessage: 'Bild zu gross, max. 10 MB.'
+        };
+        this.imageIsPresent = false;
+      }
+
+      if (file.size <= 10000000) {
+        this.imageError = {
+          isImageError: false, errorImageMessage: ''
+        };
+        this.imageIsPresent = true;
+      }
+    }
+  }
 
   /***************************
    Helper Methods
