@@ -47,12 +47,12 @@ export class ToLocalTimePipe implements PipeTransform {
 
       // european format, e.g. 05:00:00
       if (new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().charAt(2) == ':') {
-        parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().slice(0, 5);
+        parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().slice(0, 5);
       }
 
       // american format, e.g. 5:00:00
       if (new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().charAt(1) == ':') {
-        parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().slice(0, 4);
+        parsedDateTime = new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().slice(0, 4);
 
         if (new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().includes('PM')) {
           parsedDateTime += ' PM'

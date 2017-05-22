@@ -16,7 +16,7 @@
             <h5 id="date" class="card-text" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
             <h5 id="date_free" class="card-text" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
             <p id="text" class="card-text" [innerHTML]="tageler.text | sanitizeHtml"></p>
-            <p class="card-text">Gruppen:</p>
+            <p id="group_title" class="card-text">Gruppen:</p>
             <p id="group" class="card-text" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
             <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
             <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>

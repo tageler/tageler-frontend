@@ -153,9 +153,10 @@ describe('GroupDetailsComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017, 14:00 Uhr bis Samstag, 28. Oktober 2017, 17:00 Uhr');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Baghira');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[2].textContent).toContain('Essen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[3].textContent).toContain('Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Gruppen:');
+    expect(fixture.debugElement.nativeElement.querySelector('#group').innerHTML).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#bringAlong').textContent).toContain('Essen');
+    expect(fixture.debugElement.nativeElement.querySelector('#uniform').textContent).toContain('Kleidung');
     expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Wichtig - Abmeldung');
     expect(fixture.debugElement.nativeElement.querySelector('.checkout-info').firstChild.textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.checkout-info')[1].textContent).toContain('Bei: Person 1');
@@ -196,9 +197,10 @@ describe('GroupDetailsComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Übungsfrei');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Test');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Baghira');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[2]).toBeUndefined();
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[3]).toBeUndefined();
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Gruppen:');
+    expect(fixture.debugElement.nativeElement.querySelector('#group').innerHTML).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#bringAlong')).toBeNull();
+    expect(fixture.debugElement.nativeElement.querySelector('#uniform')).toBeNull();
     expect(fixture.debugElement.nativeElement.querySelector('.alert alert-warning')).toBeNull();
   });
 
@@ -254,9 +256,10 @@ describe('GroupDetailsComponent', () => {
     expect(fixture.debugElement.nativeElement.querySelector('.card-title').textContent).toContain('Tageler 1');
     expect(fixture.debugElement.nativeElement.querySelector('h5').textContent).toContain('Samstag, 28. Oktober 2017, 14:00 Uhr bis Samstag, 28. Oktober 2017, 17:00 Uhr');
     expect(fixture.debugElement.nativeElement.querySelector('.card-text').firstChild.textContent).toContain('Text 1');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Baghira');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[2].textContent).toContain('Essen');
-    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[3].textContent).toContain('Kleidung');
+    expect(fixture.debugElement.nativeElement.querySelectorAll('.card-text')[1].textContent).toContain('Gruppen:');
+    expect(fixture.debugElement.nativeElement.querySelector('#group').innerHTML).toContain('Baghira');
+    expect(fixture.debugElement.nativeElement.querySelector('#bringAlong').textContent).toContain('Essen');
+    expect(fixture.debugElement.nativeElement.querySelector('#uniform').textContent).toContain('Kleidung');
     expect(fixture.debugElement.nativeElement.querySelector('h4').textContent).toContain('Wichtig - Abmeldung');
     expect(fixture.debugElement.nativeElement.querySelector('.checkout-info').firstChild.textContent).toContain('Bis: Mittwoch, 25. Oktober 2017, 14:00');
     expect(fixture.debugElement.nativeElement.querySelectorAll('.checkout-info')[1].textContent).toContain('Bei: Person 1');
