@@ -16,15 +16,6 @@ export class ToLocalTimePipe implements PipeTransform {
   transform(date: Date) {
     let parsedDateTime;
 
-    console.log(date)
-    console.log(new Date(date))
-    console.log(new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString());
-    console.log(new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().indexOf(':'))
-    console.log(new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().charAt(2));
-    console.log(new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().charAt(2) == ':');
-
-
-
     if (date==null) {
       return null;
     }
