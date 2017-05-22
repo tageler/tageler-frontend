@@ -37,7 +37,7 @@ export class ToLocalTimePipe implements PipeTransform {
         }
 
         if (new Date(new Date(date).setHours(new Date(date).getHours() - 1)).toLocaleTimeString().includes('AM')) {
-          parsedDateTime += ' PM'
+          parsedDateTime += ' AM'
         }
       }
     }
@@ -59,7 +59,7 @@ export class ToLocalTimePipe implements PipeTransform {
         }
 
         if (new Date(new Date(date).setHours(new Date(date).getHours() - 2)).toLocaleTimeString().includes('AM')) {
-          parsedDateTime += ' PM'
+          parsedDateTime += ' AM'
         }
       }
     }
