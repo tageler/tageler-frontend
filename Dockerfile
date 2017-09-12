@@ -15,7 +15,8 @@ RUN cd /usr/src/app \
  && npm run-script build \
  && find /usr/src/app/dist \
  && rm /var/www/html/index.nginx-debian.html \
- && cp -r /usr/src/app/dist/* /var/www/html/
+ && cp -r /usr/src/app/dist/* /var/www/html/ \
+ && cp nginx.conf /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 
