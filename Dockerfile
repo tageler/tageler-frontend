@@ -16,10 +16,10 @@ RUN cd /usr/src/app \
  && find /usr/src/app/dist \
  && rm /var/www/html/index.nginx-debian.html \
  && cp -r /usr/src/app/dist/* /var/www/html/ \
- && cp nginx.conf /etc/nginx/sites-enabled/default
+ && cp nginx.conf /etc/nginx/default.template
 
 EXPOSE 80
 
 ENTRYPOINT []
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/bin/bash", "-c", "envsubst < /etc/nginx/default.template > /etc/nginx/sites-enabled/default && nginx -g 'daemon off;'"]
 
