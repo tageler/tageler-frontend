@@ -21,8 +21,8 @@
             <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">Mitbringen: {{tageler.bringAlong}}</p>
             <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">Anziehen: {{tageler.uniform}}</p>
           </div>
-          <div class="col-md-5" *ngIf="!tageler.free">
-            <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color">
+          <div class="col-md-5">
+            <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color" *ngIf="!tageler.free">
               <h4 class="alert-heading">Wichtig - Abmeldung</h4>
               <p id="deadline_date" class="card-text">Bis: {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}} Uhr</p>
               <p id="deadline_name" class="card-text">Bei: {{tageler.checkout.contact[0].name}} </p>
