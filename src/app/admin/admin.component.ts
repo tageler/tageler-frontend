@@ -172,7 +172,7 @@ export class AdminComponent implements OnInit {
       },
       free: false,
       background_color: '#ededed',
-      font_family: 'Helvetica',
+      font_family: 'Trebuchet MS',
       color: '#bb0000',
     };
     this.selectedTageler = this.tageler;
