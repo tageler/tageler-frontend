@@ -4,8 +4,8 @@
     <div class="col md-4">
       <h4>Trupp</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
-        <a href="../group/{{group._id}}">
-          <li class="list-group-item">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
             {{group.name}}
           </li>
         </a>
@@ -14,8 +14,8 @@
     <div class="col md-4">
       <h4>Meute</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
-        <a href="../group/{{group._id}}">
-          <li class="list-group-item">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
             {{group.name}}
           </li>
         </a>
@@ -24,8 +24,8 @@
     <div class="col md-4">
       <h4>Equipe</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
-        <a href="../group/{{group._id}}">
-          <li class="list-group-item">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
             {{group.name}}
           </li>
         </a>
