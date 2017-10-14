@@ -5,20 +5,34 @@
  }
 
 .card-title{
+  color: #bb0000;
   font-size: 1.5em;
-  text-shadow: 0.5px 0.5px 0px #6b6565;
+  text-shadow: 1px 1px 0px #6b6565;
 }
 
 .card-text{
   font-size: 1em;
+  color: #6b6565;
+}
+
+.card-text span.label,
+#abmelden span.label,
+.checkout-info span.label{
+  color: #bb0000;
 }
 
 #abmelden{
   width: 100%;
 }
 
+#abmelden p.card-text,
 p.checkout-info{
   margin-bottom: 0;
+  color: #6b6565;
+}
+
+li.checkout-info {
+  color: #6b6565;
 }
 
 #picture{
@@ -40,5 +54,3 @@ h3 {
   margin-top: 1%;
   margin-bottom: 1%;
 }
-
-
