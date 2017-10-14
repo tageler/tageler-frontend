@@ -213,7 +213,7 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="filePicker" class="col-3 col-form-label">Bild*:</label><br>
+            <label for="filePicker" class="col-3 col-form-label">Bild* (max 2MB):</label><br>
             <div class="col-9" *ngIf="!update">
               <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
               <div *ngIf="imageError.isImageError" class="alert alert-danger">
