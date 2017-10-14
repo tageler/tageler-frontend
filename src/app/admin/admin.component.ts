@@ -747,14 +747,14 @@ export class AdminComponent implements OnInit {
 
   checkIfImageIsNotTooBig(file: File) {
     if (this.imageIsPresent) {
-      if (file.size > 10000000) {
+      if (file.size > 2000000) {
         this.imageError = {
-          isImageError: true, errorImageMessage: 'Bild zu gross, max. 10 MB.'
+          isImageError: true, errorImageMessage: 'Bild zu gross, max. 2 MB.'
         };
         this.imageIsPresent = false;
       }
 
-      if (file.size <= 10000000) {
+      if (file.size <= 2000000) {
         this.imageError = {
           isImageError: false, errorImageMessage: ''
         };
