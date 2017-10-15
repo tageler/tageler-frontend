@@ -36,14 +36,15 @@ li.checkout-info {
 }
 
 #picture{
-  width: 100%;
+  float: right;
   border: 1px solid darkgray;
+  width: auto;
   height: 220px;
 }
 
-
 .btn-secondary {
   float: right;
+  margin: 1%;
 }
 
 .alert-heading {
