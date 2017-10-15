@@ -56,20 +56,7 @@
   <!-- Display all other upcoming tagelers as smaller cards -->
   <div class="row">
     <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
-      <a class="nodecor" href="../tageler-details/{{tageler._id}}">
-        <div class="card" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family">
-          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture">
-          <div class="card-block" [style.color]="tageler.color">
-            <div *ngIf="tageler.title.length <= 50">
-              <h5 class="card-title">{{tageler.title}}</h5>
-            </div>
-            <div *ngIf="tageler.title.length > 50">
-              <h5 id="date">{{tageler.title.slice(0,45)}}...</h5>
-            </div>
-            <h5 id="date">{{ tageler.start | convertToLocalDate }}</h5>
-          </div>
-        </div>
-      </a>
+      <tageler-small-card [tageler]="tageler"></tageler-small-card>
     </div>
   </div>
 </div>
