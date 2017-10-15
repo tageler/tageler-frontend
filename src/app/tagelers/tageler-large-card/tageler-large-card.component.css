@@ -1,0 +1,57 @@
+.card{
+  height: auto;
+  width: auto;
+  border: 1px solid darkgray;
+ }
+
+.card-title{
+  color: #bb0000;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 0px #6b6565;
+}
+
+.card-text{
+  font-size: 1em;
+  color: #6b6565;
+}
+
+.card-text span.label,
+#abmelden span.label,
+.checkout-info span.label{
+  color: #bb0000;
+}
+
+#abmelden{
+  width: 100%;
+}
+
+#abmelden p.card-text,
+p.checkout-info{
+  margin-bottom: 0;
+  color: #6b6565;
+}
+
+li.checkout-info {
+  color: #6b6565;
+}
+
+#picture{
+  float: right;
+  border: 1px solid darkgray;
+  width: auto;
+  height: 220px;
+}
+
+.btn-secondary {
+  float: right;
+  margin: 1%;
+}
+
+.alert-heading {
+  font-size: 1.5em;
+}
+
+h3 {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
