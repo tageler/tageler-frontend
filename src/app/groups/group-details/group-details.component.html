@@ -1,7 +1,7 @@
 <div class="container" *ngIf="group && !viewCalendar">
   <div class="row">
     <div class="col-md-8">
-      <h3>Tagelers von {{group.name}}</h3>
+      <h3>Tagelers von <span class="group-name">{{group.name}}</span></h3>
     </div>
 
     <!-- Button for iCal and calendar -->
@@ -22,7 +22,7 @@
             <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
             <p id="text" class="card-text" [innerHTML]="tageler.text"></p>
             <p class="card-text"><span class="label">Gruppen:</span></p>
-            <p id="group" class="card-text" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
+            <p id="group" class="card-text group-name" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
             <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong"><span class="label">Mitbringen:</span> {{tageler.bringAlong}}</p>
             <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform"><span class="label">Anziehen:</span> {{tageler.uniform}}</p>
           </div>

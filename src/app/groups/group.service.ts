@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise'; // this adds the non-static 'toPromise' op
 @Injectable()
 export class GroupService {
   private groupsUrlGet = '/api/v1/group/getGroups';
-  private groupsUrlGetById = '/api/v1/group/getById';
+  private groupsUrlGetByName = '/api/v1/group/getByName';
 
   constructor(private http: Http) { }
 
@@ -19,8 +19,8 @@ export class GroupService {
   }
 
   // get("/api/v1/group/getById")
-  getGroup(id: String): Promise<Group> {
-    return this.http.get(this.groupsUrlGetById + '/' + id)
+  getGroup(name: String): Promise<Group> {
+    return this.http.get(this.groupsUrlGetByName + '/' + name)
       .toPromise()
       .then(response => response.json() as Group)
       .catch(this.handleError);

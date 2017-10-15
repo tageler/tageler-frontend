@@ -13,7 +13,7 @@
           </div>
           <h5 id="date">{{tageler.start | convertToLocalDate}}</h5>
           <div id="textShort" *ngIf="tageler.group[0].split(',').length <= 4">
-            <p class="card-text">{{tageler.group}}</p>
+            <p class="card-text group-name">{{tageler.group}}</p>
           </div>
           <div id="textLong" *ngIf="tageler.group[0].split(',').length > 4">
             <p class="card-text">{{tageler.group[0].slice(0, 35)}}...</p>
