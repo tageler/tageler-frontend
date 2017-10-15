@@ -11,4 +11,4 @@ export class TagelerSmallCardComponent {
 
   @Input() tageler: Tageler;
 
-  }
+}

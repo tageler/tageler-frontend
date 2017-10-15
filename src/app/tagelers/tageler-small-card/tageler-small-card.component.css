@@ -1,0 +1,27 @@
+.card{
+  margin-bottom: 1%;
+  height: 400px;
+  width: auto;
+  border: 1px solid darkgray;
+}
+
+.card-block {
+  width: auto;
+}
+
+.card-img-top{
+  height: 200px;
+  width: auto;
+  border-bottom: 1px solid darkgray;
+}
+
+.card-title{
+  color: #bb0000;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 0px #6b6565;
+}
+
+.card-text{
+  font-size: 1em;
+  color: #6b6565;
+}
