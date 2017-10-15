@@ -30,7 +30,7 @@
     <div class="col-md-4">
       <h4>Trupp</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
-        <button id="groupButton1" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
+        <button id="groupButton1" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
           {{group.name}}
         </button>
       </div>
@@ -38,7 +38,7 @@
     <div class="col-md-4">
       <h4>Meute</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
-        <button id="groupButton2" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
+        <button id="groupButton2" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
           {{group.name}}
         </button>
       </div>
@@ -46,7 +46,7 @@
     <div class="col-md-4">
       <h4>Equipe</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
-        <button id="groupButton3" class="btn btn-secondary col-sm-6 groupButton" (click)="selectGroup(group)">
+        <button id="groupButton3" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
             {{group.name}}
         </button>
       </div>
@@ -253,8 +253,8 @@
               <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
               <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
               <p id="text" class="card-text_preview" [innerHTML]="tageler.text | sanitizeHtml"></p>
-              <p id="group" class="card-text_preview" *ngIf="!update && group" [innerHTML]="group.toString().split(',').join('<br \>')"></p>
-              <p id="groupUpdate" class="card-text_preview" *ngIf="update" [innerHTML]="tageler.group.toString().split(',').join('<br \>')"></p>
+              <p id="group" class="card-text_preview group-name" *ngIf="!update && group" [innerHTML]="group.toString().split(',').join('<br \>')"></p>
+              <p id="groupUpdate" class="card-text_preview group-name" *ngIf="update" [innerHTML]="tageler.group.toString().split(',').join('<br \>')"></p>
               <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
               <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
             </div>
@@ -350,7 +350,7 @@
               </div>
             </ng-container>
             <div *ngIf="!tageler.group[0]">
-              <h5 class="card-text">{{tageler.group}}</h5>
+              <h5 class="card-text group-name">{{tageler.group}}</h5>
             </div>
             <button id="cardButton2Upcoming" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
             <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
@@ -430,7 +430,7 @@
           <div class="form-group row">
             <label for="formControlName_group" class="col-3 col-form-label">Einheit*:</label>
             <div class="col-9" *ngIf="view">
-              <textarea id="formControlName_group" class="form-control" formControlName="group" value="{{tageler.group}}" autosize></textarea>
+              <textarea id="formControlName_group" class="form-control group-name" formControlName="group" value="{{tageler.group}}" autosize></textarea>
             </div>
           </div>
           <div *ngIf="tageler.free">

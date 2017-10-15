@@ -5,7 +5,7 @@
       <h4>Trupp</h4>
       <ul class="group-list">
       <ng-container *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
-        <a href="../group/{{group._id}}">
+        <a href="../group/{{group.name}}">
           <li class="list-group-item">
             {{group.name}}
           </li>
@@ -17,7 +17,7 @@
       <h4>Meute</h4>
       <ul class="group-list">
       <ng-container *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
-        <a href="../group/{{group._id}}">
+        <a href="../group/{{group.name}}">
           <li class="list-group-item">
           {{group.name}}
           </li>
@@ -29,7 +29,7 @@
       <h4>Equipe</h4>
       <ul class="group-list">
       <ng-container *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
-        <a href="../group/{{group._id}}">
+        <a href="../group/{{group.name}}">
           <li class="list-group-item">
             {{group.name}}
           </li>

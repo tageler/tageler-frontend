@@ -2,3 +2,6 @@
 body {
   font-family: 'Trebuchet MS','Helvetica Neue',Arial,Helvetica,sans-serif;
 }
+.group-name{
+  text-transform: capitalize;
+}
