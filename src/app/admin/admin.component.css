@@ -55,6 +55,11 @@
   font-size: 0.7em;
 }
 
+.card-text.group-name{
+  font-size: 1em;
+  color: #6b6565;
+}
+
 #abmelden_preview {
   width: auto;
 }

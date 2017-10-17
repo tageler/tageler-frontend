@@ -13,41 +13,7 @@
 
   <!-- Displays next upcoming tageler of the group -->
   <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-    <div class="card" id="bigCard" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-md-7">
-            <h3 id="title" class="card-title">{{tageler.title}}</h3>
-            <h5 id="date" *ngIf="!tageler.free">{{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr</h5>
-            <h5 id="date_free" *ngIf="tageler.free"> {{ tageler.start | date: 'fullDate'}}</h5>
-            <p id="text" class="card-text" [innerHTML]="tageler.text"></p>
-            <p class="card-text"><span class="label">Gruppen:</span></p>
-            <p id="group" class="card-text group-name" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
-            <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong"><span class="label">Mitbringen:</span> {{tageler.bringAlong}}</p>
-            <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform"><span class="label">Anziehen:</span> {{tageler.uniform}}</p>
-          </div>
-          <div id="warning" class="col-md-5">
-            <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color" *ngIf="!tageler.free">
-              <h4 class="alert-heading">Wichtig - Abmeldung</h4>
-              <p id="deadline_date" class="checkout-info"><span class="label">Bis:</span> {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}}
-                Uhr
-              </p>
-              <p id="deadline_name" class="checkout-info"><span class="label">Bei:</span> {{tageler.checkout.contact[0].name}} </p>
-              <ul>
-                <li id="deadline_phone" class="checkout-info" *ngIf="tageler.checkout.contact[0].phone"><span class="label">Tel:</span> {{tageler.checkout.contact[0].phone}}</li>
-                <li id="deadline_mail" class="checkout-info" *ngIf="tageler.checkout.contact[0].mail"><span class="label">Mail:</span> {{tageler.checkout.contact[0].mail}}</li>
-                <li id="deadline_other" class="checkout-info" *ngIf="tageler.checkout.contact[0].other"><span class="label">Sonstiges:</span> {{tageler.checkout.contact[0].other}}</li>
-              </ul>
-            </div>
-            <a class="nodecor" href="../tageler-details/{{tageler._id}}">
-              <div id="image">
-                <img id="picture" class="rounded" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture">
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <tageler-large-card [tageler]="tageler" id="bigCard"></tageler-large-card>
   </div>
   <br>
   <hr>
@@ -57,18 +23,7 @@
   <div class="row">
     <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
       <a class="nodecor" href="../tageler-details/{{tageler._id}}">
-        <div class="card" [style.background-color]="tageler.background_color" [style.font-family]="tageler.font_family">
-          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture">
-          <div class="card-block" [style.color]="tageler.color">
-            <div *ngIf="tageler.title.length <= 50">
-              <h5 class="card-title">{{tageler.title}}</h5>
-            </div>
-            <div *ngIf="tageler.title.length > 50">
-              <h5 id="date">{{tageler.title.slice(0,45)}}...</h5>
-            </div>
-            <h5 id="date">{{ tageler.start | convertToLocalDate }}</h5>
-          </div>
-        </div>
+        <tageler-small-card [tageler]="tageler"></tageler-small-card>
       </a>
     </div>
   </div>

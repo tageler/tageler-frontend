@@ -27,7 +27,7 @@
 
   <!-- Show all group names on top of the site with filter for each -->
   <div class="row" *ngIf="showGroups" style="margin-top: 2%; margin-bottom: 2%;">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <h4>Trupp</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
         <button id="groupButton1" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
@@ -35,7 +35,7 @@
         </button>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <h4>Meute</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
         <button id="groupButton2" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
@@ -43,7 +43,7 @@
         </button>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <h4>Equipe</h4>
       <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
         <button id="groupButton3" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
@@ -341,14 +341,14 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <div *ngIf="tageler.group[0]">
-              <div *ngIf="tageler.group[0].split(',').length <= 3">
-                <h5 class="card-text group-name">{{tageler.group}}</h5>
+            <ng-container *ngIf="tageler.group[0]">
+              <div *ngIf="tageler.group[0].split(',').length <= 4">
+                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ')}}</p>
               </div>
-              <div *ngIf="tageler.group[0].split(',').length > 3">
-                <h5 class="card-text group-name">{{tageler.group[0].slice(0, 24)}}...</h5>
+              <div *ngIf="tageler.group[0].split(',').length > 4">
+                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ').slice(0, 35)}}...</p>
               </div>
-            </div>
+            </ng-container>
             <div *ngIf="!tageler.group[0]">
               <h5 class="card-text group-name">{{tageler.group}}</h5>
             </div>
@@ -379,14 +379,14 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <div *ngIf="tageler.group[0]">
-              <div *ngIf="tageler.group[0].split(',').length <= 3">
-                <h5 class="card-text group-name">{{tageler.group}}</h5>
+            <ng-container *ngIf="tageler.group[0]">
+              <div *ngIf="tageler.group[0].split(',').length <= 4">
+                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ')}}</p>
               </div>
-              <div *ngIf="tageler.group[0].split(',').length > 3">
-                <h5 class="card-text group-name">{{tageler.group[0].slice(0, 24)}}...</h5>
+              <div *ngIf="tageler.group[0].split(',').length > 4">
+                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ').slice(0, 35)}}...</p>
               </div>
-            </div>
+            </ng-container>
             <div *ngIf="!tageler.group[0]">
               <h5 class="card-text">{{tageler.group}}</h5>
             </div>

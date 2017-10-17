@@ -18,6 +18,8 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
+import { TagelerSmallCardComponent } from './tagelers/tageler-small-card/tageler-small-card.component';
+import {TagelerLargeCardComponent} from "./tagelers/tageler-large-card/tageler-large-card.component";
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 
 import { GroupService } from './groups/group.service';
@@ -44,6 +46,8 @@ import { LOCALE_ID } from '@angular/core';
     AppComponent,
     TagelerListComponent,
     TagelerDetailsComponent,
+    TagelerSmallCardComponent,
+    TagelerLargeCardComponent,
     GroupDetailsComponent,
     TagelerComponent,
     AdminComponent,
