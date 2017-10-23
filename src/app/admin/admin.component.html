@@ -253,8 +253,8 @@
               <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
               <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
               <p id="text" class="card-text_preview" [innerHTML]="tageler.text | sanitizeHtml"></p>
-              <p id="group" class="card-text_preview group-name" *ngIf="!update && group" [innerHTML]="group.toString().split(',').join('<br \>')"></p>
-              <p id="groupUpdate" class="card-text_preview group-name" *ngIf="update" [innerHTML]="tageler.group.toString().split(',').join('<br \>')"></p>
+              <p id="group" class="card-text_preview group-name" *ngIf="!update && group" [innerHTML]="group.join('<br \>')"></p>
+              <p id="groupUpdate" class="card-text_preview group-name" *ngIf="update" [innerHTML]="tageler.group.join('<br \>')"></p>
               <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
               <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
             </div>
@@ -341,17 +341,14 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <ng-container *ngIf="tageler.group[0]">
-              <div *ngIf="tageler.group[0].split(',').length <= 4">
-                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ')}}</p>
+            <ng-container *ngIf="tageler.group">
+              <div *ngIf="tageler.group.length <= 4">
+                <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
               </div>
-              <div *ngIf="tageler.group[0].split(',').length > 4">
-                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ').slice(0, 35)}}...</p>
+              <div *ngIf="tageler.group.length > 4">
+                <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
               </div>
             </ng-container>
-            <div *ngIf="!tageler.group[0]">
-              <h5 class="card-text group-name">{{tageler.group}}</h5>
-            </div>
             <button id="cardButton2Upcoming" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
             <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
             <button id="cardButton1Upcoming"
@@ -379,17 +376,14 @@
               <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
             </div>
             <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
-            <ng-container *ngIf="tageler.group[0]">
-              <div *ngIf="tageler.group[0].split(',').length <= 4">
-                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ')}}</p>
+            <ng-container *ngIf="tageler.group">
+              <div *ngIf="tageler.group.length <= 4">
+                <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
               </div>
-              <div *ngIf="tageler.group[0].split(',').length > 4">
-                <p class="card-text group-name">{{tageler.group[0].split(',').join(', ').slice(0, 35)}}...</p>
+              <div *ngIf="tageler.group.length > 4">
+                <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
               </div>
             </ng-container>
-            <div *ngIf="!tageler.group[0]">
-              <h5 class="card-text">{{tageler.group}}</h5>
-            </div>
             <button id="cardButton2Old" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
             <button id="cardButton3Old" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
             <button id="cardButton1Old"
