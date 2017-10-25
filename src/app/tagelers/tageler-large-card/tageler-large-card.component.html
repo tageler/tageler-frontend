@@ -13,7 +13,7 @@
         <p id="group_title" class="card-text">
           <span class="label">Gruppen:</span>
         </p>
-        <p id="group" class="card-text group-name" [innerHTML]="tageler.group[0].toString().split(',').join('<br \>')"></p>
+        <p id="group" class="card-text group-name" [innerHTML]="tageler.group.join('<br \>')"></p>
         <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">
           <span class="label">Mitbringen:</span> {{tageler.bringAlong}}
         </p>

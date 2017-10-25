@@ -209,7 +209,6 @@ export class AdminComponent implements OnInit {
     this.tagelerForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
 
-
     this.previewBase64 = '';
     this.selectedTageler = this.tageler;
     this.selectedGroup = null;
@@ -248,7 +247,7 @@ export class AdminComponent implements OnInit {
     this.tagelerForm = this.fb.group({
       title: [this.tageler.title, Validators.required],
       text: [this.tageler.text, Validators.required],
-      group: [this.tageler.group[0].split(','), Validators.required],
+      group: [this.tageler.group, Validators.required],
       date_start: [new Date(this.tageler.start).toISOString().slice(0, 10), Validators.required],
       date_end: [new Date(this.tageler.end).toISOString().slice(0, 10), Validators.required],
       time_start: [new Date(this.tageler.start).toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
@@ -296,7 +295,7 @@ export class AdminComponent implements OnInit {
     const saveTageler: Tageler = {
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
-      group: [this.tagelerForm.value.group as string],
+      group: this.tagelerForm.value.group,
       // accept both . and :
       start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
       end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
@@ -324,6 +323,7 @@ export class AdminComponent implements OnInit {
       // checkbox returns undefined if never checked or unchecked
       saveTageler.free = false;
     }
+
     this.onValueChanged();
     this.selectedTageler = null;
     return saveTageler;
@@ -450,7 +450,7 @@ export class AdminComponent implements OnInit {
       _id: this.tageler._id,
       title: this.tagelerForm.value.title as string,
       text: this.tagelerForm.value.text as string,
-      group: [this.tagelerForm.value.group as string],
+      group: this.tagelerForm.value.group,
       start: startUpdated,
       end: endUpdated,
       bringAlong: this.tagelerForm.value.bringAlong as string,
@@ -835,12 +835,12 @@ export class AdminComponent implements OnInit {
   };
 
   myOptions_font: IMultiSelectOption[] = [
+    { id: '"Trebuchet MS", Helvetica, sans-serif', name: 'Trebuchet MS'},
     { id: 'Arial, Helvetica, sans-serif', name: 'Arial'},
     { id: '"Arial Black", Gadget, sans-serif', name: 'Arial Black'},
     { id: 'Helvetica', name: 'Helvetica'},
     { id: 'Helvetica Neue, Helvetica, sans-serif', name: 'Helvetica Neue'},
     { id: 'Roboto Slab, Helvetica, sans-serif', name: 'Roboto Slab'},
-    { id: '"Trebuchet MS", Helvetica, sans-serif', name: 'Trebuchet MS'},
     { id: 'Tahoma, Geneva, sans-serif', name: 'Thaoma'},
     { id: 'Verdana, Geneva, sans-serif', name: 'Verdana'},
   ];

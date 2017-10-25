@@ -8,11 +8,11 @@
       <h5 id="title_long" class="card-title">{{tageler.title.slice(0,22)}}...</h5>
     </div>
     <h5 id="date">{{tageler.start | convertToLocalDate}}</h5>
-    <div id="textShort" *ngIf="tageler.group[0].split(',').length <= 4">
-      <p class="card-text group-name">{{tageler.group[0].split(',').join(', ')}}</p>
+    <div id="textShort" *ngIf="tageler.group.length <= 4">
+      <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
     </div>
-    <div id="textLong" *ngIf="tageler.group[0].split(',').length > 4">
-      <p class="card-text group-name">{{tageler.group[0].split(',').join(', ').slice(0, 35)}}...</p>
+    <div id="textLong" *ngIf="tageler.group.length > 4">
+      <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
     </div>
   </div>
 </div>
