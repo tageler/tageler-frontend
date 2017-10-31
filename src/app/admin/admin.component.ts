@@ -74,7 +74,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.fetchTagelers();
     // TODO: change this to default ubungsfrei picture
-    this.defaultPictureService.getDefaultPictureByName('defaultPicture').then((defaultPicture) => {
+    this.defaultPictureService.getDefaultPictureByName('defaultPictureUebungsfrei').then((defaultPicture) => {
       this.defaultPictureUbungsfrei = defaultPicture.picture;
     });
   }
