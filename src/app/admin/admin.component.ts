@@ -74,7 +74,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.fetchTagelers();
     // TODO: change this to default ubungsfrei picture
-    this.defaultPictureService.getDefaultPictureByName('KevinPicture').then((defaultPicture) => {
+    this.defaultPictureService.getDefaultPictureByName('defaultPicture').then((defaultPicture) => {
       this.defaultPictureUbungsfrei = defaultPicture.picture;
     });
   }
@@ -471,14 +471,15 @@ export class AdminComponent implements OnInit {
       font_family: this.tageler.font_family,
     };
 
+    // keep old picture if no new one is selected
+    if (typeof this.base64textString === 'undefined') {
+      updateTageler.picture = this.tageler.picture;
+    }
+
     if (updateTageler.free) {
       this.setValuesForFreeTageler(updateTageler);
     }
 
-    // keep old picture if no new one is selected
-    if (this.base64textString === '') {
-      updateTageler.picture = this.tageler.picture;
-    }
     return updateTageler;
   }
 
