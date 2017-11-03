@@ -42,7 +42,7 @@ export class TagelerService {
 
   // post("/api/v1/tageler/admin/create")
   createTageler(newTageler: Tageler): Promise<JSON> {
-    return this.http.post(this.tagelersUrlPost, newTageler)
+    return this.http.post(this.tagelersUrlPost, newTageler, { withCredentials: true })
       .toPromise()
       .then(res => {
         if (res.ok) {
@@ -61,10 +61,10 @@ export class TagelerService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
 
     console.log("delete tageler with ID: "+delTageler);
-    return this.http.delete(this.tagelerUrlDelete+'/'+delTageler,options)
+    return this.http.delete(this.tagelerUrlDelete+'/'+delTageler, options)
       .toPromise()
       .then(res => {
         if (res.ok) {
@@ -81,8 +81,10 @@ export class TagelerService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
+
     console.log("Update tageler with ID: "+ putTageler._id);
-    return this.http.put(this.tagelerUrlUpdate+'/'+putTageler._id, body, { headers: headers })
+    return this.http.put(this.tagelerUrlUpdate+'/'+putTageler._id, body, options)
        .toPromise()
        .then(res => {
          if (res.ok) {
