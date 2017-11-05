@@ -22,26 +22,44 @@ export class TagelerByGroupAndByDate implements PipeTransform {
 
     // if group is null and tagelers have different dates, return all tagelers sorted
     if (!args && ((tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null)) {
-      return tagelers.sort((a,b) => new Date(a.start).getTime() - new Date(b.start).getTime())
-        .filter(tageler => new Date(tageler.start).toISOString().slice(0, 10) >= new Date().toISOString().slice(0, 10));
+      return tagelers.sort(
+          (a,b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+        )
+        .filter(
+          tageler => new Date(tageler.end).toISOString() >= new Date().toISOString()
+        );
     }
 
     // if group is null and tagelers have same dates, return all tagelers sorted
     if (!args && ((tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) == null)) {
-      return tagelers.sort((a,b) => (new Date(a.start).getTime() + 1) - new Date(b.start).getTime())
-        .filter(tageler => new Date(tageler.start).toISOString().slice(0, 10) >= new Date().toISOString().slice(0, 10));
+      return tagelers.sort(
+          (a,b) => (new Date(a.start).getTime() + 1) - new Date(b.start).getTime()
+        )
+        .filter(
+          tageler => new Date(tageler.end).toISOString() >= new Date().toISOString()
+        );
     }
 
     // if group is not null and tagelers have different dates, return all tagelers of that group in sorted order
     if ( args && (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) != null ) {
-      return tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
-        .filter(tageler => new Date(tageler.start).toISOString().slice(0, 10) >= new Date().toISOString().slice(0, 10) && tageler.group.toString().includes(args.name));
+      return tagelers.sort(
+          (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+        )
+        .filter(
+          tageler => new Date(tageler.end).toISOString() >= new Date().toISOString()
+          && tageler.group.toString().includes(args.name)
+        );
     }
 
     // if group is not null and tagelers have same dates, return all tagelers of that group in sorted order
     if ( args && (tagelers.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())) == null ) {
-      return tagelers.sort((a, b) => (new Date(a.start).getTime() + 1) - new Date(b.start).getTime())
-        .filter(tageler => new Date(tageler.start).toISOString().slice(0, 10) >= new Date().toISOString().slice(0, 10) && tageler.group.toString().includes(args.name));
+      return tagelers.sort(
+          (a, b) => (new Date(a.start).getTime() + 1) - new Date(b.start).getTime()
+        )
+        .filter(
+          tageler => new Date(tageler.end).toISOString() >= new Date().toISOString()
+          && tageler.group.toString().includes(args.name)
+        );
     }
   }
 }
