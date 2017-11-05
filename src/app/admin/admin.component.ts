@@ -148,9 +148,13 @@ export class AdminComponent implements OnInit {
 
   // Prepare the create Tageler form, load default values and validators
   showCreateTagelerForm() {
-    const startDate = moment().isoWeekday('Saturday').hour(14).startOf('hour');
-    const endDate = moment().isoWeekday('Saturday').hour(17).startOf('hour');
-    const checkoutDate = moment().isoWeekday('Wednesday').startOf('day');
+    let date_offset = 0;
+    if (moment() >= moment().isoWeekday('Saturday')) {
+      date_offset = 1;
+    }
+    const startDate = moment().isoWeekday('Saturday').add(date_offset, 'week').hour(14).startOf('hour');
+    const endDate = moment().isoWeekday('Saturday').add(date_offset, 'week').hour(17).startOf('hour');
+    const checkoutDate = moment().isoWeekday('Wednesday').add(date_offset, 'week').startOf('day');
 
     this.tageler = {
       title: '',
