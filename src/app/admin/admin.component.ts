@@ -286,7 +286,7 @@ export class AdminComponent implements OnInit {
 
     let deadlineSaved;
     if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineSaved = moment(this.tagelerForm.value.deadline_date + ' ' + this.tagelerForm.value.deadline_time).toDate()
+      deadlineSaved = moment(this.tagelerForm.value.checkout.deadline_date + ' ' + this.tagelerForm.value.checkout.deadline_time, 'YYYY-MM-DD HH:mm').toDate();
     } else {
       deadlineSaved = null;
     }
@@ -296,8 +296,8 @@ export class AdminComponent implements OnInit {
       text: this.tagelerForm.value.text as string,
       group: this.tagelerForm.value.group,
       // accept both . and :
-      start: moment(this.tagelerForm.value.date_start + ' ' + this.tagelerForm.value.time_start).toDate(),
-      end: moment(this.tagelerForm.value.date_end + ' ' + this.tagelerForm.value.time_end).toDate(),
+      start: moment(this.tagelerForm.value.date_start + ' ' + this.tagelerForm.value.time_start, 'YYYY-MM-DD HH:mm').toDate(),
+      end: moment(this.tagelerForm.value.date_end + ' ' + this.tagelerForm.value.time_end, 'YYYY-MM-DD HH:mm').toDate(),
       bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.base64textString as string,
