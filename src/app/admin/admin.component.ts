@@ -17,6 +17,8 @@ import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
@@ -146,23 +148,21 @@ export class AdminComponent implements OnInit {
 
   // Prepare the create Tageler form, load default values and validators
   showCreateTagelerForm() {
-    const sat = new Date;
-    const wed = new Date;
-    const startDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '14:00:00');
-    const endDate = new Date(new Date(sat.setDate(sat.getDate() + (6 + 7 - sat.getDay()) % 7)).toISOString().slice(0, 10) + 'T' + '17:00:00');
-    const checkoutDate = new Date(new Date(wed.setDate(startDate.getDate() - 3)).toISOString().slice(0, 10) + 'T' + '00:00:00');
+    const startDate = moment().isoWeekday('Saturday').hour(14).startOf('hour');
+    const endDate = moment().isoWeekday('Saturday').hour(17).startOf('hour');
+    const checkoutDate = moment().isoWeekday('Wednesday').startOf('day');
 
     this.tageler = {
       title: '',
       text: '',
       group: [''],
-      start: startDate,
-      end: endDate,
+      start: startDate.toDate(),
+      end: endDate.toDate(),
       bringAlong: 'BPMSTZ und Zvieri',
       uniform: 'Uniform und Kravatte, dem Wetter angepasste Kleidung',
       picture: '',
       checkout: {
-        deadline: checkoutDate,
+        deadline: checkoutDate.toDate(),
         contact: [{
           name: '',
           phone: '',
@@ -180,16 +180,16 @@ export class AdminComponent implements OnInit {
       title: ['', Validators.required],
       text: ['', Validators.required],
       group: [[''], Validators.required],
-      date_start: [this.tageler.start.toISOString().slice(0, 10), Validators.required],
-      date_end: [this.tageler.end.toISOString().slice(0, 10), Validators.required],
-      time_start: [this.tageler.start.toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
-      time_end: [this.tageler.end.toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+      date_start: [startDate.format('YYYY-MM-DD'), Validators.required],
+      date_end: [endDate.format('YYYY-MM-DD'), Validators.required],
+      time_start: [startDate.format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+      time_end: [endDate.format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
       bringAlong: this.tageler.bringAlong,
       uniform: this.tageler.uniform,
       picture: '',
       checkout: this.fb.group({
-        deadline_date: [this.tageler.checkout.deadline.toISOString().slice(0, 10), Validators.required],
-        deadline_time: [this.tageler.checkout.deadline.toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+        deadline_date: [checkoutDate.format('YYYY-MM-DD'), Validators.required],
+        deadline_time: [checkoutDate.format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
         contact: this.fb.group({
           name: '',
           phone: '',
@@ -248,16 +248,16 @@ export class AdminComponent implements OnInit {
       title: [this.tageler.title, Validators.required],
       text: [this.tageler.text, Validators.required],
       group: [this.tageler.group, Validators.required],
-      date_start: [new Date(this.tageler.start).toISOString().slice(0, 10), Validators.required],
-      date_end: [new Date(this.tageler.end).toISOString().slice(0, 10), Validators.required],
-      time_start: [new Date(this.tageler.start).toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
-      time_end: [new Date(this.tageler.end).toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+      date_start: [moment(this.tageler.start).format('YYYY-MM-DD'), Validators.required],
+      date_end: [moment(this.tageler.end).format('YYYY-MM-DD'), Validators.required],
+      time_start: [moment(this.tageler.start).format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+      time_end: [moment(this.tageler.end).format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
       bringAlong: this.tageler.bringAlong,
       uniform: this.tageler.uniform,
       picture: '',
       checkout: this.fb.group({
-        deadline_date: [new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10), Validators.required],
-        deadline_time: [new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
+        deadline_date: [moment(this.tageler.checkout.deadline).format('YYYY-MM-DD'), Validators.required],
+        deadline_time: [moment(this.tageler.checkout.deadline).format('HH:mm'), Validators.compose([Validators.pattern('([01]?[0-9]{1}|2[0-3]{1})(:|.)[0-5]{1}[0-9]{1}'), Validators.required])],
         contact: this.fb.group({
           name: this.tageler.checkout.contact[0].name,
           phone: this.tageler.checkout.contact[0].phone,
@@ -286,8 +286,7 @@ export class AdminComponent implements OnInit {
 
     let deadlineSaved;
     if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineSaved = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
-        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
+      deadlineSaved = moment(this.tagelerForm.value.deadline_date + ' ' + this.tagelerForm.value.deadline_time).toDate()
     } else {
       deadlineSaved = null;
     }
@@ -297,8 +296,8 @@ export class AdminComponent implements OnInit {
       text: this.tagelerForm.value.text as string,
       group: this.tagelerForm.value.group,
       // accept both . and :
-      start: new Date(this.tagelerForm.value.date_start + 'T' + this.tagelerForm.value.time_start.replace('.', ':')),
-      end: new Date(this.tagelerForm.value.date_end + 'T' + this.tagelerForm.value.time_end.replace('.', ':')),
+      start: moment(this.tagelerForm.value.date_start + ' ' + this.tagelerForm.value.time_start).toDate(),
+      end: moment(this.tagelerForm.value.date_end + ' ' + this.tagelerForm.value.time_end).toDate(),
       bringAlong: this.tagelerForm.value.bringAlong as string,
       uniform: this.tagelerForm.value.uniform as string,
       picture: this.base64textString as string,
@@ -783,8 +782,8 @@ export class AdminComponent implements OnInit {
   // Fill in all the necessary fields for übungsfrei to meet api requirements
   setValuesForFreeTageler(tageler: Tageler) {
     this.tageler = tageler;
-    this.tageler.start = new Date(this.tagelerForm.value.date_start + 'T00:00');
-    this.tageler.end = new Date(this.tagelerForm.value.date_start + 'T24:00');
+    this.tageler.start = moment(this.tagelerForm.value.date_start).startOf('day').toDate();
+    this.tageler.start = moment(this.tagelerForm.value.date_start).endOf('day').toDate();
     this.tageler.uniform = 'free';
     this.tageler.bringAlong = 'free';
     this.tageler.checkout.deadline = null;
