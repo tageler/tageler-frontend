@@ -1,0 +1,83 @@
+.card:hover{
+  background-color: darkgray;
+}
+
+.nodecor:hover{
+  color:none;
+  text-decoration-line: none;
+}
+
+#abmelden{
+  width: auto;
+}
+
+p.checkout-info{
+  margin-bottom: 0;
+  color: #6b6565;
+}
+li.checkout-info {
+  color: #6b6565;
+}
+
+#bigCard {
+  margin-right: 15px;
+  margin-left: 15px;
+  height: auto;
+  width: 100%;
+}
+
+.card{
+  margin-bottom: 1%;
+  height: 400px;
+  width: auto;
+  border: 1px solid darkgray;
+}
+
+.card-block {
+  width: auto;
+}
+
+.card-img-top{
+  height: 200px;
+  width: auto;
+  border-bottom: 1px solid darkgray;
+}
+
+.card-title{
+  color: #bb0000;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 0px #6b6565;
+}
+
+.card-text{
+  font-size: 1em;
+  color: #6b6565;
+}
+
+.card-text span.label,
+#abmelden span.label,
+.checkout-info span.label{
+  color: #bb0000;
+}
+
+#picture{
+  float: right;
+  border: 1px solid darkgray;
+  width: auto;
+  height: 220px;
+}
+
+.btn-secondary {
+  margin: 1%;
+  position: relative;
+  float: right;
+}
+
+.calendar {
+  padding-top: 1%
+}
+
+h3 {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}

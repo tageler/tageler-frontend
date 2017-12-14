@@ -1,0 +1,18 @@
+<div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
+  <img id="picture" class="card-img-top" *ngIf="tageler.picture" [src]="'data:image/png;base64,' + tageler.picture">
+  <div class="card-block" [style.color]="tageler.color" >
+    <div *ngIf="tageler.title.length <= 25">
+      <h5 id="title_short" class="card-title">{{tageler.title}}</h5>
+    </div>
+    <div *ngIf="tageler.title.length > 25">
+      <h5 id="title_long" class="card-title">{{tageler.title.slice(0,22)}}...</h5>
+    </div>
+    <h5 id="date">{{tageler.start | convertToLocalDate}}</h5>
+    <div id="textShort" *ngIf="tageler.group.length <= 4">
+      <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
+    </div>
+    <div id="textLong" *ngIf="tageler.group.length > 4">
+      <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
+      <a class="nodecor" href="../tageler-details/{{tageler._id}}">
+        <tageler-small-card [tageler]="tageler"></tageler-small-card>
+      </a>
+    </div>
+  </div>
+</div>

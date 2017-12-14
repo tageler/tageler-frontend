@@ -1,0 +1,514 @@
+<div class="container">
+
+  <!-- Buttons for navigation between different forms and views -->
+  <div class="row">
+    <div id="navButton1" class="buttons" *ngIf="!createTageler && !update">
+      <button class="btn btn-primary" (click)="showCreateTagelerForm()">Tageler erstellen</button>
+    </div>
+    <div id="navButton2" class="buttons" *ngIf="createTageler">
+      <button class="btn btn-primary" (click)="cancelCreateTageler()">Abbrechen</button>
+    </div>
+    <div id="navButton3" class="buttons groupButton" *ngIf="!showGroups && !createTageler && !update">
+      <button class="btn btn-primary" (click)="showListOfGroups()">Gruppen anzeigen</button>
+    </div>
+    <div id="navButton4" class="buttons" *ngIf="showGroups && !createTageler && !update">
+      <button class="btn btn-primary" (click)="hideListOfGroups()">Ansicht schliessen</button>
+    </div>
+    <div id="navButton5" class="buttons" *ngIf="showGroups && !createTageler">
+      <button class="btn btn-primary" (click)="unselectSelectedGroups()">Auswahl aufheben</button>
+    </div>
+    <div id="navButton6" class="buttons" *ngIf="!showOldTagelers && !createTageler && !update">
+      <button class="btn btn-primary" (click)="showAllOldTagelers()">Vergangene Tageler</button>
+    </div>
+    <div id="navButton7" class="buttons" *ngIf="showOldTagelers && !createTageler && !update">
+      <button class="btn btn-primary" (click)="hideAllOldTagelers()">Aktuelle Tageler</button>
+    </div>
+  </div>
+
+  <!-- Show all group names on top of the site with filter for each -->
+  <div class="row" *ngIf="showGroups" style="margin-top: 2%; margin-bottom: 2%;">
+    <div class="col-md-4">
+      <h4>Trupp</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
+        <button id="groupButton1" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
+          {{group.name}}
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Meute</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
+        <button id="groupButton2" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
+          {{group.name}}
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Equipe</h4>
+      <div *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
+        <button id="groupButton3" class="btn btn-secondary col-sm-6 groupButton group-name" (click)="selectGroup(group)">
+            {{group.name}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form to create a new tageler -->
+  <div class="row" *ngIf="selectedTageler || update">
+    <div class="col-md-6">
+      <div class="row">
+        <form [formGroup]="tagelerForm">
+          <div class="warning"><b>Hinweis: Felder, die mit * markiert sind, sind Pflichtfelder und müssen ausgefüllt werden!</b></div>
+          <div class="form-group row">
+            <label for="create_formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
+            <div class="col-9">
+              <input id="create_formControlName_free" type="checkbox" name="free" formControlName="free" [(ngModel)]="free" (change)="fillFree($event)" [checked]="tageler.free">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="create_formControlName_title" class="col-3 col-form-label">Name*:</label>
+            <div class="col-9">
+              <input id="create_formControlName_title" class="form-control" formControlName="title" required>
+              <div *ngIf="formErrors.title" class="alert alert-danger">
+                {{ formErrors.title }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="create_formControlName_text" class="col-3 col-form-label">Text*:</label>
+            <div class="col-9">
+              <textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>              <!--<textarea id="create_formControlName_text" class="form-control" formControlName="text" [(ngModel)]="tageler.text" autosize required></textarea>-->
+              <div *ngIf="formErrors.text" class="alert alert-danger">
+                {{ formErrors.text }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="create_formControlName_group" class="col-3 col-form-label">Einheit*:</label>
+            <div class="col-9">
+              <ss-multiselect-dropdown
+                *ngIf="update"
+                [options]="myOptions"
+                [texts]="myTexts"
+                [settings]="mySettings"
+                class="form-control"
+                id="create_formControlName_group_update"
+                formControlName="group"
+                required
+              ></ss-multiselect-dropdown>
+              <ss-multiselect-dropdown
+                *ngIf="!update"
+                [options]="myOptions"
+                [texts]="myTexts"
+                [settings]="mySettings"
+                [(ngModel)]="group"
+                class="form-control"
+                id="create_formControlName_group"
+                formControlName="group"
+                required
+              ></ss-multiselect-dropdown>
+              <div *ngIf="formErrors.group" class="alert alert-danger">
+                {{ formErrors.group }}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="tageler.free">
+            <div class="form-group row">
+              <label for="create_formControlName_date_start_free" class="col-3 col-form-label">Datum*:</label>
+              <div class="col-5">
+                <input id="create_formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" required>
+                <div *ngIf="formErrors.date_start" class="alert alert-danger">
+                  {{ formErrors.date_start }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!tageler.free">
+            <div class="form-group row">
+              <label for="create_formControlName_date_start" class="col-3 col-form-label">Start*:</label>
+              <div class="col-5">
+                <input id="create_formControlName_date_start" class="form-control" formControlName="date_start" type="date" required>
+                <div *ngIf="formErrors.date_start" class="alert alert-danger">
+                  {{ formErrors.date_start }}
+                </div>
+              </div>
+              <div class="col-4">
+                <input id="create_formControlName_date_start_time" class="form-control" formControlName="time_start" type="text" required>
+                <div *ngIf="formErrors.time_start" class="alert alert-danger">
+                  {{ formErrors.time_start }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="create_formControlName_date_end" class="col-3 col-form-label">Ende*:</label>
+              <div class="col-5">
+                <input id="create_formControlName_date_end" class="form-control" formControlName="date_end" type="date" required>
+                <div *ngIf="formErrors.date_end" class="alert alert-danger">
+                  {{ formErrors.date_end }}
+                </div>
+              </div>
+              <div class="col-4">
+                <input id="create_formControlName_date_end_time" class="form-control" formControlName="time_end" type="text" required>
+                <div *ngIf="formErrors.time_end" class="alert alert-danger">
+                  {{ formErrors.time_end }}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="endDateError.isError" class="alert alert-danger">
+              {{ endDateError.errorMessage }}
+            </div>
+            <div class="form-group row">
+              <label for="create_formControlName_bringAlong" class="col-3 col-form-label">Mitbringen:</label>
+              <div class="col-9">
+                <textarea id="create_formControlName_bringAlong" class="form-control" formControlName="bringAlong" autosize></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="create_formControlName_uniform" class="col-3 col-form-label">Kleidung:</label>
+              <div class="col-9">
+                <textarea id="create_formControlName_uniform" class="form-control" formControlName="uniform" autosize></textarea>
+              </div>
+            </div>
+            <div formGroupName="checkout">
+              <div class="form-group row">
+                <label for="create_formControlName_deadline" class="col-3 col-form-label">Absagen bis*:</label>
+                <div class="col-5">
+                  <input id="create_formControlName_deadline" class="form-control" formControlName="deadline_date" type="date" required>
+                  <div *ngIf="formErrors.deadline_date" class="alert alert-danger">
+                    {{ formErrors.deadline_date }}
+                  </div>
+                </div>
+                <div class="col-4">
+                  <input id="create_formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="text" required>
+                  <div *ngIf="formErrors.deadline_time" class="alert alert-danger">
+                    {{ formErrors.deadline_time }}
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="checkoutError.isCheckoutError" class="alert alert-danger">
+                {{ checkoutError.errorCheckoutMessage }}
+              </div>
+              <div formGroupName="contact">
+                <div class="form-group row">
+                  <label for="create_formControlName_name" class="col-3 col-form-label">Absagen bei*:</label>
+                  <div class="col-9">
+                    <input id="create_formControlName_name" class="form-control" formControlName="name" placeholder="Leiter">
+                    <div *ngIf="leiterError.isLeiterError" class="alert alert-danger">
+                      {{ leiterError.errorMessageLeiter }}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="create_formControlName_checkout_phone" class="col-3 col-form-label">Kanal*:</label>
+                  <div class="col-9">
+                    <input id="create_formControlName_checkout_phone" class="form-control" formControlName="phone" type="tel" placeholder="Telefon">
+                    <input id="create_formControlName_checkout_mail" class="form-control" formControlName="mail" type="email" placeholder="Email">
+                    <input id="create_formControlName_checkout_other" class="form-control" formControlName="other" placeholder="Text">
+                    <div *ngIf="mailOrPhoneError.isMailOrPhoneError" class="alert alert-danger">
+                      {{ mailOrPhoneError.errorMailOrPhoneMessage }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <ng-container *ngIf="!update">
+            <label for="filePicker" class="col-3 col-form-label">Bild* (max 2MB):</label><br>
+            </ng-container>
+            <div class="col-9" *ngIf="!update">
+              <input type="file" formControlName="picture" id="filePicker" accept=".jpg,.png" [(ngModel)]="tageler.picture" (change)="handleFileSelect($event)">
+              <div *ngIf="imageError.isImageError" class="alert alert-danger">
+                {{ imageError.errorImageMessage }}
+              </div>
+            </div>
+            <ng-container *ngIf="update">
+            <label for="filePicker2_update" class="col-3 col-form-label">Bild (max 2MB):</label><br>
+            </ng-container>
+            <div class="col-9" *ngIf="update">
+              <input type="file" formControlName="picture" id="filePicker2_update" accept=".jpg,.png" (change)="handleFileSelect($event)">
+              <div *ngIf="imageError.isImageError" class="alert alert-danger">
+                {{ imageError.errorImageMessage }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="create_formControlName_picture" class="col-3 col-form-label">Vorschau:</label>
+            <div id="create_formControlName_picture" class="col-9" *ngIf="!update">
+              <img [src]="previewBase64" *ngIf="previewBase64" height="180" width="320"/>
+            </div>
+            <div class="col-9" *ngIf="update">
+              <img id="update_formControlName_picture" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="180" width="320"/>
+            </div>
+          </div>
+          <button id="saveNew" *ngIf="createTageler" class="btn btn-secondary" (click)="saveNewTageler()" [disabled]="!tagelerForm.valid || !formValid">Speichern</button>
+          <button id="saveUpdate" *ngIf="update" class="btn btn-info" (click)="updateTageler()" [disabled]="!tagelerForm.valid ||  !formValid">Speichern</button>
+          <button id="cancel" *ngIf="update" class="btn btn-info" type="reset" (click)="cancelUpdate()" >Abbrechen</button>
+        </form>
+      </div>
+    </div>
+
+  <!-- Preview -->
+    <div class="col-md-6" style="padding-top: 10%">
+      <div class="card_preview" [style.background]="tageler.background_color" [style.font-family]="font_family + !important">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-7" [style.color]="tageler.color">
+              <h3 id="title" class="card-title_preview">{{tagelerForm.value.title}}</h3>
+              <h5 id="date" class="card-text_preview" *ngIf="!tageler.free">{{ tagelerForm.value.date_start | convertToLocalDate }}, {{tagelerForm.value.time_start}} Uhr bis {{tagelerForm.value.date_end | convertToLocalDate }}, {{tagelerForm.value.time_end}} Uhr</h5>
+              <h5 id="date_free" class="card-text_preview" *ngIf="tageler.free"> {{ tagelerForm.value.date_start | date: 'fullDate'}}</h5>
+              <p id="text" class="card-text_preview" [innerHTML]="tageler.text | sanitizeHtml"></p>
+              <p id="group" class="card-text_preview group-name" *ngIf="!update && group" [innerHTML]="group.join('<br \>')"></p>
+              <p id="groupUpdate" class="card-text_preview group-name" *ngIf="update" [innerHTML]="tageler.group.join('<br \>')"></p>
+              <p id="bringAlong" class="card-text_preview" *ngIf="!tageler.free">Mitbringen: {{tagelerForm.value.bringAlong}}</p>
+              <p id="uniform" class="card-text_preview" *ngIf="!tageler.free">Anziehen: {{tagelerForm.value.uniform}}</p>
+            </div>
+            <div class="col-md-5" *ngIf="!tageler.free">
+              <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color">
+                <h4 class="alert-heading_preview" [style.color]="tageler.color">Wichtig - Abmeldung</h4>
+                <p id="deadline_date" class="card-checkout_preview">Bis: {{tagelerForm.value.checkout.deadline_date | convertToLocalDate }}, {{tagelerForm.value.checkout.deadline_time}} Uhr</p>
+                <p id="deadline_name" class="card-checkout_preview">Bei: {{tagelerForm.value.checkout.contact.name}} </p>
+                <ul>
+                  <li id="deadline_phone" class="card-checkout_preview">Tel: {{tagelerForm.value.checkout.contact.phone}}</li>
+                  <li id="deadline_mail" class="card-checkout_preview" >Mail: {{tagelerForm.value.checkout.contact.mail}}</li>
+                  <li id="deadline_other" class="card-checkout_preview">{{tagelerForm.value.checkout.contact.other}}</li>
+                </ul>
+              </div>
+              <div id="image" *ngIf="!update">
+                <img id="picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px" width="100%">
+              </div>
+              <div *ngIf="update">
+                <img id="formControlName_picture_preview" class="rounded" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="115" width="100%"/>
+              </div>
+            </div>
+            <div class="col-md-5" *ngIf="tageler.free">
+              <div id="image_free" *ngIf="!update">
+                <img id="picture_preview_free" class="rounded" [src]="previewBase64" *ngIf="previewBase64" height="115px" width="100%">
+              </div>
+              <div *ngIf="update">
+                <img id="formControlName_picture_preview_free" class="rounded" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="115" width="100%"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <br>
+
+      <!-- Form for styles -->
+      <form [formGroup]="tagelerStyleForm">
+        <div class="form-group row">
+          <label for="create_formControlName_background_color" class="col-4 col-form-label">Hintergrund:</label>
+          <div class="col-8">
+            <input id="create_formControlName_background_color" [(colorPicker)]="tageler.background_color" [style.background]="tageler.background_color" formControlName="background_color"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="create_formControlName_color" class="col-4 col-form-label">Schrift:</label>
+          <div class="col-8">
+            <input id="create_formControlName_color" [(colorPicker)]="tageler.color" [style.background]="tageler.color" formControlName="color"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="create_formControlName_font_family" class="col-4 col-form-label">Schriftart:</label>
+          <div class="col-8">
+          <ss-multiselect-dropdown
+            [options]="myOptions_font"
+            [texts]="myTexts_font"
+            [settings]="mySettings_font"
+            [(ngModel)]="font_family"
+            class="form-control"
+            id="create_formControlName_font_family"
+            formControlName="font_family"
+            required
+            ></ss-multiselect-dropdown>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Tageler cards for all tagelers, gets filtered by group if applied -->
+  <div class="row">
+
+    <!-- Upcoming Tagelers -->
+    <div *ngIf="showUpcomingTageler && !showOldTagelers &&!update">
+      <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
+        <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
+          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+          <div class="card-block"  [style.color]="tageler.color">
+            <div *ngIf="tageler.title.length <= 25 || tageler.title == null">
+              <h5 class="card-title">{{tageler.title}}</h5>
+            </div>
+            <div *ngIf="tageler.title.length > 25 || tageler.title == null">
+              <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
+            </div>
+            <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
+            <ng-container *ngIf="tageler.group">
+              <div *ngIf="tageler.group.length <= 4">
+                <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
+              </div>
+              <div *ngIf="tageler.group.length > 4">
+                <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
+              </div>
+            </ng-container>
+            <button id="cardButton2Upcoming" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
+            <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
+            <button id="cardButton1Upcoming"
+                    class="btn btn-danger"
+                    mwlConfirm
+                    [title]="title"
+                    [message]="message"
+                    (cancel)="cancelClicked = true"
+                    (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Tagelers -->
+    <div *ngIf="showOldTagelers && !showUpcomingTageler &&!update">
+      <div *ngFor="let tageler of tagelers | oldTagelerByGroupAndByDate: selectedGroup">
+        <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
+          <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
+          <div class="card-block" [style.color]="tageler.color">
+            <div *ngIf="tageler.title.length <= 25 || tageler.title == null">
+              <h5 class="card-title">{{tageler.title}}</h5>
+            </div>
+            <div *ngIf="tageler.title.length > 25 || tageler.title == null">
+              <h5 class="card-title">{{tageler.title.slice(0,22)}}...</h5>
+            </div>
+            <h5 class="card-title">{{tageler.start | date: 'fullDate'}}</h5>
+            <ng-container *ngIf="tageler.group">
+              <div *ngIf="tageler.group.length <= 4">
+                <p class="card-text group-name">{{tageler.group.join(', ')}}</p>
+              </div>
+              <div *ngIf="tageler.group.length > 4">
+                <p class="card-text group-name">{{tageler.group.join(', ').slice(0, 35)}}...</p>
+              </div>
+            </ng-container>
+            <button id="cardButton2Old" class="btn btn-info" (click)="showTagelerDetailsForm(tageler)">Details</button>
+            <button id="cardButton3Old" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
+            <button id="cardButton1Old"
+                    class="btn btn-danger"
+                    mwlConfirm
+                    [title]="title"
+                    [message]="message"
+                    (cancel)="cancelClicked = true"
+                    (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form to view by detail or edit a Tageler, on the right side -->
+    <div id="updateViewForm" class="col-md-6">
+      <div class="updateAndViewForm" *ngIf="view">
+      <form [formGroup]="tagelerForm" novalidate>
+        <fieldset id="enableInput" [disabled]="view">
+          <div class="form-group row">
+            <label for="formControlName_free" class="col-3 col-form-label">Übungsfrei</label>
+            <div class="col-9">
+              <input id="formControlName_free" type="checkbox" name="free" formControlName="free" [checked]="tageler.free">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="formControlName_title" class="col-3 col-form-label">Titel*:</label>
+            <div class="col-9">
+              <input id="formControlName_title" class="form-control" formControlName="title" value="{{tageler.title}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="formControlName_text" class="col-3 col-form-label">Text*:</label>
+            <div class="col-9">
+              <textarea id="formControlName_text" class="form-control" formControlName="text" value="{{tageler.text}}" autosize></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="formControlName_group" class="col-3 col-form-label">Einheit*:</label>
+            <div class="col-9" *ngIf="view">
+              <textarea id="formControlName_group" class="form-control group-name" formControlName="group" value="{{tageler.group}}" autosize></textarea>
+            </div>
+          </div>
+          <div *ngIf="tageler.free">
+            <div class="form-group row">
+              <label for="formControlName_date_start_free" class="col-3 col-form-label">Datum*:</label>
+              <div class="col-5">
+                <input id="formControlName_date_start_free" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!tageler.free">
+            <div class="form-group row">
+              <label for="formControlName_date_start" class="col-3 col-form-label">Start*:</label>
+              <div class="col-5">
+                <input id="formControlName_date_start" class="form-control" formControlName="date_start" type="date" value="{{tageler.start | date: 'yyyy-MM-dd'}}">
+              </div>
+              <div class="col-4">
+                <input id="formControlName_date_start_time" class="form-control" formControlName="time_start" type="text" value="{{tagelerForm.value.time_start}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="formControlName_date_end" class="col-3 col-form-label">Ende*:</label>
+              <div class="col-5">
+                <input id="formControlName_date_end" class="form-control" formControlName="date_end" type="date" value="{{tageler.end | date: 'yyyy-MM-dd'}}">
+              </div>
+              <div class="col-4">
+                <input id="formControlName_date_end_time" class="form-control" formControlName="time_end" type="text" value="{{tagelerForm.value.time_end}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="formControlName_bringAlong" class="col-3 col-form-label">Mitbringen:</label>
+              <div class="col-9">
+                <textarea id="formControlName_bringAlong" class="form-control" formControlName="bringAlong"value="{{tageler.bringAlong}}" autosize></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="formControlName_uniform" class="col-3 col-form-label">Kleidung:</label>
+              <div class="col-9">
+                <textarea id="formControlName_uniform" class="form-control" formControlName="uniform" value="{{tageler.uniform}}" autosize></textarea>
+              </div>
+            </div>
+            <div formGroupName="checkout">
+              <div class="form-group row">
+                <label for="formControlName_deadline" class="col-3 col-form-label">Absagen bis*:</label>
+                <div class="col-5">
+                  <input id="formControlName_deadline" class="form-control" formControlName="deadline_date" type="date" value="{{tageler.checkout.deadline | date: 'yyyy-MM-dd'}}">
+                </div>
+                <div class="col-4">
+                  <input id="formControlName_deadline_time" class="form-control" formControlName="deadline_time" type="text" value="{{tagelerForm.value.checkout.deadline_time}}">
+                </div>
+              </div>
+              <div formGroupName="contact">
+                <div class="form-group row">
+                  <label for="formControlName_checkout_name" class="col-3 col-form-label">Absagen bei*:</label>
+                  <div class="col-9">
+                    <input id="formControlName_checkout_name" class="form-control" formControlName="name" value="{{tageler.checkout.contact[0].name}}">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="formControlName_checkout_phone" class="col-3 col-form-label">Kanal*:</label>
+                  <div class="col-9">
+                    <input id="formControlName_checkout_phone" class="form-control" formControlName="phone" type="tel" value="{{tageler.checkout.contact[0].phone}}">
+                    <input id="formControlName_checkout_mail" class="form-control" formControlName="mail" type="email" value="{{tageler.checkout.contact[0].mail}}">
+                    <input id="formControlName_checkout_other" class="form-control" formControlName="other" value="{{tageler.checkout.contact[0].other}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="formControlName_picture" class="col-3 col-form-label">Bild:</label>
+            <div class="col-9">
+              <img id="formControlName_picture" [src]="previewBase64" *ngIf="previewBase64 && tageler.picture" height="180" width="320"/>
+            </div>
+          </div>
+        </fieldset>
+        <button id="close" *ngIf="view" class="btn btn-info" (click)="closeDetailsOfTageler()">Ansicht schliessen</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

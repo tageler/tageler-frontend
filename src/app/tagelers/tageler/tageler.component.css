@@ -1,0 +1,11 @@
+.card-tageler:hover{
+  background-color: lightskyblue;
+}
+
+ul.group-list{
+  padding-left: 0;
+}
+
+ul.group-list li{
+  margin-bottom: 10px;
+}

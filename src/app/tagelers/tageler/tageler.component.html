@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Gruppen</h2>
+  <div class="row">
+    <div class="col md-4">
+      <h4>Trupp</h4>
+      <ul class="group-list">
+      <ng-container *ngFor="let group of groups | groupTypeFilter: 'Trupp' ">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
+            {{group.name}}
+          </li>
+        </a>
+      </ng-container>
+      </ul>
+    </div>
+    <div class="col md-4">
+      <h4>Meute</h4>
+      <ul class="group-list">
+      <ng-container *ngFor="let group of groups | groupTypeFilter: 'Meute' ">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
+          {{group.name}}
+          </li>
+        </a>
+      </ng-container>
+      </ul>
+    </div>
+    <div class="col md-4">
+      <h4>Equipe</h4>
+      <ul class="group-list">
+      <ng-container *ngFor="let group of groups | groupTypeFilter: 'Equipe' ">
+        <a href="../group/{{group.name}}">
+          <li class="list-group-item group-name">
+            {{group.name}}
+          </li>
+        </a>
+      </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

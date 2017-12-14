@@ -1,0 +1,92 @@
+.buttons {
+  margin-top: 2%;
+  margin-right: 2%;
+  margin-left: 1%;
+}
+
+.btn-secondary:active {
+  background-color: grey;
+}
+
+.btn-secondary:focus {
+  background-color: lightgrey;
+}
+
+.warning {
+  margin-bottom: 2%;
+  margin-top: 2%;
+  color: orange;
+}
+
+
+/*
+ * Cards of upcoming / old tagelers
+ */
+
+.card {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  height: 360px;
+  width: 320px;
+  border: 1px solid darkgray;
+}
+
+.row{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+ * Preview Card in create / update
+ */
+
+.card_preview {
+  margin-top: 1%;
+  height: auto;
+  width: auto;
+  border: 1px solid darkgray;
+}
+
+.card-title_preview {
+  font-size: 1em;
+}
+
+.card-text_preview {
+  font-size: 0.7em;
+}
+
+.card-text.group-name{
+  font-size: 1em;
+  color: #6b6565;
+}
+
+#abmelden_preview {
+  width: auto;
+}
+
+.card-checkout_preview {
+  margin: 0;
+  font-size: 0.5em;
+}
+
+#picture_preview {
+  width: auto;
+  border: 1px solid darkgray;
+}
+
+.alert-heading_preview {
+  font-size: 0.8em;
+}
+
+ul {
+  padding-left: 15px;
+}
+
+#updateViewForm {
+  position: absolute;
+  left: 400px;
+}
+
+.updateAndViewForm{
+  margin-left: 2%;
+}

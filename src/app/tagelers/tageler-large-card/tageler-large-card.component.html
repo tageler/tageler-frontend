@@ -1,0 +1,51 @@
+<div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family" [style.color]="tageler.color">
+  <div class="card-block">
+    <div class="row">
+      <div class="col-md-7">
+        <h3 id="title" class="card-title" >{{tageler.title}}</h3>
+        <h5 id="date" class="card-text" *ngIf="!tageler.free">
+          {{ tageler.start | convertToLocalDate }}, {{tageler.start | convertToLocalTime }} Uhr bis {{tageler.end | convertToLocalDate }}, {{tageler.end | convertToLocalTime}} Uhr
+        </h5>
+        <h5 id="date_free" class="card-text" *ngIf="tageler.free">
+          {{ tageler.start | date: 'fullDate'}}
+        </h5>
+        <p id="text" class="card-text" [innerHTML]="tageler.text | sanitizeHtml"></p>
+        <p id="group_title" class="card-text">
+          <span class="label">Gruppen:</span>
+        </p>
+        <p id="group" class="card-text group-name" [innerHTML]="tageler.group.join('<br \>')"></p>
+        <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">
+          <span class="label">Mitbringen:</span> {{tageler.bringAlong}}
+        </p>
+        <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">
+          <span class="label">Anziehen:</span> {{tageler.uniform}}
+        </p>
+      </div>
+      <div class="col-md-5">
+        <div id="abmelden" class="alert alert-warning" [style.color]="tageler.color" *ngIf="!tageler.free">
+          <h4 class="alert-heading">Wichtig - Abmeldung</h4>
+          <p id="deadline_date" class="card-text">
+            <span class="label">Bis:</span> {{tageler.checkout.deadline | convertToLocalDate }}, {{tageler.checkout.deadline | convertToLocalTime}} Uhr
+          </p>
+          <p id="deadline_name" class="card-text">
+            <span class="label">Bei:</span> {{tageler.checkout.contact[0].name}}
+          </p>
+          <ul>
+            <li id="deadline_phone" class="checkout-info" *ngIf="tageler.checkout.contact[0].phone">
+              <span class="label">Tel:</span> {{tageler.checkout.contact[0].phone}}
+            </li>
+            <li id="deadline_mail" class="checkout-info" *ngIf="tageler.checkout.contact[0].mail">
+              <span class="label">Mail:</span> {{tageler.checkout.contact[0].mail}}
+            </li>
+            <li id="deadline_other" class="checkout-info" *ngIf="tageler.checkout.contact[0].other">
+              <span class="label">Sonstiges:</span> {{tageler.checkout.contact[0].other}}
+            </li>
+          </ul>
+        </div>
+        <div id="image" *ngIf="tageler.picture">
+          <img id="picture" class="rounded" [src]="'data:image/png;base64,' + tageler.picture">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
