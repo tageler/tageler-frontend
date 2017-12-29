@@ -1,4 +1,4 @@
-<div class="container" *ngIf="group && !viewCalendar">
+<div class="container" *ngIf="group">
   <div class="row">
     <div class="col-md-8">
       <h3>Tagelers von <span class="group-name">{{group.name}}</span></h3>
@@ -6,7 +6,6 @@
 
     <!-- Button for iCal and calendar -->
     <div class="col-md-4">
-      <button class="btn btn-secondary" *ngIf="!viewCalendar" (click)="handleCalendarView()">Kalender</button>
       <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
     </div>
   </div>
@@ -26,14 +25,5 @@
         <tageler-small-card [tageler]="tageler"></tageler-small-card>
       </a>
     </div>
-  </div>
-</div>
-
-<!-- Displays calender if button "Kalender" is clicked -->
-<div class="container" *ngIf="group && viewCalendar">
-  <button class="btn btn-secondary" *ngIf="viewCalendar" (click)="handleCalendarView()">Ansicht schliessen</button>
-  <h3>Kalender von {{group.name}}</h3>
-  <div class="calendar">
-    <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
   </div>
 </div>
