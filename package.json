@@ -1,12 +1,13 @@
 {
   "name": "tageler",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
