@@ -8,9 +8,9 @@ import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: TagelerComponent },
-  { path: 'tageler', component: TagelerListComponent },
-  { path: 'tageler-details/:id', component: TagelerDetailsComponent },
-  { path: 'group/:id', component: GroupDetailsComponent },
+  { path: 'tageler', component: TagelerListComponent},
+  { path: 'tageler-details/:id', component: TagelerDetailsComponent},
+  { path: 'group/:name', component: GroupDetailsComponent},
   { path: 'tageler/admin', component: AdminComponent },
 
 ];
