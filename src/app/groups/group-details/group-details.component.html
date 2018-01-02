@@ -21,7 +21,7 @@
   <!-- Display all other upcoming tagelers as smaller cards -->
   <div class="row">
     <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
-      <a class="nodecor" href="../tageler-details/{{tageler._id}}">
+      <a class="nodecor" routerLink="/tageler-details/{{tageler._id}}">
         <tageler-small-card [tageler]="tageler"></tageler-small-card>
       </a>
     </div>

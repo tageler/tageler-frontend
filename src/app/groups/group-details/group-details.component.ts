@@ -31,7 +31,7 @@ export class GroupDetailsComponent implements OnInit {
   ngOnInit() {
     console.log("Init Group Details");
     this.route.params
-      .switchMap((params: Params) => this.groupService.getGroup(params['id']))
+      .switchMap((params: Params) => this.groupService.getGroup(params['name']))
       .subscribe(group => this.group = group);
 
     this.tagelerService
