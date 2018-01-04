@@ -12,14 +12,13 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ConfirmModule} from 'angular2-bootstrap-confirm';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
-import { ColorPickerModule } from 'angular2-color-picker';
-import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppComponent } from './app.component';
 import { TagelerListComponent } from './tagelers/tageler-list/tageler-list.component';
 import { TagelerDetailsComponent } from './tagelers/tageler-details/tageler-details.component';
 import { TagelerSmallCardComponent } from './tagelers/tageler-small-card/tageler-small-card.component';
-import {TagelerLargeCardComponent} from "./tagelers/tageler-large-card/tageler-large-card.component";
+import { TagelerLargeCardComponent} from "./tagelers/tageler-large-card/tageler-large-card.component";
 import { GroupDetailsComponent } from './groups/group-details/group-details.component';
 
 import { GroupService } from './groups/group.service';
@@ -59,8 +58,7 @@ import { LOCALE_ID } from '@angular/core';
     ToLocalTimePipe,
     ToLocalDatePipe,
     SanitizeHtmlPipe,
-    Autosize,
-    CalendarComponent
+    Autosize
   ],
   imports: [
     BrowserModule,
