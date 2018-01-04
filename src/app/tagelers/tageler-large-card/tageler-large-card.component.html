@@ -10,15 +10,14 @@
           {{ tageler.start | date: 'fullDate'}}
         </h5>
         <p id="text" class="card-text" [innerHTML]="tageler.text | sanitizeHtml"></p>
-        <p id="group_title" class="card-text">
-          <span class="label">Gruppen:</span>
-        </p>
-        <p id="group" class="card-text group-name" [innerHTML]="tageler.group.join('<br \>')"></p>
         <p id="bringAlong" class="card-text" *ngIf="!tageler.free && tageler.bringAlong">
           <span class="label">Mitbringen:</span> {{tageler.bringAlong}}
         </p>
         <p id="uniform" class="card-text" *ngIf="!tageler.free && tageler.uniform">
           <span class="label">Anziehen:</span> {{tageler.uniform}}
+        </p>
+        <p id="group_title" class="card-text">
+	  <span class="label">Gruppen:</span> <span class="group-name">{{tageler.group.join(', ')}}</span>
         </p>
       </div>
       <div class="col-md-5">
