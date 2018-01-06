@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Tageler } from "../tagelers/tageler";
 
 @Pipe({
-  name: 'oldTagelerByGroupAndByDate',
+  name: 'pastTagelerByGroupAndByDate',
 })
 
-export class OldTagelerByGroupAndByDate implements PipeTransform {
+export class PastTagelerByGroupAndByDate implements PipeTransform {
 
   // args is the name of a group (e.g. Baghira)
   transform(tagelers: Tageler[], args: any): any {

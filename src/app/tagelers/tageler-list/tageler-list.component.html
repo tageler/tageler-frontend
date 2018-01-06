@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate" class="col-md-4">
+    <div *ngFor="let tageler of tagelers | tagelerByDate" class="col-md-4">
       <a class="nodecor" routerLink="/tageler-details/{{tageler._id}}">
         <tageler-small-card [tageler]="tageler"></tageler-small-card>
       </a>

@@ -370,7 +370,7 @@
 
     <!-- Past Tagelers -->
     <div *ngIf="showOldTagelers && !showUpcomingTageler &&!update">
-      <div *ngFor="let tageler of tagelers | oldTagelerByGroupAndByDate: selectedGroup">
+      <div *ngFor="let tageler of tagelers | pastTagelerByGroupAndByDate: selectedGroup">
         <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
           <div class="card-block" [style.color]="tageler.color">

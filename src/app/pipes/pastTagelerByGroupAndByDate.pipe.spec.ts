@@ -1,13 +1,13 @@
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
-import { OldTagelerByGroupAndByDate } from "./oldTagelerByGroupAndByDate.pipe";
+import { PastTagelerByGroupAndByDate } from "./PastTagelerByGroupAndByDate.pipe";
 
 
-describe('OldTagelerByGroupAndByDate', () => {
-  let pipe: OldTagelerByGroupAndByDate;
+describe('PastTagelerByGroupAndByDate', () => {
+  let pipe: PastTagelerByGroupAndByDate;
 
   beforeEach(() => {
-    pipe = new OldTagelerByGroupAndByDate();
+    pipe = new PastTagelerByGroupAndByDate();
   });
 
   it('return null if there is no tageler but a group', () => {

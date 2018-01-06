@@ -32,8 +32,9 @@ import { DefaultPictureService } from './default-pictures/default-picture.servic
 import { FilterGroupByTypePipe } from './pipes/groupType.pipe';
 import { NextTagelerPipe } from './pipes/nextTageler.pipe';
 import { OtherTagelerPipe } from './pipes/otherTageler.pipe';
+import { TagelerByDate } from './pipes/tagelerByDate.pipe';
 import { TagelerByGroupAndByDate } from './pipes/tagelerByGroupAndByDate.pipe';
-import { OldTagelerByGroupAndByDate } from './pipes/oldTagelerByGroupAndByDate.pipe';
+import { PastTagelerByGroupAndByDate } from './pipes/pastTagelerByGroupAndByDate.pipe';
 import { ToLocalTimePipe } from './pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from './pipes/toLocalDatePipe.pipe';
 import { SanitizeHtmlPipe } from './pipes/sanitizeHTML.pipe';
@@ -53,8 +54,9 @@ import { LOCALE_ID } from '@angular/core';
     FilterGroupByTypePipe,
     NextTagelerPipe,
     OtherTagelerPipe,
+    TagelerByDate,
     TagelerByGroupAndByDate,
-    OldTagelerByGroupAndByDate,
+    PastTagelerByGroupAndByDate,
     ToLocalTimePipe,
     ToLocalDatePipe,
     SanitizeHtmlPipe,
