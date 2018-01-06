@@ -11,7 +11,6 @@ import { TagelerService } from '../tageler.service';
 export class TagelerListComponent implements OnInit {
 
   tagelers: Tageler[];
-  tageler: Tageler;
 
   constructor(
     private tagelerService: TagelerService) {}
@@ -21,12 +20,7 @@ export class TagelerListComponent implements OnInit {
     this.tagelerService
       .getTagelers()
       .then((tagelers: Tageler[]) => {
-        this.tagelers = tagelers.map((tageler) => {
-          if (!tageler.title) {
-            tageler.title = 'default';
-          }
-          return tageler;
-        });
+        this.tagelers = tagelers;
       });
   }
 }
