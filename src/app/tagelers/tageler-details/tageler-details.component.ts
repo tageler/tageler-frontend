@@ -15,13 +15,10 @@ import { Group } from '../../groups/group';
 export class TagelerDetailsComponent implements OnInit {
   @Input()
   tageler: Tageler;
-  tagelers: Tageler[];
-  groups: Group[];
   text: String;
 
   constructor(
     private tagelerService: TagelerService,
-    private groupService: GroupService,
     private route: ActivatedRoute
   ) {}
 
@@ -30,18 +27,6 @@ export class TagelerDetailsComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.tagelerService.getTageler(params['id']))
       .subscribe(tageler => this.tageler = tageler);
-
-
-    this.groupService
-      .getGroups()
-      .then((groups: Group[]) => {
-        this.groups = this.groups = groups.map((group) => {
-          if(!group.name) {
-            group.name = 'default';
-          }
-          return group;
-        });
-      });
   };
 
   /*

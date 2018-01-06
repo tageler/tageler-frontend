@@ -12,7 +12,7 @@ import { GroupService } from '../groups/group.service';
 import { DefaultPictureService } from '../default-pictures/default-picture.service';
 import { TagelerByGroupAndByDate } from '../pipes/tagelerByGroupAndByDate.pipe';
 import { FilterGroupByTypePipe } from '../pipes/groupType.pipe';
-import { OldTagelerByGroupAndByDate } from '../pipes/oldTagelerByGroupAndByDate.pipe'
+import { PastTagelerByGroupAndByDate } from '../pipes/pastTagelerByGroupAndByDate.pipe'
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
@@ -34,7 +34,7 @@ describe('Component: AdminComponent', () => {
         AdminComponent,
         TagelerByGroupAndByDate,
         FilterGroupByTypePipe,
-        OldTagelerByGroupAndByDate,
+        PastTagelerByGroupAndByDate,
         ToLocalTimePipe,
         ToLocalDatePipe,
         SanitizeHtmlPipe ],
