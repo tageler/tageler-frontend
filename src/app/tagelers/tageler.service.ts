@@ -4,11 +4,13 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';   // this adds the non-static 'toPromise' operator
 import 'rxjs/add/operator/map';         // this adds the non-static 'map' operator
 import 'rxjs/add/operator/switchMap';   // this adds the non-static 'switchMap' operator
+import { Group } from '../groups/group';
 
 @Injectable()
 export class TagelerService {
   private tagelersUrlPost = '/api/v1/tageler/admin/create';
   private tagelersUrlGet = '/api/v1/tageler/getTagelers';
+  private tagelersUrlGetByGroup = '/api/v1/tageler/getByGroup';
   private tagelersUrlGetById = '/api/v1/tageler/getById';
   private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
   private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
@@ -27,6 +29,14 @@ export class TagelerService {
   // get("/api/v1/tageler/getTagelers")
   getTagelers(): Promise<Tageler[]> {
     return this.http.get(this.tagelersUrlGet)
+      .toPromise()
+      .then(response => response.json() as Tageler[])
+      .catch(this.handleError);
+  }
+
+  // get("/api/v1/tageler/getByGroup")
+  getTagelerByGroupname(groupname: String): Promise<Tageler[]> {
+    return this.http.get(this.tagelersUrlGetByGroup + '/' + groupname)
       .toPromise()
       .then(response => response.json() as Tageler[])
       .catch(this.handleError);

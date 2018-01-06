@@ -5,25 +5,32 @@
     </div>
 
     <!-- Button for iCal and calendar -->
-    <div class="col-md-4">
+    <div class="col-md-4" *ngIf="hasTagelers">
       <button class="btn btn-secondary" (click)="handleICal(group)">Events herunterladen</button>
     </div>
   </div>
-
-  <!-- Displays next upcoming tageler of the group -->
-  <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
-    <tageler-large-card [tageler]="tageler" id="bigCard"></tageler-large-card>
-  </div>
-  <br>
   <hr>
-  <br>
 
-  <!-- Display all other upcoming tagelers as smaller cards -->
-  <div class="row">
-    <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
-      <a class="nodecor" routerLink="/tageler-details/{{tageler._id}}">
-        <tageler-small-card [tageler]="tageler"></tageler-small-card>
-      </a>
+  <ng-container *ngIf="hasTagelers">
+    <!-- Displays next upcoming tageler of the group -->
+    <div class="row" *ngFor="let tageler of tagelers | nextTagelerFilter: group">
+      <tageler-large-card [tageler]="tageler" id="bigCard"></tageler-large-card>
     </div>
-  </div>
+    <br>
+    <hr>
+    <br>
+
+    <!-- Display all other upcoming tagelers as smaller cards -->
+    <div class="row">
+      <div class="groupPipe col-md-4" *ngFor="let tageler of tagelers | otherTagelerFilter: group">
+        <a class="nodecor" routerLink="/tageler-details/{{tageler._id}}">
+          <tageler-small-card [tageler]="tageler"></tageler-small-card>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!hasTagelers">
+    Zur Zeit sind für <span class="group-name">{{group.name}}</span> noch keine Tageler erfasst worden.
+  </ng-container>
 </div>
