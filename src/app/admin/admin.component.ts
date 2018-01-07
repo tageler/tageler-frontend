@@ -48,8 +48,8 @@ export class AdminComponent implements OnInit {
   // Multiselect for group filter
   myOptions: IMultiSelectOption[] = [];
 
-  public title: String = 'Achtung';
-  public message: String = 'Soll dieser Tageler wirklich gelöscht werden?';
+  public popoverTitle: String = 'Achtung';
+  public popoverMessage: String = 'Soll dieser Tageler wirklich gelöscht werden?';
   public cancelClicked: boolean = false;
   public defaultPictureUbungsfrei: String = '';
 
@@ -815,7 +815,7 @@ export class AdminComponent implements OnInit {
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'checkboxes',
-    buttonClasses: 'btn btn-secondary btn-block',
+    buttonClasses: 'btn btn-secondary btn-block group-name',
     dynamicTitleMaxItems: 3,
     displayAllSelectedText: true,
     showCheckAll: true,
@@ -826,10 +826,10 @@ export class AdminComponent implements OnInit {
   myTexts: IMultiSelectTexts = {
     checkAll: 'Alle auswählen',
     uncheckAll: 'Auswahl löschen',
-    checked: 'Gruppe ausgewählt',
-    checkedPlural: 'Gruppen ausgewählt',
+    checked: 'Einheit ausgewählt',
+    checkedPlural: 'Einheiten ausgewählt',
     searchPlaceholder: 'Suchen',
-    defaultTitle: 'Gruppe(n) auswählen',
+    defaultTitle: 'Einheit(en) auswählen',
     allSelected: 'Alle ausgewählt',
   };
 
