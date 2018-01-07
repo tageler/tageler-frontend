@@ -24,7 +24,7 @@ import { GroupDetailsComponent } from './groups/group-details/group-details.comp
 import { GroupService } from './groups/group.service';
 
 import { TagelerService } from './tagelers/tageler.service';
-import { TagelerComponent } from './tagelers/tageler/tageler.component';
+import { GroupComponent } from './groups/group/group.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { DefaultPictureService } from './default-pictures/default-picture.service';
@@ -49,7 +49,7 @@ import { LOCALE_ID } from '@angular/core';
     TagelerSmallCardComponent,
     TagelerLargeCardComponent,
     GroupDetailsComponent,
-    TagelerComponent,
+    GroupComponent,
     AdminComponent,
     FilterGroupByTypePipe,
     NextTagelerPipe,

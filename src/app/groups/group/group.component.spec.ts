@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { HttpModule, Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
-import { TagelerComponent } from './tageler.component';
+import { GroupComponent } from './group.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FilterGroupByTypePipe } from '../../pipes/groupType.pipe';
-import { TagelerService } from '../tageler.service';
+import { TagelerService } from '../../tagelers/tageler.service';
 import { GroupService} from '../../groups/group.service';
-import { Tageler } from '../tageler';
+import { Tageler } from '../../tagelers/tageler';
 import { Group } from '../../groups/group';
 import { DebugElement } from '@angular/core';
 import { By }           from '@angular/platform-browser';
 
-describe('TagelerComponent', () => {
+describe('GroupComponent', () => {
   let tagelerService: TagelerService,
       groupService: GroupService,
-      component: TagelerComponent,
-      fixture: ComponentFixture<TagelerComponent>;
+      component: GroupComponent,
+      fixture: ComponentFixture<GroupComponent>;
   let de:      DebugElement;
   let el:      HTMLElement;
 
@@ -27,7 +27,7 @@ describe('TagelerComponent', () => {
         HttpModule,
       ],
       declarations: [
-        TagelerComponent,
+        GroupComponent,
         FilterGroupByTypePipe,
       ],
       providers: [
@@ -49,7 +49,7 @@ describe('TagelerComponent', () => {
   beforeEach(() => {
     tagelerService = TestBed.get(TagelerService);
     groupService = TestBed.get(GroupService);
-    fixture = TestBed.createComponent(TagelerComponent);
+    fixture = TestBed.createComponent(GroupComponent);
     component = fixture.componentInstance;
 
     // query for the title <h4> by CSS element selector
@@ -88,28 +88,28 @@ describe('TagelerComponent', () => {
   }));
 
   it('should render title Trupp in a h4 tag', async(() => {
-    const fixture = TestBed.createComponent(TagelerComponent);
+    const fixture = TestBed.createComponent(GroupComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h4').firstChild.textContent).toContain('Trupp');
   }));
 
   it('should render title Meute in a h4 tag', async(() => {
-    const fixture = TestBed.createComponent(TagelerComponent);
+    const fixture = TestBed.createComponent(GroupComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelectorAll('h4')[1].textContent).toContain('Meute');
   }));
 
   it('should render title Equipe in a h4 tag', async(() => {
-    const fixture = TestBed.createComponent(TagelerComponent);
+    const fixture = TestBed.createComponent(GroupComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelectorAll('h4')[2].textContent).toContain('Equipe');
   }));
 
   it('should display group names in the right place', () => {
-    const fixture = TestBed.createComponent(TagelerComponent);
+    const fixture = TestBed.createComponent(GroupComponent);
     fixture.componentInstance.groups = [{name: 'Baghira', type: 'Trupp'},
                                         {name: 'Mogli', type: 'Meute'},
                                         {name: 'Turmalin', type: 'Equipe'}];

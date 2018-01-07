@@ -17,11 +17,11 @@
     <div id="navButton5" class="buttons" *ngIf="showGroups && !createTageler">
       <button class="btn btn-primary" (click)="unselectSelectedGroups()">Auswahl aufheben</button>
     </div>
-    <div id="navButton6" class="buttons" *ngIf="!showOldTagelers && !createTageler && !update">
-      <button class="btn btn-primary" (click)="showAllOldTagelers()">Vergangene Tageler</button>
+    <div id="navButton6" class="buttons" *ngIf="!showPastTagelers && !createTageler && !update">
+      <button class="btn btn-primary" (click)="showAllPastTagelers()">Vergangene Tageler</button>
     </div>
-    <div id="navButton7" class="buttons" *ngIf="showOldTagelers && !createTageler && !update">
-      <button class="btn btn-primary" (click)="hideAllOldTagelers()">Aktuelle Tageler</button>
+    <div id="navButton7" class="buttons" *ngIf="showPastTagelers && !createTageler && !update">
+      <button class="btn btn-primary" (click)="hideAllPastTagelers()">Aktuelle Tageler</button>
     </div>
   </div>
 
@@ -334,7 +334,7 @@
   <div class="row">
 
     <!-- Upcoming Tagelers -->
-    <div *ngIf="showUpcomingTageler && !showOldTagelers &&!update">
+    <div *ngIf="showUpcomingTageler && !showPastTagelers &&!update">
       <div *ngFor="let tageler of tagelers | tagelerByGroupAndByDate: selectedGroup">
         <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
@@ -369,7 +369,7 @@
     </div>
 
     <!-- Past Tagelers -->
-    <div *ngIf="showOldTagelers && !showUpcomingTageler &&!update">
+    <div *ngIf="showPastTagelers && !showUpcomingTageler &&!update">
       <div *ngFor="let tageler of tagelers | pastTagelerByGroupAndByDate: selectedGroup">
         <div class="card" [style.background]="tageler.background_color" [style.font-family]="tageler.font_family">
           <img *ngIf="tageler.picture" class="card-img-top" [src]="'data:image/png;base64,' + tageler.picture" width="318" height="180">
