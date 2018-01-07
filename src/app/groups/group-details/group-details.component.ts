@@ -36,7 +36,7 @@ export class GroupDetailsComponent implements OnInit {
         (group: Group) => {
           this.group = group;
           this.tagelerService
-            .getTagelerByGroupname(group.name)
+            .getActiveTagelerByGroupname(group.name)
             .then((tagelers: Tageler[]) => {
               this.tagelers = tagelers;
               if (tagelers.length > 0) {

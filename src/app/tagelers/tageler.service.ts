@@ -45,7 +45,7 @@ export class TagelerService {
 
   // get("/api/v1/tageler/getByGroup")
   getTagelerByGroupname(groupname: String): Promise<Tageler[]> {
-    return this.http.get(this.tagelersUrlGetByGroup + '/' + groupname)
+    return this.http.get(this.tagelersUrlGetAllByGroup + '/' + groupname)
       .toPromise()
       .then(response => response.json() as Tageler[])
       .catch(this.handleError);

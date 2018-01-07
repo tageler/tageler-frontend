@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tageler } from '../tageler';
-import { TagelerService } from '../tageler.service';
+import { Tageler } from '../../tagelers/tageler';
+import { TagelerService } from '../../tagelers/tageler.service';
 import { Group } from '../../groups/group';
 import { GroupService } from '../../groups/group.service';
 
 @Component({
-  selector: 'tageler-component',
-  templateUrl: './tageler.component.html',
-  styleUrls: ['./tageler.component.css'],
+  selector: 'group-component',
+  templateUrl: './group.component.html',
+  styleUrls: ['./group.component.css'],
 })
 
-export class TagelerComponent implements OnInit {
+export class GroupComponent implements OnInit {
   groups: Group[];
 
   constructor(
