@@ -10,8 +10,7 @@ import { GroupService } from '../groups/group.service';
 
 import { DefaultPictureService } from '../default-pictures/default-picture.service';
 
-import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
-import { Positioning } from 'angular2-bootstrap-confirm/position';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
@@ -22,11 +21,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
-  providers: [
-    ConfirmOptions,
-    {provide: Position, useClass: Positioning}
-  ]
+  styleUrls: ['./admin.component.css']
 })
 
 export class AdminComponent implements OnInit {
