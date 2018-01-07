@@ -10,8 +10,7 @@ import { GroupService } from '../groups/group.service';
 
 import { DefaultPictureService } from '../default-pictures/default-picture.service';
 
-import { ConfirmOptions, Position } from 'angular2-bootstrap-confirm';
-import { Positioning } from 'angular2-bootstrap-confirm/position';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 import { IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
@@ -22,11 +21,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'admin-component',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
-  providers: [
-    ConfirmOptions,
-    {provide: Position, useClass: Positioning}
-  ]
+  styleUrls: ['./admin.component.css']
 })
 
 export class AdminComponent implements OnInit {
@@ -53,8 +48,8 @@ export class AdminComponent implements OnInit {
   // Multiselect for group filter
   myOptions: IMultiSelectOption[] = [];
 
-  public title: String = 'Achtung';
-  public message: String = 'Soll dieser Tageler wirklich gelöscht werden?';
+  public popoverTitle: String = 'Achtung';
+  public popoverMessage: String = 'Soll dieser Tageler wirklich gelöscht werden?';
   public cancelClicked: boolean = false;
   public defaultPictureUbungsfrei: String = '';
 
@@ -820,7 +815,7 @@ export class AdminComponent implements OnInit {
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'checkboxes',
-    buttonClasses: 'btn btn-secondary btn-block',
+    buttonClasses: 'btn btn-secondary btn-block group-name',
     dynamicTitleMaxItems: 3,
     displayAllSelectedText: true,
     showCheckAll: true,
@@ -831,10 +826,10 @@ export class AdminComponent implements OnInit {
   myTexts: IMultiSelectTexts = {
     checkAll: 'Alle auswählen',
     uncheckAll: 'Auswahl löschen',
-    checked: 'Gruppe ausgewählt',
-    checkedPlural: 'Gruppen ausgewählt',
+    checked: 'Einheit ausgewählt',
+    checkedPlural: 'Einheiten ausgewählt',
     searchPlaceholder: 'Suchen',
-    defaultTitle: 'Gruppe(n) auswählen',
+    defaultTitle: 'Einheit(en) auswählen',
     allSelected: 'Alle ausgewählt',
   };
 
