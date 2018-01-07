@@ -91,7 +91,7 @@
                 [options]="myOptions"
                 [texts]="myTexts"
                 [settings]="mySettings"
-                class="form-control"
+                class="form-control group-name"
                 id="create_formControlName_group_update"
                 formControlName="group"
                 required
@@ -102,7 +102,7 @@
                 [texts]="myTexts"
                 [settings]="mySettings"
                 [(ngModel)]="group"
-                class="form-control"
+                class="form-control group-name"
                 id="create_formControlName_group"
                 formControlName="group"
                 required
@@ -358,9 +358,9 @@
             <button id="cardButton3Upcoming" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
             <button id="cardButton1Upcoming"
                     class="btn btn-danger"
-                    mwlConfirm
-                    [title]="title"
-                    [message]="message"
+                    mwlConfirmationPopover
+                    [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage"
                     (cancel)="cancelClicked = true"
                     (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
           </div>
@@ -393,9 +393,9 @@
             <button id="cardButton3Old" class="btn btn-info" (click)="showTagelerEditForm(tageler)">Edit</button>
             <button id="cardButton1Old"
                     class="btn btn-danger"
-                    mwlConfirm
-                    [title]="title"
-                    [message]="message"
+                    mwlConfirmationPopover
+                    [popoverTitle]="title"
+                    [popoverMessage]="message"
                     (cancel)="cancelClicked = true"
                     (confirm)="deleteSelectedTageler(tageler)">Löschen</button>
           </div>

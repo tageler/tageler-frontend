@@ -81,7 +81,7 @@ export class TagelerService {
   }
 
   // delete("/api/v1/tageler/admin/delete")
-  deleteTageler(delTageler: String): Promise<JSON> {
+  deleteTageler(delTageler: string): Promise<JSON> {
     var fd:FormData = new FormData();
     fd.append('_id', delTageler);
 
