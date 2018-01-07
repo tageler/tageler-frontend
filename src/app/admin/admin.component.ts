@@ -30,9 +30,9 @@ export class AdminComponent implements OnInit {
   selectedTageler: Tageler;
   selectedGroup: Group;
   showUpcomingTageler = true;
+  showPastTagelers = false;
   createTageler = false;
   showGroups = false;
-  showOldTagelers = false;
 
   formValid = false;
   imageIsPresent = false;
@@ -84,9 +84,6 @@ export class AdminComponent implements OnInit {
       .getTagelers()
       .then((tagelers: Tageler[]) => {
         this.tagelers = tagelers.map((tageler) => {
-          if (!tageler.title) {
-            tageler.title = 'default';
-          }
           return tageler;
         });
       });
@@ -95,9 +92,6 @@ export class AdminComponent implements OnInit {
       .getGroups()
       .then((groups: Group[]) => {
         this.groups = groups.map((group) => {
-          if (!group.name) {
-            group.name = 'default';
-          }
           this.myOptions.push({id: group.name, name: group.name});
           return group;
         });
@@ -131,13 +125,13 @@ export class AdminComponent implements OnInit {
     this.showGroups = true;
   }
 
-  showAllOldTagelers() {
-    this.showOldTagelers = true;
+  showAllPastTagelers() {
+    this.showPastTagelers = true;
     this.view = this.update = this.createTageler = this.showUpcomingTageler = false;
   }
 
-  hideAllOldTagelers() {
-    this.showOldTagelers = false;
+  hideAllPastTagelers() {
+    this.showPastTagelers = false;
     this.showUpcomingTageler = true;
   }
 
