@@ -141,9 +141,9 @@ export class AdminComponent implements OnInit {
     if (moment() >= moment().isoWeekday('Saturday')) {
       date_offset = 1;
     }
-    const startDate = moment().isoWeekday('Saturday').add(date_offset, 'week').hour(14).startOf('hour');
-    const endDate = moment().isoWeekday('Saturday').add(date_offset, 'week').hour(17).startOf('hour');
-    const checkoutDate = moment().isoWeekday('Wednesday').add(date_offset, 'week').startOf('day');
+    const startDate = moment.utc().isoWeekday('Saturday').add(date_offset, 'week').hour(14).startOf('hour');
+    const endDate = moment.utc().isoWeekday('Saturday').add(date_offset, 'week').hour(17).startOf('hour');
+    const checkoutDate = moment.utc().isoWeekday('Wednesday').add(date_offset, 'week').startOf('day');
 
     this.tageler = {
       title: '',
@@ -377,7 +377,8 @@ export class AdminComponent implements OnInit {
   }
 
   prepareUpdateTageler(): Tageler {
-    let freeUpdated, startUpdated, endUpdated, deadlineUpdated;
+    let freeUpdated, interimStartDate, startUpdated,
+      interimEndDate, endUpdated, interimDeadline, deadlineUpdated;
 
     // set free value correctly
     if (this.tagelerForm.value.free == null) {
@@ -386,56 +387,26 @@ export class AdminComponent implements OnInit {
       freeUpdated = this.tagelerForm.value.free;
     }
 
-    // Set start date correct, if nothing/only one field/both fields changed
-    if (!this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
-      startUpdated = this.tageler.start;
+    // Since Safari messes up timezone handling, we need to pass the date in the
+    // following format: April 02 2018 03:24:00
+    // otherwise we get a local datetime, instead of proper UTC
+    // Set start date properly
+    interimStartDate = moment(this.tagelerForm.value.date_start);
+    startUpdated = new Date(interimStartDate.format('MMMM') + ' ' + interimStartDate.format('DD')
+        + ' ' + interimStartDate.format('YYYY') + ' ' +
+        this.tagelerForm.value.time_start.replace('.', ':') + ':00');
 
-    } else if (!this.tagelerForm.value.date_start && this.tagelerForm.value.time_start) {
-      startUpdated = new Date(new Date(this.tageler.start).toISOString().slice(0, 10) + 'T' +
-        this.tagelerForm.value.time_start.replace('.', ':'));
+    // Set end date properly
+    interimEndDate = moment(this.tagelerForm.value.date_end);
+    endUpdated = new Date(interimEndDate.format('MMMM') + ' ' + interimEndDate.format('DD')
+    + ' ' + interimEndDate.format('YYYY') + ' ' +
+        this.tagelerForm.value.time_end.replace('.', ':') + ':00');
 
-    } else if (this.tagelerForm.value.date_start && !this.tagelerForm.value.time_start) {
-      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' +
-        new Date(this.tageler.start).toISOString().slice(11, 16));
-
-    } else {
-      startUpdated = new Date(this.tagelerForm.value.date_start + 'T' +
-        this.tagelerForm.value.time_start.replace('.', ':'));
-    }
-
-    // Set end date correct, if nothing/only one field/both fields changed
-    if (!this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
-      endUpdated = this.tageler.end;
-
-    } else if (!this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
-      endUpdated = new Date(new Date(this.tageler.end).toISOString().slice(0, 10) + 'T' +
-        this.tagelerForm.value.time_end.replace('.', ':'));
-
-    } else if (this.tagelerForm.value.date_end && !this.tagelerForm.value.time_end) {
-      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' +
-        new Date(this.tageler.end).toISOString().slice(11, 16));
-
-    } else if (this.tagelerForm.value.date_end && this.tagelerForm.value.time_end) {
-      endUpdated = new Date(this.tagelerForm.value.date_end + 'T' +
-        this.tagelerForm.value.time_end.replace('.', ':'));
-    }
-
-    // Set checkout deadline date correct, if nothing/only one field/both fields changed
-    if (!this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = this.tageler.checkout.deadline;
-
-    } else if (!this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(new Date(this.tageler.checkout.deadline).toISOString().slice(0, 10) + 'T' +
-        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
-
-    } else if (this.tagelerForm.value.checkout.deadline_date && !this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
-        new Date(this.tageler.checkout.deadline).toISOString().slice(11, 16));
-
-    } else if (this.tagelerForm.value.checkout.deadline_date && this.tagelerForm.value.checkout.deadline_time) {
-      deadlineUpdated = new Date(this.tagelerForm.value.checkout.deadline_date + 'T' +
-        this.tagelerForm.value.checkout.deadline_time.replace('.', ':'));
-    }
+    // Set checkout deadline date properly
+    interimDeadline = moment(this.tagelerForm.value.checkout.deadline_date);
+    deadlineUpdated = new Date(interimDeadline.format('MMMM') + ' ' + interimDeadline.format('DD')
+    + ' ' + interimDeadline.format('YYYY') + ' ' +
+        this.tagelerForm.value.checkout.deadline_time.replace('.', ':') + ':00');
 
     // update Tageler should contain (new) values from tageler Form
     const updateTageler: Tageler = {
