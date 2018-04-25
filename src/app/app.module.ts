@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ConfirmModule} from 'angular2-bootstrap-confirm';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { Autosize } from 'angular2-autosize/src/autosize.directive';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -24,7 +24,7 @@ import { GroupDetailsComponent } from './groups/group-details/group-details.comp
 import { GroupService } from './groups/group.service';
 
 import { TagelerService } from './tagelers/tageler.service';
-import { TagelerComponent } from './tagelers/tageler/tageler.component';
+import { GroupComponent } from './groups/group/group.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { DefaultPictureService } from './default-pictures/default-picture.service';
@@ -49,7 +49,7 @@ import { LOCALE_ID } from '@angular/core';
     TagelerSmallCardComponent,
     TagelerLargeCardComponent,
     GroupDetailsComponent,
-    TagelerComponent,
+    GroupComponent,
     AdminComponent,
     FilterGroupByTypePipe,
     NextTagelerPipe,
@@ -74,7 +74,9 @@ import { LOCALE_ID } from '@angular/core';
     DateValueAccessorModule,
     Ng2DatetimePickerModule,
     FileUploadModule,
-    ConfirmModule,
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger' // set defaults here
+    }),
     ColorPickerModule,
   ],
   providers: [

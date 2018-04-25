@@ -5,3 +5,7 @@ body {
 .group-name{
   text-transform: capitalize;
 }
+li.dropdown-item.active,
+li.dropdown-item:active {
+  background-color: #f7f7f9;
+}

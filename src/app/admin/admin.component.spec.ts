@@ -6,7 +6,7 @@ import { FormsModule, FormGroup, ReactiveFormsModule, FormBuilder } from '@angul
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ConfirmModule} from 'angular2-bootstrap-confirm';
+import { ConfirmationPopoverModule} from 'angular-confirmation-popover';
 import { TagelerService } from '../tagelers/tageler.service';
 import { GroupService } from '../groups/group.service';
 import { DefaultPictureService } from '../default-pictures/default-picture.service';
@@ -16,7 +16,7 @@ import { PastTagelerByGroupAndByDate } from '../pipes/pastTagelerByGroupAndByDat
 import { Tageler } from '../tagelers/tageler';
 import { Group } from '../groups/group';
 import { LOCALE_ID } from '@angular/core';
-import { ColorPickerModule } from 'angular2-color-picker';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { ToLocalTimePipe } from '../pipes/toLocalTimePipe.pipe';
 import { ToLocalDatePipe } from '../pipes/toLocalDatePipe.pipe';
 import { SanitizeHtmlPipe } from '../pipes/sanitizeHTML.pipe';
@@ -41,7 +41,7 @@ describe('Component: AdminComponent', () => {
       imports: [
         ReactiveFormsModule,
         FileUploadModule,
-        ConfirmModule,
+        ConfirmationPopoverModule,
         FormsModule,
         MultiselectDropdownModule,
         FlashMessagesModule,

@@ -9,8 +9,10 @@ import { Group } from '../groups/group';
 @Injectable()
 export class TagelerService {
   private tagelersUrlPost = '/api/v1/tageler/admin/create';
-  private tagelersUrlGet = '/api/v1/tageler/getTagelers';
-  private tagelersUrlGetByGroup = '/api/v1/tageler/getByGroup';
+  private tagelersUrlGetActive = '/api/v1/tageler/getActiveTagelers';
+  private tagelersUrlGetAll = '/api/v1/tageler/getTagelers';
+  private tagelersUrlGetActiveByGroup = '/api/v1/tageler/getActiveByGroup';
+  private tagelersUrlGetAllByGroup = '/api/v1/tageler/getByGroup';
   private tagelersUrlGetById = '/api/v1/tageler/getById';
   private tagelerUrlDelete = '/api/v1/tageler/admin/delete';
   private tagelerUrlUpdate = '/api/v1/tageler/admin/update';
@@ -28,7 +30,14 @@ export class TagelerService {
 
   // get("/api/v1/tageler/getTagelers")
   getTagelers(): Promise<Tageler[]> {
-    return this.http.get(this.tagelersUrlGet)
+    return this.http.get(this.tagelersUrlGetAll)
+      .toPromise()
+      .then(response => response.json() as Tageler[])
+      .catch(this.handleError);
+  }
+  // get("/api/v1/tageler/getActiveTagelers")
+  getActiveTagelers(): Promise<Tageler[]> {
+    return this.http.get(this.tagelersUrlGetActive)
       .toPromise()
       .then(response => response.json() as Tageler[])
       .catch(this.handleError);
@@ -36,7 +45,15 @@ export class TagelerService {
 
   // get("/api/v1/tageler/getByGroup")
   getTagelerByGroupname(groupname: String): Promise<Tageler[]> {
-    return this.http.get(this.tagelersUrlGetByGroup + '/' + groupname)
+    return this.http.get(this.tagelersUrlGetAllByGroup + '/' + groupname)
+      .toPromise()
+      .then(response => response.json() as Tageler[])
+      .catch(this.handleError);
+  }
+
+  // get("/api/v1/tageler/getActiveByGroup")
+  getActiveTagelerByGroupname(groupname: String): Promise<Tageler[]> {
+    return this.http.get(this.tagelersUrlGetActiveByGroup + '/' + groupname)
       .toPromise()
       .then(response => response.json() as Tageler[])
       .catch(this.handleError);
@@ -64,7 +81,7 @@ export class TagelerService {
   }
 
   // delete("/api/v1/tageler/admin/delete")
-  deleteTageler(delTageler: String): Promise<JSON> {
+  deleteTageler(delTageler: string): Promise<JSON> {
     var fd:FormData = new FormData();
     fd.append('_id', delTageler);
 

@@ -18,7 +18,7 @@ export class TagelerListComponent implements OnInit {
   ngOnInit() {
     console.log("Init TagelerList");
     this.tagelerService
-      .getTagelers()
+      .getActiveTagelers()
       .then((tagelers: Tageler[]) => {
         this.tagelers = tagelers;
       });
