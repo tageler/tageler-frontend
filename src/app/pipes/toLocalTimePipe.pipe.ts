@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import * as moment from 'moment';
 
 @Pipe({
   name: 'convertToLocalTime',
@@ -20,7 +21,7 @@ export class ToLocalTimePipe implements PipeTransform {
       return null;
     }
 
-    return new Date(date).toLocaleTimeString().slice(0, 5);
+    return moment(date).format('HH:mm');
   }
 
 }
