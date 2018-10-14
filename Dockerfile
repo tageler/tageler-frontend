@@ -1,4 +1,4 @@
-FROM node:8-stretch
+FROM node:10-stretch
 
 RUN npm install -g ng-cli \
  && apt-get update \
